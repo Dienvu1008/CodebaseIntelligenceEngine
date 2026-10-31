@@ -41,8 +41,9 @@ items:
     notes: "TreeSitterExtractor (L1 for ts/tsx/js/py) with queries in adapters/src/treesitter/queries.ts; SourceText + spanViolations in core; encodeNameSegment added to SymbolIdentity (ADR-0014 notes). SY-003 uses an independent decode/line-split oracle and was mutation-checked (CRLF handling). Not extracted at L1: variables inside TS namespaces and function bodies (locals), `export { a as b }` clauses (lang-ts, L3), Python __all__."
   - id: P02-06
     title: adapters/lang-ts - a Program per tsconfig (plugins never enabled, A-06), import resolution only (paths, baseUrl, exports)
-    status: pending
+    status: done
     check: "tests/adversarial: a tsconfig plugin is not loaded"
+    notes: "LangTsResolver over a snapshot-only VirtualWorkspace (no Program in Phase 02; resolveModuleName + parsed tsconfig per project). tests/adversarial/lang-ts-plugins.spec.ts (with positive control) verifies A-06; packages/adapters/test/lang-ts/resolver.spec.ts covers monorepo exports, paths, externals, built-ins, inferred project (alias mapping mutation-checked). ADR-0016 'Phase 02 implementation'. typescript@6.0.3 added to @cie/adapters dependencies."
   - id: P02-07
     title: adapters/lang-python - deterministic heuristic import resolver (source roots, packages, relative imports)
     status: pending

@@ -15,6 +15,8 @@ export { openIndexStore, type OpenedIndexStore, type OpenIndexStoreOptions, type
 export { INDEX_SCHEMA_VERSION, type OpenOutcome } from './sqlite/schema.js';
 export { migrate, STATE_MIGRATIONS, STATE_SCHEMA_VERSION, validateChain, type Migration, type MigrationOutcome } from './sqlite/state-migrations.js';
 export { openStateStore, SqliteJobRepository, type OpenedStateStore, type OpenStateStoreOptions } from './sqlite/state-store.js';
+export { NODE_BUILTINS } from './lang-ts/builtins.js';
+export { LANG_TS_ADAPTER_VERSION, LangTsResolver } from './lang-ts/resolver.js';
 export { decodeSource, type SourceEncoding } from './treesitter/decode.js';
 export { TREESITTER_ADAPTER_VERSION, TreeSitterExtractor } from './treesitter/extractor.js';
 export {
