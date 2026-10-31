@@ -13,22 +13,26 @@ items:
   # --- Entry spike ---
   - id: P01-01
     title: "Spike S1: better-sqlite3 (exact pin) loads, opens a WAL DB and creates an FTS5 table on Node 24 and 26, win32-x64 and linux-x64 (A-02, A-03)"
-    status: pending
-    check: "packages/adapters/test/sqlite-spike.spec.ts green on the full CI matrix; result recorded in ADR-0004 and ADR-0008"
+    status: done
+    check: "packages/adapters/test/sqlite/spike-s1.spec.ts green on the full CI matrix (commit 4c9ccc7); recorded as E-33 in ADR-0004 and ADR-0008"
 
   # --- Domain (core) ---
   - id: P01-02
     title: workspace domain - PathCanonicalizer (WS-002) with adversarial vectors (.., drive, UNC, \\?\, mixed separators, NFC, ADS, reserved names)
     status: pending
     check: "tests/invariants/ws/ws-002.spec.ts; tests/adversarial/paths"
+    notes: >
+      Lexical part (a) done: canonicalizePath + 43 vectors + a property test. Parts (b) realpath confinement
+      and (c) symlink escapes are added to ws-002.spec.ts together with GuardedFileSystem (P01-06).
   - id: P01-03
     title: workspace domain - IgnoreEvaluator (.gitignore semantics, CIE defaults, cie.config.json allow-list); matcher library choice recorded
     status: pending
     check: "packages/core/test + golden ignore vectors"
   - id: P01-04
     title: workspace domain - deterministic ManifestBuilder (UTF-16 code-unit order, manifestHash)
-    status: pending
-    check: "tests/invariants/ws/ws-004.spec.ts"
+    status: done
+    check: "tests/invariants/ws/ws-004.spec.ts (hand-written expected serialization; code-unit vs code-point vs locale order discriminated)"
+    notes: Enumeration determinism (tree walk) is covered with GuardedFileSystem (P01-06) and the cross-OS export check (P01-14).
   - id: P01-05
     title: synchronization domain - IndexRevision, IndexJob, PublishPolicy, FreshnessEvaluator, RecoveryService
     status: pending

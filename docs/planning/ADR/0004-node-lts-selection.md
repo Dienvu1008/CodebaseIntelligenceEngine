@@ -1,6 +1,6 @@
 # ADR-0004: Node.js LTS Selection
 
-- **Status:** Accepted, subject to confirmation by spike S1 (Phase 01 entry)
+- **Status:** Accepted. Spike S1 confirmed it (E-33): `better-sqlite3` works on Node 24 and 26 on win32-x64 and linux-x64. Node 24 stays the reference Node for benchmarks until the Phase 05 baselines exist, and Node 26 is fully supported.
 - **Date:** 2026-10-31
 - **Related:** DEC-09, NFR-053, ADR-0002
 

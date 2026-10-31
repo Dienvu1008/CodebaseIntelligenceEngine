@@ -44,6 +44,7 @@ Base path: `c:\Users\Dienv\Desktop\My Projects\VS Code Extensions\CodeForge v2` 
 | E-29 | CodeForge has no MCP client or server and no embeddings or vector store. | Repository-wide search (sub-agent report) |
 | E-31 | CodeForge's model providers are `ollama`, `openai-compatible` and `gemini`. The default Ollama endpoint is `http://localhost:11434`, and the extension defaults to provider `ollama`. | `CF/packages/infrastructure/src/model/provider-adapter.ts`, `CF/packages/vscode-extension/package.json` |
 | E-32 | (External, retrieved 2026-10-31 in Phase 00 via `npm view`.) `typescript` latest is **7.0.2**, a native build shipped as per-platform `@typescript/typescript-*` packages; the latest 6.x is 6.0.3. `typescript-eslint` 8.72.1 declares the peer range `typescript >=4.8.4 <6.1.0`. `vitest` 5.0.5 requires Node `^22.12.0 \|\| ^24.0.0 \|\| >=26.0.0`. `dependency-cruiser` 18.7.0 requires Node `^22\|\|^24\|\|>=26`. | npm registry |
+| E-33 | **Spike S1 (Phase 01).** `better-sqlite3` 13.0.3 installs with bundled N-API prebuilds (`prebuilds/{win32,linux,linuxmusl,darwin}-{x64,arm64}.node`), with no native compilation. `packages/adapters/test/sqlite/spike-s1.spec.ts` passed on the full CI matrix (windows-latest and ubuntu-latest × Node 24 and 26) for commit `4c9ccc7`, as reported by the project owner. It covers: WAL journal mode, FK enforcement, FTS5 with `unicode61 remove_diacritics 2` (prefix, column filter, diacritic folding), WAL reader isolation from an uncommitted writer, and `changes()` for CAS. Bundled SQLite version observed locally: 3.53.4 (win32-x64, Node 24.15.0); other cells use the same package but were not individually recorded. | `packages/adapters/test/sqlite/spike-s1.spec.ts`, CI run on `phase-01` |
 | E-30 | Security model trust levels: workspace content (T4) and model output (T3) are untrusted and never authority. All tool execution goes through a single ToolGateway. | `CF/SECURITY_MODEL.md` §1, §3.3 |
 
 ## Unverified items, carried as assumptions
@@ -51,8 +52,8 @@ Base path: `c:\Users\Dienv\Desktop\My Projects\VS Code Extensions\CodeForge v2` 
 | ID | Assumption | Verification point |
 |---|---|---|
 | A-01 | WASM grammars built by tree-sitter-cli 0.24/0.25 (E-03, E-04) load in web-tree-sitter 0.27.1 (E-02). | Phase 02 entry spike S2 |
-| A-02 | better-sqlite3 13.x prebuilds load on Node 24 and Node 26 on win32-x64 and linux-x64. | Phase 01 entry spike S1 |
-| A-03 | The better-sqlite3 bundled SQLite build has FTS5 enabled. | Spike S1 |
+| ~~A-02~~ | **Verified, see E-33.** better-sqlite3 13.x prebuilds load on Node 24 and Node 26 on win32-x64 and linux-x64. | Closed by spike S1 |
+| ~~A-03~~ | **Verified, see E-33.** The better-sqlite3 bundled SQLite build has FTS5 enabled. | Closed by spike S1 |
 | A-04 | The Node version embedded in the current VS Code Electron host is irrelevant to the runtime because the runtime runs on system Node. Extension-host code must only use APIs available in that embedded Node. | Phase 06 |
 | A-05 | VS Code supports platform-specific VSIX packages, which allows a runtime with native prebuilds to be bundled per target. | Phase 06 |
 | A-06 | The TypeScript compiler API (in-process `Program` / `LanguageService`) does not load tsserver plugins declared in a project's `tsconfig.json`. | Phase 02 (adversarial test) |

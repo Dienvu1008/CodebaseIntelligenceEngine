@@ -11,3 +11,7 @@ export type {
   WorkspaceRepository,
   WorkspaceSettings,
 } from './application/ports.js';
+export type { ManifestEntry, SkipReason, SnapshotManifest } from './domain/manifest.js';
+export { MANIFEST_FORMAT, buildManifest, serializeManifest } from './domain/manifest.js';
+export type { PathErrorCode } from './domain/path-canonicalizer.js';
+export { canonicalizePath, compareCanonicalPaths } from './domain/path-canonicalizer.js';

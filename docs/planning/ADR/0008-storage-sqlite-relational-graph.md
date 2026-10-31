@@ -1,6 +1,6 @@
 # ADR-0008: Storage: SQLite Relational Graph + FTS5; Markdown for Docs; JSON for Interchange
 
-- **Status:** Accepted (FTS5 availability subject to spike S1)
+- **Status:** Accepted. Spike S1 confirmed FTS5, WAL isolation and CAS on the full CI matrix (E-33). The `node:sqlite` fallback is not needed.
 - **Date:** 2026-10-31
 - **Related:** [KNOWLEDGE_GRAPH_DESIGN](../KNOWLEDGE_GRAPH_DESIGN.md), SN-003, SN-007, KG-001, NFR-020..022
 
