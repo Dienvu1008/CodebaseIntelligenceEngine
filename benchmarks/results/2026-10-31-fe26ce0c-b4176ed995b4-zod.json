@@ -1,0 +1,865 @@
+{
+  "format": "cie-bench-result/1",
+  "createdAt": "2026-10-31T05:20:57.912Z",
+  "fixture": {
+    "id": "zod",
+    "mode": "reference",
+    "reproducible": true,
+    "pinnedCommit": "b500a2ee95134f81d74da7911d7378dd2853d042",
+    "actualCommit": "b500a2ee95134f81d74da7911d7378dd2853d042",
+    "dirty": false,
+    "stableDuringRun": true,
+    "statusBefore": "43d0e8aaafffed14",
+    "statusAfter": "43d0e8aaafffed14",
+    "tier": "small",
+    "tierBasis": "measured",
+    "manifestEntries": 741,
+    "indexedFiles": 693
+  },
+  "environment": {
+    "os": {
+      "platform": "win32",
+      "release": "10.0.26300",
+      "arch": "x64"
+    },
+    "machine": {
+      "idHash": "b4176ed995b4",
+      "cpuModel": "12th Gen Intel(R) Core(TM) i5-12400F",
+      "logicalCpus": 12,
+      "totalMemMb": 16173
+    },
+    "load": {
+      "loadavg": [
+        0,
+        0,
+        0
+      ],
+      "freeMemMb": 1504
+    },
+    "software": {
+      "node": "v24.15.0",
+      "cie": {
+        "commit": "fe26ce0cb5e7460bef006b5d0c43518b6021750e",
+        "dirty": false,
+        "statusHash": "1b41ee67590ef60f"
+      },
+      "lockfileSha256": "e79f6b512c39b1994c0976203c8b5648cf04e0be0137523aaed5bb4e6b758963"
+    },
+    "notes": {
+      "disk": "not captured automatically: record it with --note if relevant",
+      "osFileCache": "not controlled: cold runs start a fresh process and an empty state dir, but the OS page cache may be warm"
+    }
+  },
+  "note": "Phase 01 first baseline on the reference machine (clean CIE commit)",
+  "repetitions": 5,
+  "scenarios": {
+    "B-01": {
+      "samples": [
+        {
+          "wallMs": 1331.615,
+          "inProcessMs": 1177.405,
+          "stagesMs": {
+            "lease-acquired": 0.47,
+            "recovered": 0.837,
+            "revision-begun": 2.597,
+            "enumerated": 1162.49,
+            "staged": 1171.965,
+            "validating": 1172.304,
+            "published": 1176.129
+          },
+          "maxRssKb": 63176,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 889.986,
+          "inProcessMs": 739.458,
+          "stagesMs": {
+            "lease-acquired": 0.549,
+            "recovered": 0.898,
+            "revision-begun": 2.796,
+            "enumerated": 725.9,
+            "staged": 733.031,
+            "validating": 733.547,
+            "published": 738.149
+          },
+          "maxRssKb": 63548,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 1195.411,
+          "inProcessMs": 1003.972,
+          "stagesMs": {
+            "lease-acquired": 0.605,
+            "recovered": 1.117,
+            "revision-begun": 3.315,
+            "enumerated": 984.908,
+            "staged": 993.349,
+            "validating": 993.895,
+            "published": 999.136
+          },
+          "maxRssKb": 63268,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 1606.701,
+          "inProcessMs": 1432.848,
+          "stagesMs": {
+            "lease-acquired": 0.448,
+            "recovered": 0.808,
+            "revision-begun": 2.346,
+            "enumerated": 1398.709,
+            "staged": 1416.969,
+            "validating": 1417.397,
+            "published": 1422.852
+          },
+          "maxRssKb": 63356,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 950.001,
+          "inProcessMs": 772.063,
+          "stagesMs": {
+            "lease-acquired": 0.545,
+            "recovered": 0.901,
+            "revision-begun": 2.352,
+            "enumerated": 756.37,
+            "staged": 764.564,
+            "validating": 764.891,
+            "published": 768.822
+          },
+          "maxRssKb": 63896,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 1195.411,
+          "p95": 1606.701,
+          "min": 889.986,
+          "max": 1606.701,
+          "mean": 1194.743,
+          "stdev": 292.07,
+          "cv": 0.244
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 1003.972,
+          "p95": 1432.848,
+          "min": 739.458,
+          "max": 1432.848,
+          "mean": 1025.149,
+          "stdev": 289.621,
+          "cv": 0.283
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 63356,
+          "p95": 63896,
+          "min": 63176,
+          "max": 63896,
+          "mean": 63448.8,
+          "stdev": 285.284,
+          "cv": 0.004
+        }
+      },
+      "deterministic": true
+    },
+    "B-02": {
+      "samples": [
+        {
+          "wallMs": 1081.127,
+          "inProcessMs": 904.108,
+          "stagesMs": {
+            "lease-acquired": 0.41,
+            "recovered": 0.717,
+            "revision-begun": 2.156,
+            "enumerated": 889.568,
+            "staged": 896.891,
+            "validating": 897.245,
+            "published": 901.095
+          },
+          "maxRssKb": 63516,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 862.105,
+          "inProcessMs": 707.729,
+          "stagesMs": {
+            "lease-acquired": 0.424,
+            "recovered": 0.744,
+            "revision-begun": 3.13,
+            "enumerated": 693.29,
+            "staged": 700.305,
+            "validating": 700.643,
+            "published": 704.454
+          },
+          "maxRssKb": 63224,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 864.297,
+          "inProcessMs": 715.427,
+          "stagesMs": {
+            "lease-acquired": 0.422,
+            "recovered": 0.762,
+            "revision-begun": 2.434,
+            "enumerated": 700.513,
+            "staged": 707.747,
+            "validating": 708.066,
+            "published": 712.068
+          },
+          "maxRssKb": 63084,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 887.101,
+          "inProcessMs": 732.161,
+          "stagesMs": {
+            "lease-acquired": 0.491,
+            "recovered": 0.84,
+            "revision-begun": 2.457,
+            "enumerated": 719.065,
+            "staged": 726.077,
+            "validating": 726.62,
+            "published": 730.892
+          },
+          "maxRssKb": 64308,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 910.393,
+          "inProcessMs": 759.154,
+          "stagesMs": {
+            "lease-acquired": 0.403,
+            "recovered": 0.715,
+            "revision-begun": 2.126,
+            "enumerated": 743.927,
+            "staged": 751.437,
+            "validating": 751.791,
+            "published": 757.559
+          },
+          "maxRssKb": 63100,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 887.101,
+          "p95": 1081.127,
+          "min": 862.105,
+          "max": 1081.127,
+          "mean": 921.005,
+          "stdev": 91.633,
+          "cv": 0.099
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 732.161,
+          "p95": 904.108,
+          "min": 707.729,
+          "max": 904.108,
+          "mean": 763.716,
+          "stdev": 80.921,
+          "cv": 0.106
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 63224,
+          "p95": 64308,
+          "min": 63084,
+          "max": 64308,
+          "mean": 63446.4,
+          "stdev": 511.856,
+          "cv": 0.008
+        }
+      },
+      "deterministic": true
+    },
+    "B-10": {
+      "samples": [
+        {
+          "wallMs": 971.042,
+          "inProcessMs": 838.498,
+          "stagesMs": {
+            "lease-acquired": 0.807,
+            "recovered": 6.508,
+            "revision-begun": 8.056,
+            "enumerated": 825.816,
+            "staged": 830.289,
+            "validating": 830.57,
+            "published": 834.512
+          },
+          "maxRssKb": 64212,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 741
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 115
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 1923.393,
+          "inProcessMs": 1784.863,
+          "stagesMs": {
+            "lease-acquired": 0.87,
+            "recovered": 3.75,
+            "revision-begun": 5.213,
+            "enumerated": 1767.079,
+            "staged": 1773.648,
+            "validating": 1774.037,
+            "published": 1781.699
+          },
+          "maxRssKb": 65872,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 741
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 115
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 2132.58,
+          "inProcessMs": 1688.442,
+          "stagesMs": {
+            "lease-acquired": 1.235,
+            "recovered": 7.753,
+            "revision-begun": 10.156,
+            "enumerated": 1671.378,
+            "staged": 1677.667,
+            "validating": 1678.263,
+            "published": 1685.593
+          },
+          "maxRssKb": 69776,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 741
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 115
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 1065.85,
+          "inProcessMs": 901.941,
+          "stagesMs": {
+            "lease-acquired": 0.847,
+            "recovered": 3.609,
+            "revision-begun": 5.668,
+            "enumerated": 890.617,
+            "staged": 894.825,
+            "validating": 895.187,
+            "published": 899.938
+          },
+          "maxRssKb": 63692,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 741
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 115
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 1173.291,
+          "inProcessMs": 1020.122,
+          "stagesMs": {
+            "lease-acquired": 0.923,
+            "recovered": 4.824,
+            "revision-begun": 7.063,
+            "enumerated": 1009.931,
+            "staged": 1013.645,
+            "validating": 1013.954,
+            "published": 1018.906
+          },
+          "maxRssKb": 63536,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 741
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 115
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 1173.291,
+          "p95": 2132.58,
+          "min": 971.042,
+          "max": 2132.58,
+          "mean": 1453.231,
+          "stdev": 534.674,
+          "cv": 0.368
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 1020.122,
+          "p95": 1784.863,
+          "min": 838.498,
+          "max": 1784.863,
+          "mean": 1246.773,
+          "stdev": 453.205,
+          "cv": 0.364
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 64212,
+          "p95": 69776,
+          "min": 63536,
+          "max": 69776,
+          "mean": 65417.6,
+          "stdev": 2606.421,
+          "cv": 0.04
+        }
+      },
+      "deterministic": true
+    },
+    "B-11": {
+      "samples": [
+        {
+          "wallMs": 982.337,
+          "inProcessMs": 840.101,
+          "stagesMs": {
+            "lease-acquired": 0.417,
+            "recovered": 0.726,
+            "revision-begun": 4.293,
+            "enumerated": 824.846,
+            "staged": 831.992,
+            "validating": 832.316,
+            "published": 836.291
+          },
+          "maxRssKb": 62812,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 1307.497,
+          "inProcessMs": 1157.99,
+          "stagesMs": {
+            "lease-acquired": 0.609,
+            "recovered": 1.074,
+            "revision-begun": 10.506,
+            "enumerated": 756.719,
+            "staged": 764.423,
+            "validating": 764.863,
+            "published": 769.147
+          },
+          "maxRssKb": 63352,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 960.88,
+          "inProcessMs": 785.329,
+          "stagesMs": {
+            "lease-acquired": 0.574,
+            "recovered": 1.005,
+            "revision-begun": 4.205,
+            "enumerated": 772.573,
+            "staged": 779.288,
+            "validating": 779.645,
+            "published": 783.481
+          },
+          "maxRssKb": 62396,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 1256.887,
+          "inProcessMs": 1096.375,
+          "stagesMs": {
+            "lease-acquired": 0.395,
+            "recovered": 0.69,
+            "revision-begun": 4.165,
+            "enumerated": 1083.364,
+            "staged": 1090.845,
+            "validating": 1091.213,
+            "published": 1095.049
+          },
+          "maxRssKb": 62560,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 859.844,
+          "inProcessMs": 705.724,
+          "stagesMs": {
+            "lease-acquired": 0.352,
+            "recovered": 0.632,
+            "revision-begun": 3.999,
+            "enumerated": 689.807,
+            "staged": 696.845,
+            "validating": 697.151,
+            "published": 702.1
+          },
+          "maxRssKb": 62360,
+          "work": {
+            "files": {
+              "inserted": 741,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 115,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "ignored": 2,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:89ac29628644620887cc3fa6c171e4d7a2e6b41b043d329707078b20a4f58574",
+          "storeBytes": {
+            "index.db": 278528,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 982.337,
+          "p95": 1307.497,
+          "min": 859.844,
+          "max": 1307.497,
+          "mean": 1073.489,
+          "stdev": 196.868,
+          "cv": 0.183
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 840.101,
+          "p95": 1157.99,
+          "min": 705.724,
+          "max": 1157.99,
+          "mean": 917.104,
+          "stdev": 198.834,
+          "cv": 0.217
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 62560,
+          "p95": 63352,
+          "min": 62360,
+          "max": 63352,
+          "mean": 62696,
+          "stdev": 407.794,
+          "cv": 0.007
+        }
+      },
+      "deterministic": true
+    }
+  }
+}

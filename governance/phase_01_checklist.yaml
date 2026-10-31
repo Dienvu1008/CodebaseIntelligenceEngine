@@ -100,12 +100,18 @@ items:
   # --- Benchmarks and dogfooding ---
   - id: P01-13
     title: Benchmark harness skeleton, environment capture, benchmarks/fixtures.json with pinned SHAs (Zod, Requests, CodeForge-v2), results JSON schema
-    status: pending
-    check: "B-01/B-02/B-10/B-11 recorded for the small tier (no thresholds, NFR-066)"
+    status: done
+    check: "B-01/B-02/B-10/B-11 recorded for the small tier (no thresholds, NFR-066): benchmarks/results/2026-10-31-fe26ce0c-*"
+    notes: >
+      Reference fixtures pinned (Zod v4.6.7, Requests v2.34.2, CodeForge-v2 d885bed0) in a disposable cache; dogfood mode
+      labeled non-reproducible with before/after tree fingerprints. Tiers measured: all small (693, 123, 656 indexed files).
+      Noise: wall-time CV up to 0.37 on this machine for B-01/B-10, so the noise floor must be addressed before targets
+      (BENCHMARK_STRATEGY §6 step 2).
   - id: P01-14
     title: Dogfood - index fixtures/*, Zod, Requests and CodeForge-v2 (read-only, --state-dir outside the fixture); export byte-identical across runs and OSes
     status: pending
-    check: "cross-platform CI job comparing export hashes"
+    check: "tests/cross-platform/export-golden.spec.ts green on windows and ubuntu (required CI); docs/specs/EXPORT_FORMAT.md"
+    notes: Golden verified locally from a fresh clone with core.autocrlf=true. External fixtures are compared cross-OS by the non-required .github/workflows/fixtures.yml.
   - id: P01-15
     title: docs/phases/PHASE_01_SIGNOFF.md written with evidence, deferred items and self-review
     status: pending
