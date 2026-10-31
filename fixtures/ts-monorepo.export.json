@@ -984,8 +984,8 @@
       "from": "mod:ts:packages/app/src/main.ts",
       "to": "ts:packages/app/src/config.ts#settings(constant)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -993,7 +993,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "packages/app/src/main.ts",
         "range": {
           "startLine": 2,
@@ -1015,8 +1015,8 @@
       "from": "mod:ts:packages/app/src/main.ts",
       "to": "ts:packages/core/src/index.ts#Counter(class)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -1024,7 +1024,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "packages/app/src/main.ts",
         "range": {
           "startLine": 0,
@@ -1046,8 +1046,8 @@
       "from": "mod:ts:packages/app/src/main.ts",
       "to": "ts:packages/core/src/math.ts#PI(constant)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -1055,7 +1055,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "packages/app/src/main.ts",
         "range": {
           "startLine": 1,
@@ -1077,8 +1077,8 @@
       "from": "mod:ts:packages/app/src/main.ts",
       "to": "ts:packages/core/src/math.ts#add(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -1086,7 +1086,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "packages/app/src/main.ts",
         "range": {
           "startLine": 1,
@@ -1108,8 +1108,8 @@
       "from": "mod:ts:packages/core/src/index.ts",
       "to": "ts:packages/core/src/math.ts#add(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -1117,7 +1117,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "packages/core/src/index.ts",
         "range": {
           "startLine": 0,

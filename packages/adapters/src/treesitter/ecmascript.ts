@@ -127,6 +127,23 @@ function importedNames(stmt: Node): string[] {
   return names.filter((n) => n !== '');
 }
 
+/**
+ * Exported-side names bound by `const { a, b: c } = require('m')` (a, b). A rest element binds the whole module
+ * minus the listed keys and is not a named binding; plain `const m = require('m')` binds none.
+ */
+function requireBindings(call: Node): string[] {
+  const declarator = call.parent;
+  if (declarator?.type !== 'variable_declarator' || declarator.childForFieldName('value')?.id !== call.id) return [];
+  const pattern = declarator.childForFieldName('name');
+  if (pattern?.type !== 'object_pattern') return [];
+  const names: string[] = [];
+  for (const el of pattern.namedChildren) {
+    if (el.type === 'shorthand_property_identifier_pattern') names.push(el.text);
+    else if (el.type === 'pair_pattern') names.push(nameText(el.childForFieldName('key')));
+  }
+  return names.filter((n) => n !== '');
+}
+
 const nameText = (n: Node | null): string => (n === null ? '' : n.type === 'string' ? (plainStringValue(n, ['string_fragment']) ?? n.text) : n.text);
 
 function importsOf(match: QueryMatch): readonly RawImport[] {
@@ -141,7 +158,7 @@ function importsOf(match: QueryMatch): readonly RawImport[] {
     case 'dynamic':
       return [{ node: site.node, specifier, isDynamic: true, isTypeOnly: false, names: [] }];
     default: // require
-      return [{ node: site.node, specifier, isDynamic: specifier.kind === 'expression', isTypeOnly: false, names: [] }];
+      return [{ node: site.node, specifier, isDynamic: specifier.kind === 'expression', isTypeOnly: false, names: requireBindings(site.node) }];
   }
 }
 

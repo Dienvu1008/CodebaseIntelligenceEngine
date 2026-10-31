@@ -1040,11 +1040,11 @@
     },
     {
       "type": "imports_symbol",
-      "from": "mod:js:src/Banner.jsx",
-      "to": "js:src/esm.mjs#VERSION(constant)",
+      "from": "mod:js:lib/server.js",
+      "to": "js:lib/dates.js#formatDate(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -1052,7 +1052,38 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 2,
+          "startCol": 23,
+          "endLine": 2,
+          "endCol": 41
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "formatDate",
+        "raw": "./dates"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:js:src/Banner.jsx",
+      "to": "js:src/esm.mjs#VERSION(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
         "path": "src/Banner.jsx",
         "range": {
           "startLine": 0,

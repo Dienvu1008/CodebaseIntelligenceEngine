@@ -3,7 +3,7 @@ import { builtinModules } from 'node:module';
 import { LangTsResolver, NODE_BUILTINS } from '@cie/adapters';
 import { importEdgeViolations } from '@cie/core';
 import { describe, expect, it } from 'vitest';
-import { edgeSummary, resolveFixture } from '../../../../tests/helpers/workspace-fixture.js';
+import { edgeSummary, memoryFs, resolveFixture } from '../../../../tests/helpers/workspace-fixture.js';
 
 const resolver = (() => {
   const r = LangTsResolver.create();
@@ -51,13 +51,15 @@ describe('LangTsResolver on a monorepo', () => {
     const fromMain = edgeSummary(resolution.edges.filter((e) => e.from === 'mod:ts:packages/app/src/main.ts'));
     expect(fromMain).toEqual([
       'mod:ts:packages/app/src/main.ts -> mod:ts:packages/core/src/index.ts [imports verified exact]',
-      'mod:ts:packages/app/src/main.ts -> ts:packages/core/src/index.ts#parse(function) [imports_symbol inferred heuristic] parse',
-      // `helper` is a re-export and `missing` does not exist: neither is guessed.
-      expect.stringMatching(/^mod:ts:packages\/app\/src\/main\.ts -> unres:ts:packages\/app\/src\/main\.ts#[0-9a-f]{16} \[imports_symbol unknown\] helper$/),
+      // Bindings go through the TypeChecker (P03-03): exact.
+      'mod:ts:packages/app/src/main.ts -> ts:packages/core/src/index.ts#parse(function) [imports_symbol verified exact] parse',
+      // `helper` is re-exported by index.ts: the checker follows the re-export to its declaration in util.ts.
+      'mod:ts:packages/app/src/main.ts -> ts:packages/core/src/util.ts#helper(constant) [imports_symbol verified exact] helper',
+      // `missing` does not exist: exact knowledge, recorded as unresolved.
       expect.stringMatching(/ -> unres:ts:.* \[imports_symbol unknown\] missing$/),
       'mod:ts:packages/app/src/main.ts -> mod:ts:packages/core/src/util.ts [imports verified exact]',
-      // Overloads give two candidates (f~1, f~2): not guessed either.
-      expect.stringMatching(/ -> unres:ts:.* \[imports_symbol unknown\] f$/),
+      // An overloaded function binds to its implementation (f~2), not to a signature.
+      'mod:ts:packages/app/src/main.ts -> ts:packages/core/src/util.ts#f(function)~2 [imports_symbol verified exact] f',
       expect.stringMatching(/ -> unres:ts:.* \[imports unknown\]$/), // @m/core/nope: not in exports
       'mod:ts:packages/app/src/main.ts -> ext:npm:zod [imports verified exact]',
       'mod:ts:packages/app/src/main.ts -> ext:npm:lodash [imports verified exact]', // declared in the root package.json
@@ -65,9 +67,9 @@ describe('LangTsResolver on a monorepo', () => {
       'mod:ts:packages/app/src/main.ts -> ext:node:fs/promises [imports verified exact]',
       'mod:ts:packages/app/src/main.ts -> ext:node:path [imports verified exact]',
       'mod:ts:packages/app/src/main.ts -> mod:ts:packages/app/src/local.ts [imports verified exact]',
-      'mod:ts:packages/app/src/main.ts -> ts:packages/app/src/local.ts#local(constant) [imports_symbol inferred heuristic] local',
+      'mod:ts:packages/app/src/main.ts -> ts:packages/app/src/local.ts#local(constant) [imports_symbol verified exact] local',
       'mod:ts:packages/app/src/main.ts -> mod:ts:packages/app/src/lib/thing.ts [imports verified exact]',
-      'mod:ts:packages/app/src/main.ts -> ts:packages/app/src/lib/thing.ts#thing(class) [imports_symbol inferred heuristic] thing',
+      'mod:ts:packages/app/src/main.ts -> ts:packages/app/src/lib/thing.ts#thing(class) [imports_symbol verified exact] thing',
       expect.stringMatching(/ -> unres:ts:.* \[imports unknown\]$/), // #gone/*: paths target missing
       expect.stringMatching(/ -> unres:ts:.* \[imports unknown\]$/), // ./missing.js
       expect.stringMatching(/ -> unres:ts:.* \[imports unknown\]$/), // import(name)
@@ -110,10 +112,63 @@ describe('LangTsResolver default imports', () => {
       resolver,
     );
     expect(edgeSummary(resolution.edges.filter((e) => e.type === 'imports_symbol')).map((s) => s.replace(/#[0-9a-f]{16}/, '#…'))).toEqual([
-      'mod:ts:src/a.ts -> ts:src/named.ts#shout(function) [imports_symbol inferred heuristic] default',
-      'mod:ts:src/a.ts -> ts:src/anon.ts#default(class) [imports_symbol inferred heuristic] default',
+      'mod:ts:src/a.ts -> ts:src/named.ts#shout(function) [imports_symbol verified exact] default',
+      'mod:ts:src/a.ts -> ts:src/anon.ts#default(class) [imports_symbol verified exact] default',
       'mod:ts:src/a.ts -> unres:ts:src/a.ts#… [imports_symbol unknown] default',
     ]);
+  });
+});
+
+describe('LangTsResolver exact bindings through the TypeChecker (P03-01, P03-03)', () => {
+  const CJS = {
+    'jsconfig.json': json({ compilerOptions: { module: 'commonjs', checkJs: false }, include: ['lib'] }),
+    'lib/server.js': "const { formatDate, other: renamed, ...rest } = require('./dates');\nconst whole = require('./dates');\n",
+    'lib/dates.js': 'function formatDate(d) { return d }\nconst other = 2;\nmodule.exports = { formatDate, other };\n',
+    'src/barrel.ts': "export * from './deep/leaf';\nexport { leaf as aliased } from './deep/leaf';\n",
+    'src/deep/leaf.ts': 'export function leaf() {}\n',
+    'src/use.ts': "import { leaf, aliased } from './barrel';\nimport type { Shape } from './types';\n",
+    'src/types.ts': 'export interface Shape { a: number }\n',
+  };
+
+  it('binds destructured require (renamed too) to the declarations behind module.exports', async () => {
+    const { resolution } = await resolveFixture(CJS, resolver);
+    expect(edgeSummary(resolution.edges.filter((e) => e.type === 'imports_symbol' && e.from === 'mod:js:lib/server.js'))).toEqual([
+      'mod:js:lib/server.js -> js:lib/dates.js#formatDate(function) [imports_symbol verified exact] formatDate',
+      'mod:js:lib/server.js -> js:lib/dates.js#other(constant) [imports_symbol verified exact] other',
+    ]);
+  });
+
+  it('turns a name bound to a whole module (export * as ns) into a module import, not an unresolved binding', async () => {
+    const { resolution } = await resolveFixture(
+      {
+        'src/index.ts': "export * as util from './util';\n",
+        'src/util.ts': 'export const a = 1;\n',
+        'src/use.ts': "import { util } from './index';\n",
+      },
+      resolver,
+    );
+    expect(edgeSummary(resolution.edges.filter((e) => e.from === 'mod:ts:src/use.ts'))).toEqual([
+      'mod:ts:src/use.ts -> mod:ts:src/index.ts [imports verified exact]',
+      'mod:ts:src/use.ts -> mod:ts:src/util.ts [imports verified exact]',
+    ]);
+  });
+
+  it('follows barrels (export *, export { a as b } from) and type-only imports', async () => {
+    const { resolution } = await resolveFixture(CJS, resolver);
+    expect(edgeSummary(resolution.edges.filter((e) => e.type === 'imports_symbol' && e.from === 'mod:ts:src/use.ts'))).toEqual([
+      'mod:ts:src/use.ts -> ts:src/deep/leaf.ts#leaf(function) [imports_symbol verified exact] leaf',
+      'mod:ts:src/use.ts -> ts:src/deep/leaf.ts#leaf(function) [imports_symbol verified exact] aliased',
+      'mod:ts:src/use.ts -> ts:src/types.ts#Shape(interface) [imports_symbol verified exact] Shape',
+    ]);
+  });
+
+  it('falls back to the heuristic binding for a file that changed since enumeration (not in the Program)', async () => {
+    const files = { 'src/a.ts': "import { b } from './b';\n", 'src/b.ts': 'export const b = 1;\n' };
+    const { manifest, extractions } = await resolveFixture(files, resolver);
+    const changed = memoryFs({ ...files, 'src/a.ts': "import { b } from './b'; // edited after enumeration\n" });
+    const r = await resolver.resolve({ manifest, extractions, fs: changed }, new AbortController().signal);
+    if (!r.ok) throw new Error(r.error.message);
+    expect(edgeSummary(r.value.edges.filter((e) => e.type === 'imports_symbol'))).toEqual(['mod:ts:src/a.ts -> ts:src/b.ts#b(constant) [imports_symbol inferred heuristic] b']);
   });
 });
 

@@ -13,16 +13,18 @@ items:
   # --- Entry checks and carry-overs from Phase 02 (PHASE_02_SIGNOFF "Deferred") ---
   - id: P03-01
     title: "Entry: lang-ts builds a Program per project (plugins never enabled) and A-06 is re-verified for the Program path by extending tests/adversarial/lang-ts-plugins.spec.ts"
-    status: pending
+    status: done
     check: "tests/adversarial/lang-ts-plugins.spec.ts covers Program construction; EVIDENCE A-06 closed"
+    notes: "adapters/lang-ts/program.ts: one Program per project over the snapshot-only VirtualWorkspace, noLib, types [], noEmit, no plugins; built and dropped one at a time. The adversarial test asserts an exact (checker-made) binding in the plugin-declaring project, mutation-checked. ADR-0016 'Phase 03 implementation'; EVIDENCE A-06."
   - id: P03-02
     title: "Carry-over: SY-003 span check at publish (RevisionValidator recomputes bounds for all symbols and a deterministic sample of span hashes, per DOMAIN_INVARIANTS), using the stored file line counts"
     status: pending
     check: "tests/invariants/sy/sy-003.spec.ts gains a store-level case: a tampered range or span hash aborts publish"
   - id: P03-03
     title: "Carry-over: exact imports_symbol through the TypeChecker (re-exports, barrels, overloads, destructured require), replacing the Phase 02 heuristic binding for TS/JS"
-    status: pending
+    status: done
     check: "ground-truth js-mixed destructured-require gap closed; ts fixtures bindings exact"
+    notes: "adapters/lang-ts/bindings.ts; extractor records destructured require names. All golden bindings exact, ground-truth KNOWN_GAPS now empty. Namespace bindings become module imports. Heuristic only as a fallback for files outside every Program. Zod 686/719 exact (rest: expression default exports, external namespaces), CodeForge-v2 1446/1446."
 
   # --- Domain (core) ---
   - id: P03-04

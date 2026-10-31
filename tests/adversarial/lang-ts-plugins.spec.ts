@@ -1,5 +1,6 @@
 // A-06 / T3 (SECURITY_AND_RELIABILITY): a repository cannot make CIE execute code through its TypeScript
-// configuration. The workspace below declares compiler/tsserver plugins and an `extends` that point at
+// configuration, neither on the resolution path (Phase 02) nor when lang-ts builds a Program and TypeChecker per
+// project (Phase 03, P03-01). The workspace below declares compiler/tsserver plugins and an `extends` that point at
 // packages whose entry points write a marker file when loaded, both as an installed package
 // (node_modules, never part of the snapshot) and as a workspace package (part of the snapshot).
 // Resolution must succeed without loading any of them. A positive control proves the canary fires when the
@@ -95,6 +96,10 @@ describe('A-06: TypeScript configuration cannot load plugins', () => {
     const edges = r.value.edges.filter((e) => e.type === 'imports' && e.from === 'mod:ts:src/a.ts').map((e) => `${e.toKind} ${e.to.split('#')[0]} ${e.status}`);
     // The workspace package resolves through the virtual node_modules alias: read as data, never executed.
     expect(edges).toEqual(['module mod:ts:src/b.ts verified', 'external ext:npm:evil-plugin verified', 'module mod:js:tools/evil/index.js verified']);
+    // A-06, Program path (P03-01): this binding is exact only if a Program and its TypeChecker were built for the
+    // project whose tsconfig declares the plugins. They were, and still nothing was loaded (checked above).
+    const binding = r.value.edges.find((e) => e.type === 'imports_symbol' && e.from === 'mod:ts:src/a.ts');
+    expect([binding?.to, binding?.precision]).toEqual(['ts:src/b.ts#b(constant)', 'exact']);
     expect(r.value.diagnostics.filter((d) => d.code === 'TSCONFIG_ERROR').map((d) => d.message)).toEqual([]);
   });
 });

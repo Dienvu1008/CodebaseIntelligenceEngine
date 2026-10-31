@@ -62,6 +62,32 @@ Implemented in `packages/adapters/src/lang-ts/` (`LangTsResolver`, a `ProjectRes
 - **Internal API dependency (risk):** `readDirectory` uses `ts.matchFiles`, which is internal to TypeScript, so that include/exclude globbing matches tsc exactly. It is guarded at startup with a clear error, and `typescript` is pinned. A TS upgrade must re-run the lang-ts tests.
 - **A-06, resolution path verified:** `tests/adversarial/lang-ts-plugins.spec.ts`. The `Program` part of A-06 is re-verified in Phase 03 by extending the same test. Plugins declared in `tsconfig.json` and in an extended config, both as an installed package and as a workspace package, are not loaded. A positive control proves the canary fires when really required. CI matrix pending.
 
+## Phase 03 implementation (P03-01, P03-03): a Program per project and exact import bindings
+
+- **A Program per project** (`adapters/lang-ts/program.ts`): one per tsconfig/jsconfig project, plus one for the inferred project.
+  - Roots are the files the project owns.
+  - Programs are built one at a time and dropped after their files are resolved (memory control, as decided above).
+  - The CompilerHost is the same snapshot-only VirtualWorkspace. Source texts are read through the `FileSystem` port, checked against the extraction's content hash, and decoded exactly as the tree-sitter extractor decodes them. A test asserts that the two decoders agree on arbitrary bytes.
+- **Options:** the project's own options, plus:
+  - `noLib`, `types: []`: lib.d.ts and automatic `@types` are not loaded. Binding workspace declarations needs neither, results stay independent of the TypeScript installation, and programs stay small. If references or calls on lib types need them in P03-07, this is revisited there.
+  - `noEmit`, and no plugins, `incremental` or `composite`.
+- **A-06, Program path:** verified by `tests/adversarial/lang-ts-plugins.spec.ts`.
+  - The project whose tsconfig declares the plugins now gets a Program and a TypeChecker. The test asserts that a binding in it is exact, which can only happen if the Program was built.
+  - No marker file is written and no module is loaded.
+  - Mutation check: with Program construction disabled, the adversarial test and four resolver tests fail.
+- **Exact `imports_symbol`** (`adapters/lang-ts/bindings.ts`):
+  - The import site is found by its start offset, where tree-sitter and tsc agree. Each bound name is followed through aliases (`getAliasedSymbol`) and CommonJS shorthand or property assignments to its declaration.
+  - The declaration maps to the extracted SymbolId: the innermost extracted symbol containing the declaration's name, with the same encoded name. An overloaded function binds to its implementation.
+  - The result is `exact`. A name tsc cannot find is unresolved. A name bound to a whole workspace module (`export * as ns`) becomes an `imports` edge to that module.
+- **Fallback:** a file outside every Program (changed since enumeration, or undecodable) keeps the Phase 02 heuristic binding, labeled `heuristic`.
+- **Results:** every golden-fixture binding is exact, and the ground-truth gap for destructured `require` is closed. On Zod, 686 of 719 bindings are exact and 0 heuristic. The 33 unresolved are:
+  - default exports of expressions or object literals (no declaration exists);
+  - namespaces of packages outside the workspace (`node_modules` is never read);
+  - namespace re-exports. These are now module imports.
+
+  On CodeForge-v2, 1446 of 1446 are exact.
+- **Cost:** a full bind of every project. Measured in P03-15, with no thresholds.
+
 ## Consequences
 
 - **Phase 00 update (E-32):** TypeScript 7.0.2 (native) is now the npm `latest`, and CIE's toolchain pins 6.0.3. The Phase 02 entry must re-check this ADR: whether the TS 6 JS compiler API remains maintained, and what programmatic API TS 7 offers.

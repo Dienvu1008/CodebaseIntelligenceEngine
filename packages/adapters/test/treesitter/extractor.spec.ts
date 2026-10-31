@@ -178,11 +178,13 @@ describe('TSX and JavaScript', () => {
     expect(ids(await extract('src/b.tsx', 'tsx', 'export function Button() { return <b>{1}</b>; }\n'))).toEqual(['tsx:src/b.tsx#Button(function)']);
     const js = await extract('lib/c.js', 'js', "class A { #p = 1; static s = 2; m() {} }\nconst { x } = require('./x');\nconst y = require('./y');\nexport default class {}\n");
     expect(ids(js)).toEqual(['js:lib/c.js#A(class)', 'js:lib/c.js#A.%23p(property)', 'js:lib/c.js#A.s(property)', 'js:lib/c.js#A.m(method)', 'js:lib/c.js#default(class)']);
-    // `const y = require('./y')` is an import binding, not a symbol.
-    expect(js.imports.map((i) => i.specifier)).toEqual([
-      { kind: 'literal', value: './x' },
-      { kind: 'literal', value: './y' },
+    // `const y = require('./y')` is an import binding, not a symbol; a destructured require binds its keys.
+    expect(js.imports.map((i) => [i.specifier, i.names])).toEqual([
+      [{ kind: 'literal', value: './x' }, ['x']],
+      [{ kind: 'literal', value: './y' }, []],
     ]);
+    const renamed = await extract('lib/r.js', 'js', "const { a, b: c, 'q r': d, ...rest } = require('./m');\n");
+    expect(renamed.imports[0]?.names).toEqual(['a', 'b', 'q r']);
   });
 });
 

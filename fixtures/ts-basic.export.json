@@ -2134,8 +2134,8 @@
       "from": "mod:ts:src/index.ts",
       "to": "ts:src/models/user.ts#User(interface)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -2143,7 +2143,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/index.ts",
         "range": {
           "startLine": 2,
@@ -2165,8 +2165,8 @@
       "from": "mod:ts:src/index.ts",
       "to": "ts:src/models/user.ts#UserService(class)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -2174,7 +2174,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/index.ts",
         "range": {
           "startLine": 2,
@@ -2196,8 +2196,8 @@
       "from": "mod:ts:src/index.ts",
       "to": "ts:src/util/strings.ts#shout(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -2205,7 +2205,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/index.ts",
         "range": {
           "startLine": 1,
@@ -2227,8 +2227,8 @@
       "from": "mod:ts:src/index.ts",
       "to": "ts:src/util/strings.ts#slugify(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -2236,7 +2236,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/index.ts",
         "range": {
           "startLine": 1,
@@ -2258,8 +2258,8 @@
       "from": "mod:ts:src/index.ts",
       "to": "tsx:src/view.tsx#UserCard(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -2267,7 +2267,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/index.ts",
         "range": {
           "startLine": 5,
@@ -2289,8 +2289,8 @@
       "from": "mod:tsx:src/view.tsx",
       "to": "ts:src/models/user.ts#User(interface)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -2298,7 +2298,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/view.tsx",
         "range": {
           "startLine": 0,
@@ -2320,8 +2320,8 @@
       "from": "mod:tsx:src/view.tsx",
       "to": "ts:src/util/strings.ts#capitalize(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -2329,7 +2329,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/view.tsx",
         "range": {
           "startLine": 1,

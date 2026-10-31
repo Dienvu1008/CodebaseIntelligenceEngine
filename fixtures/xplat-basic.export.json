@@ -615,8 +615,8 @@
       "from": "mod:ts:src/index.ts",
       "to": "ts:src/greet.ts#greet(function)",
       "site": "",
-      "status": "inferred",
-      "precision": "heuristic",
+      "status": "verified",
+      "precision": "exact",
       "producer": {
         "adapterId": "lang-ts",
         "adapterVersion": "0.1.0",
@@ -624,7 +624,7 @@
         "fidelity": "L3"
       },
       "evidence": {
-        "kind": "heuristic",
+        "kind": "compiler",
         "path": "src/index.ts",
         "range": {
           "startLine": 0,

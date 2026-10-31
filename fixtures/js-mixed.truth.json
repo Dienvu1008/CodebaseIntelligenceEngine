@@ -4,7 +4,7 @@
   "notes": [
     "Hand-verified against the sources (P02-12).",
     "`const x = require('m')` is an import binding, not a symbol (same as `import x from 'm'`).",
-    "`const { formatDate } = require('./dates')` binds formatDate from lib/dates.js. The L1 extractor records no names for destructured requires: known gap, counted by the quality report.",
+    "`const { formatDate } = require('./dates')` binds formatDate from lib/dates.js. It was a known gap in Phase 02 and is bound exactly through the TypeChecker since P03-03.",
     "CommonJS exports (module.exports = {...}) are not reflected in `exported`; exports are not part of this truth set.",
     "`export default { ... }` in src/locales/en.mjs exports an object literal, which is not a declaration."
   ],

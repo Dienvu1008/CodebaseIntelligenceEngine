@@ -24,8 +24,8 @@ type Category = 'symbols' | 'imports' | 'importsSymbol';
 
 /** Known gaps of the Phase 02 producers, by fixture: entries the ideal producer finds and CIE does not, or vice versa. */
 const KNOWN_GAPS: Partial<Record<string, Partial<Record<Category, { missing?: string[]; extra?: string[] }>>>> = {
-  // ts-basic: the TS parameter property gap was closed in P02-13.
-  'js-mixed': { importsSymbol: { missing: ['mod:js:lib/server.js -> formatDate -> js:lib/dates.js#formatDate(function)'] } }, // destructured require (L1)
+  // None. ts-basic: the TS parameter property gap was closed in P02-13. js-mixed: the destructured-require
+  // binding gap was closed in P03-03 (bindings through the TypeChecker).
 };
 
 /** The same normalization the truth files use: unresolved targets are named by their raw specifier. */
