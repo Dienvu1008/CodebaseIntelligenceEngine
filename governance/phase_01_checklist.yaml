@@ -26,8 +26,15 @@ items:
       and (c) symlink escapes are added to ws-002.spec.ts together with GuardedFileSystem (P01-06).
   - id: P01-03
     title: workspace domain - IgnoreEvaluator (.gitignore semantics, CIE defaults, cie.config.json allow-list); matcher library choice recorded
-    status: pending
-    check: "packages/core/test + golden ignore vectors"
+    status: done
+    check: "tests/oracles/ignore-evaluator.git-oracle.spec.ts (exact equality with git ls-files --others --exclude-standard, walk + point queries) and packages/core/test/ignore-evaluator.spec.ts"
+    notes: >
+      Decision (owner-approved): no matcher library. gitignore semantics are implemented in core with zero
+      dependencies and checked against real git on the CI matrix. Four deliberate mutations (ancestor rule,
+      globstar, CRLF, negation) were each caught by the oracle. Deliberate differences from git:
+      case-sensitive on every OS (git on Windows defaults to core.ignorecase=true), and info/exclude plus
+      core.excludesFile are not read (machine-local, would break WS-004). Layer order: CIE defaults <
+      .gitignore (by depth) < cie.config.json. The config layer is wired to real settings in P01-08.
   - id: P01-04
     title: workspace domain - deterministic ManifestBuilder (UTF-16 code-unit order, manifestHash)
     status: done
