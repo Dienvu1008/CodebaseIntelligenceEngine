@@ -16,6 +16,11 @@ The hard constraint ([HR]) is that UI and build-tool dependencies stay outside t
 
 - [Fact] CodeForge proves this stack works on Windows and Linux CI (E-20, E-22).
 - [Fact] ESLint 10 and Vitest 3/4 exist in the ecosystem (E-02, E-10, A-08). The preference for ESLint 9 is kept, and the upgrade question is tracked as OQ-08.
+- **Phase 00 pinning result (E-32).**
+  - TypeScript is pinned to **6.0.3**, not the latest 7.0.2, because `typescript-eslint` 8.72.1 supports only `typescript <6.1.0`.
+  - ESLint stays on 9.39.5 (OQ-08 resolved: `typescript-eslint` supports both 9 and 10, so there is no forcing reason to move).
+  - Vitest is 5.0.5, and `js-yaml` 5.5.0 ships its own types.
+  - The full list is in `governance/phase_00_checklist.yaml` → `pinned_versions`.
 
 ## Options considered
 

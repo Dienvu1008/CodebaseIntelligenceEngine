@@ -1,0 +1,4 @@
+# The phase currently being implemented. check-governance enforces test presence for every ACTIVE
+# CRITICAL/HIGH invariant with phase <= current_phase. The CIE_PHASE environment variable overrides it.
+# Bump this value as the first commit of each new phase.
+current_phase: 0

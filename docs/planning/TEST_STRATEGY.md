@@ -15,11 +15,13 @@
 
 ## 2. Test layers
 
+> **Phase 00 note:** package unit tests live in `packages/<pkg>/test/`, not in `src/**/__tests__`. Keeping them out of `src/` means test-only imports such as `vitest` never enter a package's compiled output or its purity rules (FF-DEP-002 applies to `packages/core/src/`).
+
 | Layer | Location | Scope | Tools | Phase |
 |---|---|---|---|---|
-| Unit (domain) | `packages/core/src/**/__tests__` | Aggregates, domain services (SymbolIdentity, SymbolMatcher, LinkResolver, SectionWriteGuard, PublishPolicy) | Vitest, fast-check (property-based) | 00+ |
-| Application | `packages/core/src/**/__tests__` | Use cases with fake ports | Vitest | 01+ |
-| Adapter | `packages/adapters/src/**/__tests__` | SQLite repositories (visibility filters, CAS, FKs), tree-sitter queries, TS resolver, Markdown parser, FS guard | Vitest + temp dirs | 01+ |
+| Unit (domain) | `packages/core/test/**` | Aggregates, domain services (SymbolIdentity, SymbolMatcher, LinkResolver, SectionWriteGuard, PublishPolicy) | Vitest, fast-check (property-based) | 00+ |
+| Application | `packages/core/test/**` | Use cases with fake ports | Vitest | 01+ |
+| Adapter | `packages/adapters/test/**` | SQLite repositories (visibility filters, CAS, FKs), tree-sitter queries, TS resolver, Markdown parser, FS guard | Vitest + temp dirs | 01+ |
 | Invariant | `tests/invariants/**` | One file per invariant ID | Vitest | per invariant phase |
 | Fitness | `tests/fitness/**` | Architecture rules and their self-tests (ARCHITECTURE_FITNESS §5) | Vitest + depcruise | 00 |
 | Golden fixture | `tests/golden/**` + `fixtures/**` | Extraction output, graph export and wiki generation snapshots per fixture repo | Vitest snapshot (JSON, sorted) | 02+ |

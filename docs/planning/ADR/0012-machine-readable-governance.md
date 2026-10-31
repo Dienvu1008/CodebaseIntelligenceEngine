@@ -24,7 +24,7 @@
 
 ## Consequences
 
-- Planning files live in `docs/planning/governance/`. Phase 00 **moves** them to the repo-root `governance/` and leaves a pointer behind (see the Phase 00 checklist).
+- The files started in `docs/planning/governance/`. Phase 00 moved them to the repo-root `governance/` and left a pointer README behind (checklist item P00-08).
 - There is a small up-front cost and a large protection against drift.
 
 ## Evidence

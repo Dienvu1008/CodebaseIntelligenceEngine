@@ -1,0 +1,66 @@
+# Phase 00 CI (ARCHITECTURE_FITNESS §2): governance, dependency-direction and the test matrix.
+name: ci
+
+on:
+  push:
+    branches: [main, 'phase-*']
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  governance:
+    name: governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # the no-removal check reads the base branch's invariant register
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: check-governance
+        run: node scripts/check-governance.mjs
+        env:
+          CIE_GOV_STRICT: '1'
+          # Pull requests are compared with their base branch. Pushes compare with origin/main.
+          CIE_GOV_BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || 'origin/main' }}
+
+  dependency-direction:
+    name: dependency-direction
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run build # workspace packages resolve to dist/ through their exports maps
+      - run: npm run lint
+      - run: npm run depcruise
+
+  test:
+    name: test (${{ matrix.os }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        node: ['24', '26']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test

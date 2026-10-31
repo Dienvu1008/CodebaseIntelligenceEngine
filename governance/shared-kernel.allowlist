@@ -1,0 +1,12 @@
+# Files permitted in packages/core/src/shared-kernel (DEPENDENCY_RULES C6, FF-CPX-004).
+# Adding a file requires an ADR. One path per line, relative to the shared-kernel folder.
+cancellation.ts
+canonical-path.ts
+clock.ts
+content-hash.ts
+domain-error.ts
+hasher.ts
+ids.ts
+index.ts
+result.ts
+source-range.ts

@@ -1,0 +1,234 @@
+# CIE fitness function register: the machine-readable mirror of docs/planning/ARCHITECTURE_FITNESS.md §3.
+# Validated by scripts/check-governance.mjs. For every ACTIVE entry, each `enforced_by` reference must exist:
+#   depcruise:<rule name>   a rule with that exact name in .dependency-cruiser.cjs
+#   eslint:<rule id>        configured in eslint.config.js (spelled out for traceability)
+#   test:<path>             the test file must exist
+#   governance:<check>      a check implemented by scripts/check-governance.mjs
+# Status is ACTIVE (enforced now) or PLANNED (introduced in `phase`).
+version: "1.0"
+fitness_functions:
+  # ---------------- Dependency ----------------
+  - id: FF-DEP-001
+    title: No circular dependencies
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-001-no-circular", "test:tests/fitness/depcruise-rules.spec.ts"]
+  - id: FF-DEP-002
+    title: packages/core imports nothing outside packages/core (no npm, no node built-ins)
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-002-core-is-pure", "depcruise:FF-DEP-002b-core-protocol-no-node-builtins", "eslint:no-restricted-imports"]
+  - id: FF-DEP-003
+    title: No vscode import outside the extension host
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-003-vscode-only-in-extension-host", "eslint:no-restricted-imports"]
+  - id: FF-DEP-004
+    title: No CodeForge dependency anywhere (imports and manifests)
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-004-no-codeforge", "eslint:no-restricted-imports", "governance:manifest-codeforge-scan"]
+  - id: FF-DEP-005
+    title: UI and build dependencies only in packages/vscode-extension
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-005-ui-build-deps-confined", "test:tests/fitness/manifests.spec.ts"]
+  - id: FF-DEP-006
+    title: "@cie/protocol has zero dependencies"
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-006-protocol-is-leaf", "test:tests/fitness/manifests.spec.ts"]
+  - id: FF-DEP-007
+    title: node:child_process only in adapters/process and packages/client
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-007-child-process-confined"]
+  - id: FF-DEP-008
+    title: Third-party allow-list per adapter subfolder (storage drivers enforced from Phase 00)
+    phase: 1
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-008-sqlite-confined"]
+    notes: Phase 00 enforces the storage-driver part early. Phase 01 adds the full per-subfolder allow-list.
+  # ---------------- Boundary ----------------
+  - id: FF-BND-001
+    title: Cross-context imports in core only via public.ts; shared-kernel is a leaf
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-BND-001-cross-context-via-public", "depcruise:FF-BND-001b-shared-kernel-is-leaf"]
+  - id: FF-BND-002
+    title: Domain does not import application; acyclic context order
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by:
+      - depcruise:FF-BND-002-domain-not-application
+      - depcruise:FF-BND-002b-no-domain-context-to-sync-or-query
+      - depcruise:FF-BND-002c-context-order
+      - depcruise:FF-BND-002d-synchronization-not-to-query
+  - id: FF-BND-003
+    title: Raw SQL only in adapters/sqlite; all reads take a pinned RevisionSeq
+    phase: 1
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-BND-004
+    title: Transports call only ProtocolHandler; identical contract suite across transports
+    phase: 6
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-BND-005
+    title: LLM adapters and inference intake cannot import knowledge/domain/verification
+    phase: 3
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-BND-005-llm-cannot-verify"]
+    notes: The rule is active from Phase 00. It matches no real file until Phase 03/07 creates the paths.
+  - id: FF-BND-006
+    title: Public API declaration snapshot (API-001)
+    phase: 6
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-BND-007
+    title: Package exports maps prevent deep imports
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["test:tests/fitness/exports.spec.ts"]
+  - id: FF-BND-008
+    title: Webview and extension-host code separated except shared/messages.ts
+    phase: 6
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  # ---------------- Complexity ----------------
+  - id: FF-CPX-001
+    title: God-object guard (max-lines 400, complexity 15; export-count check from Phase 03)
+    phase: 3
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["eslint:max-lines", "eslint:complexity"]
+    notes: ESLint severity is warn in Phases 00–02 and becomes error in Phase 03 (ratchet).
+  - id: FF-CPX-002
+    title: Coupling and instability report per context
+    phase: 0
+    blocking: false
+    status: PLANNED
+    enforced_by: []
+    notes: >
+      Report-only. OQ-10 was decided in Phase 00: ArchUnitTS is not adopted. `npm run metrics` (dependency-cruiser
+      --metrics: Ca, Ce, instability per module and folder) produces the report, which is reviewed at each phase sign-off.
+  - id: FF-CPX-003
+    title: Context size triggers a split review
+    phase: 3
+    blocking: false
+    status: PLANNED
+    enforced_by: []
+  - id: FF-CPX-004
+    title: Shared-kernel allow-list; no utils/helpers/common/misc folders
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["governance:shared-kernel-allowlist", "governance:no-utility-folders", "test:tests/fitness/shared-kernel.spec.ts"]
+  - id: FF-CPX-005
+    title: No any and no non-null assertions in packages/core
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["eslint:@typescript-eslint/no-explicit-any", "eslint:@typescript-eslint/no-non-null-assertion"]
+  # ---------------- Data integrity ----------------
+  - id: FF-DAT-001
+    title: Referential integrity (foreign_keys on; foreign_key_check empty)
+    phase: 1
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-DAT-002
+    title: Workspace isolation across stores
+    phase: 1
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-DAT-003
+    title: Graph consistency on golden fixtures
+    phase: 2
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-DAT-004
+    title: Revision digest stability and atomic visibility
+    phase: 1
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-DAT-005
+    title: Migration compatibility
+    phase: 1
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-DAT-006
+    title: Deterministic, cross-platform identical exports
+    phase: 2
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-DAT-007
+    title: Governance parity between DOMAIN_INVARIANTS.md and invariants.yaml
+    phase: 0
+    blocking: true
+    status: ACTIVE
+    enforced_by: ["governance:invariant-parity", "test:tests/fitness/governance.spec.ts"]
+  # ---------------- Performance (methodology: BENCHMARK_STRATEGY.md) ----------------
+  - id: FF-PRF-001
+    title: Incremental work proportional to the affected set (count-based)
+    phase: 5
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-PRF-002
+    title: Peak memory regression vs baseline
+    phase: 5
+    blocking: false
+    status: PLANNED
+    enforced_by: []
+  - id: FF-PRF-003
+    title: Query latency regression vs baseline
+    phase: 6
+    blocking: false
+    status: PLANNED
+    enforced_by: []
+  - id: FF-PRF-004
+    title: No unbounded scans (EXPLAIN QUERY PLAN)
+    phase: 3
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-PRF-005
+    title: Large-repo scaling trend
+    phase: 9
+    blocking: false
+    status: PLANNED
+    enforced_by: []
+  - id: FF-PRF-006
+    title: Full re-index recovery (correctness from Phase 01; time from Phase 05)
+    phase: 1
+    blocking: true
+    status: PLANNED
+    enforced_by: []
+  - id: FF-PRF-007
+    title: Extension activation time and Webview bundle size
+    phase: 6
+    blocking: false
+    status: PLANNED
+    enforced_by: []

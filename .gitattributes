@@ -1,0 +1,4 @@
+# Normalize line endings in the repository so golden fixtures and hashes match across Windows and Linux (WS-004, FF-DAT-006).
+* text=auto eol=lf
+*.wasm binary
+*.db binary

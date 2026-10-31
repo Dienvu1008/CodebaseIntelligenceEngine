@@ -1,6 +1,6 @@
 # Domain Invariants
 
-> Status: Baseline v0.1 · Machine-readable mirror: [governance/invariants.yaml](governance/invariants.yaml), validated by [governance/invariants.schema.json](governance/invariants.schema.json). The two files must correspond 1:1, which FF-DAT-007 checks.
+> Status: Baseline v0.1 · Machine-readable mirror: [/governance/invariants.yaml](../../governance/invariants.yaml), validated by [/governance/invariants.schema.json](../../governance/invariants.schema.json). The two files must correspond 1:1, which FF-DAT-007 checks.
 
 ## 1. Format and rules
 

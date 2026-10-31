@@ -10,7 +10,7 @@ Likelihood (L) and Impact (I) are rated H, M or L. Risks marked ⚠ could **inva
 |---|---|---|---|---|---|
 | R-01 | Users lack system Node ≥24, so out-of-process adoption friction is high | M | M | Clear diagnostics; `cie.nodePath`; bundled-runtime VSIX option (OQ-06) | Adoption feedback → prioritize platform VSIX bundling |
 | R-02 ⚠ | Tree-sitter WASM/ABI mismatch between web-tree-sitter 0.27 and the grammar `.wasm` builds (A-01; precedent E-26) | M | M | Spike S2; vendored grammar builds (ADR-0010 option C) | S2 fails → vendored builds; cost is CI complexity, not architecture |
-| R-03 ⚠ | TypeScript 7 (native) changes or removes the JS compiler API that `lang-ts` relies on (ADR-0016) | M | H | Isolated in `ProjectResolver`; pinned TS version; fallbacks are scip-typescript import (ADR-0011) or a TS-LSP resolver | TS 7 release notes → dedicated ADR before upgrading |
+| R-03 ⚠ | TypeScript 7 (native) changes or removes the JS compiler API that `lang-ts` relies on (ADR-0016) | M | H | Isolated in `ProjectResolver`; pinned TS version; fallbacks are scip-typescript import (ADR-0011) or a TS-LSP resolver | TS 7 release notes → dedicated ADR before upgrading. **Update (Phase 00, E-32):** TS 7.0.2 is released. CIE pins 6.0.3 (tooling peer ranges). Phase 02 must check whether `typescript@6` stays maintained, and whether TS 7 exposes a usable programmatic API for `lang-ts`, before ADR-0016 is re-confirmed. |
 | R-04 ⚠ | `better-sqlite3` prebuilds are missing for a target Node or platform (A-02) | L | H | Spike S1; `node:sqlite` adapter fallback (E-08) behind the same ports | S1 fails → implement the `node:sqlite` adapter |
 | R-05 | TS `Program` memory on large monorepos | M | M | Sequential per-tsconfig programs; release after use; benchmark FF-PRF-002 | Medium/large tier OOM → project sharding, or SCIP import as the batch path |
 | R-06 | Edge volume (references per occurrence) inflates `index.db` size and publish time | M | M | Occurrence ranges as attributes on aggregated `(from, to, type)` edges [Proposal]; measure in Phase 03 | DB size regression → aggregate occurrences or move them to a side table |
@@ -36,9 +36,9 @@ Likelihood (L) and Impact (I) are rated H, M or L. Risks marked ⚠ could **inva
 | OQ-05 | Use the workspace's own TypeScript version instead of the pinned one | Open | Phase 02 |
 | OQ-06 | Ship a platform-specific VSIX with a bundled runtime (A-05) | Open | Phase 06 stretch |
 | OQ-07 | JSON-RPC framing: newline-delimited vs `Content-Length` headers | Open | Phase 06 (the recommendation leans to `Content-Length` for LSP-tooling familiarity) |
-| OQ-08 | ESLint 9 vs 10 (A-08) | Open | Phase 00 |
+| OQ-08 | ESLint 9 vs 10 (A-08) | **Resolved (Phase 00):** stay on ESLint 9.39.5; typescript-eslint supports both (ADR-0005) | — |
 | OQ-09 | Installing grammar packages without their native install scripts | Open | Phase 02 (spike S2) |
-| OQ-10 | Adopt ArchUnitTS for coupling metrics, or custom scripts | Open | Phase 00 |
+| OQ-10 | Adopt ArchUnitTS for coupling metrics, or custom scripts | **Resolved (Phase 00):** not adopted; `depcruise --metrics` (ARCHITECTURE_FITNESS §1) | — |
 | OQ-11 | `@cie/client` minimum Node (CodeForge declares ≥20, E-20) | Open | Phase 06 / 10 |
 | OQ-12 | Allow read-only `git` invocation (SEC-002 register) | Open | Phase 05 |
 | OQ-13 | Dedicated benchmark runner vs reference developer machine | Open | Phase 01 |

@@ -28,7 +28,7 @@
 | 19 | [IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md) | Phases 00–10 with acceptance and exit criteria |
 | 20 | [RISKS_AND_OPEN_QUESTIONS.md](RISKS_AND_OPEN_QUESTIONS.md) | Risks, open decisions, critical architecture review, contradiction log |
 | — | [ADR/](ADR/) | Architecture Decision Records 0000–0016 |
-| — | [governance/](governance/) | Machine-readable `invariants.yaml`, `invariants.schema.json`, `phase_00_checklist.yaml` |
+| — | [/governance/](../../governance/) | Machine-readable `invariants.yaml`, `invariants.schema.json`, `fitness.yaml`, phase checklists (moved to the repository root in Phase 00) |
 
 An implementer starting **Phase 00 / Phase 01** needs, at minimum, these documents: 2, 4, 5, 6, 7, 8, 9, 19 and the `governance/` files.
 

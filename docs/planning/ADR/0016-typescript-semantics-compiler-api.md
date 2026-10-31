@@ -31,4 +31,5 @@ The brief offers tree-sitter plus the TS language service *or* a language server
 
 ## Consequences
 
+- **Phase 00 update (E-32):** TypeScript 7.0.2 (native) is now the npm `latest`, and CIE's toolchain pins 6.0.3. The Phase 02 entry must re-check this ADR: whether the TS 6 JS compiler API remains maintained, and what programmatic API TS 7 offers.
 - A TS 7 migration may need adapter work. The `ProjectResolver` port isolates it, and the risk is tracked as R-03.

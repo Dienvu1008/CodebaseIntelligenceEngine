@@ -9,7 +9,7 @@
 |---|---|---|---|
 | **dependency-cruiser** | Path-regex rules over the real module graph; understands TS path resolution; `no-circular`; package-level and folder-level rules; JSON/HTML reports; proven in CodeForge (E-22) | Not good at "only via `public.ts`" semantics without careful regexes; no type-level rules | **Primary** for FF-DEP-* and FF-BND-* |
 | **ESLint `no-restricted-imports`** (flat config, per-glob overrides) | Instant editor feedback; simple bans on module names | Pattern-based only; no transitive analysis | **Secondary**: fast feedback duplicates of the critical bans (`vscode`, `better-sqlite3`, `@codeforge/*`, `node:*` in core) |
-| **ArchUnitTS** (`archunit` 2.5.4, E-12) | Fluent architecture tests inside Vitest; metrics (coupling, cohesion, LCOM); cycle detection | Single maintainer (E-12), so there is bus-factor risk | **Optional / advisory** for FF-CPX-002 metrics. Adoption is confirmed in Phase 00 after a trial (OQ-10). If rejected, the same metrics come from a custom script over depcruise JSON. |
+| **ArchUnitTS** (`archunit` 2.5.4, E-12) | Fluent architecture tests inside Vitest; metrics (coupling, cohesion, LCOM); cycle detection | Single maintainer (E-12), so there is bus-factor risk | **Not adopted** (OQ-10, decided in Phase 00). `dependency-cruiser --metrics` already reports Ca, Ce and instability per module and folder (`npm run metrics`), which covers FF-CPX-002 without a single-maintainer dependency. Revisit if LCOM/cohesion metrics become necessary. |
 | **Vitest** | Runs invariant, contract, data-integrity and type-level tests (`expectTypeOf`) | — | **Primary** for FF-DAT-* and type-level checks |
 | **TypeScript type-level constraints** | Branded IDs, capability tokens, required bound parameters, `exactOptionalPropertyTypes` | Only as strong as `any` discipline (lint `no-explicit-any` in core) | **Primary** for PV-002, AI-002, KG-004 |
 | **Custom scripts** (`scripts/check-*.mjs`) | Governance-specific checks (YAML↔Markdown parity, allow-lists, test presence) | Must be maintained | **Primary** for governance fitness |
@@ -95,6 +95,13 @@ Methodology, fixtures and target-setting rules are in [BENCHMARK_STRATEGY](BENCH
 ## 4. Draft dependency-cruiser rule set (specification)
 
 This block specifies the rules for Phase 00. It is **not** a live config file.
+
+> **Implemented in Phase 00** as `/.dependency-cruiser.cjs`. Differences from this draft:
+> - FF-DEP-002 has **no type-only exception**. The core imports nothing outside itself, not even types, which keeps third-party types out of the ACL.
+> - Additional rules split out the C5/C6 boundaries: FF-BND-001b (shared kernel is a leaf), FF-BND-002c (context order) and FF-BND-002d (synchronization never imports query).
+> - npm-package rules match both `node_modules/<pkg>/` and an unresolved bare `<pkg>`, so packages that are not installed (e.g. `vscode`) are still caught.
+> - `enhancedResolveOptions.exportsFields: ['exports']` must be explicit. Without it depcruise ignores package exports maps (found in Phase 00).
+> - The group back-reference `$1` in `to.pathNot` works in dependency-cruiser 18.7.0, which resolves the assumption noted under the block.
 
 ```js
 // .dependency-cruiser.cjs (DRAFT, Phase 00 to implement and test against intentionally violating fixtures)

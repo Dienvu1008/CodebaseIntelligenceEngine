@@ -1,0 +1,16 @@
+{
+  "name": "@cie/protocol",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "description": "CIE public wire contract: versioned DTOs, method catalog and error codes. Zero dependencies (FF-DEP-006).",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist"]
+}

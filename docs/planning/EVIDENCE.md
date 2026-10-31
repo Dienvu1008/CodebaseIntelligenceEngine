@@ -43,6 +43,7 @@ Base path: `c:\Users\Dienv\Desktop\My Projects\VS Code Extensions\CodeForge v2` 
 | E-28 | Migrations combine `PRAGMA user_version` with a `schema_versions` table. They are forward-only, contiguous and run one transaction per migration. | `CF/packages/infrastructure/src/sqlite/migrations/registry.ts` |
 | E-29 | CodeForge has no MCP client or server and no embeddings or vector store. | Repository-wide search (sub-agent report) |
 | E-31 | CodeForge's model providers are `ollama`, `openai-compatible` and `gemini`. The default Ollama endpoint is `http://localhost:11434`, and the extension defaults to provider `ollama`. | `CF/packages/infrastructure/src/model/provider-adapter.ts`, `CF/packages/vscode-extension/package.json` |
+| E-32 | (External, retrieved 2026-10-31 in Phase 00 via `npm view`.) `typescript` latest is **7.0.2**, a native build shipped as per-platform `@typescript/typescript-*` packages; the latest 6.x is 6.0.3. `typescript-eslint` 8.72.1 declares the peer range `typescript >=4.8.4 <6.1.0`. `vitest` 5.0.5 requires Node `^22.12.0 \|\| ^24.0.0 \|\| >=26.0.0`. `dependency-cruiser` 18.7.0 requires Node `^22\|\|^24\|\|>=26`. | npm registry |
 | E-30 | Security model trust levels: workspace content (T4) and model output (T3) are untrusted and never authority. All tool execution goes through a single ToolGateway. | `CF/SECURITY_MODEL.md` §1, §3.3 |
 
 ## Unverified items, carried as assumptions

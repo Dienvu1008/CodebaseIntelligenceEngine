@@ -1,0 +1,16 @@
+{
+  "name": "@cie/core",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "description": "CIE domain and application layers. Pure TypeScript: no runtime dependencies, no Node built-ins (FF-DEP-002).",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist"]
+}

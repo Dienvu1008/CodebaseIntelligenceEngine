@@ -1,0 +1,21 @@
+{
+  "name": "@cie/runtime",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "description": "CIE composition root, CLI and transports. Implementations start in Phase 01.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist"],
+  "dependencies": {
+    "@cie/adapters": "0.0.0",
+    "@cie/core": "0.0.0",
+    "@cie/protocol": "0.0.0"
+  }
+}
