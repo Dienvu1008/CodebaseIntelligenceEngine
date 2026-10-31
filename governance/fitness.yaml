@@ -164,8 +164,8 @@ fitness_functions:
     title: Graph consistency on golden fixtures
     phase: 2
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:tests/fitness/graph-consistency.spec.ts", "test:tests/invariants/kg/kg-001.spec.ts"]
   - id: FF-DAT-004
     title: Revision digest stability and atomic visibility
     phase: 1
@@ -183,8 +183,9 @@ fitness_functions:
     title: Deterministic, cross-platform identical exports
     phase: 2
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:tests/cross-platform/export-golden.spec.ts"]
+    notes: "cie-export/2 (files, structure, code nodes, edges) for every golden fixture in tests/helpers/golden.ts; byte-identical to the committed golden on the windows/ubuntu x Node 24/26 matrix."
   - id: FF-DAT-007
     title: Governance parity between DOMAIN_INVARIANTS.md and invariants.yaml
     phase: 0

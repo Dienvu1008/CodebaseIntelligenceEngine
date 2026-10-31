@@ -65,11 +65,13 @@ items:
   # --- Governance, fitness, quality ---
   - id: P02-10
     title: "Phase 02 invariant tests: SY-001, SY-002, SY-003, SY-005, SY-006, KG-001"
-    status: pending
+    status: done
+    notes: "All six exist and pass; CIE_PHASE=3 check-governance reports no invariant-test-presence errors (only the expected pending-checklist and missing phase_03 errors)."
     check: "node scripts/check-governance.mjs with CIE_PHASE=3 reports no invariant-test-presence errors"
   - id: P02-11
     title: "Fitness: FF-DAT-003 (graph consistency on golden fixtures), FF-DAT-006 (deterministic cross-OS exports, extended to symbols)"
-    status: pending
+    status: done
+    notes: "Export bumped to cie-export/2 (nodes, edges; EXPORT_FORMAT.md, E2 refined for source-derived strings). export-golden.spec.ts iterates tests/helpers/golden.ts; graph-consistency.spec.ts re-checks KG-001/SY-002/WS-001/SY-005/FK at every published seq with independent SQL plus a damaged-copy self-test. Both ACTIVE in fitness.yaml. Cross-OS confirmation pending CI."
     check: "governance/fitness.yaml entries ACTIVE with resolvable enforced_by"
   - id: P02-12
     title: Golden fixtures ts-basic, ts-monorepo, js-mixed, py-basic, py-src-layout and edge-cases, with hand-verified ground truth

@@ -37,6 +37,7 @@ function makeRepo(): string {
     // Every directory that fitness.yaml references with `test:` entries.
     'tests/fitness',
     'tests/invariants',
+    'tests/cross-platform',
     'packages/adapters/test',
   ]) {
     cpSync(repoPath(rel), path.join(dir, ...rel.split('/')), { recursive: true });

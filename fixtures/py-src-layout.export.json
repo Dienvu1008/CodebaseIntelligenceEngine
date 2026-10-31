@@ -1,0 +1,743 @@
+{
+  "format": "cie-export/2",
+  "revision": 1,
+  "manifestHash": "sha256:b4ecee9ec0742f878cc83ddf924ffbab9cb983436576ac21ac80ea4a7ac90d96",
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "status": "indexed",
+      "hash": "sha256:763d9f2f4fc3f5b48b332f72a0d30820503ae92e04f0cf9f4374bf046eeffb62",
+      "size": 141,
+      "language": null
+    },
+    {
+      "path": "src/pkg/__init__.py",
+      "status": "indexed",
+      "hash": "sha256:a4fd87be28bab29c80f0f4545a580f38b41591a233e075a7d602c8ba9bcaa448",
+      "size": 44,
+      "language": "py"
+    },
+    {
+      "path": "src/pkg/core.py",
+      "status": "indexed",
+      "hash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576",
+      "size": 106,
+      "language": "py"
+    },
+    {
+      "path": "src/pkg/helpers.py",
+      "status": "indexed",
+      "hash": "sha256:bad03aea5cba2ef03b60e9144625695322922c4938c07bd9ad3ecfeb0b812422",
+      "size": 57,
+      "language": "py"
+    },
+    {
+      "path": "tests/test_core.py",
+      "status": "indexed",
+      "hash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593",
+      "size": 89,
+      "language": "py"
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src/pkg",
+      "kind": "directory",
+      "name": "pkg",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:tests",
+      "kind": "directory",
+      "name": "tests",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "pkg:py:src/pkg",
+      "kind": "package",
+      "name": "pkg",
+      "ecosystem": "python",
+      "file": "src/pkg/__init__.py"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ext:pypi:numpy",
+      "kind": "external",
+      "name": "numpy",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      }
+    },
+    {
+      "id": "ext:pypi:pytest",
+      "kind": "external",
+      "name": "pytest",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      }
+    },
+    {
+      "id": "ext:python:typing",
+      "kind": "external",
+      "name": "typing",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      }
+    },
+    {
+      "id": "mod:py:src/pkg/__init__.py",
+      "kind": "module",
+      "name": "__init__.py",
+      "file": "src/pkg/__init__.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:py:src/pkg/core.py",
+      "kind": "module",
+      "name": "core.py",
+      "file": "src/pkg/core.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:py:src/pkg/helpers.py",
+      "kind": "module",
+      "name": "helpers.py",
+      "file": "src/pkg/helpers.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:py:tests/test_core.py",
+      "kind": "module",
+      "name": "test_core.py",
+      "file": "tests/test_core.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:src/pkg/__init__.py#__all__(variable)",
+      "kind": "symbol",
+      "name": "__all__",
+      "file": "src/pkg/__init__.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "__all__",
+        "kind": "variable",
+        "range": {
+          "startLine": 2,
+          "startCol": 0,
+          "endLine": 2,
+          "endCol": 17
+        },
+        "spanHash": "sha256:494fa59ae5a82cdbf4717d06e25468658d9f52f2598c9929080d78294e0ead6e",
+        "bodyFingerprint": "sha256:af44da446411b02602b1ce54f059d80fd2708f637bee83e8e465045b195ec45d",
+        "exported": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:src/pkg/core.py#run(function)",
+      "kind": "symbol",
+      "name": "run",
+      "file": "src/pkg/core.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "run",
+        "kind": "function",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 38
+        },
+        "spanHash": "sha256:a1f8f193bbaa69eff9a6870b46d41208b01c3d736527ec45aec9edc78f371d13",
+        "bodyFingerprint": "sha256:69e022f4d8e8677ee5b08f074470589c56cfe5685ce136dd6229fed3db518598",
+        "exported": true,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:src/pkg/helpers.py#util_fn(function)",
+      "kind": "symbol",
+      "name": "util_fn",
+      "file": "src/pkg/helpers.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "util_fn",
+        "kind": "function",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 4,
+          "endCol": 12
+        },
+        "spanHash": "sha256:c26069e809680eb89bed21af1e0f4cec3d8974cca752ea4dce45f5f99c54a833",
+        "bodyFingerprint": "sha256:2d53bd7d8997ff151dc98d413349d6ce34f3599fbbc313fad0410a08a1a6c87a",
+        "exported": true,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:tests/test_core.py#test_run(function)",
+      "kind": "symbol",
+      "name": "test_run",
+      "file": "tests/test_core.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "test_run",
+        "kind": "function",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 31
+        },
+        "spanHash": "sha256:5d3ad8a43d2db0cbb1d8ef2f44e4046421c5ba923531237dac36b7295a8c484a",
+        "bodyFingerprint": "sha256:787f642a7c3815482c7415f7fd5e3c30b2aeb0daf3cf251bf7e2f361e0d9da36",
+        "exported": true,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "defines",
+      "from": "mod:py:src/pkg/__init__.py",
+      "to": "py:src/pkg/__init__.py#__all__(variable)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/pkg/__init__.py",
+        "range": {
+          "startLine": 2,
+          "startCol": 0,
+          "endLine": 2,
+          "endCol": 17
+        },
+        "contentHash": "sha256:a4fd87be28bab29c80f0f4545a580f38b41591a233e075a7d602c8ba9bcaa448"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:src/pkg/core.py",
+      "to": "py:src/pkg/core.py#run(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/pkg/core.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 38
+        },
+        "contentHash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:src/pkg/helpers.py",
+      "to": "py:src/pkg/helpers.py#util_fn(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/pkg/helpers.py",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 4,
+          "endCol": 12
+        },
+        "contentHash": "sha256:bad03aea5cba2ef03b60e9144625695322922c4938c07bd9ad3ecfeb0b812422"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:tests/test_core.py",
+      "to": "py:tests/test_core.py#test_run(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "tests/test_core.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 31
+        },
+        "contentHash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:src/pkg/core.py",
+      "to": "py:src/pkg/core.py#run(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/pkg/core.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 38
+        },
+        "contentHash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:src/pkg/helpers.py",
+      "to": "py:src/pkg/helpers.py#util_fn(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/pkg/helpers.py",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 4,
+          "endCol": 12
+        },
+        "contentHash": "sha256:bad03aea5cba2ef03b60e9144625695322922c4938c07bd9ad3ecfeb0b812422"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:tests/test_core.py",
+      "to": "py:tests/test_core.py#test_run(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "tests/test_core.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 31
+        },
+        "contentHash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:src/pkg/__init__.py",
+      "to": "mod:py:src/pkg/core.py",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/__init__.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "contentHash": "sha256:a4fd87be28bab29c80f0f4545a580f38b41591a233e075a7d602c8ba9bcaa448"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "pkg.core"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:src/pkg/core.py",
+      "to": "ext:pypi:numpy",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/core.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 18
+        },
+        "contentHash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "numpy"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:src/pkg/core.py",
+      "to": "mod:py:src/pkg/helpers.py",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/core.py",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 28
+        },
+        "contentHash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": ".helpers"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:src/pkg/helpers.py",
+      "to": "ext:python:typing",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/helpers.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 13
+        },
+        "contentHash": "sha256:bad03aea5cba2ef03b60e9144625695322922c4938c07bd9ad3ecfeb0b812422"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "typing"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:tests/test_core.py",
+      "to": "ext:pypi:pytest",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "tests/test_core.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 13
+        },
+        "contentHash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "pytest"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:tests/test_core.py",
+      "to": "mod:py:src/pkg/core.py",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "tests/test_core.py",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 24
+        },
+        "contentHash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "pkg.core"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:py:src/pkg/__init__.py",
+      "to": "py:src/pkg/core.py#run(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/__init__.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "contentHash": "sha256:a4fd87be28bab29c80f0f4545a580f38b41591a233e075a7d602c8ba9bcaa448"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "run",
+        "raw": "pkg.core"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:py:src/pkg/core.py",
+      "to": "py:src/pkg/helpers.py#util_fn(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/core.py",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 28
+        },
+        "contentHash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "util_fn",
+        "raw": ".helpers"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:py:tests/test_core.py",
+      "to": "py:src/pkg/core.py#run(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "tests/test_core.py",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 24
+        },
+        "contentHash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "run",
+        "raw": "pkg.core"
+      }
+    }
+  ]
+}
