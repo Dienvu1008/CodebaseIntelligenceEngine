@@ -28,3 +28,5 @@ These files are excluded from type checking, linting and the real `npm run depcr
 | `packages/core/src/knowledge/application/uses-documentation.ts` | FF-BND-002c-context-order-knowledge |
 | `packages/core/src/synchronization/application/uses-query.ts` | FF-BND-002d |
 | `packages/adapters/src/llm-ollama/verify.ts` | FF-BND-005 |
+| `packages/adapters/src/llm-ollama/verify-subpath.ts` | FF-BND-005 and FF-BND-005b (the `@cie/core/verification` subpath) |
+| `packages/core/src/synchronization/application/uses-verification.ts` | FF-BND-005b (also FF-BND-001) |

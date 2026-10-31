@@ -11,6 +11,7 @@ import path from 'node:path';
 import {
   CODE_EDGE_TYPES,
   GRAPH_NODE_KINDS,
+  KnowledgeClaim,
   RELATION_STATUSES,
   RELATION_TYPES,
   relationType,
@@ -21,6 +22,7 @@ import {
   type RelationTypeName,
 } from '@cie/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { code, CONCEPT, evidence, FN_A, FN_B, hasher, seq, SYSTEM, unwrap } from '../../helpers/claims.js';
 import { codeGraphOf } from '../../helpers/code-graph.js';
 import { GOLDEN_FIXTURES } from '../../helpers/golden.js';
 import { cseq, job, sandbox, stageAll, type Sandbox } from '../../helpers/index-store.js';
@@ -71,6 +73,24 @@ describe('KG-002: the registry', () => {
     expect(relationViolations({ ...call, site: '' })).toEqual([expect.stringContaining('needs a site key')]);
     expect(relationViolations({ ...call, type: 'references' })).toHaveLength(2); // no unresolved target, no unknown status
     expect(relationViolations({ type: 'mentions', fromKind: 'page', toKind: 'unresolved', status: 'verified' })).toEqual([]);
+  });
+});
+
+describe('KG-002: claims', () => {
+  const base = { origin: { kind: 'heuristic' as const, id: 'h' }, evidence: [evidence('heuristic')], actor: SYSTEM, reason: 'r', seq: seq(1) };
+  it('rejects a claim whose predicate signature or status does not fit the registry', () => {
+    expect(code(KnowledgeClaim.propose({ ...base, subject: FN_A, predicate: 'calls', object: FN_B, status: 'inferred' }, hasher))).toBe('ok');
+    expect(code(KnowledgeClaim.propose({ ...base, subject: CONCEPT, predicate: 'calls', object: FN_B, status: 'inferred' }, hasher))).toBe('KG_002_CLAIM_INVALID');
+    // injects allows only inferred
+    expect(code(KnowledgeClaim.propose({ ...base, subject: FN_A, predicate: 'injects', object: FN_B, status: 'unknown', evidence: [] }, hasher))).toBe('KG_002_CLAIM_INVALID');
+    // implements allows only verified: an inferred proposal is refused, and verification is the only way in
+    expect(code(KnowledgeClaim.propose({ ...base, subject: FN_A, predicate: 'implements', object: FN_B, status: 'inferred' }, hasher))).toBe('KG_002_CLAIM_INVALID');
+  });
+
+  it('re-checks the registry on every transition', () => {
+    // may_dispatch_to allows only inferred: dropping to unknown is refused by the registry, not the table.
+    const c = unwrap(KnowledgeClaim.propose({ ...base, subject: FN_A, predicate: 'may_dispatch_to', object: FN_B, status: 'inferred' }, hasher));
+    expect(code(c.transition('unknown', SYSTEM, 'evidence gone', seq(2)))).toBe('KG_002_CLAIM_INVALID');
   });
 });
 

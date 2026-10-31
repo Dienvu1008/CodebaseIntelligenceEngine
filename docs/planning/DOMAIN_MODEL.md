@@ -197,6 +197,23 @@ stateDiagram-v2
 
 `Freshness` is orthogonal to status. It becomes `stale` when any evidence's `contentHash` no longer matches the current revision (PV-004), and it returns to `current` after re-verification.
 
+**Implementation (Phase 03, P03-05).**
+- Files: `core/knowledge/domain/{provenance,claim}.ts` and `verification/claim-verifier.ts`.
+- `[*] → verified` is a proposal as `unknown` or `inferred`, followed by `ClaimVerifier.verify`. The history records both steps.
+- `verified → verified` is re-verification. It returns a stale claim to `current`.
+- A user assertion is never verified by a tool.
+- `inferred` requires at least one evidence item.
+- Every change appends `{from, to, actor, reason, seq}` to the claim's history. Adding evidence is also recorded, with an unchanged status.
+- The capability token:
+  - It has a private constructor, an ECMAScript-private brand checked at runtime, and a mint function local to its module.
+  - It binds one claim, its exact evidence set and the seq, so it cannot be replayed on another claim or after the evidence changed.
+- `ClaimVerifier` depends on the claim through a structural `VerifiableClaim` interface, so the aggregate can import the token without an import cycle.
+- Its only published form is the `@cie/core/verification` subpath (DEPENDENCY_RULES C8).
+- An LLM actor can propose `unknown` or `inferred` claims and add evidence, but cannot change a status or verify (AI-002).
+- KG-002 is checked on creation and after every change.
+- The claim freshness type is `ClaimFreshness`, because `Freshness` is the synchronization context's workspace freshness.
+- Attribute claims (an object value instead of a node) arrive with the phases that produce them.
+
 ## 6. Domain services
 
 | Service | Context | Responsibility | Pure? |

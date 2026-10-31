@@ -94,7 +94,7 @@ fitness_functions:
     phase: 3
     blocking: true
     status: ACTIVE
-    enforced_by: ["depcruise:FF-BND-005-llm-cannot-verify"]
+    enforced_by: ["depcruise:FF-BND-005-llm-cannot-verify", "depcruise:FF-BND-005b-verification-confined"]
     notes: The rule is active from Phase 00. It matches no real file until Phase 03/07 creates the paths.
   - id: FF-BND-006
     title: Public API declaration snapshot (API-001)

@@ -10,6 +10,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./verification": {
+      "types": "./dist/knowledge/domain/verification/index.d.ts",
+      "default": "./dist/knowledge/domain/verification/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": ["dist"]

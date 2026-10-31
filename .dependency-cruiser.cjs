@@ -7,6 +7,8 @@
 
 const UI_BUILD_DEPS = '(react|react-dom|vite|esbuild|markdown-it|dompurify)';
 const npmPath = (name) => `(^|node_modules/)${name}($|/)`;
+/** The verification capability, in source, built, or package-subpath form (DEPENDENCY_RULES C8). */
+const VERIFICATION = '(^packages/core/(src|dist)/knowledge/domain/verification/|(^|node_modules/)@cie/core/verification($|/))';
 
 /** @type {import('dependency-cruiser').IConfiguration['forbidden']} */
 const forbidden = [
@@ -166,7 +168,16 @@ const forbidden = [
     comment: 'LLM adapters and inference intake cannot reach the verification capability (AI-002, C8).',
     severity: 'error',
     from: { path: '^packages/(adapters/src/llm-|core/src/knowledge/application/inference)' },
-    to: { path: '^packages/core/src/knowledge/domain/verification/' },
+    to: { path: VERIFICATION },
+  },
+  {
+    name: 'FF-BND-005b-verification-confined',
+    comment:
+      'The verification capability is importable only from the knowledge context and the runtime composition root (C8). ' +
+      'Other contexts receive verification as an injected dependency.',
+    severity: 'error',
+    from: { pathNot: '^packages/(core/src/knowledge/|runtime/src/composition/)' },
+    to: { path: VERIFICATION },
   },
 ];
 

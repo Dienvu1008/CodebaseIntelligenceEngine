@@ -46,6 +46,10 @@ describe('dependency-cruiser fitness rules', () => {
     const fired = new Set(output.summary.violations.map((v) => v.rule.name));
     const silent = ruleNames.filter((name) => !fired.has(name));
     expect(silent, `rules that did not fire: ${silent.join(', ')}`).toEqual([]);
+    // C8: every form of reaching the verification capability is caught, including the package subpath.
+    const firedOn = (file: string) => output.summary.violations.filter((v) => v.from.endsWith(file)).map((v) => v.rule.name).sort();
+    expect(firedOn('llm-ollama/verify-subpath.ts')).toEqual(['FF-BND-005-llm-cannot-verify', 'FF-BND-005b-verification-confined']);
+    expect(firedOn('synchronization/application/uses-verification.ts')).toEqual(['FF-BND-001-cross-context-via-public', 'FF-BND-005b-verification-confined']);
   });
 
   it('finds no violations and no unresolved imports in the real packages', async () => {

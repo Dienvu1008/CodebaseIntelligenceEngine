@@ -49,7 +49,7 @@
 | FF-BND-002 | Domain does not import application (C4). Context order is acyclic (C5). | depcruise | 00 | Yes |
 | FF-BND-003 | Raw SQL and table access only in `adapters/sqlite`; all reads take a pinned `RevisionSeq` (ADR-0015) | depcruise (imports) + Vitest (repository API signature test) | 01 | Yes |
 | FF-BND-004 | Transport adapters (JSON-RPC, MCP, CLI) call only `ProtocolHandler`, never core use cases directly. The contract suite runs identically through JSON-RPC and MCP. | depcruise + contract tests | 06 / 09 | Yes |
-| FF-BND-005 | `adapters/llm-*` and InferenceIntake cannot import `knowledge/domain/verification` (C8) | depcruise | 03 | Yes |
+| FF-BND-005 | `adapters/llm-*` and InferenceIntake cannot import `knowledge/domain/verification` (C8). FF-BND-005b (Phase 03) confines it to `knowledge/**` and `runtime/src/composition/**`. Both rules match the source path, the built path and the `@cie/core/verification` subpath. | depcruise | 03 | Yes |
 | FF-BND-006 | Public API snapshot: `@cie/protocol` declaration output diffed against the committed snapshot; breaking diff needs a major bump (API-001) | `tsc --declaration` + snapshot test | 06 (pre-1.0 advisory), 09 (blocking) | Yes from 09 |
 | FF-BND-007 | Package `exports` maps prevent deep imports | Vitest (resolve attempts) | 00 | Yes |
 | FF-BND-008 | The Webview bundle imports nothing from `src/host`, and the host imports nothing from `webview/` except `shared/messages.ts` | depcruise | 06 | Yes |

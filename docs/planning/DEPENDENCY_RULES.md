@@ -55,7 +55,7 @@ Read the table as "row may import column". ✅ allowed · ❌ forbidden · ➖ n
 | C5 | Context dependency order is acyclic: `workspace ← code-intelligence ← knowledge ← documentation`. `synchronization/application` may depend on all four. `query` may depend on all five. **No context may depend on `synchronization` or `query`**, except through events passed in by the dispatcher. | Acyclic contexts |
 | C6 | `shared-kernel/**` imports nothing outside itself, and its file set is allow-listed (`governance/shared-kernel.allowlist`). | Prevents a dumping-ground "utils" module |
 | C7 | No folder named `utils`, `helpers`, `common` or `misc` anywhere in `packages/*/src`, except `shared-kernel`. | Brief §5: uncontrolled shared utilities |
-| C8 | `knowledge/domain/verification/**` (ClaimVerifier and capability token) is importable only from `knowledge/application/**`, `synchronization/application/**` and tests. | AI-002 / PV-002 |
+| C8 | (Revised in Phase 03, P03-05: the v0.1 text allowed `synchronization/application`, which C3 forbids from deep-importing another context.) `knowledge/domain/verification/**` (ClaimVerifier and capability token) is importable only from the knowledge context (`knowledge/**`), the runtime composition root (`runtime/src/composition/**`) and tests. It is not re-exported from `@cie/core`. Its only published form is the `@cie/core/verification` subpath. Other contexts, `synchronization/application` included, receive verification as an injected dependency. | AI-002 / PV-002 |
 
 ## 4. Rules inside `@cie/adapters`
 
