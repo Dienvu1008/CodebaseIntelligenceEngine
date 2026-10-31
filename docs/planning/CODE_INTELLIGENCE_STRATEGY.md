@@ -21,7 +21,7 @@ Structural facts come from deterministic tools. Each fact records its **producer
 |---|---|
 | Multi-language parsing | Excellent. A uniform CST API; grammars exist for every target language. [Fact] TS, TSX and Python grammars ship WASM (E-03, E-04). |
 | Incremental parsing | Supported natively (edit plus reparse). CIE re-parses at file granularity in the MVP. Intra-file incremental parsing is a later optimization, because CIE's unit of change is the file hash. |
-| Grammar availability | TS/TSX (0.23.2), Python (0.25.0), JS (0.25.0, `.wasm` presence unverified, E-05). Dart grammar exists (used by CodeForge via tree-sitter-wasms, E-26). |
+| Grammar availability | TS/TSX (0.23.2), Python (0.25.0), JS (0.25.0, ships its own `.wasm`, E-34). The four artifacts are vendored with a provenance lock (ADR-0010). Dart grammar exists (used by CodeForge via tree-sitter-wasms, E-26). |
 | Symbol extraction | Via queries (`tags.scm` style). CIE owns its query files (ADR-0010). Gives L1 outline, spans and docstrings. Tree-sitter has no name resolution. |
 | Maintenance cost | **ABI coupling** between the runtime and grammar builds is the main risk (E-26). Mitigated by an exact pin, a hash manifest, golden tests, and spike S2. |
 | Fit | **Used for all languages** for outline, spans, `spanHash`, `bodyFingerprint` and fast change detection. |

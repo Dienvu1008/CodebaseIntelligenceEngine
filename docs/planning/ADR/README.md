@@ -12,7 +12,7 @@
 | [0007](0007-split-documentation-storage.md) | Split documentation storage | Accepted |
 | [0008](0008-storage-sqlite-relational-graph.md) | SQLite relational graph + FTS5 | Accepted, pending spike S1 (FTS5) |
 | [0009](0009-local-first-llm-policy.md) | Local-first LLM policy | Accepted |
-| [0010](0010-tree-sitter-wasm-version-strategy.md) | Tree-sitter WASM and ABI strategy | Accepted, pending spike S2 |
+| [0010](0010-tree-sitter-wasm-version-strategy.md) | Tree-sitter WASM and ABI strategy | Accepted; OQ-09 resolved (vendored artifacts); S2 CI matrix pending |
 | [0011](0011-scip-optional-enricher.md) | SCIP as an optional enricher | Accepted (post-MVP) |
 | [0012](0012-machine-readable-governance.md) | Machine-readable governance | Accepted |
 | [0013](0013-license.md) | License | **Open** |

@@ -27,7 +27,7 @@
 | T8 | **Webview XSS** via rendered Markdown | Webview | `html: false`, DOMPurify, strict CSP with nonce, no remote content | SEC-006 |
 | T9 | **Resource exhaustion** (giant files, pathological grammars, deep recursion, zip-bomb-like generated files) | Indexing | Max file size; binary detection; per-file parse timeout via AbortSignal (and a worker kill in Phase 05); bounded queries; deadline on every request | KG-004, FR-007 |
 | T10 | **Malicious repository Markdown** forging generated markers to get the generator to write elsewhere | Doc generation | Markers only define regions **within the same file**. Write targets come from the page path, which is confined to `wiki.dir` and `.cie/` (SEC-002). Malformed markers freeze writes (DOC-007). | DOC-007, SEC-002 |
-| T11 | **Supply chain** | npm dependencies | Exact pins plus lockfile (NFR-054); grammar `.wasm` hash manifest (ADR-0010); minimal dependency set per package; `npm audit` in CI (advisory) | FF-DEP-008 |
+| T11 | **Supply chain** | npm dependencies | Exact pins plus lockfile (NFR-054); vendored grammar `.wasm` with a provenance lock, verified at first load; grammar packages never installed, so their install scripts never run (ADR-0010); minimal dependency set per package; `npm audit` in CI (advisory) | FF-DEP-008 |
 
 ### SEC-002 exception register
 

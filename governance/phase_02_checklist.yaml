@@ -14,10 +14,12 @@ items:
     title: "Spike S2: web-tree-sitter (exact pin) loads the TS, TSX and Python grammar .wasm on Node 24/26, Windows and Linux; JS grammar strategy (E-05); OQ-09 install scripts"
     status: pending
     check: "packages/adapters/test/treesitter/spike-s2.spec.ts green on the full CI matrix; results recorded in ADR-0010"
+    notes: "OQ-09 resolved with option A (vendored .wasm + provenance lock, first-load verification). Passed locally; waiting for the CI matrix before marking done and closing A-01."
   - id: P02-02
     title: "Re-check ADR-0016 against TypeScript 7 (R-03): is the TS 6 JS compiler API maintained, and what programmatic API does TS 7 offer? Pin the lang-ts TypeScript version"
-    status: pending
-    check: "ADR-0016 updated with evidence; decision recorded"
+    status: done
+    check: "ADR-0016 'Phase 02 re-check' section; E-35"
+    notes: TS 7.0 has no API (7.1 beta brings a new one); lang-ts pins typescript@6.0.3. Revisit when TS 7.1's API is stable.
 
   # --- Domain (core) ---
   - id: P02-03

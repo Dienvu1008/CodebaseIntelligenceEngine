@@ -29,6 +29,13 @@ The brief offers tree-sitter plus the TS language service *or* a language server
 - **Memory control:** one `Program` per tsconfig project, built and released sequentially. An incremental `BuilderProgram` is used for Phase 05 incremental indexing.
 - **Generic LSP adapter: [DEF].** It is reserved for future languages that have an LSP server but no batch indexer.
 
+## Phase 02 re-check (P02-02, 2026-10-31): decision re-confirmed
+
+- [Fact, E-35] TypeScript 7.0 (Go port) went GA on 2026-07-08 **without a programmatic API**. The 7.0.2 package exports only `./unstable/*` entry points. TypeScript 7.1 introduces a new, different API: beta on 2026-10-20, not stable.
+- [Fact, E-35] The latest 6.x is 6.0.3 (2026-04-16), and there has been no 6.x release since. It remains the JS compiler API that the ecosystem (typescript-eslint, ts-morph) depends on.
+- **Decision:** `lang-ts` pins `typescript@6.0.3`, the same version as the dev toolchain, so there is one TypeScript in the lockfile. Option A stands.
+- **Revisit trigger (R-03):** TS 7.1's API reaches a stable release, or 6.x is declared unsupported. Migration is confined to `adapters/lang-ts` behind `ProjectResolver`. The golden fixtures (P02-12) are the regression net for that switch.
+
 ## Consequences
 
 - **Phase 00 update (E-32):** TypeScript 7.0.2 (native) is now the npm `latest`, and CIE's toolchain pins 6.0.3. The Phase 02 entry must re-check this ADR: whether the TS 6 JS compiler API remains maintained, and what programmatic API TS 7 offers.

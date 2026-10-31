@@ -37,7 +37,7 @@ Likelihood (L) and Impact (I) are rated H, M or L. Risks marked ⚠ could **inva
 | OQ-06 | Ship a platform-specific VSIX with a bundled runtime (A-05) | Open | Phase 06 stretch |
 | OQ-07 | JSON-RPC framing: newline-delimited vs `Content-Length` headers | Open | Phase 06 (the recommendation leans to `Content-Length` for LSP-tooling familiarity) |
 | OQ-08 | ESLint 9 vs 10 (A-08) | **Resolved (Phase 00):** stay on ESLint 9.39.5; typescript-eslint supports both (ADR-0005) | — |
-| OQ-09 | Installing grammar packages without their native install scripts | Open | Phase 02 (spike S2) |
+| OQ-09 | Installing grammar packages without their native install scripts | **Resolved (Phase 02):** the packages are not installed; the four `.wasm` artifacts are vendored in `packages/adapters/grammars/` with a provenance lock, verified at first load (ADR-0010) | — |
 | OQ-10 | Adopt ArchUnitTS for coupling metrics, or custom scripts | **Resolved (Phase 00):** not adopted; `depcruise --metrics` (ARCHITECTURE_FITNESS §1) | — |
 | OQ-11 | `@cie/client` minimum Node (CodeForge declares ≥20, E-20) | Open | Phase 06 / 10 |
 | OQ-12 | Allow read-only `git` invocation (SEC-002 register) | Open | Phase 05 |

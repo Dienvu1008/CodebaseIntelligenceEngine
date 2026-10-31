@@ -1,0 +1,89 @@
+{
+  "format": "cie-grammars/1",
+  "runtime": {
+    "package": "web-tree-sitter",
+    "version": "0.27.1"
+  },
+  "grammars": [
+    {
+      "language": "typescript",
+      "abi": 14,
+      "source": {
+        "package": "tree-sitter-typescript",
+        "version": "0.23.2",
+        "tarball": "https://registry.npmjs.org/tree-sitter-typescript/-/tree-sitter-typescript-0.23.2.tgz",
+        "integrity": "sha512-e04JUUKxTT53/x3Uq1zIL45DoYKVfHH4CZqwgZhPg5qYROl5nQjV+85ruFzFGZxu+QeFVbRTPDRnqL9UbU4VeA=="
+      },
+      "artifact": {
+        "file": "tree-sitter-typescript.wasm",
+        "sha256": "778025db5a8be0e70f8ccc3671e486dfeddd048c25d9e8a70c26de2e1bf6f97d",
+        "bytes": 1413849
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "tree-sitter-typescript.LICENSE",
+        "sha256": "49bf33cf78ef5897e4e161ce1517df7de1ae5042a65b6bcfd44401e0fc606559"
+      }
+    },
+    {
+      "language": "tsx",
+      "abi": 14,
+      "source": {
+        "package": "tree-sitter-typescript",
+        "version": "0.23.2",
+        "tarball": "https://registry.npmjs.org/tree-sitter-typescript/-/tree-sitter-typescript-0.23.2.tgz",
+        "integrity": "sha512-e04JUUKxTT53/x3Uq1zIL45DoYKVfHH4CZqwgZhPg5qYROl5nQjV+85ruFzFGZxu+QeFVbRTPDRnqL9UbU4VeA=="
+      },
+      "artifact": {
+        "file": "tree-sitter-tsx.wasm",
+        "sha256": "79e5da75ea62855a0cd67177685f0164eac87d5f630b3cbe1e0a099751ad30f8",
+        "bytes": 1445638
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "tree-sitter-typescript.LICENSE",
+        "sha256": "49bf33cf78ef5897e4e161ce1517df7de1ae5042a65b6bcfd44401e0fc606559"
+      }
+    },
+    {
+      "language": "javascript",
+      "abi": 15,
+      "source": {
+        "package": "tree-sitter-javascript",
+        "version": "0.25.0",
+        "tarball": "https://registry.npmjs.org/tree-sitter-javascript/-/tree-sitter-javascript-0.25.0.tgz",
+        "integrity": "sha512-1fCbmzAskZkxcZzN41sFZ2br2iqTYP3tKls1b/HKGNPQUVOpsUxpmGxdN/wMqAk3jYZnYBR1dd/y/0avMeU7dw=="
+      },
+      "artifact": {
+        "file": "tree-sitter-javascript.wasm",
+        "sha256": "5fb488d0cabb4775a594bab85682de5ad6ce83c0d6ac997a9f82dd084d571240",
+        "bytes": 411770
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "tree-sitter-javascript.LICENSE",
+        "sha256": "2e0110e07abef7c2548b26ec9d6969775617ca539a0dc8dbeeb14d6452c711d1"
+      }
+    },
+    {
+      "language": "python",
+      "abi": 15,
+      "source": {
+        "package": "tree-sitter-python",
+        "version": "0.25.0",
+        "tarball": "https://registry.npmjs.org/tree-sitter-python/-/tree-sitter-python-0.25.0.tgz",
+        "integrity": "sha512-eCmJx6zQa35GxaCtQD+wXHOhYqBxEL+bp71W/s3fcDMu06MrtzkVXR437dRrCrbrDbyLuUDJpAgycs7ncngLXw=="
+      },
+      "artifact": {
+        "file": "tree-sitter-python.wasm",
+        "sha256": "16108b50df4ee9a30168794252ab55e7c93bfc5765d7fa0aa3e335752c515f47",
+        "bytes": 457883
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "tree-sitter-python.LICENSE",
+        "sha256": "d724405ce238a22c0d35769c5a36b386ad5958192efe8bbb304fb2896254575f"
+      }
+    }
+  ]
+}
