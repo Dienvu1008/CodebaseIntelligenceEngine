@@ -4,6 +4,13 @@
 > Every phase is independently verifiable. Phase N exits only when its exit criteria hold **and** every CRITICAL/HIGH invariant with `phase ≤ N` passes on Windows and Linux (DOMAIN_INVARIANTS §1).
 > Each phase produces a `governance/phase_NN_checklist.yaml` and a `docs/phases/PHASE_NN_SIGNOFF.md`, which follow the CodeForge-style "honest sign-off" format: evidence, deferred items, self-review.
 
+**Branch workflow** (agreed with the project owner after Phase 00):
+- `main` contains only **closed** phases.
+- Each phase is developed on a branch `phase-NN`, which starts from `main`.
+- A phase closes in this order: the checklist is complete, `governance/phase.yaml` is bumped, CI is green on the full matrix, the owner approves, and then `main` is **fast-forwarded** to the closing commit (never force-pushed) and `phase-NN` is deleted.
+- The next phase branch starts from the new `main`.
+- At most two branches exist at any time: `main` and the phase in progress.
+
 ## Overview
 
 ```mermaid
