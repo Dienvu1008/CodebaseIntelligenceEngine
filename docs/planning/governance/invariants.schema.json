@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cie.local/governance/invariants.schema.json",
+  "title": "CIE Invariant Register",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "invariants"],
+  "properties": {
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/invariant" }
+    }
+  },
+  "definitions": {
+    "invariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "owner",
+        "kind",
+        "enforcement",
+        "violation_class",
+        "test",
+        "phase",
+        "severity",
+        "status"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z]{2,3}-[0-9]{3}$" },
+        "statement": { "type": "string", "minLength": 20 },
+        "owner": {
+          "type": "string",
+          "enum": [
+            "workspace",
+            "code-intelligence",
+            "knowledge",
+            "documentation",
+            "synchronization",
+            "runtime",
+            "vscode-extension"
+          ]
+        },
+        "kind": { "type": "string", "enum": ["hard", "recommendation"] },
+        "enforcement": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^(domain|db|validator|type|adapter|ci|report):.+$"
+          }
+        },
+        "violation_class": {
+          "type": "string",
+          "enum": ["REJECT", "ABORT_PUBLISH", "DOWNGRADE", "CONFLICT", "QUARANTINE", "CI_FAIL", "NONE"]
+        },
+        "test": {
+          "type": "string",
+          "pattern": "^tests/invariants/[a-z]{2,3}/[a-z]{2,3}-[0-9]{3}\\.spec\\.ts$"
+        },
+        "phase": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "severity": { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM"] },
+        "status": { "type": "string", "enum": ["ACTIVE", "DEPRECATED"] },
+        "deprecated_by": { "type": "string", "pattern": "^[A-Z]{2,3}-[0-9]{3}$" },
+        "notes": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "recommendation" } } },
+          "then": { "properties": { "severity": { "const": "MEDIUM" } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "DEPRECATED" } } },
+          "then": { "required": ["notes"] }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,59 @@
+# Evidence Register
+
+> Every **[Fact]** in this package cites one of the entries below.
+> Retrieval date for all web evidence: **2026-10-31**. Versions move over time, so re-verify at the phase listed under "Re-verify".
+> Content from sources has been summarized or paraphrased for compliance with licensing restrictions.
+
+## External evidence
+
+| ID | Claim (summary) | Source | Re-verify |
+|---|---|---|---|
+| E-01 | Node.js v20 reached EOL on 2026-03-24. v22, v24 and v26 have LTS status. v27 is Alpha (first released 2026-10-29). Starting with v27, every major release becomes LTS on an annual cycle. Production should use Active or Maintenance LTS only. | [nodejs.org: Previous releases](https://nodejs.org/en/about/previous-releases) | Phase 00 |
+| E-02 | `web-tree-sitter` latest is **0.27.1** (MIT). It ships ESM and CJS entry points plus `web-tree-sitter.wasm`, and was built with Node 24. | [npm registry: web-tree-sitter](https://registry.npmjs.org/web-tree-sitter/latest) | Phase 02 |
+| E-03 | `tree-sitter-typescript` **0.23.2** ships `tree-sitter-typescript.wasm` and `tree-sitter-tsx.wasm`, plus native prebuilds for win32, linux and darwin (x64/arm64) and `queries/tags.scm`. | [unpkg file listing](https://unpkg.com/tree-sitter-typescript@0.23.2/?meta) | Phase 02 |
+| E-04 | `tree-sitter-python` **0.25.0** ships `tree-sitter-python.wasm`, native prebuilds and `queries/tags.scm`. | [unpkg file listing](https://unpkg.com/tree-sitter-python@0.25.0/?meta) | Phase 02 |
+| E-05 | `tree-sitter-javascript` latest is **0.25.0**, with peer `tree-sitter ^0.25`. Whether it ships a `.wasm` was **not verified**. | [npm registry: tree-sitter-javascript](https://registry.npmjs.org/tree-sitter-javascript/latest) | Phase 02 |
+| E-06 | The latest tree-sitter core release is **v0.27.1**. | [GitHub releases: tree-sitter](https://github.com/tree-sitter/tree-sitter/releases) | Phase 02 |
+| E-07 | `better-sqlite3` latest is **13.0.3** (MIT) and declares `engines.node >=22`. It exposes per-platform entry points (`win32-x64`, `linux-x64`, `darwin-*`, `linuxmusl-*`, `*-arm64`) with `gypfile: false`, which indicates bundled prebuilt binaries. | [npm registry: better-sqlite3](https://registry.npmjs.org/better-sqlite3/latest) | Phase 01 (spike S1) |
+| E-08 | `node:sqlite` was added in v22.5.0 and unflagged in v22.13.0/v23.4.0 while still experimental. It became a **release candidate** in v24.15.0. | [Node.js v24 docs: sqlite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html) | Phase 01 |
+| E-09 | MCP's current protocol version is **2026-07-28**. Version is declared per request in `_meta` (`io.modelcontextprotocol/protocolVersion`), and `server/discover` is mandatory. Handshake-based revisions (2025-11-25 and earlier) have a backward-compatibility path. | [MCP specification: versioning](https://modelcontextprotocol.io/specification/versioning) | Phase 09 |
+| E-10 | `@modelcontextprotocol/sdk` latest is **1.32.2** (MIT, ESM/CJS, Node ≥18). `zod` is a required peer. Its dev tooling uses Vitest 4 and `@typescript/native-preview`. | [npm registry: MCP SDK](https://registry.npmjs.org/@modelcontextprotocol/sdk/latest) | Phase 09 |
+| E-11 | VS Code Webview guidance: scripts are disabled by default; restrict `localResourceRoots`; use a CSP starting from `default-src 'none'` with `${webview.cspSource}`; avoid inline scripts; sanitize workspace-derived content; prefer `getState`/`setState` over `retainContextWhenHidden`; a `WebviewPanelSerializer` restores panels. | [VS Code API: Webviews](https://code.visualstudio.com/api/extension-guides/webview) | Phase 06 |
+| E-12 | ArchUnitTS (npm `archunit`) latest is **2.5.4** (MIT) with a single maintainer. It advertises Jest, Vitest and Mocha integration, circular-dependency and code-metric rules, and depends on `typescript`. | [npm registry: archunit](https://registry.npmjs.org/archunit/latest) | Phase 00 |
+| E-13 | The **Kùzu** embedded graph DB GitHub project is **archived**. The last release, 0.11.3, bundles some extensions, and there is no official extension server. | [GitHub: kuzudb/kuzu](https://github.com/kuzudb/kuzu) | n/a |
+| E-14 | DuckDB **duckpgq** is a community extension that adds SQL/PGQ and graph algorithms. It is described as an ongoing research project, and DuckDB 2.0 requires opting in to its grammar. | [DuckDB community extensions: duckpgq](https://duckdb.org/community_extensions/extensions/duckpgq) | n/a |
+| E-15 | SCIP is a language-agnostic Protobuf index format with TypeScript bindings. Indexers exist for TS/JS (`scip-typescript`), Python (`scip-python`), Dart (`scip-dart`) and others. | [GitHub: SCIP](https://github.com/sourcegraph/scip) | Phase 08 |
+| E-16 | `@sourcegraph/scip-typescript` **0.6.0** (Apache-2.0) requires Node ≥22.23.4 and depends on `typescript ^6.0.3`. | [npm registry: scip-typescript](https://registry.npmjs.org/@sourcegraph/scip-typescript/latest) | Phase 08 |
+| E-17 | `scip-python` is a Pyright fork. It requires Python 3.10+ and Node 16+, and calls `pip` to discover the environment unless an `--environment` file is supplied. Large projects can run out of memory. | [GitHub: scip-python](https://github.com/sourcegraph/scip-python) | Phase 08 |
+
+## Local evidence (CodeForge-v2, read-only inspection)
+
+Base path: `c:\Users\Dienv\Desktop\My Projects\VS Code Extensions\CodeForge v2` (referred to as `CF/`).
+
+| ID | Claim (summary) | Location |
+|---|---|---|
+| E-20 | CodeForge is an npm-workspaces ESM TypeScript monorepo with `engines.node >=20`. Scripts include `depcruise`, `test:invariants` and `test:contracts`. | `CF/package.json` |
+| E-21 | The governance format is `INVARIANTS.md` plus `invariants.yaml` and `invariants.schema.json` (draft-07). The ID pattern is `^[A-Z]{2}-[0-9]{3}$`, with fields id, statement, enforcement, violation_class, test, phase, severity and status. CI must fail when a CRITICAL invariant has no test. | `CF/INVARIANTS.md`, `CF/invariants.yaml`, `CF/invariants.schema.json` |
+| E-22 | The domain guard combines ESLint `no-restricted-imports` with dependency-cruiser `no-domain-to-infrastructure` and `no-circular`. CI runs on ubuntu and windows. | `CF/eslint.config.js`, `CF/.dependency-cruiser.cjs`, `CF/.github/workflows/` |
+| E-23 | The context integration seam is `ContextProvider.collect(changedPaths?, plan?): Promise<ContextSignals>`, where `ContextSignals = {workspaceFiles, symbols: RetrievedSymbol[], importReverseEdges, changedPaths}`. The collector must degrade and never throw. | `CF/packages/agent-core/src/execution/task-executor.ts` (≈ lines 394–414) |
+| E-24 | `RetrievedSymbol = {file, name, kind, startLine, endLine (0-indexed), exported}`. `RagItem = {source:'doc'\|'repo', path, content, score, reason}`. All workspace content is marked untrusted. | `CF/packages/agent-core/src/context/retriever.ts`, `CF/packages/agent-core/src/domain/memory.ts` |
+| E-25 | `ContextSource` carries `revisionId`, `externalUrl` and `symbolName`. CONTEXT_SPEC defines `CONTEXT_REVISION_STALE`. Advice is reorder-only and passes through `AdviceGate` with flag-off parity. | `CF/packages/agent-core/src/domain/context.ts`, `CF/CONTEXT_SPEC.md` §13.3, `CF/packages/agent-core/src/domain/advice.ts` |
+| E-26 | CodeForge uses web-tree-sitter 0.20.8 with tree-sitter-wasms 0.1.13, an ABI-pinned pair. Newer web-tree-sitter versions reject those grammars. | `CF/packages/infrastructure/src/code-intelligence/tree-sitter-adapter.ts` |
+| E-27 | CodeForge uses `better-sqlite3` (native). The VS Code extension never loads it; it spawns the runtime on system Node and talks over local HTTP. | `CF/packages/infrastructure/src/sqlite/database.ts`, `CF/packages/vscode-extension/package.json` |
+| E-28 | Migrations combine `PRAGMA user_version` with a `schema_versions` table. They are forward-only, contiguous and run one transaction per migration. | `CF/packages/infrastructure/src/sqlite/migrations/registry.ts` |
+| E-29 | CodeForge has no MCP client or server and no embeddings or vector store. | Repository-wide search (sub-agent report) |
+| E-31 | CodeForge's model providers are `ollama`, `openai-compatible` and `gemini`. The default Ollama endpoint is `http://localhost:11434`, and the extension defaults to provider `ollama`. | `CF/packages/infrastructure/src/model/provider-adapter.ts`, `CF/packages/vscode-extension/package.json` |
+| E-30 | Security model trust levels: workspace content (T4) and model output (T3) are untrusted and never authority. All tool execution goes through a single ToolGateway. | `CF/SECURITY_MODEL.md` §1, §3.3 |
+
+## Unverified items, carried as assumptions
+
+| ID | Assumption | Verification point |
+|---|---|---|
+| A-01 | WASM grammars built by tree-sitter-cli 0.24/0.25 (E-03, E-04) load in web-tree-sitter 0.27.1 (E-02). | Phase 02 entry spike S2 |
+| A-02 | better-sqlite3 13.x prebuilds load on Node 24 and Node 26 on win32-x64 and linux-x64. | Phase 01 entry spike S1 |
+| A-03 | The better-sqlite3 bundled SQLite build has FTS5 enabled. | Spike S1 |
+| A-04 | The Node version embedded in the current VS Code Electron host is irrelevant to the runtime because the runtime runs on system Node. Extension-host code must only use APIs available in that embedded Node. | Phase 06 |
+| A-05 | VS Code supports platform-specific VSIX packages, which allows a runtime with native prebuilds to be bundled per target. | Phase 06 |
+| A-06 | The TypeScript compiler API (in-process `Program` / `LanguageService`) does not load tsserver plugins declared in a project's `tsconfig.json`. | Phase 02 (adversarial test) |
+| A-07 | `fs.watch` with `recursive: true` is supported on Windows and Linux for the chosen Node LTS. | Phase 05 |
+| A-08 | ESLint 10 exists: `web-tree-sitter` dev dependencies reference `eslint ^10.9.0` (E-02). The support window for ESLint 9 is unverified. | Phase 00 |

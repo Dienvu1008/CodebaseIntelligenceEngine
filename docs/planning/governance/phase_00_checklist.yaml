@@ -1,0 +1,95 @@
+# Phase 00 checklist: Architecture and Domain Baseline.
+# scripts/check-governance.mjs (itself a Phase 00 deliverable) validates this file. Every item has a
+# machine-checkable `check` describing how CI verifies it. Items with status: pending block the Phase 00 exit.
+version: "1.0"
+phase: 0
+title: Architecture and Domain Baseline
+scope_rule: >
+  Scaffold, governance wiring, domain primitive types and empty port interfaces ONLY.
+  No adapter implementations, no SQLite, no tree-sitter, no file walking, no CLI, no JSON-RPC (NFR-044).
+platform:
+  ci_runners: [windows-latest, ubuntu-latest]
+  node: ["24", "26"]          # ADR-0004
+  macos: deferred
+license:
+  decision: open              # ADR-0013: do NOT create a LICENSE file
+  manifests: { private: true, license: UNLICENSED }
+
+items:
+  # --- Repository scaffold ---
+  - id: P00-01
+    title: Root package.json with npm workspaces, engines.node ">=24 <27", private, license UNLICENSED
+    status: pending
+    check: "fitness/manifests.spec.ts"
+  - id: P00-02
+    title: .npmrc with save-exact=true and engine-strict=true; committed package-lock.json
+    status: pending
+    check: "fitness/manifests.spec.ts"
+  - id: P00-03
+    title: tsconfig.base.json (strict, NodeNext, noUncheckedIndexedAccess, exactOptionalPropertyTypes, verbatimModuleSyntax) + solution tsconfig.json
+    status: pending
+    check: "npm run typecheck"
+  - id: P00-04
+    title: Packages protocol, core, adapters, runtime with empty src/index.ts and exports maps
+    status: pending
+    check: "fitness/exports.spec.ts"
+  - id: P00-05
+    title: core context folders (shared-kernel, workspace, code-intelligence, knowledge, documentation, synchronization, query) each with public.ts
+    status: pending
+    check: "fitness/depcruise-rules.spec.ts"
+
+  # --- Domain primitives and ports (types only) ---
+  - id: P00-06
+    title: shared-kernel types (branded IDs, CanonicalPath type, SourceRange, ContentHash, Result, DomainError, Clock, Hasher, CancellationSignal)
+    status: pending
+    check: "fitness/shared-kernel.spec.ts + unit tests"
+  - id: P00-07
+    title: Empty port interfaces for Phase 01 (FileSystem, ConfigSource, WorkspaceRepository, RevisionStore, RevisionWriter, LeaseManager, JobRepository, ChangeSource)
+    status: pending
+    check: "npm run typecheck; fitness/type-level.spec.ts"
+
+  # --- Governance ---
+  - id: P00-08
+    title: Move docs/planning/governance/* to /governance (leave a pointer README), add fitness.yaml and shared-kernel.allowlist
+    status: pending
+    check: "node scripts/check-governance.mjs"
+  - id: P00-09
+    title: scripts/check-governance.mjs (schema, test presence for phase <= CIE_PHASE, ID no-removal vs base branch, md<->yaml parity)
+    status: pending
+    check: "fitness/governance.spec.ts (good and bad fixtures)"
+  - id: P00-10
+    title: ESLint 9 flat config with boundary guards (FF-DEP-002/003/004/005, FF-CPX-005)
+    status: pending
+    check: "npm run lint"
+  - id: P00-11
+    title: .dependency-cruiser.cjs per ARCHITECTURE_FITNESS section 4 plus one violation fixture per rule
+    status: pending
+    check: "fitness/depcruise-rules.spec.ts"
+  - id: P00-12
+    title: ArchUnitTS trial and adopt/reject decision recorded (OQ-10)
+    status: pending
+    check: "manual: decision recorded in ARCHITECTURE_FITNESS or an ADR"
+
+  # --- CI ---
+  - id: P00-13
+    title: CI workflows governance, dependency-direction, test (matrix windows/ubuntu x Node 24/26)
+    status: pending
+    check: "CI green on main"
+  - id: P00-14
+    title: Exact dependency versions selected via npm view and recorded below (pinned_versions)
+    status: pending
+    check: "manual review"
+
+pinned_versions: {}   # filled during Phase 00: typescript, vitest, eslint, typescript-eslint, dependency-cruiser, ajv, js-yaml, fast-check
+
+fitness_functions_active:
+  [FF-DEP-001, FF-DEP-002, FF-DEP-003, FF-DEP-004, FF-DEP-005, FF-DEP-006, FF-DEP-007,
+   FF-BND-001, FF-BND-002, FF-BND-007, FF-CPX-004, FF-CPX-005, FF-DAT-007]
+
+invariants_due: []    # no domain invariant has phase 0; Phase 01 is the first invariant gate
+
+exit_criteria:
+  - "npm ci && npm run typecheck && npm run lint && npm run depcruise && npm test && node scripts/check-governance.mjs green on all CI matrix cells"
+  - "every FF rule listed above fires on its violation fixture"
+  - "no file outside the scope_rule was added (reviewed in sign-off)"
+  - "PHASE_00_SIGNOFF.md written with evidence and deferred items"

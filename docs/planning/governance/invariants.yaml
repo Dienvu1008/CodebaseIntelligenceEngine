@@ -1,0 +1,510 @@
+# CIE invariant register: the machine-readable mirror of docs/planning/DOMAIN_INVARIANTS.md.
+# It is validated against invariants.schema.json by scripts/check-governance.mjs (Phase 00 deliverable).
+#
+# CI rules (NFR-041):
+#   - Each ACTIVE CRITICAL or HIGH invariant with phase <= CIE_PHASE must have its test file present and passing.
+#   - IDs are never removed. To retire one, set status: DEPRECATED, add notes (required),
+#     and add deprecated_by (optional) when a replacement invariant exists.
+#
+# Phase 00 moves this file to the repository root under governance/.
+version: "1.0"
+invariants:
+  # ---------------- Workspace ----------------
+  - id: WS-001
+    statement: Structural revision-scoped records carrying a source path reference a CanonicalPath with a FileRecord version visible at the same seq; explicit evidence and anchors reference a known file_key plus the contentHash of the observed version.
+    owner: workspace
+    kind: hard
+    enforcement: ["db:fk node/evidence -> file_key", "validator:interval-aware visibility check"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/ws/ws-001.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: WS-002
+    statement: Every stored or accepted path is canonical (relative, '/'-separated, NFC, no '.', '..' or empty segments, no drive/UNC prefix) and its realpath lies within the workspace root; escaping symlinks are excluded.
+    owner: workspace
+    kind: hard
+    enforcement: ["domain:PathCanonicalizer", "adapter:FileSystem guard"]
+    violation_class: REJECT
+    test: tests/invariants/ws/ws-002.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: WS-003
+    statement: A runtime instance is bound to exactly one WorkspaceId; stores whose meta.workspace_id differs are refused, and requests with a different workspaceId are rejected.
+    owner: workspace
+    kind: hard
+    enforcement: ["adapter:store open check", "domain:request guard"]
+    violation_class: REJECT
+    test: tests/invariants/ws/ws-003.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: WS-004
+    statement: For identical file tree and configuration, the enumerated manifest and manifestHash are byte-identical across runs, operating systems and locales (UTF-16 code-unit ordering).
+    owner: workspace
+    kind: hard
+    enforcement: ["domain:IgnoreEvaluator", "domain:ManifestBuilder"]
+    violation_class: CI_FAIL
+    test: tests/invariants/ws/ws-004.spec.ts
+    phase: 1
+    severity: HIGH
+    status: ACTIVE
+  # ---------------- Symbols ----------------
+  - id: SY-001
+    statement: SymbolId is a pure function of (language, modulePath, qualifiedName, kind, disambiguator); identical content and producer version yield identical IDs.
+    owner: code-intelligence
+    kind: hard
+    enforcement: ["domain:SymbolIdentity", "type:private SymbolId constructor"]
+    violation_class: CI_FAIL
+    test: tests/invariants/sy/sy-001.spec.ts
+    phase: 2
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SY-002
+    statement: At any revision seq, no two visible symbol records share a SymbolId.
+    owner: code-intelligence
+    kind: hard
+    enforcement: ["db:partial unique index", "validator:duplicate check"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/sy/sy-002.spec.ts
+    phase: 2
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SY-003
+    statement: Each visible symbol's range lies within its file content at that revision, and spanHash equals sha256 of the UTF-8 encoding of the decoded text in that range.
+    owner: code-intelligence
+    kind: hard
+    enforcement: ["domain:extractor computes spanHash from parsed buffer", "validator:bounds + sampled rehash"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/sy/sy-003.spec.ts
+    phase: 2
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SY-004
+    statement: On publishing revision N, every symbol visible at N-1 is classified exactly once as unchanged, modified, moved, renamed or deleted, and moved and renamed symbols have lineage records.
+    owner: code-intelligence
+    kind: hard
+    enforcement: ["domain:SymbolMatcher", "validator:classification count"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/sy/sy-004.spec.ts
+    phase: 5
+    severity: HIGH
+    status: ACTIVE
+  - id: SY-005
+    statement: Every symbol, reference and structural edge records a ProducerRef (adapterId, adapterVersion, toolVersion, fidelity).
+    owner: code-intelligence
+    kind: hard
+    enforcement: ["db:not null", "type:FileExtraction requires producer"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/sy/sy-005.spec.ts
+    phase: 2
+    severity: HIGH
+    status: ACTIVE
+  - id: SY-006
+    statement: An edge is recorded with precision exact only if the producer fidelity for that edge type is L3; unresolvable constructs target an explicit unresolved placeholder node, never a guessed target.
+    owner: code-intelligence
+    kind: hard
+    enforcement: ["domain:FileExtraction factory vs CapabilityProfile", "validator:precision check"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/sy/sy-006.spec.ts
+    phase: 2
+    severity: HIGH
+    status: ACTIVE
+  # ---------------- Knowledge graph ----------------
+  - id: KG-001
+    statement: For every relation or edge visible at seq S, both endpoint nodes are visible at S; removing a node closes all incident relations in the same staging transaction.
+    owner: knowledge
+    kind: hard
+    enforcement: ["db:fk stable node_key", "validator:interval-aware endpoint check"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/kg/kg-001.spec.ts
+    phase: 2
+    severity: CRITICAL
+    status: ACTIVE
+  - id: KG-002
+    statement: Every relation type is registered, its endpoint kinds match the type signature, and the claim status is allowed for that type.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:RelationType registry", "db:check against registry table"]
+    violation_class: REJECT
+    test: tests/invariants/kg/kg-002.spec.ts
+    phase: 3
+    severity: HIGH
+    status: ACTIVE
+  - id: KG-003
+    statement: Every structural node (file, directory, module, package, symbol) corresponds 1:1 to a visible backing record and its NodeId is derived from that record's identity.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:node projection only", "validator:backing check"]
+    violation_class: ABORT_PUBLISH
+    test: tests/invariants/kg/kg-003.spec.ts
+    phase: 3
+    severity: HIGH
+    status: ACTIVE
+  - id: KG-004
+    statement: Every GraphReadModel traversal requires explicit maxDepth and limit no greater than server caps, and reports truncated when a bound is hit.
+    owner: knowledge
+    kind: hard
+    enforcement: ["type:required bound parameters", "domain:cap clamping"]
+    violation_class: REJECT
+    test: tests/invariants/kg/kg-004.spec.ts
+    phase: 3
+    severity: HIGH
+    status: ACTIVE
+  # ---------------- Provenance ----------------
+  - id: PV-001
+    statement: A verified claim at seq S has at least one evidence item of kind filesystem, ast, compiler, scip or lsp with seq <= S whose contentHash matches its locator target at S; otherwise it cannot be verified-current.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:ClaimVerifier", "validator:pre-publish query", "domain:StalenessEvaluator"]
+    violation_class: DOWNGRADE
+    test: tests/invariants/pv/pv-001.spec.ts
+    phase: 3
+    severity: CRITICAL
+    status: ACTIVE
+  - id: PV-002
+    statement: Claim status changes follow only the defined transition table; transitions into verified are performed only by ClaimVerifier and every transition records actor and reason.
+    owner: knowledge
+    kind: hard
+    enforcement: ["type:markVerified capability token", "domain:transition guard"]
+    violation_class: REJECT
+    test: tests/invariants/pv/pv-002.spec.ts
+    phase: 3
+    severity: CRITICAL
+    status: ACTIVE
+  - id: PV-003
+    statement: Every evidence item has kind, producer (id and version), seq, contentHash and a locator that is either a workspace (path, range) or an artifact reference.
+    owner: knowledge
+    kind: hard
+    enforcement: ["db:not null", "type:Evidence constructor"]
+    violation_class: REJECT
+    test: tests/invariants/pv/pv-003.spec.ts
+    phase: 3
+    severity: CRITICAL
+    status: ACTIVE
+  - id: PV-004
+    statement: After publishing revision N, claims with evidence whose locator content hash changed in N have freshness stale until re-verified; verified and stale is never reported as verified-current.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:StalenessEvaluator in publish transaction"]
+    violation_class: DOWNGRADE
+    test: tests/invariants/pv/pv-004.spec.ts
+    phase: 5
+    severity: HIGH
+    status: ACTIVE
+  - id: PV-005
+    statement: user_asserted claims originate from repo Markdown and record their origin; generators and LLM intake never create, modify or delete them.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:claim factory per origin", "type:origin-typed factories"]
+    violation_class: REJECT
+    test: tests/invariants/pv/pv-005.spec.ts
+    phase: 4
+    severity: HIGH
+    status: ACTIVE
+  - id: PV-006
+    statement: An inferred claim should cite at least one anchor-resolvable evidence item; claims without one are flagged in quality reports.
+    owner: knowledge
+    kind: recommendation
+    enforcement: ["report:quality report"]
+    violation_class: NONE
+    test: tests/invariants/pv/pv-006.spec.ts
+    phase: 7
+    severity: MEDIUM
+    status: ACTIVE
+  # ---------------- Synchronization ----------------
+  - id: SN-001
+    statement: Freshness is current iff the head revision is published and no change event affecting an included path has seq greater than head.watermark; publish requires watermark >= max seq of the source ChangeSet.
+    owner: synchronization
+    kind: hard
+    enforcement: ["domain:PublishPolicy", "domain:FreshnessEvaluator"]
+    violation_class: REJECT
+    test: tests/invariants/sn/sn-001.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SN-002
+    statement: publish(R) succeeds iff head.seq equals R.baseSeq at commit time; otherwise it fails with PublishConflict.
+    owner: synchronization
+    kind: hard
+    enforcement: ["db:conditional update with changes() = 1"]
+    violation_class: REJECT
+    test: tests/invariants/sn/sn-002.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SN-003
+    statement: No query observes rows introduced or closed by revision N unless N is published; publishing N makes all of its rows visible in one transaction.
+    owner: synchronization
+    kind: hard
+    enforcement: ["adapter:pinned-seq read filter", "db:single-transaction pointer update"]
+    violation_class: CI_FAIL
+    test: tests/invariants/sn/sn-003.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SN-004
+    statement: At most one index job per workspace holds a valid write lease; staging writes require the lease; an expired-lease takeover abandons the previous staging revision.
+    owner: synchronization
+    kind: hard
+    enforcement: ["db:single-row lease CAS", "domain:IndexJob"]
+    violation_class: REJECT
+    test: tests/invariants/sn/sn-004.spec.ts
+    phase: 1
+    severity: HIGH
+    status: ACTIVE
+  - id: SN-005
+    statement: On startup, revisions in building or validating without a valid lease are abandoned or resumed and are never published without completed validation.
+    owner: synchronization
+    kind: hard
+    enforcement: ["domain:RecoveryService at startup"]
+    violation_class: NONE
+    test: tests/invariants/sn/sn-005.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SN-006
+    statement: Every query response includes the revision seq and freshness it was answered from; continuations answer from the same seq or fail with CIE_REVISION_UNAVAILABLE.
+    owner: runtime
+    kind: hard
+    enforcement: ["type:response envelope", "adapter:protocol mapping"]
+    violation_class: CI_FAIL
+    test: tests/invariants/sn/sn-006.spec.ts
+    phase: 6
+    severity: HIGH
+    status: ACTIVE
+  - id: SN-007
+    statement: The set of rows visible at a published revision never changes while it is retained, except setting valid_to_seq to a later seq and GC deletion after retention.
+    owner: synchronization
+    kind: hard
+    enforcement: ["adapter:RevisionWriter API", "validator:revision digest comparison"]
+    violation_class: CI_FAIL
+    test: tests/invariants/sn/sn-007.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SN-008
+    statement: For any anchor, link or evidence locator recorded at seq S < head, AnchorResolver determines resolved, redirected, drifted or deleted from head data, lineage and spanHash without a full re-index.
+    owner: synchronization
+    kind: hard
+    enforcement: ["domain:AnchorResolver"]
+    violation_class: NONE
+    test: tests/invariants/sn/sn-008.spec.ts
+    phase: 5
+    severity: HIGH
+    status: ACTIVE
+  # ---------------- Documentation ----------------
+  - id: DOC-001
+    statement: Every byte of a wiki page belongs to exactly one section; bytes inside matched cie:begin/cie:end markers are generated and all other bytes are user-owned.
+    owner: documentation
+    kind: hard
+    enforcement: ["domain:PageParser", "domain:WikiPage"]
+    violation_class: REJECT
+    test: tests/invariants/doc/doc-001.spec.ts
+    phase: 4
+    severity: CRITICAL
+    status: ACTIVE
+  - id: DOC-002
+    statement: The generator replaces a generated section only if the hash of its current on-disk content equals the recorded writtenHash; otherwise a conflict is recorded and the page is not modified.
+    owner: documentation
+    kind: hard
+    enforcement: ["domain:SectionWriteGuard", "adapter:PageStore locked read-compare-write"]
+    violation_class: CONFLICT
+    test: tests/invariants/doc/doc-002.spec.ts
+    phase: 4
+    severity: CRITICAL
+    status: ACTIVE
+  - id: DOC-003
+    statement: After any generator write, all user-owned bytes of the page are byte-identical to before the write, including line endings and BOM.
+    owner: documentation
+    kind: hard
+    enforcement: ["domain:splice-only writer"]
+    violation_class: CI_FAIL
+    test: tests/invariants/doc/doc-003.spec.ts
+    phase: 4
+    severity: CRITICAL
+    status: ACTIVE
+  - id: DOC-004
+    statement: For each revision every link in every page is classified resolved, redirected, stale or broken, and wiki.validate reports all broken and stale links with position.
+    owner: documentation
+    kind: hard
+    enforcement: ["domain:LinkResolver"]
+    violation_class: NONE
+    test: tests/invariants/doc/doc-004.spec.ts
+    phase: 4
+    severity: HIGH
+    status: ACTIVE
+  - id: DOC-005
+    statement: Every page has a workspace-unique front-matter cie.id that survives file renames and moves; duplicate IDs invalidate both pages until resolved.
+    owner: documentation
+    kind: hard
+    enforcement: ["domain:page registry"]
+    violation_class: REJECT
+    test: tests/invariants/doc/doc-005.spec.ts
+    phase: 4
+    severity: HIGH
+    status: ACTIVE
+  - id: DOC-006
+    statement: Every generated section records its generation seq and source IDs, and is marked stale when any source is changed, deleted or stale at head.
+    owner: documentation
+    kind: hard
+    enforcement: ["domain:SectionStaleness"]
+    violation_class: DOWNGRADE
+    test: tests/invariants/doc/doc-006.spec.ts
+    phase: 5
+    severity: HIGH
+    status: ACTIVE
+  - id: DOC-007
+    statement: A page with unpaired, nested, overlapping or duplicate-ID markers receives no generator writes and is reported as MALFORMED_MARKERS.
+    owner: documentation
+    kind: hard
+    enforcement: ["domain:PageParser"]
+    violation_class: REJECT
+    test: tests/invariants/doc/doc-007.spec.ts
+    phase: 4
+    severity: HIGH
+    status: ACTIVE
+  - id: DOC-008
+    statement: A concept page should reference at least one symbol or file, or declare cie.abstract true.
+    owner: documentation
+    kind: recommendation
+    enforcement: ["report:wiki.validate"]
+    violation_class: NONE
+    test: tests/invariants/doc/doc-008.spec.ts
+    phase: 4
+    severity: MEDIUM
+    status: ACTIVE
+  # ---------------- AI ----------------
+  - id: AI-001
+    statement: LLM output may reference code only through anchor, symbol or claim IDs supplied in the prompt; any other location-like content is discarded and never persisted.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:InferenceIntake allow-list resolution", "type:intake output carries IDs only"]
+    violation_class: REJECT
+    test: tests/invariants/ai/ai-001.spec.ts
+    phase: 7
+    severity: CRITICAL
+    status: ACTIVE
+  - id: AI-002
+    statement: Claims created from LLM output have status inferred or unknown; no LLM-facing component can obtain the markVerified capability or alter existing claim status.
+    owner: knowledge
+    kind: hard
+    enforcement: ["type:capability token", "ci:depcruise FF-BND-005"]
+    violation_class: CI_FAIL
+    test: tests/invariants/ai/ai-002.spec.ts
+    phase: 7
+    severity: CRITICAL
+    status: ACTIVE
+  - id: AI-003
+    statement: Every LLM output schema admits insufficient_evidence; schema-invalid outputs are rejected, never coerced, and create no claims.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:InferenceIntake schema validation"]
+    violation_class: REJECT
+    test: tests/invariants/ai/ai-003.spec.ts
+    phase: 7
+    severity: HIGH
+    status: ACTIVE
+  - id: AI-004
+    statement: With llm.provider none, all requirements except FR-060..FR-065 pass; CI runs the default suite with llm-none.
+    owner: runtime
+    kind: hard
+    enforcement: ["ci:default test configuration"]
+    violation_class: CI_FAIL
+    test: tests/invariants/ai/ai-004.spec.ts
+    phase: 1
+    severity: HIGH
+    status: ACTIVE
+  # ---------------- Security ----------------
+  - id: SEC-001
+    statement: Repo-derived text in LLM prompts appears only inside delimited untrusted-content blocks under a fixed system prompt and never selects tools, providers, endpoints or file targets.
+    owner: knowledge
+    kind: hard
+    enforcement: ["domain:PromptBuilder sole LlmRequest constructor"]
+    violation_class: CI_FAIL
+    test: tests/invariants/sec/sec-001.spec.ts
+    phase: 7
+    severity: HIGH
+    status: ACTIVE
+  - id: SEC-002
+    statement: CIE never spawns processes derived from repository content (except registered user-enabled exceptions) and writes only under .cie/ and the configured wiki directory, apart from the registered explicitly authorized write exceptions.
+    owner: runtime
+    kind: hard
+    enforcement: ["adapter:FileSystem write guard", "ci:depcruise FF-DEP-007"]
+    violation_class: REJECT
+    test: tests/invariants/sec/sec-002.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SEC-003
+    statement: A request reaches a remote LLM provider only with recorded per-workspace consent from the user config directory and after SecretRedactor processing with secret files excluded.
+    owner: runtime
+    kind: hard
+    enforcement: ["adapter:GuardedProvider", "ci:remote adapters exported only via guard"]
+    violation_class: REJECT
+    test: tests/invariants/sec/sec-003.spec.ts
+    phase: 7
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SEC-004
+    statement: No query-profile method writes to source files, wiki files or .cie stores (read caches excepted), and MCP exposes only query-profile methods.
+    owner: runtime
+    kind: hard
+    enforcement: ["adapter:method registry profile tags", "adapter:read-only ports for query handlers"]
+    violation_class: CI_FAIL
+    test: tests/invariants/sec/sec-004.spec.ts
+    phase: 6
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SEC-005
+    statement: Security-sensitive settings (llm, consent, endpoints, publishGenerated, enricher commands, telemetry) are read only from user-level configuration, never from files inside the workspace.
+    owner: runtime
+    kind: hard
+    enforcement: ["adapter:ConfigLoader per-source allow-list"]
+    violation_class: REJECT
+    test: tests/invariants/sec/sec-005.spec.ts
+    phase: 1
+    severity: CRITICAL
+    status: ACTIVE
+  - id: SEC-006
+    statement: The Webview receives only protocol DTOs and sanitized rendering, every inbound message is schema-validated by the host, CSP is default-src none with nonce scripts, and localResourceRoots is restricted.
+    owner: vscode-extension
+    kind: hard
+    enforcement: ["adapter:extension host message router"]
+    violation_class: REJECT
+    test: tests/invariants/sec/sec-006.spec.ts
+    phase: 6
+    severity: HIGH
+    status: ACTIVE
+  # ---------------- Public API ----------------
+  - id: API-001
+    statement: The protocol package follows semver per API major version; removals, renames, narrowing or semantic changes require a new major version, detected by contract snapshot tests.
+    owner: runtime
+    kind: hard
+    enforcement: ["ci:API snapshot diff FF-BND-006"]
+    violation_class: CI_FAIL
+    test: tests/invariants/api/api-001.spec.ts
+    phase: 9
+    severity: HIGH
+    status: ACTIVE
+  - id: API-002
+    statement: Every list response has limit <= serverMaxLimit and continuation cursors encode the revision seq and never mix revisions.
+    owner: runtime
+    kind: hard
+    enforcement: ["type:paginated envelope", "adapter:limit clamp"]
+    violation_class: REJECT
+    test: tests/invariants/api/api-002.spec.ts
+    phase: 6
+    severity: HIGH
+    status: ACTIVE
+  - id: API-003
+    statement: Every error response carries a registered CieErrorCode and never exposes absolute paths outside the workspace, stack traces or secret values.
+    owner: runtime
+    kind: hard
+    enforcement: ["adapter:error mapper"]
+    violation_class: CI_FAIL
+    test: tests/invariants/api/api-003.spec.ts
+    phase: 6
+    severity: MEDIUM
+    status: ACTIVE
