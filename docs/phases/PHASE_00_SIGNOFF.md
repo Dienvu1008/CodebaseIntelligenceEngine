@@ -1,6 +1,6 @@
 # Phase 00 Sign-off: Architecture and Domain Baseline
 
-- **Status:** **DRAFT.** Pending CI on the full matrix (checklist item P00-13).
+- **Status:** **Accepted.** CI was green on the full matrix for commit `d06a1da`, as reported by the project owner; the agent had no CLI access to the Actions API.
 - **Date:** 2026-10-31
 - **Branch:** `phase-00`
 - **Checklist:** [`governance/phase_00_checklist.yaml`](../../governance/phase_00_checklist.yaml)
@@ -16,7 +16,7 @@
 - [x] **ESLint 9 guards** (FF-DEP-002/003/004/005, FF-CPX-001 warn, FF-CPX-005), proven to fire. Evidence: `tests/fitness/eslint-guards.spec.ts`.
 - [x] **Governance.** Files moved to `/governance`, plus `fitness.yaml`, `shared-kernel.allowlist` and `phase.yaml`. `scripts/check-governance.mjs` runs 10 checks. Its failure modes are tested: invalid schema, unparseable YAML, a due CRITICAL invariant without a test, a removed ID, a strict or lenient missing base, md↔yaml parity, a missing depcruise rule, a non-allow-listed kernel file, a `utils/` folder, a CodeForge manifest dependency, and pending items of an earlier phase. Evidence: `tests/fitness/governance.spec.ts`.
 - [x] **Exact pins** recorded in the checklist (`pinned_versions`).
-- [ ] **CI green on windows-latest and ubuntu-latest × Node 24 and 26.** The workflow is written (`.github/workflows/ci.yml`), but it has only been verified locally, on **Windows + Node 24.15.0**. Linux and Node 26 have not been run.
+- [x] **CI green on windows-latest and ubuntu-latest × Node 24 and 26** (`.github/workflows/ci.yml`, commit `d06a1da`, all six jobs). Reported by the project owner.
 
 Local result (`npm run verify`, Windows, Node 24.15.0): typecheck OK, lint 0 problems, depcruise 0 violations, **8 test files / 93 tests passed**, governance OK.
 
@@ -52,6 +52,12 @@ No adapter implementation, no SQLite, no tree-sitter, no file walking, no CLI, n
 
 `fast-check` (installed when Phase 01 adds property tests), FF-BND-003/004/006/008, all FF-DAT except 007, all FF-PRF, the benchmark harness, and spikes S1 and S2 (Phase 01 and Phase 02 entry).
 
-## Next step
+## Closure
 
-Push `phase-00`, open a PR to `main`, and confirm the CI matrix. When it is green, set P00-13 to `done`, mark this document **Accepted**, and bump `governance/phase.yaml` to `current_phase: 1` as the first commit of Phase 01. check-governance then requires the Phase 01 invariant tests and a `phase_01_checklist.yaml`.
+`governance/phase.yaml` is now `current_phase: 1`, which closes Phase 00. While drafting this step we found a gap in the gate semantics, contradiction **C-11**: under the original "`phase <= current`" rule, Phase 01 would have been red from its very first commit. The rule is now:
+
+- invariants of **completed** phases are errors;
+- invariants of the phase **in progress** are warnings;
+- bumping `current_phase` is the act of closing a phase.
+
+Recorded in RISKS_AND_OPEN_QUESTIONS §4, and covered by `tests/fitness/governance.spec.ts`.

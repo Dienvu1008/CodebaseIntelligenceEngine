@@ -166,7 +166,7 @@ Each decision below came from the planning dialogue and is traceable to requirem
 | ID | Requirement | Tag |
 |---|---|---|
 | NFR-040 | `invariants.yaml` and `invariants.schema.json` exist from Phase 00 and are validated in CI | HR |
-| NFR-041 | CI fails if a CRITICAL ACTIVE invariant with `phase ≤ current` has no test file, or if its test fails | HR |
+| NFR-041 | CI fails if a CRITICAL or HIGH ACTIVE invariant of a **completed** phase (`phase < current_phase`, see C-11) has no test file, or if any test fails. Invariants of the phase in progress are reported as warnings. | HR |
 | NFR-042 | Blocking fitness functions run on every PR on Windows and Linux | HR |
 | NFR-043 | Invariants are never deleted, only `DEPRECATED` | HR |
 | NFR-044 | Phase 00 is limited to scaffold, governance wiring, domain primitive types and empty ports | HR |

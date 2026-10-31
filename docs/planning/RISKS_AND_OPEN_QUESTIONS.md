@@ -81,6 +81,7 @@ These contradictions were found during the final cross-document pass and resolve
 | C-08 | The brief lists "Provenance and Evidence" as a context, while PV-001 requires claim and evidence consistency in one transaction | Provenance was merged into Knowledge, and its vocabulary is published for the other contexts | BOUNDED_CONTEXTS §1 |
 | C-09 | The brief's `KnowledgeProvider` returns bare arrays and non-nullable `getSymbol` | Envelope plus pagination plus nullable results, and segregated ports | PUBLIC_API_CONTRACT §1, §4 |
 | C-10 | The brief preferred inheriting CodeForge's Node 20 baseline, but Node 20 is EOL (E-01) | Node `>=24 <27`, with a CI matrix of 24 and 26 (ADR-0004) | ADR-0004, REQUIREMENTS NFR-053 |
+| C-11 | (Found in Phase 00 closure.) "CI fails if an invariant with `phase ≤ current` has no test" would make a phase red from its first commit, because its invariant tests are written *during* the phase | `current_phase` = the phase in progress. Completed phases (`<`) are hard gates; in-progress invariants are warnings; bumping `current_phase` closes a phase and requires its gate to be green | `scripts/check-governance.mjs`, `governance/phase.yaml`, REQUIREMENTS NFR-041, DOMAIN_INVARIANTS §1, ADR-0012 |
 
 ## 5. Readiness statement (honest)
 

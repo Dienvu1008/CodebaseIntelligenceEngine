@@ -74,8 +74,8 @@ items:
   # --- CI ---
   - id: P00-13
     title: CI workflows governance, dependency-direction, test (matrix windows/ubuntu x Node 24/26)
-    status: pending
-    check: "CI green on all matrix cells (verified locally only on windows + Node 24 so far)"
+    status: done
+    check: "CI green on all matrix cells for commit d06a1da on branch phase-00 (reported by the project owner, 2026-10-31)"
   - id: P00-14
     title: Exact dependency versions selected via npm view and recorded below (pinned_versions)
     status: done

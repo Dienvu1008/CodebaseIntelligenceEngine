@@ -18,7 +18,7 @@ Each invariant has the following fields.
 | **Severity** | CRITICAL, HIGH or MEDIUM. |
 | **Phase** | The phase whose exit gate requires the test. |
 
-**Phase gate rule ([HR], NFR-041).** Phase N cannot exit while any `ACTIVE` CRITICAL invariant with `phase ≤ N` lacks a passing test. HIGH invariants with `phase ≤ N` must also pass. MEDIUM and Recommendation items are reported.
+**Phase gate rule ([HR], NFR-041, C-11).** Phase N cannot exit, meaning `governance/phase.yaml` cannot move past N, while any `ACTIVE` CRITICAL invariant with `phase ≤ N` lacks a passing test. HIGH invariants with `phase ≤ N` must also pass. MEDIUM and Recommendation items are reported.
 
 **What is *not* an invariant.** The following are coding conventions, enforced by lint or review rather than by this register:
 - naming;

@@ -96,14 +96,22 @@ export function checkInvariantIdsUnique(doc, report) {
   }
 }
 
-/** @param {string} root @param {any} doc @param {number} phase @param {Report} report */
+/**
+ * `phase` is the phase IN PROGRESS (governance/phase.yaml). Invariants of completed phases (< phase) are
+ * hard gates (errors). Invariants of the in-progress phase are reported as warnings so progress is visible;
+ * they become errors the moment the phase is closed by bumping current_phase (contradiction log C-11).
+ * @param {string} root @param {any} doc @param {number} phase @param {Report} report
+ */
 export function checkInvariantTestPresence(root, doc, phase, report) {
   for (const inv of invariantList(doc)) {
     const gated = inv.status === 'ACTIVE' && (inv.severity === 'CRITICAL' || inv.severity === 'HIGH');
-    if (gated && inv.phase <= phase && !existsSync(abs(root, inv.test))) {
+    if (!gated || inv.phase > phase || existsSync(abs(root, inv.test))) continue;
+    if (inv.phase < phase) {
       report.errors.push(
-        `invariant-test-presence: ${inv.id} (${inv.severity}, phase ${inv.phase}) is due by phase ${phase} but ${inv.test} is missing`,
+        `invariant-test-presence: ${inv.id} (${inv.severity}, phase ${inv.phase}) is required because phase ${inv.phase} is closed, but ${inv.test} is missing`,
       );
+    } else {
+      report.warnings.push(`invariant-test-presence: ${inv.id} (${inv.severity}) is due at the exit of phase ${phase}; ${inv.test} not written yet`);
     }
   }
 }

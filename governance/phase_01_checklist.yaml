@@ -1,0 +1,85 @@
+# Phase 01 checklist: Workspace and File Intelligence (IMPLEMENTATION_ROADMAP, Phase 01).
+# Phase 01 closes when every item is done (or deferred, with a reason) and governance/phase.yaml moves to 2.
+# From that point on, check-governance turns every missing Phase 01 invariant test into an error (C-11).
+version: "1.0"
+phase: 1
+title: Workspace and File Intelligence
+scope_rule: >
+  Files and structure only (file, directory, package nodes) in immutable published revisions, with the
+  full revision, lease and recovery machinery, plus a dev CLI. Excluded: symbol extraction, the graph
+  beyond file/dir/package nodes, watcher, incremental indexing, JSON-RPC, LLM providers other than llm-none.
+
+items:
+  # --- Entry spike ---
+  - id: P01-01
+    title: "Spike S1: better-sqlite3 (exact pin) loads, opens a WAL DB and creates an FTS5 table on Node 24 and 26, win32-x64 and linux-x64 (A-02, A-03)"
+    status: pending
+    check: "packages/adapters/test/sqlite-spike.spec.ts green on the full CI matrix; result recorded in ADR-0004 and ADR-0008"
+
+  # --- Domain (core) ---
+  - id: P01-02
+    title: workspace domain - PathCanonicalizer (WS-002) with adversarial vectors (.., drive, UNC, \\?\, mixed separators, NFC, ADS, reserved names)
+    status: pending
+    check: "tests/invariants/ws/ws-002.spec.ts; tests/adversarial/paths"
+  - id: P01-03
+    title: workspace domain - IgnoreEvaluator (.gitignore semantics, CIE defaults, cie.config.json allow-list); matcher library choice recorded
+    status: pending
+    check: "packages/core/test + golden ignore vectors"
+  - id: P01-04
+    title: workspace domain - deterministic ManifestBuilder (UTF-16 code-unit order, manifestHash)
+    status: pending
+    check: "tests/invariants/ws/ws-004.spec.ts"
+  - id: P01-05
+    title: synchronization domain - IndexRevision, IndexJob, PublishPolicy, FreshnessEvaluator, RecoveryService
+    status: pending
+    check: "tests/invariants/sn/*.spec.ts"
+
+  # --- Adapters ---
+  - id: P01-06
+    title: adapters/fs - GuardedFileSystem (realpath confinement, write confinement + SEC-002 exception register)
+    status: pending
+    check: "tests/invariants/sec/sec-002.spec.ts"
+  - id: P01-07
+    title: adapters/sqlite - open checks (quick_check, schema, meta.workspace_id), migrations framework, revision/lease/file/node tables, visibility-filter query builder, quarantine + rebuild
+    status: pending
+    check: "tests/invariants/ws/ws-003.spec.ts; tests/invariants/sn/sn-002,003,007; FF-DAT-001/002/004/005"
+  - id: P01-08
+    title: adapters/config - workspace allow-list + user config dir (SEC-005)
+    status: pending
+    check: "tests/invariants/sec/sec-005.spec.ts"
+
+  # --- Runtime ---
+  - id: P01-09
+    title: runtime - composition root, llm-none default, startup recovery, dev CLI (cie dev index|status|export, --state-dir)
+    status: pending
+    check: "tests/invariants/ai/ai-004.spec.ts; CLI smoke test"
+
+  # --- Governance, fitness, tests ---
+  - id: P01-10
+    title: "Phase 01 invariant tests: WS-001..004, SN-001, SN-002, SN-003, SN-004, SN-005, SN-007, SEC-002, SEC-005, AI-004"
+    status: pending
+    check: "node scripts/check-governance.mjs with CIE_PHASE=2 (no missing Phase 01 tests)"
+  - id: P01-11
+    title: "Fitness: FF-DAT-001/002/004/005, FF-BND-003, FF-DEP-008 full per-adapter allow-list, FF-PRF-006 correctness"
+    status: pending
+    check: "governance/fitness.yaml entries ACTIVE with resolvable enforced_by"
+  - id: P01-12
+    title: Crash injection at each pipeline stage (SN-005) and adversarial config suite
+    status: pending
+    check: "tests/invariants/sn/sn-005.spec.ts; tests/adversarial/config"
+
+  # --- Benchmarks and dogfooding ---
+  - id: P01-13
+    title: Benchmark harness skeleton, environment capture, benchmarks/fixtures.json with pinned SHAs (Zod, Requests, CodeForge-v2), results JSON schema
+    status: pending
+    check: "B-01/B-02/B-10/B-11 recorded for the small tier (no thresholds, NFR-066)"
+  - id: P01-14
+    title: Dogfood - index fixtures/*, Zod, Requests and CodeForge-v2 (read-only, --state-dir outside the fixture); export byte-identical across runs and OSes
+    status: pending
+    check: "cross-platform CI job comparing export hashes"
+  - id: P01-15
+    title: docs/phases/PHASE_01_SIGNOFF.md written with evidence, deferred items and self-review
+    status: pending
+    check: "manual review"
+
+invariants_due: [WS-001, WS-002, WS-003, WS-004, SN-001, SN-002, SN-003, SN-004, SN-005, SN-007, SEC-002, SEC-005, AI-004]

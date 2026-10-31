@@ -92,20 +92,30 @@ describe('check-governance failure modes', () => {
     expect(runChecks(options(dir)).errors.some((e) => e.includes('cannot parse'))).toBe(true);
   });
 
-  it('rejects a CRITICAL invariant that is due but has no test file', () => {
+  it('rejects a CRITICAL invariant of a closed phase that has no test file', () => {
     const dir = makeRepo();
     editRegister(dir, (reg) => {
       find(reg, 'WS-001').phase = 0;
     });
-    const errors = runChecks(options(dir)).errors;
+    const errors = runChecks(options(dir, { phase: 1 })).errors;
     expect(errors.some((e) => e.startsWith('invariant-test-presence: WS-001'))).toBe(true);
   });
 
-  it('does not require tests for invariants of later phases', () => {
+  it('only warns for invariants of the phase in progress, and ignores later phases (C-11)', () => {
     const dir = makeRepo();
-    expect(runChecks(options(dir, { phase: 0 })).errors.filter((e) => e.startsWith('invariant-test-presence'))).toEqual([]);
-    const phase1 = runChecks(options(dir, { phase: 1 })).errors.filter((e) => e.startsWith('invariant-test-presence'));
-    expect(phase1.length).toBeGreaterThan(0);
+    const presence = (p: number) => {
+      const r = runChecks(options(dir, { phase: p }));
+      return {
+        errors: r.errors.filter((e) => e.startsWith('invariant-test-presence')),
+        warnings: r.warnings.filter((w) => w.startsWith('invariant-test-presence')),
+      };
+    };
+    expect(presence(0)).toEqual({ errors: [], warnings: [] });
+    const inProgress = presence(1);
+    expect(inProgress.errors).toEqual([]);
+    expect(inProgress.warnings.some((w) => w.includes('WS-001'))).toBe(true);
+    const closed = presence(2);
+    expect(closed.errors.some((e) => e.includes('WS-001'))).toBe(true);
   });
 
   it('rejects a removed invariant ID', () => {
@@ -163,10 +173,12 @@ describe('check-governance failure modes', () => {
     expect(runChecks(options(dir)).errors.some((e) => e.startsWith('manifest-codeforge-scan:'))).toBe(true);
   });
 
-  it('rejects pending items of an earlier phase and a missing checklist for the current phase', () => {
+  it('rejects pending items of a closed phase and a missing checklist for the current phase', () => {
     const dir = makeRepo();
-    const errors = runChecks(options(dir, { phase: 1 })).errors;
+    const file = path.join(dir, 'governance', 'phase_00_checklist.yaml');
+    writeFileSync(file, readFileSync(file, 'utf8').replace('status: done', 'status: pending'));
+    const errors = runChecks(options(dir, { phase: 9 })).errors;
     expect(errors.some((e) => e.includes('phase_00_checklist.yaml') && e.includes('still pending'))).toBe(true);
-    expect(errors.some((e) => e.includes('phase_01_checklist.yaml is missing'))).toBe(true);
+    expect(errors.some((e) => e.includes('phase_09_checklist.yaml is missing'))).toBe(true);
   });
 });

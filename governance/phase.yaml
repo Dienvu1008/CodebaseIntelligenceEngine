@@ -1,4 +1,7 @@
-# The phase currently being implemented. check-governance enforces test presence for every ACTIVE
-# CRITICAL/HIGH invariant with phase <= current_phase. The CIE_PHASE environment variable overrides it.
-# Bump this value as the first commit of each new phase.
-current_phase: 0
+# The phase currently IN PROGRESS (contradiction log C-11).
+#   - Invariants of completed phases (phase < current_phase) are hard gates: a missing test is an error.
+#   - Invariants of the in-progress phase are reported as warnings until the phase is closed.
+#   - Checklists of completed phases must have no pending items.
+# Bumping current_phase CLOSES the previous phase, so it is the last commit of a phase, made only when
+# that phase's gate is green. The CIE_PHASE environment variable overrides this value.
+current_phase: 1

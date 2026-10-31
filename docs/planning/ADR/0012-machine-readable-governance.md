@@ -17,7 +17,7 @@
 2. `governance/phase_NN_checklist.yaml` exists per phase and is machine-checked.
 3. **Phase 00 delivers `scripts/check-governance.mjs`**, which:
    - validates the YAML against its schema;
-   - fails if any `ACTIVE` invariant with `severity: CRITICAL` and `phase <= CIE_PHASE` has a missing test file;
+   - fails if any `ACTIVE` CRITICAL or HIGH invariant of a completed phase (`phase < current_phase`, from `governance/phase.yaml` or `CIE_PHASE`) has a missing test file. Invariants of the phase in progress produce warnings (C-11);
    - fails if an ID that existed in the base branch has disappeared, since retirement requires `DEPRECATED`.
 4. **Gate.** Phase N is not complete while any CRITICAL invariant with `phase ≤ N` is failing or missing.
 5. **Fitness functions** are listed in `governance/fitness.yaml` (Phase 00 deliverable). This package specifies them in ARCHITECTURE_FITNESS.
