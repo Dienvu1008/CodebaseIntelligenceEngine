@@ -11,7 +11,7 @@ import Database from 'better-sqlite3';
 import { domainError, err, ok, type Clock, type DomainError, type Result, type WorkspaceId } from '@cie/core';
 
 /** Bump whenever the DDL below changes. Older files are rebuilt. */
-export const INDEX_SCHEMA_VERSION = 4;
+export const INDEX_SCHEMA_VERSION = 5;
 
 const DDL = `
 create table meta (key text primary key, value text not null) strict;
@@ -52,10 +52,13 @@ create table file (
   skip_reason text,
   size integer not null check (size >= 0),
   lang text,
+  -- Lines of the decoded content (Phase 03, SY-003 a). A pure function of the hash, set by graph staging for
+  -- extracted files; null for files no extractor processed.
+  line_count integer check (line_count is null or line_count >= 1),
   valid_from_seq integer not null,
   valid_to_seq integer,
   check ((status = 'indexed' and hash is not null and skip_reason is null)
-      or (status = 'skipped' and hash is null and skip_reason is not null and lang is null)),
+      or (status = 'skipped' and hash is null and skip_reason is not null and lang is null and line_count is null)),
   check (valid_to_seq is null or valid_to_seq > valid_from_seq)
 ) strict;
 create index file_key_vis on file(file_key, valid_to_seq);

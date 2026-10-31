@@ -47,6 +47,8 @@ export interface DevRuntimeOptions {
   readonly mode: 'writer' | 'follower';
   readonly env?: Readonly<Record<string, string | undefined>>;
   readonly clock?: Clock;
+  /** Span hashes rehashed before each publish (SY-003 b); null rehashes all. Defaults to DEFAULT_SPAN_SAMPLE. */
+  readonly spanSample?: number | null;
 }
 
 export interface DevRuntime {
@@ -167,6 +169,7 @@ export async function openDevRuntime(opts: DevRuntimeOptions): Promise<Result<De
         ...(onStage === undefined ? {} : { onStage }),
         ...(state === null ? {} : { jobs: state.jobs }),
         code: { registry: registered.value, fs },
+        ...(opts.spanSample === undefined ? {} : { spanSample: opts.spanSample }),
       });
     },
     recentJobs: (limit) => state?.jobs.recent(limit) ?? [],

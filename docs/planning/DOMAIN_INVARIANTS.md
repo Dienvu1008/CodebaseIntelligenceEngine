@@ -85,6 +85,9 @@ Architecture rules are **fitness functions** (FF-*), not domain invariants (see 
   - (a) `s.range` lies within the bounds of the file content whose hash is `file.hash` at `S`.
   - (b) `s.spanHash = sha256(utf8(text(file, s.range)))`, where `text` is the file content decoded per CODE_INTELLIGENCE_STRATEGY §6.1. Hashing the UTF-8 encoding of decoded text keeps the value platform- and encoding-independent (contradiction log C-04).
 - **Enforcement:** The extractor computes spanHash from the same buffer it parsed. `validator:` checks bounds for all records and recomputes the hash for a deterministic sample at runtime (sample size is configurable), and for all records in tests.
+  - Since Phase 03 (P03-02): `createFileExtraction` refuses ranges past the file's line count.
+  - The RevisionValidator checks line bounds for every stored symbol against `file.line_count`.
+  - IndexService rehashes a deterministic sample of the stored symbols from the file content before `decidePublish` (default 200, `spanSample`).
 - **Violation:** ABORT_PUBLISH · **Kind:** Hard · **Severity:** CRITICAL · **Phase:** 02
 - **Test:** `tests/invariants/sy/sy-003.spec.ts`
 

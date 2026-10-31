@@ -59,6 +59,8 @@ export function extractionInput(overrides: Overrides = {}): FileExtractionInput 
   return {
     language,
     contentHash: hashOf('content'),
+    // Large enough for every hand-written range in the domain tests; SY-003 tests override it.
+    lineCount: 10_000,
     producer: producer(),
     profile: profile(language, 'L1'),
     symbols: [],

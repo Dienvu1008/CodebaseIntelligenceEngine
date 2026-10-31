@@ -47,7 +47,7 @@ export interface BuiltCodeGraph {
 }
 
 const EMPTY: BuiltCodeGraph = {
-  graph: { nodes: [], edges: [], diagnostics: [] },
+  graph: { nodes: [], edges: [], files: [], diagnostics: [] },
   stats: { extractedFiles: 0, symbols: 0, nodes: 0, edges: 0, skipped: [], diagnostics: 0 },
   diagnostics: [],
 };

@@ -153,6 +153,7 @@ export class TreeSitterExtractor implements FileExtractor {
         path: input.path,
         language: input.language,
         contentHash: input.contentHash,
+        lineCount: source.lineCount,
         producer: lang.producer,
         profile: lang.profile,
         symbols: this.symbols(lang, root, source),

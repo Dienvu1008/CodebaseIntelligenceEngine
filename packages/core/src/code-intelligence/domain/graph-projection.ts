@@ -77,9 +77,21 @@ export interface ProjectionDiagnostic {
   readonly path: CanonicalPath | null;
 }
 
+/**
+ * Per-file facts the store keeps with the file version, not with nodes: the line count lets the
+ * RevisionValidator check SY-003 (a) for every symbol without the file content.
+ */
+export interface SourceFileFacts {
+  readonly path: CanonicalPath;
+  readonly contentHash: ContentHash;
+  readonly lineCount: number;
+}
+
 export interface CodeGraph {
   readonly nodes: readonly CodeNode[];
   readonly edges: readonly CodeEdge[];
+  /** One entry per extracted file, sorted by path. */
+  readonly files: readonly SourceFileFacts[];
   readonly diagnostics: readonly ProjectionDiagnostic[];
 }
 
@@ -197,6 +209,7 @@ export function projectCodeGraph(extractions: readonly FileExtraction[], resolve
   return {
     nodes: [...nodes.values()].sort((a, b) => byString(a.id, b.id)),
     edges: [...edges.entries()].sort((a, b) => byString(a[0], b[0])).map(([, e]) => e),
+    files: extractions.map((e) => ({ path: e.path, contentHash: e.contentHash, lineCount: e.lineCount })).sort((a, b) => byString(a.path, b.path)),
     diagnostics,
   };
 }

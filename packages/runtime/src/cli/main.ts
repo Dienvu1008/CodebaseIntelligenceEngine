@@ -67,6 +67,7 @@ async function indexCommand(rt: DevRuntime, json: boolean, timings: boolean): Pr
         `  files: +${o.files.inserted} -${o.files.closed} =${o.files.unchanged}; structure: +${o.structure.inserted} -${o.structure.closed} =${o.structure.unchanged}\n` +
         `  code: ${o.code.extractedFiles} files, ${o.code.symbols} symbols; nodes: +${o.graph.nodes.inserted} -${o.graph.nodes.closed} =${o.graph.nodes.unchanged}; ` +
         `edges: +${o.graph.edges.inserted} -${o.graph.edges.closed} =${o.graph.edges.unchanged}; skipped: ${o.code.skipped.length}; diagnostics: ${o.code.diagnostics}\n` +
+        `  spans: ${o.spans.checked}/${o.spans.total} rehashed` + (o.spans.unverifiable > 0 ? `, ${o.spans.unverifiable} unverifiable (changed during index)` : '') + '\n' +
         `  ignored: ${o.enumeration.ignored}; unrepresentable names: ${o.enumeration.unrepresentable.length}; unlistable dirs: ${o.enumeration.unlistable.length}` +
         (o.recovered.length > 0 ? `; recovered: ${o.recovered.map((a) => `abandoned r${a.seq}`).join(', ')}` : '') +
         '\n',

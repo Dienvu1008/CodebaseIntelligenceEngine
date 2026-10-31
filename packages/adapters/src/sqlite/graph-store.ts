@@ -12,6 +12,8 @@ import {
   formatProducer,
   importEdgeViolations,
   type CanonicalPath,
+  type ContentHash,
+  type StoredSpan,
   type CodeEdge,
   type CodeGraph,
   type CodeNode,
@@ -210,9 +212,47 @@ function stageGraphEdges(db: Database.Database, keys: Keys, seq: number, base: M
   return stats;
 }
 
+/**
+ * Records the line count of every extracted file on its file version (SY-003 a). The line count is a pure
+ * function of the content hash, so a row carried from the base already holds the right value. A row this
+ * revision introduced is still unpublished and is completed in place. A carried row without the value (its
+ * file was never extracted before) is not updated: it is closed and re-versioned at `seq` (SN-007).
+ */
+function stageFileFacts(db: Database.Database, visibleAt: VisibleAt, seq: number, files: CodeGraph['files']): void {
+  const find = db.prepare(
+    `select f.id, f.file_key, f.status, f.hash, f.size, f.lang, f.line_count, f.valid_from_seq
+     from file f join file_key k on k.key = f.file_key where k.path = @path and ${visibleAt('f')}`,
+  );
+  const complete = db.prepare('update file set line_count = ? where id = ?');
+  const close = db.prepare('update file set valid_to_seq = ? where id = ? and valid_to_seq is null');
+  const reversion = db.prepare("insert into file (file_key, status, hash, skip_reason, size, lang, line_count, valid_from_seq) values (?, 'indexed', ?, null, ?, ?, ?, ?)");
+  for (const f of files) {
+    const row = find.get({ path: f.path, seq }) as
+      | { id: number; file_key: number; status: string; hash: string | null; size: number; lang: string | null; line_count: number | null; valid_from_seq: number }
+      | undefined;
+    if (row === undefined || row.status !== 'indexed') {
+      throw new GraphStagingError('WS_001_UNKNOWN_FILE', `the code graph has facts for ${f.path}, which is not an indexed file of this revision (WS-001)`, { file: f.path });
+    }
+    if (row.hash !== f.contentHash) {
+      throw new GraphStagingError('SY_003_CONTENT_MISMATCH', `${f.path} was extracted from content ${f.contentHash}, but the manifest has ${row.hash} (SY-003)`, { file: f.path });
+    }
+    if (!Number.isSafeInteger(f.lineCount) || f.lineCount < 1) {
+      throw new GraphStagingError('SY_003_LINE_COUNT_INVALID', `${f.path} has an invalid line count ${f.lineCount}`, { file: f.path });
+    }
+    if (row.line_count === f.lineCount) continue;
+    if (row.valid_from_seq === seq) {
+      complete.run(f.lineCount, row.id);
+      continue;
+    }
+    close.run(seq, row.id);
+    reversion.run(row.file_key, row.hash, row.size, row.lang, f.lineCount, seq);
+  }
+}
+
 /** Stages one revision's code graph. Call inside the store's write transaction; throws GraphStagingError. */
 export function stageGraph(db: Database.Database, visibleAt: VisibleAt, seq: number, baseSeq: number | null, graph: CodeGraph): GraphStageStats {
   checkUnique(graph);
+  stageFileFacts(db, visibleAt, seq, graph.files);
   const keys = new Keys(db);
   // Nodes first: edges may point at nodes introduced by this very revision.
   const nodes = stageGraphNodes(db, keys, seq, baseNodes(db, visibleAt, baseSeq), graph.nodes);
@@ -292,6 +332,67 @@ function attributionViolations(db: Database.Database, visibleAt: VisibleAt, seq:
   return out;
 }
 
+/**
+ * SY-003 (a) for every visible symbol, from the stored line count of its file version: the range is well
+ * formed and ends on an existing line. Columns need the content; the span-hash sample covers them
+ * (synchronization/application/span-check.ts).
+ */
+function boundsViolations(db: Database.Database, visibleAt: VisibleAt, seq: number): string[] {
+  const rows = db
+    .prepare(
+      `select k.node_id as id, n.start_line as sl, n.start_col as sc, n.end_line as el, n.end_col as ec, f.line_count as lines
+       from node n join node_key k on k.key = n.node_key
+       left join file f on f.file_key = n.file_key and ${visibleAt('f')}
+       where ${visibleAt('n')} and n.kind = 'symbol'
+         and (f.line_count is null or n.end_line >= f.line_count or n.start_line < 0 or n.start_col < 0 or n.end_col is null or n.end_col < 0
+              or n.start_line > n.end_line or (n.start_line = n.end_line and n.start_col > n.end_col))
+       order by k.node_id`,
+    )
+    .all({ seq }) as Array<{ id: string; sl: number; sc: number; el: number; ec: number | null; lines: number | null }>;
+  return rows.map((r) =>
+    r.lines === null
+      ? `SY-003: symbol ${r.id} has no line count for its file at seq ${seq}, so its range cannot be checked`
+      : `SY-003: symbol ${r.id} range ${r.sl}:${r.sc}-${r.el}:${r.ec ?? '?'} is outside its file (${r.lines} line(s))`,
+  );
+}
+
 export function graphViolations(db: Database.Database, visibleAt: VisibleAt, seq: number): string[] {
-  return [...endpointViolations(db, visibleAt, seq), ...duplicateViolations(db, visibleAt, seq), ...evidenceViolations(db, visibleAt, seq), ...attributionViolations(db, visibleAt, seq)];
+  return [
+    ...endpointViolations(db, visibleAt, seq),
+    ...duplicateViolations(db, visibleAt, seq),
+    ...evidenceViolations(db, visibleAt, seq),
+    ...attributionViolations(db, visibleAt, seq),
+    ...boundsViolations(db, visibleAt, seq),
+  ];
+}
+
+/**
+ * A deterministic sample of the symbols visible at `seq` with what SY-003 (b) needs to rehash them: every
+ * k-th symbol in node-id order, k = ceil(total / sample); `sample` null means all of them.
+ */
+export function sampleSymbolSpans(db: Database.Database, visibleAt: VisibleAt, seq: number, sample: number | null): { total: number; records: StoredSpan[] } {
+  const total = db.prepare(`select count(*) from node n where ${visibleAt('n')} and n.kind = 'symbol'`).pluck().get({ seq }) as number;
+  const step = sample === null || sample >= total ? 1 : Math.ceil(total / Math.max(1, sample));
+  const rows = db
+    .prepare(
+      `select id, path, hash, sl, sc, el, ec, span from (
+         select k.node_id as id, fk.path, f.hash, n.start_line as sl, n.start_col as sc, n.end_line as el, n.end_col as ec, n.span_hash as span,
+                row_number() over (order by k.node_id) as rn
+         from node n join node_key k on k.key = n.node_key
+         join file_key fk on fk.key = n.file_key
+         left join file f on f.file_key = n.file_key and ${visibleAt('f')}
+         where ${visibleAt('n')} and n.kind = 'symbol')
+       where (rn - 1) % @step = 0 order by rn`,
+    )
+    .all({ seq, step }) as Array<{ id: string; path: string; hash: string | null; sl: number; sc: number; el: number; ec: number; span: string }>;
+  return {
+    total,
+    records: rows.map((r) => ({
+      id: r.id,
+      path: r.path as CanonicalPath,
+      fileHash: r.hash as ContentHash | null,
+      range: { startLine: r.sl, startCol: r.sc, endLine: r.el, endCol: r.ec },
+      spanHash: r.span as ContentHash,
+    })),
+  };
 }

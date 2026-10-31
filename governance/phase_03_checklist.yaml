@@ -18,8 +18,9 @@ items:
     notes: "adapters/lang-ts/program.ts: one Program per project over the snapshot-only VirtualWorkspace, noLib, types [], noEmit, no plugins; built and dropped one at a time. The adversarial test asserts an exact (checker-made) binding in the plugin-declaring project, mutation-checked. ADR-0016 'Phase 03 implementation'; EVIDENCE A-06."
   - id: P03-02
     title: "Carry-over: SY-003 span check at publish (RevisionValidator recomputes bounds for all symbols and a deterministic sample of span hashes, per DOMAIN_INVARIANTS), using the stored file line counts"
-    status: pending
+    status: done
     check: "tests/invariants/sy/sy-003.spec.ts gains a store-level case: a tampered range or span hash aborts publish"
+    notes: "Schema v5 file.line_count, carried in CodeGraph.files and written by graph staging: completed in place only on rows introduced at the seq, else re-versioned (SN-007); a content-hash mismatch is refused. The RevisionValidator checks bounds in SQL for every symbol. IndexService rehashes a deterministic sample of the stored symbols (RevisionWriter.sampleSpans, every k-th by node id, default 200, spanSample null = all) from re-read bytes before decidePublish. A changed file is unverifiable, not a violation. Store-level (tampered range, tampered hash, shifted column) and pipeline (corrupting extractor) cases are mutation-checked. Full rehash on Zod 7059/7059, CodeForge-v2 6075/6075, Requests 1007/1007: no violations. The default sample costs ~0.4 s on CodeForge-v2 (measured under memory pressure). `dev index` prints the span stats."
   - id: P03-03
     title: "Carry-over: exact imports_symbol through the TypeChecker (re-exports, barrels, overloads, destructured require), replacing the Phase 02 heuristic binding for TS/JS"
     status: done

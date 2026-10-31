@@ -3,7 +3,8 @@
  * SN-001..SN-005, ADR-0015). Application layer: it orchestrates domain rules and ports, and does no I/O itself.
  *
  *   acquire lease → recover → begin(head) → enumerate → manifest → extract → resolve (code graph, Phase 02)
- *     → stage files + structure + code graph → validating → validate → decidePublish (SN-001) → publish (CAS)
+ *     → stage files + structure + code graph → validating → validate + span check (SY-003)
+ *     → decidePublish (SN-001) → publish (CAS)
  *     → release
  *
  * Any failure after `begin` abandons the staging revision, so no partial revision is ever left behind by a
@@ -20,6 +21,7 @@ import { planRecovery, type RecoveryAction } from '../domain/recovery.js';
 import type { ChangeSeq } from '../domain/types.js';
 import { buildCodeGraph, type BuiltCodeGraph, type CodeDiagnostic, type CodeIntelligenceDeps, type CodeStats } from './code-graph-build.js';
 import type { JobRecord, JobRepository, Lease, LeaseManager, RevisionStore, RevisionWriter, StageStats } from './ports.js';
+import { DEFAULT_SPAN_SAMPLE, verifySpans } from './span-check.js';
 
 /** Change-log position "no changes recorded yet". */
 const NO_CHANGES = 0 as ChangeSeq;
@@ -49,6 +51,17 @@ export interface IndexServiceDeps {
   readonly jobs?: JobRepository;
   /** Language adapters. Without them the revision gets an empty code graph (structure only). */
   readonly code?: CodeIntelligenceDeps;
+  /**
+   * Span hashes recomputed before publish (SY-003 b), DEFAULT_SPAN_SAMPLE when omitted; null rehashes every
+   * symbol (tests). Bounds are always checked for every symbol.
+   */
+  readonly spanSample?: number | null;
+}
+
+export interface SpanStats {
+  readonly total: number;
+  readonly checked: number;
+  readonly unverifiable: number;
 }
 
 export interface IndexOutcome {
@@ -59,6 +72,7 @@ export interface IndexOutcome {
   readonly graph: { readonly nodes: StageStats; readonly edges: StageStats };
   readonly code: CodeStats;
   readonly codeDiagnostics: readonly CodeDiagnostic[];
+  readonly spans: SpanStats;
   readonly recovered: readonly RecoveryAction[];
   readonly enumeration: Pick<EnumerationResult, 'unrepresentable' | 'unlistable' | 'ignored'>;
 }
@@ -118,6 +132,7 @@ async function buildAndPublish(
     ...staged.value,
     code: code.value.stats,
     codeDiagnostics: code.value.diagnostics,
+    spans: published.value,
     recovered,
     enumeration: { unrepresentable, unlistable, ignored },
   });
@@ -143,10 +158,24 @@ async function stageEverything(
   return ok({ files: files.value, structure: structure.value, graph: graph.value });
 }
 
-async function validateAndPublish(deps: IndexServiceDeps, seq: RevisionSeq): Promise<Result<void, DomainError>> {
+const NO_SPANS: SpanStats = { total: 0, checked: 0, unverifiable: 0 };
+
+/** SY-003 (b) on the staged rows. Without language adapters the revision has no symbols to check. */
+async function checkSpans(deps: IndexServiceDeps, seq: RevisionSeq): Promise<Result<{ stats: SpanStats; violations: readonly string[] }, DomainError>> {
+  if (deps.code === undefined) return ok({ stats: NO_SPANS, violations: [] });
+  const sample = deps.spanSample === undefined ? DEFAULT_SPAN_SAMPLE : deps.spanSample;
+  const r = await verifySpans({ store: deps.store, fs: deps.code.fs, hasher: deps.hasher, signal: deps.signal }, seq, sample);
+  if (!r.ok) return r;
+  const { total, checked, unverifiable, violations } = r.value;
+  return ok({ stats: { total, checked, unverifiable }, violations });
+}
+
+async function validateAndPublish(deps: IndexServiceDeps, seq: RevisionSeq): Promise<Result<SpanStats, DomainError>> {
   const validating = await deps.store.markValidating(seq);
   if (!validating.ok) return validating;
   await deps.onStage?.('validating');
+  const spans = await checkSpans(deps, seq);
+  if (!spans.ok) return spans;
   // An explicit full index processes every path directly, so it covers every change recorded so far. Until
   // the change log exists (Phase 05), both sides of the SN-001 check are the current head watermark.
   const head = await deps.store.head();
@@ -157,13 +186,13 @@ async function validateAndPublish(deps: IndexServiceDeps, seq: RevisionSeq): Pro
     candidate: { ...candidate, watermark },
     headSeq: head?.seq ?? null,
     sourceMaxChangeSeq: watermark,
-    violations: await deps.store.validate(seq),
+    violations: [...(await deps.store.validate(seq)), ...spans.value.violations],
   });
   if (!decision.ok) return decision;
   const published = await deps.store.publish(seq, watermark);
   if (!published.ok) return published;
   await deps.onStage?.('published');
-  return ok(undefined);
+  return ok(spans.value.stats);
 }
 
 export async function runFullIndex(deps: IndexServiceDeps): Promise<Result<IndexOutcome, DomainError>> {

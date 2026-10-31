@@ -5,8 +5,8 @@
  *  - every symbol and import carries a ProducerRef with the fidelity the profile declares (SY-005);
  *  - a producer cannot emit facts for a capability it declares as L0, nor docstrings it does not support
  *    (SY-006: precision and coverage are never overstated);
- *  - ranges are valid, children lie inside their parents and declarations arrive in source order, which
- *    is what makes the `~n` disambiguator deterministic.
+ *  - ranges are valid and end on an existing line (SY-003 a), children lie inside their parents and
+ *    declarations arrive in source order, which is what makes the `~n` disambiguator deterministic.
  * Third-party AST types never reach this module (BOUNDED_CONTEXTS §3): adapters translate into drafts.
  */
 import type { CanonicalPath, ContentHash, DomainError, Result, SourceRange, SymbolId } from '../../shared-kernel/index.js';
@@ -76,6 +76,8 @@ export interface FileExtraction {
   readonly path: CanonicalPath;
   readonly language: LanguageId;
   readonly contentHash: ContentHash;
+  /** Lines of the decoded content (SourceText.lineCount, so at least 1); stored per file version for SY-003 (a). */
+  readonly lineCount: number;
   readonly producer: ProducerIdentity;
   readonly profile: CapabilityProfile;
   readonly symbols: readonly ExtractedSymbol[];
@@ -87,6 +89,7 @@ export interface FileExtractionInput {
   readonly path: CanonicalPath;
   readonly language: LanguageId;
   readonly contentHash: ContentHash;
+  readonly lineCount: number;
   readonly producer: ProducerIdentity;
   readonly profile: CapabilityProfile;
   readonly symbols: readonly SymbolDraft[];
@@ -99,9 +102,14 @@ const endsAfter = (a: SourceRange, b: SourceRange): boolean => a.endLine > b.end
 /** `inner` lies within `outer` (both end-exclusive). */
 const within = (inner: SourceRange, outer: SourceRange): boolean => !before(inner, outer) && !endsAfter(inner, outer);
 
-function checkRange(r: SourceRange, what: string): Result<SourceRange, DomainError> {
+/** A valid range whose lines exist in the file (SY-003 a, as far as line counts can tell). */
+function checkRange(r: SourceRange, what: string, lineCount: number): Result<SourceRange, DomainError> {
   const v = sourceRange(r.startLine, r.startCol, r.endLine, r.endCol);
-  return v.ok ? v : err(domainError('EXTRACTION_RANGE_INVALID', `${what}: ${v.error.message}`, { ...v.error.details, what }));
+  if (!v.ok) return err(domainError('EXTRACTION_RANGE_INVALID', `${what}: ${v.error.message}`, { ...v.error.details, what }));
+  if (r.endLine >= lineCount) {
+    return err(domainError('SY_003_OUT_OF_BOUNDS', `${what}: ends on line ${r.endLine}, but the file has ${lineCount} line(s)`, { what, endLine: r.endLine, lineCount }));
+  }
+  return v;
 }
 
 function requireCapability(profile: CapabilityProfile, capability: Capability, count: number): Result<true, DomainError> {
@@ -122,13 +130,13 @@ function checkDefaultExports(symbols: readonly SymbolDraft[]): Result<true, Doma
   return ok(true);
 }
 
-function checkSymbols(symbols: readonly SymbolDraft[]): Result<readonly (readonly string[])[], DomainError> {
+function checkSymbols(symbols: readonly SymbolDraft[], lineCount: number): Result<readonly (readonly string[])[], DomainError> {
   const defaults = checkDefaultExports(symbols);
   if (!defaults.ok) return defaults;
   const paths: (readonly string[])[] = [];
   for (const [i, s] of symbols.entries()) {
     const what = `symbol #${i} (${s.name})`;
-    const range = checkRange(s.range, what);
+    const range = checkRange(s.range, what, lineCount);
     if (!range.ok) return range;
     const prev = symbols[i - 1];
     if (prev !== undefined && before(s.range, prev.range)) {
@@ -151,8 +159,8 @@ function checkSymbols(symbols: readonly SymbolDraft[]): Result<readonly (readonl
   return ok(paths);
 }
 
-function checkImport(d: ImportDraft, i: number): Result<true, DomainError> {
-  const range = checkRange(d.range, `import #${i}`);
+function checkImport(d: ImportDraft, i: number, lineCount: number): Result<true, DomainError> {
+  const range = checkRange(d.range, `import #${i}`, lineCount);
   if (!range.ok) return range;
   const text = d.specifier.kind === 'literal' ? d.specifier.value : d.specifier.text;
   if (text === '') return err(domainError('EXTRACTION_IMPORT_INVALID', `import #${i} has an empty specifier`, { index: i }));
@@ -161,9 +169,12 @@ function checkImport(d: ImportDraft, i: number): Result<true, DomainError> {
 }
 
 function checkInput(input: FileExtractionInput): Result<readonly (readonly string[])[], DomainError> {
-  const { profile } = input;
+  const { profile, lineCount } = input;
   if (profile.language !== input.language) {
     return err(domainError('CAPABILITY_LANGUAGE_MISMATCH', `profile is for "${profile.language}", the file is "${input.language}"`));
+  }
+  if (!Number.isSafeInteger(lineCount) || lineCount < 1) {
+    return err(domainError('EXTRACTION_LINE_COUNT_INVALID', `lineCount must be a positive integer, got ${lineCount}`, { lineCount }));
   }
   const docs = input.symbols.filter((s) => s.doc !== null).length;
   for (const [capability, count] of [['symbols', input.symbols.length], ['imports', input.imports.length], ['docstrings', docs]] as const) {
@@ -171,15 +182,15 @@ function checkInput(input: FileExtractionInput): Result<readonly (readonly strin
     if (!c.ok) return c;
   }
   for (const [i, d] of input.imports.entries()) {
-    const c = checkImport(d, i);
+    const c = checkImport(d, i, lineCount);
     if (!c.ok) return c;
   }
   for (const [i, d] of input.diagnostics.entries()) {
     if (d.range === null) continue;
-    const c = checkRange(d.range, `diagnostic #${i}`);
+    const c = checkRange(d.range, `diagnostic #${i}`, lineCount);
     if (!c.ok) return c;
   }
-  return checkSymbols(input.symbols);
+  return checkSymbols(input.symbols, lineCount);
 }
 
 export function createFileExtraction(input: FileExtractionInput): Result<FileExtraction, DomainError> {
@@ -212,6 +223,7 @@ export function createFileExtraction(input: FileExtractionInput): Result<FileExt
     path: input.path,
     language: input.language,
     contentHash: input.contentHash,
+    lineCount: input.lineCount,
     producer: input.producer,
     profile: input.profile,
     symbols,

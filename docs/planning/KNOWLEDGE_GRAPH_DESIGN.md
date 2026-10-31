@@ -192,7 +192,11 @@ CREATE TABLE page (...);  CREATE TABLE section (...);  CREATE TABLE link (...); 
   - SY-005: missing attribution;
   - SY-006: import edges re-checked with `importEdgeViolations`; syntactic edges must not claim a precision;
   - WS-001: edge evidence must point at a visible file.
-- `line_count` (for the SY-003 span-bounds check at publish) is not stored. SY-003 is enforced by the extractor and its tests.
+- In Phase 02, `line_count` was not stored and SY-003 was enforced only by the extractor and its tests. Phase 03 (P03-02, schema v5) adds the check at publish; see below.
+- **SY-003 at publish (P03-02, schema v5).**
+  - `file.line_count` holds the line count of the decoded content. It is a pure function of the hash, carried in `CodeGraph.files` and written by graph staging, which also refuses facts whose content hash differs from the manifest version (`SY_003_CONTENT_MISMATCH`). Staging fills the value in place only on rows the staging revision introduced. A published row without it (the file was never extracted before) is closed and re-versioned, never updated (SN-007). The value is not exported.
+  - The RevisionValidator checks bounds for every visible symbol in SQL: the range is well formed, it ends before `line_count`, and the file version has a line count.
+  - Span hashes are rehashed for a deterministic sample of the stored symbols (every k-th in node-id order; `RevisionWriter.sampleSpans`). IndexService re-reads those files through the FileSystem port (`synchronization/application/span-check.ts`) before `decidePublish`. A file whose bytes no longer match the stored hash is counted as unverifiable, not as a violation. The default sample is 200 (`DEFAULT_SPAN_SAMPLE`); tests rehash every symbol.
 - **Schema v4 (P02-09) adds `search_fts`.** It holds symbols only and is keyed by the symbol's `node.id` row version, not by `node_key`, so a row maps to exactly one version. Its columns are `name`, `qualified_name`, `words` (identifier words, so `store` finds `SessionStore`), `path` and `doc`, tokenized with `unicode61 remove_diacritics 2`.
   - It is maintained in the publish transaction: rows of versions closed at the seq are deleted, rows of versions introduced at the seq are inserted.
   - Reads join back to `node` with the visibility filter, and search is head-only (`SEARCH_HEAD_ONLY`).

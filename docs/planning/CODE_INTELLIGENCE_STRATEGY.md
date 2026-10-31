@@ -176,6 +176,7 @@ No core changes are required. FF-DAT-006 golden tests gate this.
    - Invalid input fails with `EXTRACTION_UNDECODABLE`; it is never replaced with U+FFFD.
    - Lines end at `\r\n`, `\n` or `\r` (LSP). Columns are UTF-16 code units. A terminator belongs to the line it ends.
    - `SourceText` is the single definition of `text(file, range)`. Extractors map parser offsets to ranges with it, and the SY-003 validator (`spanViolations`) maps ranges back to text with it.
+   - The publish-time span check (P03-02) decodes in core with `decodeForSpanCheck`: the same BOM rules, and the same text as the extractors on any input they accept. `tests/invariants/sy/sy-003.spec.ts` checks this against an independent oracle, UTF-16 included.
 2. **Normalize line endings for fingerprints only.** `spanHash` uses the exact span text, while `bodyFingerprint` uses a token stream with whitespace and comments dropped and the symbol's own name masked.
 3. **Parse errors.** Tree-sitter still produces a partial tree. Symbols from `ERROR` regions are dropped, a diagnostic is recorded, and the file stays indexed.
 4. **TS projects.**

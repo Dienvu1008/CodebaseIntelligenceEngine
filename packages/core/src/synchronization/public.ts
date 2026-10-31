@@ -15,7 +15,7 @@ export type { FreshnessInput, PublishCandidate, PublishContext } from './domain/
 export { decidePublish, evaluateFreshness } from './domain/publish-policy.js';
 export type { RecoveryAction, RecoveryInput, UnfinishedRevision } from './domain/recovery.js';
 export { planRecovery } from './domain/recovery.js';
-export type { IndexOutcome, IndexServiceDeps, IndexStage } from './application/index-service.js';
+export type { IndexOutcome, IndexServiceDeps, IndexStage, SpanStats } from './application/index-service.js';
 export type { CodeDiagnostic, CodeIntelligenceDeps, CodeStats } from './application/code-graph-build.js';
 export { runFullIndex } from './application/index-service.js';
 export type {
@@ -30,6 +30,10 @@ export type {
   RevisionRecord,
   RevisionStore,
   RevisionWriter,
+  SpanSample,
   StageStats,
+  StoredSpan,
   Unsubscribe,
 } from './application/ports.js';
+export type { SpanCheckOutcome } from './application/span-check.js';
+export { DEFAULT_SPAN_SAMPLE, decodeForSpanCheck, verifySpans } from './application/span-check.js';

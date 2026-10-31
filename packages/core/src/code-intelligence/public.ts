@@ -45,7 +45,7 @@ export type { EdgeStatus, ExternalEcosystem, ImportEdgeType, ImportResolution, I
 export { createImportEdge, externalNodeId, importEdgeViolations, moduleNodeId, unresolvedNodeId } from './domain/import-edge.js';
 export type { SymbolDeclaration, SymbolIdParts, SymbolKind } from './domain/symbol-identity.js';
 export { DEFAULT_EXPORT_NAME, SYMBOL_KINDS, anonymousName, encodeNameSegment, identifySymbols, parseSymbolId, validateNameSegment } from './domain/symbol-identity.js';
-export type { CodeEdge, CodeEdgeType, CodeGraph, CodeNode, CodeNodeKind, EdgeEvidence, ProjectionDiagnostic, SymbolFacts } from './domain/graph-projection.js';
+export type { CodeEdge, CodeEdgeType, CodeGraph, CodeNode, CodeNodeKind, EdgeEvidence, ProjectionDiagnostic, SourceFileFacts, SymbolFacts } from './domain/graph-projection.js';
 export { CODE_EDGE_TYPES, CODE_NODE_KINDS, edgeIdentity, projectCodeGraph } from './domain/graph-projection.js';
 export type { SpannedRecord } from './domain/source-text.js';
 export { SourceText, spanViolations } from './domain/source-text.js';

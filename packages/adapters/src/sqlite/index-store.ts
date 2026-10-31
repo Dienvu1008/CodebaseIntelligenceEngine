@@ -4,8 +4,8 @@
  *
  * Every write runs in one transaction that first checks the writer still owns the lease (SN-004), so a
  * writer whose lease expired cannot keep writing. Reads are pinned to a published seq and filter rows
- * through `visibleAt` (SN-003). Visible rows are never updated in place, except setting valid_to_seq to
- * a later seq (SN-007).
+ * through `visibleAt` (SN-003). Published rows are never updated in place, except setting valid_to_seq to
+ * a later seq (SN-007); graph staging completes `file.line_count` only on rows the staging revision introduced.
  */
 import type Database from 'better-sqlite3';
 import {
@@ -32,6 +32,7 @@ import {
   type RevisionStore,
   type RevisionWriter,
   type SkipReason,
+  type SpanSample,
   type StageStats,
   type StructuralNode,
   type CodeEdge,
@@ -45,7 +46,7 @@ import {
   searchTerms,
   SYMBOL_KINDS,
 } from '@cie/core';
-import { GraphStagingError, graphViolations, selectGraph, stageGraph, type GraphStageStats } from './graph-store.js';
+import { GraphStagingError, graphViolations, sampleSymbolSpans, selectGraph, stageGraph, type GraphStageStats } from './graph-store.js';
 import { searchSymbols, syncSearchIndex } from './search-store.js';
 import { SqliteLeaseManager } from './lease.js';
 import { nodeViolations, selectNodes, stageNodes, toStructuralNode } from './structure-store.js';
@@ -305,6 +306,13 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
   /** RevisionValidator checks (Phase 01 subset: WS-001 a for file records, head uniqueness, FK integrity). */
   async validate(seq: RevisionSeq): Promise<readonly string[]> {
     return this.validateSync(seq);
+  }
+
+  async sampleSpans(seq: RevisionSeq, sample: number | null): Promise<Result<SpanSample, DomainError>> {
+    const rev = this.revisionRow(seq);
+    if (rev === undefined) return err(domainError('REVISION_NOT_FOUND', 'unknown revision', { seq }));
+    if (rev.status !== 'building' && rev.status !== 'validating') return err(domainError('NOT_STAGING', 'span samples are taken before publish', { seq }));
+    return ok(sampleSymbolSpans(this.db, visibleAt, seq, sample));
   }
 
   /** Synchronous so that publish can re-validate inside its own transaction (no gap between check and swap). */

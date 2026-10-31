@@ -5,10 +5,12 @@
  */
 import type {
   CanonicalPath,
+  ContentHash,
   DomainError,
   JobId,
   Result,
   RevisionSeq,
+  SourceRange,
 } from '../../shared-kernel/index.js';
 import type { CodeGraph } from '../../code-intelligence/public.js';
 import type { ManifestEntry, StructuralNode } from '../../workspace/public.js';
@@ -42,6 +44,22 @@ export interface RevisionStore {
   listUnfinished(): Promise<readonly RevisionRecord[]>;
 }
 
+/** A stored symbol with what SY-003 needs to verify it against the file content. */
+export interface StoredSpan {
+  readonly id: string;
+  readonly path: CanonicalPath;
+  /** Hash of the file version visible at the revision, or null when none is (a WS-001/SY-003 violation). */
+  readonly fileHash: ContentHash | null;
+  readonly range: SourceRange;
+  readonly spanHash: ContentHash;
+}
+
+export interface SpanSample {
+  /** Symbols visible at the revision. */
+  readonly total: number;
+  readonly records: readonly StoredSpan[];
+}
+
 export interface StageStats {
   readonly inserted: number;
   readonly closed: number;
@@ -72,6 +90,11 @@ export interface RevisionWriter {
   markValidating(seq: RevisionSeq): Promise<Result<void, DomainError>>;
   /** RevisionValidator checks on the staged revision. An empty list means valid. */
   validate(seq: RevisionSeq): Promise<readonly string[]>;
+  /**
+   * The stored symbols of an unpublished revision that the SY-003 (b) span check rehashes: every k-th
+   * symbol in node-id order, k = ceil(total / sample), or all of them when `sample` is null.
+   */
+  sampleSpans(seq: RevisionSeq, sample: number | null): Promise<Result<SpanSample, DomainError>>;
   /**
    * Compare-and-swap of the head pointer from the revision's base to `seq`, in a single transaction. If the
    * head moved, it fails with code PUBLISH_CONFLICT and changes nothing (SN-002).

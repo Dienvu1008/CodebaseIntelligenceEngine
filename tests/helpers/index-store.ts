@@ -98,7 +98,7 @@ export async function sandbox(): Promise<Sandbox> {
   };
 }
 
-export const EMPTY_GRAPH: CodeGraph = { nodes: [], edges: [], diagnostics: [] };
+export const EMPTY_GRAPH: CodeGraph = { nodes: [], edges: [], files: [], diagnostics: [] };
 
 /**
  * Stages the manifest, its derived structure and a code graph (empty by default); all three are required
