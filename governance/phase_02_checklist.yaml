@@ -12,9 +12,9 @@ items:
   # --- Entry checks ---
   - id: P02-01
     title: "Spike S2: web-tree-sitter (exact pin) loads the TS, TSX and Python grammar .wasm on Node 24/26, Windows and Linux; JS grammar strategy (E-05); OQ-09 install scripts"
-    status: pending
+    status: done
     check: "packages/adapters/test/treesitter/spike-s2.spec.ts green on the full CI matrix; results recorded in ADR-0010"
-    notes: "OQ-09 resolved with option A (vendored .wasm + provenance lock, first-load verification). Passed locally; waiting for the CI matrix before marking done and closing A-01."
+    notes: "OQ-09 resolved with option A (vendored .wasm + provenance lock, first-load verification). Green on the full CI matrix for 5beff06 (E-34); A-01 closed. JS uses the official tree-sitter-javascript grammar."
   - id: P02-02
     title: "Re-check ADR-0016 against TypeScript 7 (R-03): is the TS 6 JS compiler API maintained, and what programmatic API does TS 7 offer? Pin the lang-ts TypeScript version"
     status: done
@@ -24,8 +24,9 @@ items:
   # --- Domain (core) ---
   - id: P02-03
     title: code-intelligence domain - SymbolIdentity (ADR-0014), CapabilityProfile/fidelity, FileExtraction factory with SY-006 precision checks
-    status: pending
+    status: done
     check: "tests/invariants/sy/sy-001.spec.ts, sy-006.spec.ts"
+    notes: "capability.ts, symbol-identity.ts, file-extraction.ts, import-edge.ts (SY-006 at edge construction, plus importEdgeViolations for the validator). Contradictions C-12 (ProducerRef fidelity) and C-13 (external node ids) resolved. Both tests were mutation-checked (precision rule and disambiguator)."
   - id: P02-04
     title: Ports FileExtractor and ProjectResolver (CODE_INTELLIGENCE_STRATEGY §4); LanguageRegistry, which becomes the authority over the Phase 01 extension map
     status: pending

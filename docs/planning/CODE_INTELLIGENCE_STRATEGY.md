@@ -171,8 +171,8 @@ No core changes are required. FF-DAT-006 golden tests gate this.
    - Files not covered by any tsconfig go into a synthesized inferred project (`allowJs`, `checkJs: false`).
    - Build programs sequentially and release each one after resolution. `BuilderProgram` is used for incremental runs in Phase 05.
    - Plugins are never enabled (A-06).
-5. **Python roots.** Configured `python.roots`, otherwise detected (`src/` and top-level package dirs). Virtualenvs and `site-packages` are excluded. External imports resolve to `external:pypi/<name>` nodes (L2, no symbols).
-6. **External dependencies (TS).** Imports resolving into `node_modules` produce `external:npm/<name>` nodes plus exact edges to the package node. Symbols inside dependencies are not indexed in the MVP. [Proposal] Declaration-level indexing of dependencies is [DEF].
+5. **Python roots.** Configured `python.roots`, otherwise detected (`src/` and top-level package dirs). Virtualenvs and `site-packages` are excluded. External imports resolve to `ext:pypi:<name>` nodes (L2, no symbols).
+6. **External dependencies (TS).** Imports resolving into `node_modules` produce `ext:npm:<name>` nodes (contradiction log C-13) plus exact edges to the package node. Symbols inside dependencies are not indexed in the MVP. [Proposal] Declaration-level indexing of dependencies is [DEF].
 
 ## 7. Grammar and adapter maintenance
 

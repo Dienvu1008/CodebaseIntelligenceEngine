@@ -45,6 +45,18 @@ Example: `ts:src/auth/session.ts#SessionStore.refresh(method)`.
   - A rename or move produces a new ID and a `lineage(old → new, reason)` record.
 - **Anchors and links.** Anchors and links that point at an old ID resolve through lineage. They are reported as `redirected` (stale-but-resolved) and are never broken silently.
 
+## Phase 02 implementation notes
+
+Implemented in `packages/core/src/code-intelligence/domain/` (P02-03). These points make the format above precise; they do not change it.
+
+- **Kinds (closed set):** `module`, `namespace`, `class`, `interface`, `type`, `enum`, `enum_member`, `function`, `method`, `constructor`, `getter`, `setter`, `property`, `variable`, `constant`. Adding a kind is a format change and needs golden updates.
+- **Name segments** must not be empty and must not contain `.`, `#`, `(`, `)`, `~`, whitespace, control characters or lone surrogates. A segment may start with `<` only as an `<anon@n>` placeholder. With these rules every id parses back into exactly its parts (`parseSymbolId`), and a module path may itself contain `#` (the parser splits at the last `#`). Names are not Unicode-normalized: JavaScript and Python treat differently normalized identifiers as distinct, so normalizing could merge two real symbols. Computed or otherwise unrepresentable names are the adapter's job to map onto a placeholder.
+- **Disambiguator:** when a `(qualifiedName, kind)` pair occurs more than once in a module, *every* member of the colliding set gets `~n`, with n counted in declaration order. Adapters must pass declarations in source order; the FileExtraction factory rejects out-of-order drafts (`EXTRACTION_ORDER`), so the order cannot drift silently.
+- **Containers** are given as a parent index into the same draft list, not as a name chain. The factory builds the qualified name from the parent chain and checks that each child range lies inside its parent's.
+- **Construction:** only `identifySymbols` (SymbolIdentity) and `parseSymbolId` produce a `SymbolId`. A raw string is not assignable to the type (SY-001, type-level test).
+- **Attribution (C-12):** each symbol carries `ProducerRef {adapterId, adapterVersion, toolVersion, fidelity}` with the profile's `symbols` fidelity.
+- **Unresolved placeholders:** `unres:<lang>:<path>#<siteHash>`, where `siteHash` is the first 16 hex digits of `sha256(edgeType \n range \n rawSpecifier \n boundName)`. Each unresolved site gets its own node, and the same site always maps to the same node.
+
 ## Consequences
 
 - Rebuilding from scratch reproduces identical IDs (NFR-023).

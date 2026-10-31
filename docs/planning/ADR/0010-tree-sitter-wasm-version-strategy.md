@@ -1,6 +1,6 @@
 # ADR-0010: Tree-sitter via WASM; Version and ABI Strategy
 
-- **Status:** Accepted. Revised in Phase 02: OQ-09 resolved (vendored artifacts); spike S2 passed locally, full CI matrix pending.
+- **Status:** Accepted. Revised in Phase 02: OQ-09 resolved (vendored artifacts); spike S2 passed on the full CI matrix.
 - **Date:** 2026-10-31
 - **Related:** [CODE_INTELLIGENCE_STRATEGY](../CODE_INTELLIGENCE_STRATEGY.md), ADR-0006, A-01, OQ-09
 
@@ -64,7 +64,7 @@ Run each step in order; stop at the first failure.
   - All four parse their samples without error nodes and answer capture queries.
   - `--check` reproduced the vendored directory byte-for-byte.
 - **JS grammar strategy (E-05):** `tree-sitter-javascript` 0.25.0 ships its own `.wasm`, so JS uses the official JavaScript grammar. There is no need to parse JS with the TS grammar.
-- **Full CI matrix (windows/ubuntu × Node 24/26):** pending.
+- **Full CI matrix (windows/ubuntu × Node 24/26):** passed for commit `5beff06` (E-34). A-01 is closed.
 
 ## Consequences
 
