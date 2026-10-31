@@ -43,11 +43,21 @@ import {
   type Result,
   type StructuralEdge,
 } from '@cie/core';
-import ts from 'typescript';
+import { createRequire } from 'node:module';
+import type ts from 'typescript';
 import { NodeHasher } from '../fs/system.js';
 import { builtinName, packageNameOf } from './builtins.js';
 import { discoverProjects, type ProjectDiagnostic, type TsProject } from './projects.js';
-import { fromVirtual, toVirtual, VirtualWorkspace } from './virtual-host.js';
+import { fromVirtual, toVirtual, VirtualWorkspace, type TypeScript } from './virtual-host.js';
+
+/**
+ * The compiler is ~9 MB of JavaScript: it is loaded on the first resolution that needs it, never at import
+ * time, so consumers of @cie/adapters that do not resolve TypeScript (stores, followers) do not pay for it.
+ * The version comes from its package.json, which is cheap to read.
+ */
+const TYPESCRIPT_VERSION = (createRequire(import.meta.url)('typescript/package.json') as { version: string }).version;
+let typescriptModule: Promise<TypeScript> | undefined;
+const loadTypeScript = (): Promise<TypeScript> => (typescriptModule ??= import('typescript').then((m) => m.default));
 
 export const LANG_TS_ADAPTER_VERSION = '0.1.0';
 const LANGUAGES: readonly LanguageId[] = ['ts', 'tsx', 'js'];
@@ -95,10 +105,14 @@ class Session {
   private readonly workspacePackages = new Set<string>();
   private readonly projects;
 
-  constructor(entries: readonly ManifestEntry[], contents: ReadonlyMap<string, string>) {
+  constructor(
+    readonly ts: TypeScript,
+    entries: readonly ManifestEntry[],
+    contents: ReadonlyMap<string, string>,
+  ) {
     const paths = entries.map((e) => e.path);
     this.manifest = new Set(paths);
-    this.host = new VirtualWorkspace(paths, contents);
+    this.host = new VirtualWorkspace(ts, paths, contents);
     for (const p of paths.filter((x) => baseName(x) === 'package.json')) {
       const info = parsePackage(contents.get(toVirtual(p)) ?? '');
       this.packages.set(dirName(p), info);
@@ -106,7 +120,7 @@ class Session {
       if (this.host.registerPackage(info.name, dirName(p) as CanonicalPath | '')) this.workspacePackages.add(info.name);
       else this.diagnostics.push({ code: 'DUPLICATE_PACKAGE_NAME', message: `package name "${info.name}" is used by several workspace packages; the first by path wins`, range: null, path: p });
     }
-    this.projects = discoverProjects(paths, this.host, this.diagnostics);
+    this.projects = discoverProjects(ts, paths, this.host, this.diagnostics);
   }
 
   projectOf(file: CanonicalPath): TsProject {
@@ -146,7 +160,7 @@ export class LangTsResolver implements ProjectResolver {
   }
 
   static create(options: { readonly hasher?: Hasher } = {}): Result<LangTsResolver, DomainError> {
-    const producer = producerIdentity('lang-ts', LANG_TS_ADAPTER_VERSION, `typescript@${ts.version}`);
+    const producer = producerIdentity('lang-ts', LANG_TS_ADAPTER_VERSION, `typescript@${TYPESCRIPT_VERSION}`);
     if (!producer.ok) return producer;
     const profiles: CapabilityProfile[] = [];
     for (const l of LANGUAGES) {
@@ -158,6 +172,9 @@ export class LangTsResolver implements ProjectResolver {
   }
 
   async resolve(input: ProjectInput, signal: CancellationSignal): Promise<Result<ProjectResolution, DomainError>> {
+    // Nothing to resolve: do not load the compiler at all.
+    if (!input.extractions.some((x) => LANGUAGES.includes(x.language))) return ok({ edges: [], projects: [], diagnostics: [] });
+    const typescript = await loadTypeScript();
     const contents = new Map<string, string>();
     for (const e of input.manifest) {
       if (e.status !== 'indexed' || !isConfigFile(e.path)) continue;
@@ -166,7 +183,7 @@ export class LangTsResolver implements ProjectResolver {
     }
     if (signal.aborted) return err(domainError('RESOLUTION_CANCELLED', 'resolution was cancelled'));
 
-    const session = new Session(input.manifest, contents);
+    const session = new Session(typescript, input.manifest, contents);
     const byPath = new Map(input.extractions.map((x) => [x.path, x] as const));
     const used = new Set<TsProject>();
     const edges: StructuralEdge[] = [];
@@ -230,9 +247,10 @@ export class LangTsResolver implements ProjectResolver {
 
   /** ts.resolveModuleName over the virtual workspace; the canonical path of a resolved workspace file, or null. */
   private resolveInWorkspace(session: Session, project: TsProject, file: CanonicalPath, spec: string, isDynamic: boolean): CanonicalPath | null {
+    const typescript = session.ts;
     const containing = toVirtual(file);
-    const mode = isDynamic ? ts.ModuleKind.ESNext : ts.getImpliedNodeFormatForFile(containing, undefined, session.host, project.options);
-    const r = ts.resolveModuleName(spec, containing, project.options, session.host, project.cache, undefined, mode);
+    const mode = isDynamic ? typescript.ModuleKind.ESNext : typescript.getImpliedNodeFormatForFile(containing, undefined, session.host, project.options);
+    const r = typescript.resolveModuleName(spec, containing, project.options, session.host, project.cache, undefined, mode);
     const name = r.resolvedModule?.resolvedFileName;
     if (name === undefined) return null;
     const path = fromVirtual(session.host.realpath(name));

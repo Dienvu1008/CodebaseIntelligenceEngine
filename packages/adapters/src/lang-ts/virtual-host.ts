@@ -10,7 +10,10 @@
  * Paths are virtual and POSIX-style: the workspace root is `/ws`, so `src/a.ts` is `/ws/src/a.ts`.
  */
 import type { CanonicalPath } from '@cie/core';
-import ts from 'typescript';
+import type ts from 'typescript';
+
+/** The TypeScript module, loaded lazily by the resolver (it is large; most consumers never need it). */
+export type TypeScript = typeof ts;
 
 export const VIRTUAL_ROOT = '/ws';
 const NM = '/node_modules/';
@@ -38,9 +41,9 @@ type MatchFiles = (
   realpath: (path: string) => string,
 ) => string[];
 
-function matchFilesImpl(): MatchFiles {
-  const fn = (ts as unknown as { matchFiles?: MatchFiles }).matchFiles;
-  if (typeof fn !== 'function') throw new Error(`typescript@${ts.version} no longer exposes matchFiles; lang-ts needs an update (ADR-0016)`);
+function matchFilesImpl(typescript: TypeScript): MatchFiles {
+  const fn = (typescript as unknown as { matchFiles?: MatchFiles }).matchFiles;
+  if (typeof fn !== 'function') throw new Error(`typescript@${typescript.version} no longer exposes matchFiles; lang-ts needs an update (ADR-0016)`);
   return fn;
 }
 
@@ -50,12 +53,14 @@ export class VirtualWorkspace implements ts.ParseConfigHost, ts.ModuleResolution
   private readonly children = new Map<string, { files: Set<string>; dirs: Set<string> }>();
   private readonly packages = new Map<string, string>(); // package name -> virtual dir
   private readonly scopes = new Set<string>();
-  private readonly matchFiles = matchFilesImpl();
+  private readonly matchFiles: MatchFiles;
 
   constructor(
+    typescript: TypeScript,
     paths: Iterable<CanonicalPath>,
     private readonly contents: ReadonlyMap<string, string>,
   ) {
+    this.matchFiles = matchFilesImpl(typescript);
     this.ensureDir(VIRTUAL_ROOT);
     const linked = new Set<string>();
     for (const p of paths) {

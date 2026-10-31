@@ -16,6 +16,7 @@ export { decidePublish, evaluateFreshness } from './domain/publish-policy.js';
 export type { RecoveryAction, RecoveryInput, UnfinishedRevision } from './domain/recovery.js';
 export { planRecovery } from './domain/recovery.js';
 export type { IndexOutcome, IndexServiceDeps, IndexStage } from './application/index-service.js';
+export type { CodeDiagnostic, CodeIntelligenceDeps, CodeStats } from './application/code-graph-build.js';
 export { runFullIndex } from './application/index-service.js';
 export type {
   ChangeEvent,

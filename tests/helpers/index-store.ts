@@ -7,6 +7,7 @@ import {
   canonicalizePath,
   changeSeq,
   deriveStructure,
+  type CodeGraph,
   parseContentHash,
   type CanonicalPath,
   type ChangeSeq,
@@ -97,27 +98,32 @@ export async function sandbox(): Promise<Sandbox> {
   };
 }
 
-/** Stages the manifest and its derived structure (both are required before validation). Throws on failure. */
-export async function stageAll(o: OpenedIndexStore, seq: RevisionSeq, entries: readonly ManifestEntry[]): Promise<void> {
+export const EMPTY_GRAPH: CodeGraph = { nodes: [], edges: [], diagnostics: [] };
+
+/**
+ * Stages the manifest, its derived structure and a code graph (empty by default); all three are required
+ * before validation. Throws on failure.
+ */
+export async function stageAll(o: OpenedIndexStore, seq: RevisionSeq, entries: readonly ManifestEntry[], graph: CodeGraph = EMPTY_GRAPH): Promise<void> {
   const files = await o.store.stageManifest(seq, entries);
   if (!files.ok) throw new Error(files.error.code);
   const structure = await o.store.stageStructure(seq, deriveStructure(entries));
   if (!structure.ok) throw new Error(structure.error.code);
+  const staged = await o.store.stageGraph(seq, graph);
+  if (!staged.ok) throw new Error(staged.error.code);
 }
 
-/** Builds and publishes one revision with the given manifest. Throws on any failure. */
+/** Builds and publishes one revision with the given manifest (and code graph). Throws on any failure. */
 export async function publishRevision(
   o: OpenedIndexStore,
   entries: readonly ManifestEntry[],
   watermark = 0,
+  graph: CodeGraph = EMPTY_GRAPH,
 ): Promise<RevisionSeq> {
   const head = await o.store.head();
   const rev = await o.store.begin(head?.seq ?? null, job(`job-${Math.random().toString(36).slice(2)}`));
   if (!rev.ok) throw new Error(rev.error.code);
-  const staged = await o.store.stageManifest(rev.value.seq, entries);
-  if (!staged.ok) throw new Error(staged.error.code);
-  const structure = await o.store.stageStructure(rev.value.seq, deriveStructure(entries));
-  if (!structure.ok) throw new Error(structure.error.code);
+  await stageAll(o, rev.value.seq, entries, graph);
   const v = await o.store.markValidating(rev.value.seq);
   if (!v.ok) throw new Error(v.error.code);
   const p = await o.store.publish(rev.value.seq, cseq(watermark));

@@ -34,13 +34,19 @@ import {
   type SkipReason,
   type StageStats,
   type StructuralNode,
+  type CodeEdge,
+  type CodeGraph,
+  type CodeGraphReader,
+  type CodeNode,
 } from '@cie/core';
+import { GraphStagingError, graphViolations, selectGraph, stageGraph, type GraphStageStats } from './graph-store.js';
 import { SqliteLeaseManager } from './lease.js';
 import { nodeViolations, selectNodes, stageNodes, toStructuralNode } from './structure-store.js';
 
-/** index_revision.staged: 0 nothing, 1 manifest staged, 2 manifest and structure staged. */
+/** index_revision.staged: 0 nothing, 1 manifest, 2 manifest + structure, 3 manifest + structure + code graph. */
 const STAGED_MANIFEST = 1;
-const STAGED_COMPLETE = 2;
+const STAGED_STRUCTURE = 2;
+const STAGED_COMPLETE = 3;
 
 /** The single source of the visibility predicate (FF-BND-003). Binds the named parameter @seq. */
 export const visibleAt = (alias: string): string =>
@@ -93,7 +99,7 @@ const sameVersion = (row: FileRow, e: ManifestEntry): boolean =>
     ? row.status === 'indexed' && row.hash === e.hash && row.size === e.size && row.lang === e.language
     : row.status === 'skipped' && row.skip_reason === e.reason && row.size === e.size;
 
-export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileManifestReader {
+export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileManifestReader, CodeGraphReader {
   readonly lease: SqliteLeaseManager;
 
   constructor(
@@ -132,11 +138,23 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
   }
 
   async structureAt(seq: RevisionSeq): Promise<Result<readonly StructuralNode[], DomainError>> {
+    const visible = this.requirePublished(seq);
+    if (!visible.ok) return visible;
+    return ok(selectNodes(this.db, visibleAt, seq).map(toStructuralNode));
+  }
+
+  async graphAt(seq: RevisionSeq): Promise<Result<{ readonly nodes: readonly CodeNode[]; readonly edges: readonly CodeEdge[] }, DomainError>> {
+    const visible = this.requirePublished(seq);
+    if (!visible.ok) return visible;
+    return ok(selectGraph(this.db, visibleAt, seq));
+  }
+
+  private requirePublished(seq: RevisionSeq): Result<true, DomainError> {
     const rev = this.db.prepare('select status from index_revision where seq = ?').get(seq) as { status: RevisionStatus } | undefined;
     if (rev === undefined || (rev.status !== 'published' && rev.status !== 'superseded')) {
       return err(domainError('REVISION_NOT_VISIBLE', 'only published revisions can be read', { seq }));
     }
-    return ok(selectNodes(this.db, visibleAt, seq).map(toStructuralNode));
+    return ok(true);
   }
 
   private selectFiles(seq: number): FileRow[] {
@@ -162,6 +180,7 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
       if (e instanceof StructureStagingError) {
         return err(domainError('WS_001_UNKNOWN_FILE', 'a structural node references a file the store does not know (WS-001)', { node: e.nodeId, file: e.file }));
       }
+      if (e instanceof GraphStagingError) return err(domainError(e.code, e.message, e.details));
       throw e;
     }
   }
@@ -242,8 +261,21 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
         // Thrown inside the transaction so that the partial node writes roll back; mapped to a Result below.
         throw new StructureStagingError(r.nodeId, r.file);
       }
-      this.db.prepare('update index_revision set staged = ? where seq = ?').run(STAGED_COMPLETE, seq);
+      this.db.prepare('update index_revision set staged = ? where seq = ?').run(STAGED_STRUCTURE, seq);
       return ok(r.stats);
+    });
+  }
+
+  async stageGraph(seq: RevisionSeq, graph: CodeGraph): Promise<Result<GraphStageStats, DomainError>> {
+    return this.write(() => {
+      const rev = this.revisionRow(seq);
+      if (rev === undefined || rev.status !== 'building') return err(domainError('NOT_STAGING', 'revision is not in status building', { seq }));
+      if (rev.staged !== STAGED_STRUCTURE) {
+        return err(domainError('STAGING_ORDER', 'stage the manifest and the structure exactly once before the code graph', { seq, staged: rev.staged }));
+      }
+      const stats = stageGraph(this.db, visibleAt, seq, rev.base_seq, graph); // throws GraphStagingError -> rollback
+      this.db.prepare('update index_revision set staged = ? where seq = ?').run(STAGED_COMPLETE, seq);
+      return ok(stats);
     });
   }
 
@@ -264,8 +296,9 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
     const violations: string[] = [];
     const rev = this.revisionRow(seq);
     if (rev === undefined) return [`revision ${seq} does not exist`];
-    if (rev.staged !== STAGED_COMPLETE) violations.push(`revision ${seq} is not completely staged (manifest and structure)`);
+    if (rev.staged !== STAGED_COMPLETE) violations.push(`revision ${seq} is not completely staged (manifest, structure and code graph)`);
     violations.push(...nodeViolations(this.db, visibleAt, seq));
+    violations.push(...graphViolations(this.db, visibleAt, seq));
     const dup = this.db
       .prepare(`select k.path from file f join file_key k on k.key = f.file_key where ${visibleAt('f')} group by f.file_key having count(*) > 1`)
       .pluck()
@@ -324,7 +357,7 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
       const status = this.setStatus(rev, 'abandoned');
       if (!status.ok) return status;
       // ADR-0015 §5: remove what the revision introduced, re-open what it closed.
-      for (const table of ['node', 'file']) {
+      for (const table of ['edge', 'node', 'file']) {
         this.db.prepare(`delete from ${table} where valid_from_seq = ?`).run(seq);
         this.db.prepare(`update ${table} set valid_to_seq = null where valid_to_seq = ?`).run(seq);
       }

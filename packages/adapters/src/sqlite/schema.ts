@@ -11,7 +11,7 @@ import Database from 'better-sqlite3';
 import { domainError, err, ok, type Clock, type DomainError, type Result, type WorkspaceId } from '@cie/core';
 
 /** Bump whenever the DDL below changes. Older files are rebuilt. */
-export const INDEX_SCHEMA_VERSION = 2;
+export const INDEX_SCHEMA_VERSION = 3;
 
 const DDL = `
 create table meta (key text primary key, value text not null) strict;
@@ -63,22 +63,69 @@ create index file_from on file(valid_from_seq);
 create index file_to on file(valid_to_seq);
 create unique index file_head_unique on file(file_key) where valid_to_seq is null;
 
--- Structural nodes (FR-006): directories, packages, projects. Stable node_key, versioned rows (ADR-0015).
+-- Nodes. Stable node_key, versioned rows (ADR-0015).
+--  * structural (FR-006, Phase 01): directory, package, project;
+--  * code (Phase 02): module, symbol, external, unresolved. They always record their producer and fidelity
+--    (SY-005), and \`data\` holds the canonical JSON of the projected record (row equality = same version).
 create table node_key (key integer primary key, node_id text not null unique, kind text not null) strict;
 create table node (
   id integer primary key,
   node_key integer not null references node_key(key),
+  kind text not null check (kind in ('directory','package','project','module','symbol','external','unresolved')),
   name text not null,
   ecosystem text,
   file_key integer references file_key(key),
+  lang text,
+  qualified_name text,
+  symbol_kind text,
+  start_line integer, start_col integer, end_line integer, end_col integer,
+  span_hash text,
+  body_fingerprint text,
+  exported integer check (exported in (0, 1)),
+  doc text,
+  producer text,
+  fidelity text check (fidelity in ('L0','L1','L2','L3')),
+  data text,
+  valid_from_seq integer not null,
+  valid_to_seq integer,
+  check (valid_to_seq is null or valid_to_seq > valid_from_seq),
+  check (kind in ('directory','package','project') or (producer is not null and fidelity is not null and data is not null)),
+  check (kind not in ('module','symbol') or file_key is not null),
+  check (kind <> 'symbol' or (qualified_name is not null and symbol_kind is not null and start_line is not null
+                              and span_hash is not null and body_fingerprint is not null and exported is not null))
+) strict;
+create index node_key_vis on node(node_key, valid_to_seq);
+create index node_file_vis on node(file_key, valid_to_seq);
+create index node_from on node(valid_from_seq);
+create index node_to on node(valid_to_seq);
+create unique index node_head_unique on node(node_key) where valid_to_seq is null;
+
+-- Edges (KNOWLEDGE_GRAPH_DESIGN §3–§5). Endpoints reference stable node keys: the FK guarantees the identity
+-- exists, the RevisionValidator guarantees both endpoints are visible at the edge's seq (KG-001).
+create table edge (
+  id integer primary key,
+  type text not null check (type in ('contains','defines','exports','imports','imports_symbol')),
+  from_key integer not null references node_key(key),
+  to_key integer not null references node_key(key),
+  site_key text not null default '',
+  status text not null check (status in ('verified','inferred','user_asserted','unknown')),
+  precision text check (precision in ('exact','heuristic')),
+  producer text not null,
+  fidelity text not null check (fidelity in ('L0','L1','L2','L3')),
+  ev_kind text,
+  ev_file_key integer references file_key(key),
+  ev_start_line integer, ev_start_col integer, ev_end_line integer, ev_end_col integer,
+  ev_content_hash text,
+  data text not null,
   valid_from_seq integer not null,
   valid_to_seq integer,
   check (valid_to_seq is null or valid_to_seq > valid_from_seq)
 ) strict;
-create index node_key_vis on node(node_key, valid_to_seq);
-create index node_from on node(valid_from_seq);
-create index node_to on node(valid_to_seq);
-create unique index node_head_unique on node(node_key) where valid_to_seq is null;
+create index edge_out on edge(from_key, type, valid_to_seq);
+create index edge_in on edge(to_key, type, valid_to_seq);
+create index edge_from on edge(valid_from_seq);
+create index edge_to on edge(valid_to_seq);
+create unique index edge_head_unique on edge(type, from_key, to_key, site_key) where valid_to_seq is null;
 
 insert into workspace_head (id, current_seq, watermark) values (1, null, 0);
 insert into index_lease (id, holder, expires_at_ms) values (1, null, 0);

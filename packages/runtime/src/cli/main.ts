@@ -62,6 +62,8 @@ async function indexCommand(rt: DevRuntime, json: boolean, timings: boolean): Pr
     process.stdout.write(
       `published revision ${o.seq} (${o.manifestHash})\n` +
         `  files: +${o.files.inserted} -${o.files.closed} =${o.files.unchanged}; structure: +${o.structure.inserted} -${o.structure.closed} =${o.structure.unchanged}\n` +
+        `  code: ${o.code.extractedFiles} files, ${o.code.symbols} symbols; nodes: +${o.graph.nodes.inserted} -${o.graph.nodes.closed} =${o.graph.nodes.unchanged}; ` +
+        `edges: +${o.graph.edges.inserted} -${o.graph.edges.closed} =${o.graph.edges.unchanged}; skipped: ${o.code.skipped.length}; diagnostics: ${o.code.diagnostics}\n` +
         `  ignored: ${o.enumeration.ignored}; unrepresentable names: ${o.enumeration.unrepresentable.length}; unlistable dirs: ${o.enumeration.unlistable.length}` +
         (o.recovered.length > 0 ? `; recovered: ${o.recovered.map((a) => `abandoned r${a.seq}`).join(', ')}` : '') +
         '\n',
@@ -71,6 +73,8 @@ async function indexCommand(rt: DevRuntime, json: boolean, timings: boolean): Pr
 }
 
 async function statusCommand(rt: DevRuntime, json: boolean): Promise<number> {
+  const languages = await rt.languages();
+  if (!languages.ok) return fail(languages.error);
   const head = await rt.index.store.head();
   const unfinished = await rt.index.store.listUnfinished();
   const status = {
@@ -80,6 +84,8 @@ async function statusCommand(rt: DevRuntime, json: boolean): Promise<number> {
     unfinishedRevisions: unfinished.map((u) => u.seq),
     leaseHolder: rt.index.store.lease.currentHolder(),
     llmProvider: rt.user.llmProvider,
+    // Effective fidelity per language and capability (CODE_INTELLIGENCE_STRATEGY §5), from the registered adapters.
+    capabilities: Object.fromEntries(languages.value.capabilityMatrix().map((p) => [p.language, p.fidelity])),
   };
   process.stdout.write(json ? `${JSON.stringify(status)}\n` : `${Object.entries(status).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join('\n')}\n`);
   return 0;

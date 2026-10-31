@@ -4,8 +4,10 @@
 import { cpSync } from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
-import { afterAll, describe, expect, it } from 'vitest';
-import { cliWorkspace, runCli } from '../helpers/cli.js';
+import { afterAll, describe, expect, it, vi } from 'vitest';
+import { CLI_TEST_TIMEOUT_MS, cliWorkspace, runCli } from '../helpers/cli.js';
+
+vi.setConfig({ testTimeout: CLI_TEST_TIMEOUT_MS });
 
 const a = cliWorkspace({ 'package.json': '{}', 'src/a.ts': 'export const a = 1;\n', 'lib/pkg/__init__.py': '' });
 const b = cliWorkspace({ 'src/b.ts': 'export const b = 2;\n' });

@@ -32,11 +32,13 @@ import {
   type IndexStage,
   type JobId,
   type JobRecord,
+  type LanguageRegistry,
   type Result,
   type UserSettings,
   type WorkspaceId,
   type WorkspaceSettings,
 } from '@cie/core';
+import { createLanguageRegistry } from './languages.js';
 
 export interface DevRuntimeOptions {
   readonly workspaceRoot: string;
@@ -55,6 +57,8 @@ export interface DevRuntime {
   readonly user: UserSettings;
   readonly holder: string;
   readonly index: OpenedIndexStore;
+  /** Registered language adapters (created on first use); `capabilityMatrix()` is what `cie dev status` reports. */
+  languages(): Promise<Result<LanguageRegistry, DomainError>>;
   /** Runs one full index. `onStage` observes progress (and powers crash-injection tests). */
   fullIndex(onStage?: (stage: IndexStage) => void | Promise<void>): Promise<Result<IndexOutcome, DomainError>>;
   /** Most recent jobs (writer runtimes only; followers do not open state.db). */
@@ -133,6 +137,9 @@ export async function openDevRuntime(opts: DevRuntimeOptions): Promise<Result<De
     state = opened.value;
   }
   const hasher = new NodeHasher();
+  // Created on first use: loading and verifying the grammars is wasted work for `dev export`.
+  let registry: Promise<Result<LanguageRegistry, DomainError>> | undefined;
+  const languages = (): Promise<Result<LanguageRegistry, DomainError>> => (registry ??= createLanguageRegistry(hasher));
 
   return ok({
     workspaceRoot: fs.root,
@@ -142,7 +149,10 @@ export async function openDevRuntime(opts: DevRuntimeOptions): Promise<Result<De
     user: user.value,
     holder,
     index: index.value,
+    languages,
     async fullIndex(onStage) {
+      const registered = await languages();
+      if (!registered.ok) return registered;
       breakDeadLocalHolder(index.value);
       const controller = new AbortController();
       return runFullIndex({
@@ -156,6 +166,7 @@ export async function openDevRuntime(opts: DevRuntimeOptions): Promise<Result<De
         enumerate: () => enumerateWorkspace({ fs, hasher, settings: settings.value, signal: controller.signal }),
         ...(onStage === undefined ? {} : { onStage }),
         ...(state === null ? {} : { jobs: state.jobs }),
+        code: { registry: registered.value, fs },
       });
     },
     recentJobs: (limit) => state?.jobs.recent(limit) ?? [],

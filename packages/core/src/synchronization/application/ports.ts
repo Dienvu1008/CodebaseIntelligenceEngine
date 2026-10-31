@@ -10,6 +10,7 @@ import type {
   Result,
   RevisionSeq,
 } from '../../shared-kernel/index.js';
+import type { CodeGraph } from '../../code-intelligence/public.js';
 import type { ManifestEntry, StructuralNode } from '../../workspace/public.js';
 import type {
   ChangeKind,
@@ -61,6 +62,13 @@ export interface RevisionWriter {
   stageManifest(seq: RevisionSeq, entries: readonly ManifestEntry[]): Promise<Result<StageStats, DomainError>>;
   /** Stages the structural nodes with the same diff semantics, keyed by node id. Requires the manifest staged first. */
   stageStructure(seq: RevisionSeq, nodes: readonly StructuralNode[]): Promise<Result<StageStats, DomainError>>;
+  /**
+   * Stages the code graph (Phase 02) with the same diff semantics: nodes keyed by id, edges by (type, from, to,
+   * site). Requires the structure staged first; a revision is complete only after this step, even when the
+   * graph is empty. Fails with SY_002_DUPLICATE_NODE / SY_002_DUPLICATE_EDGE, WS_001_UNKNOWN_FILE or
+   * KG_001_UNKNOWN_NODE, and then writes nothing.
+   */
+  stageGraph(seq: RevisionSeq, graph: CodeGraph): Promise<Result<{ readonly nodes: StageStats; readonly edges: StageStats }, DomainError>>;
   markValidating(seq: RevisionSeq): Promise<Result<void, DomainError>>;
   /** RevisionValidator checks on the staged revision. An empty list means valid. */
   validate(seq: RevisionSeq): Promise<readonly string[]>;

@@ -53,8 +53,9 @@ items:
   # --- Storage and graph ---
   - id: P02-08
     title: Node projection for module, symbol, external and unresolved nodes; edges contains, defines, exports, imports and imports_symbol; index schema bump (rebuild)
-    status: pending
+    status: done
     check: "tests/invariants/kg/kg-001.spec.ts, sy-002.spec.ts, sy-005.spec.ts"
+    notes: "projectCodeGraph (core), index.db schema v3 with code nodes + edge table, mandatory stageGraph step, validator KG-001/SY-002/SY-005/SY-006/WS-001 (mutation-checked: endpoint check, staging uniqueness). IndexService extracts (re-read + hash check, CHANGED_DURING_INDEX), resolves in fidelity order with supersession, stages the graph; new stages extracted/resolved covered by SN-005 crash tests. Runtime wires the LanguageRegistry; `cie dev status` reports the capability matrix; tests/integration/code-graph.spec.ts. Design notes in KNOWLEDGE_GRAPH_DESIGN §5 (C-14). Export stays cie-export/1 until P02-11. Cost: a `dev index` process now loads the grammars and the TypeScript compiler (~1.6 s per small run locally, resolve stage ~0.6 s); lang-ts loads `typescript` lazily and the runtime builds the registry on first use. CLI-spawning test files use CLI_TEST_TIMEOUT_MS (tests/helpers/cli.ts). Measured in P02-13, no thresholds."
   - id: P02-09
     title: FTS5 symbol search and `cie dev symbols <query>`
     status: pending

@@ -2,8 +2,10 @@
 // the default test suite runs with no LLM. In Phase 01 no code path can reach a model at all.
 import { readFileSync, readdirSync } from 'node:fs';
 import { DEFAULT_USER_SETTINGS } from '@cie/core';
-import { afterAll, describe, expect, it } from 'vitest';
-import { cliWorkspace, runCli } from '../../helpers/cli.js';
+import { afterAll, describe, expect, it, vi } from 'vitest';
+import { CLI_TEST_TIMEOUT_MS, cliWorkspace, runCli } from '../../helpers/cli.js';
+
+vi.setConfig({ testTimeout: CLI_TEST_TIMEOUT_MS });
 import { repoPath } from '../../helpers/repo.js';
 
 const ws = cliWorkspace({ 'src/a.ts': 'export const a = 1;\n', 'pkg/__init__.py': '' });

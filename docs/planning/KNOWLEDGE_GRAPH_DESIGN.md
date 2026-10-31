@@ -177,6 +177,23 @@ CREATE VIRTUAL TABLE search_fts USING fts5(           -- ADR-0008 (A-03); keyed 
 CREATE TABLE page (...);  CREATE TABLE section (...);  CREATE TABLE link (...);   -- see DOCUMENTATION_MODEL §9
 ```
 
+**Implemented in Phase 02 (P02-08, `index.db` schema v3, `packages/adapters/src/sqlite/schema.ts` and `graph-store.ts`).** These differences from the sketch are deliberate:
+- **One `node` table for all kinds.** Structural nodes (directory, package, project) and code nodes (module, symbol, external, unresolved) share the table and `node_key`. Code nodes must carry `producer`, `fidelity` and `data` (a CHECK constraint, SY-005). `data` is the canonical JSON of the projected record, and equal `data` means the same version during staging.
+- **No `file:` nodes yet.** A module is the language view of a file and is backed by the file row. For that reason Phase 02 has no `contains` edges from a directory to a file.
+  - `contains` links a symbol to its nested symbols.
+  - `defines` links a module to its top-level symbols.
+  - `exports` links a module to its exported top-level symbols.
+- **Precision of syntactic edges (contradiction log C-14).** `contains`, `defines` and `exports` come from the parser and are not resolutions, so their precision is null. Their status is `verified`, except Python `exports`, which follow a naming convention and are `inferred`. SY-006 (precision vs fidelity) governs the resolved edge types (`imports`, `imports_symbol`, and in Phase 03 `references`, `calls` and type relations).
+- **Edge identity is `(type, from, to, site_key)`** with a partial unique index on the head. Several import statements with the same identity merge into one edge that keeps the earliest statement as evidence.
+- **Staging has three mandatory steps:** manifest, then structure, then code graph. A revision with an empty graph must still stage it, so a forgotten step cannot look complete.
+- **RevisionValidator checks added in Phase 02:**
+  - KG-001: both endpoints of a visible edge are visible;
+  - SY-002: duplicate node ids or edge identities;
+  - SY-005: missing attribution;
+  - SY-006: import edges re-checked with `importEdgeViolations`; syntactic edges must not claim a precision;
+  - WS-001: edge evidence must point at a visible file.
+- `line_count` (for the SY-003 span-bounds check at publish) and `search_fts` are not in v3. SY-003 is enforced by the extractor and its tests; FTS comes with P02-09.
+
 **Visibility filter.** Every read applies `valid_from_seq <= :seq AND (valid_to_seq IS NULL OR valid_to_seq > :seq)`. Repository code generates the predicate, and FF-BND-003 forbids raw SQL elsewhere.
 
 **FTS and revisions.** FTS indexes **head only**. Queries pinned to an older seq re-check visibility by joining back to `node` with the visibility filter, and may miss names that changed since. This is accepted for search. [Proposal]

@@ -2,8 +2,9 @@
  * IndexService: a full index of the workspace into one atomically published revision (FR-050, FR-055,
  * SN-001..SN-005, ADR-0015). Application layer: it orchestrates domain rules and ports, and does no I/O itself.
  *
- *   acquire lease → recover → begin(head) → enumerate → manifest → stage files + structure
- *     → validating → validate → decidePublish (SN-001) → publish (CAS) → release
+ *   acquire lease → recover → begin(head) → enumerate → manifest → extract → resolve (code graph, Phase 02)
+ *     → stage files + structure + code graph → validating → validate → decidePublish (SN-001) → publish (CAS)
+ *     → release
  *
  * Any failure after `begin` abandons the staging revision, so no partial revision is ever left behind by a
  * clean failure. Crashes are covered by recovery on the next run (SN-005). `onStage` is an observation hook
@@ -17,6 +18,7 @@ import { decidePublish } from '../domain/publish-policy.js';
 import { jobTransition } from '../domain/lifecycle.js';
 import { planRecovery, type RecoveryAction } from '../domain/recovery.js';
 import type { ChangeSeq } from '../domain/types.js';
+import { buildCodeGraph, type BuiltCodeGraph, type CodeDiagnostic, type CodeIntelligenceDeps, type CodeStats } from './code-graph-build.js';
 import type { JobRecord, JobRepository, Lease, LeaseManager, RevisionStore, RevisionWriter, StageStats } from './ports.js';
 
 /** Change-log position "no changes recorded yet". */
@@ -27,6 +29,8 @@ export type IndexStage =
   | 'recovered'
   | 'revision-begun'
   | 'enumerated'
+  | 'extracted'
+  | 'resolved'
   | 'staged'
   | 'validating'
   | 'published';
@@ -43,6 +47,8 @@ export interface IndexServiceDeps {
   readonly onStage?: (stage: IndexStage) => void | Promise<void>;
   /** Optional job history (state.db). Interrupted jobs are marked failed during recovery. */
   readonly jobs?: JobRepository;
+  /** Language adapters. Without them the revision gets an empty code graph (structure only). */
+  readonly code?: CodeIntelligenceDeps;
 }
 
 export interface IndexOutcome {
@@ -50,6 +56,9 @@ export interface IndexOutcome {
   readonly manifestHash: string;
   readonly files: StageStats;
   readonly structure: StageStats;
+  readonly graph: { readonly nodes: StageStats; readonly edges: StageStats };
+  readonly code: CodeStats;
+  readonly codeDiagnostics: readonly CodeDiagnostic[];
   readonly recovered: readonly RecoveryAction[];
   readonly enumeration: Pick<EnumerationResult, 'unrepresentable' | 'unlistable' | 'ignored'>;
 }
@@ -92,13 +101,26 @@ async function buildAndPublish(
   if (!manifest.ok) return manifest;
   await deps.onStage?.('enumerated');
 
-  const staged = await stageEverything(deps, lease, seq, manifest.value.entries);
+  const code = await buildCodeGraph(deps.code, deps.hasher, manifest.value.entries, deps.signal, async (phase) => {
+    await deps.onStage?.(phase);
+  });
+  if (!code.ok) return code;
+
+  const staged = await stageEverything(deps, lease, seq, manifest.value.entries, code.value);
   if (!staged.ok) return staged;
   const published = await validateAndPublish(deps, seq);
   if (!published.ok) return published;
 
   const { unrepresentable, unlistable, ignored } = enumeration.value;
-  return ok({ seq, manifestHash: manifest.value.manifestHash, ...staged.value, recovered, enumeration: { unrepresentable, unlistable, ignored } });
+  return ok({
+    seq,
+    manifestHash: manifest.value.manifestHash,
+    ...staged.value,
+    code: code.value.stats,
+    codeDiagnostics: code.value.diagnostics,
+    recovered,
+    enumeration: { unrepresentable, unlistable, ignored },
+  });
 }
 
 async function stageEverything(
@@ -106,16 +128,19 @@ async function stageEverything(
   lease: Lease,
   seq: RevisionSeq,
   entries: readonly ManifestEntry[],
-): Promise<Result<{ files: StageStats; structure: StageStats }, DomainError>> {
-  // Enumeration can take long on big repositories: renew before writing (SN-004).
+  code: BuiltCodeGraph,
+): Promise<Result<{ files: StageStats; structure: StageStats; graph: { nodes: StageStats; edges: StageStats } }, DomainError>> {
+  // Enumeration and extraction can take long on big repositories: renew before writing (SN-004).
   const renewed = await deps.lease.renew(lease, deps.leaseTtlMs);
   if (!renewed.ok) return renewed;
   const files = await deps.store.stageManifest(seq, entries);
   if (!files.ok) return files;
   const structure = await deps.store.stageStructure(seq, deriveStructure(entries));
   if (!structure.ok) return structure;
+  const graph = await deps.store.stageGraph(seq, code.graph);
+  if (!graph.ok) return graph;
   await deps.onStage?.('staged');
-  return ok({ files: files.value, structure: structure.value });
+  return ok({ files: files.value, structure: structure.value, graph: graph.value });
 }
 
 async function validateAndPublish(deps: IndexServiceDeps, seq: RevisionSeq): Promise<Result<void, DomainError>> {

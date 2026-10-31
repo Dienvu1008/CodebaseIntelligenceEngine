@@ -6,6 +6,14 @@ import { repoPath } from './repo.js';
 
 export const CLI = repoPath('packages/runtime/dist/cli/main.js');
 
+/**
+ * Per-test timeout for files that spawn the CLI. Since Phase 02 every `dev index` process loads the
+ * grammars and the TypeScript compiler (about 1.5 s alone on the reference machine, several times that
+ * with 8 parallel workers and on CI), and these tests spawn up to six processes. Other tests keep the 30 s
+ * default, so a hang there is still caught quickly. Use: `vi.setConfig({ testTimeout: CLI_TEST_TIMEOUT_MS })`.
+ */
+export const CLI_TEST_TIMEOUT_MS = 180_000;
+
 export interface CliResult {
   readonly code: number | null;
   readonly signal: NodeJS.Signals | null;

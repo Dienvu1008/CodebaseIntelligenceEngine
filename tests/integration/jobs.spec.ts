@@ -2,8 +2,10 @@
 // recovery, and the recovering job is recorded as succeeded.
 import path from 'node:path';
 import Database from 'better-sqlite3';
-import { afterAll, describe, expect, it } from 'vitest';
-import { cliWorkspace, runCli } from '../helpers/cli.js';
+import { afterAll, describe, expect, it, vi } from 'vitest';
+import { CLI_TEST_TIMEOUT_MS, cliWorkspace, runCli } from '../helpers/cli.js';
+
+vi.setConfig({ testTimeout: CLI_TEST_TIMEOUT_MS });
 
 const ws = cliWorkspace({ 'src/a.ts': 'export const a = 1;\n' });
 afterAll(() => ws.dispose());

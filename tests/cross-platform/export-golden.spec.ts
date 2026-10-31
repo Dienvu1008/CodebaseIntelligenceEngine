@@ -5,8 +5,10 @@
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import path from 'node:path';
-import { afterAll, describe, expect, it } from 'vitest';
-import { runCli } from '../helpers/cli.js';
+import { afterAll, describe, expect, it, vi } from 'vitest';
+import { CLI_TEST_TIMEOUT_MS, runCli } from '../helpers/cli.js';
+
+vi.setConfig({ testTimeout: CLI_TEST_TIMEOUT_MS });
 import { repoPath } from '../helpers/repo.js';
 
 const FIXTURE = repoPath('fixtures/xplat-basic');

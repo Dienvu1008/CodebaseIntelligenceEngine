@@ -5,7 +5,7 @@
 // that is known but not visible at this seq. Either way, the revision cannot be published.
 import { deriveStructure, type NodeId, type StructuralNode } from '@cie/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { cpath, cseq, file, job, publishRevision, sandbox, type Sandbox } from '../../helpers/index-store.js';
+import { cpath, cseq, EMPTY_GRAPH, file, job, publishRevision, sandbox, type Sandbox } from '../../helpers/index-store.js';
 
 let sb: Sandbox;
 beforeEach(async () => {
@@ -42,6 +42,7 @@ describe('WS-001 (a): structural nodes reference files visible at the same revis
     if (!rev.ok) throw new Error(rev.error.code);
     await o.store.stageManifest(rev.value.seq, [file('src/a.ts', 'b')]); // package.json deleted...
     await o.store.stageStructure(rev.value.seq, [pkgNode('package.json')]); // ...but its node kept: orphan
+    await o.store.stageGraph(rev.value.seq, EMPTY_GRAPH);
     await o.store.markValidating(rev.value.seq);
     const violations = await o.store.validate(rev.value.seq);
     expect(violations.some((v) => v.startsWith('WS-001: node pkg:npm:package.json'))).toBe(true);

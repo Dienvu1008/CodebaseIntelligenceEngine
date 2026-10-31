@@ -12,10 +12,11 @@
  *  - both methods return Results, like every other port; adapter failures are data, not exceptions;
  *  - `producer` is a ProducerIdentity; facts carry ProducerRef with per-capability fidelity (C-12).
  */
-import type { CancellationSignal, CanonicalPath, ContentHash, DomainError, Result } from '../../shared-kernel/index.js';
+import type { CancellationSignal, CanonicalPath, ContentHash, DomainError, Result, RevisionSeq } from '../../shared-kernel/index.js';
 import type { FileSystem, ManifestEntry } from '../../workspace/public.js';
 import type { CapabilityProfile, LanguageId, ProducerIdentity } from '../domain/capability.js';
 import type { ExtractionDiagnostic, FileExtraction } from '../domain/file-extraction.js';
+import type { CodeEdge, CodeNode } from '../domain/graph-projection.js';
 import type { StructuralEdge } from '../domain/import-edge.js';
 
 export interface FileInput {
@@ -66,6 +67,12 @@ export interface ProjectResolution {
   readonly diagnostics: readonly (ExtractionDiagnostic & { readonly path: CanonicalPath | null })[];
   /** Incremental runs (Phase 05): dependents that must be re-resolved. */
   readonly affectedFiles?: readonly CanonicalPath[];
+}
+
+/** Revision-pinned read side of the code graph (DOMAIN_MODEL §8). */
+export interface CodeGraphReader {
+  /** Code nodes (sorted by id) and edges (sorted by identity) visible at a PUBLISHED seq; otherwise REVISION_NOT_VISIBLE. */
+  graphAt(seq: RevisionSeq): Promise<Result<{ readonly nodes: readonly CodeNode[]; readonly edges: readonly CodeEdge[] }, DomainError>>;
 }
 
 export interface ProjectResolver extends LanguageAdapter {

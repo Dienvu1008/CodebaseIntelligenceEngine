@@ -4,8 +4,10 @@
 // and real kill-point crash injection: the CLI process is SIGKILLed at every pipeline stage.
 import path from 'node:path';
 import { planRecovery, type RevisionSeq } from '@cie/core';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { cliWorkspace, runCli, type CliWorkspace } from '../../helpers/cli.js';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { CLI_TEST_TIMEOUT_MS, cliWorkspace, runCli, type CliWorkspace } from '../../helpers/cli.js';
+
+vi.setConfig({ testTimeout: CLI_TEST_TIMEOUT_MS });
 import { digestAt, file, job, publishRevision, sandbox, stageAll, type Sandbox } from '../../helpers/index-store.js';
 
 const s = (n: number) => n as RevisionSeq;
@@ -77,7 +79,7 @@ describe('SN-005: simulated crash mid-staging', () => {
 // Kill-point crash injection (P01-12): the real CLI process is SIGKILLed at each pipeline stage.
 // ---------------------------------------------------------------------------------------------------
 
-const STAGES = ['lease-acquired', 'recovered', 'revision-begun', 'enumerated', 'staged', 'validating', 'published'] as const;
+const STAGES = ['lease-acquired', 'recovered', 'revision-begun', 'enumerated', 'extracted', 'resolved', 'staged', 'validating', 'published'] as const;
 
 /** The export with the revision number removed: content identity independent of how many runs happened. */
 const content = (exported: string): unknown => {

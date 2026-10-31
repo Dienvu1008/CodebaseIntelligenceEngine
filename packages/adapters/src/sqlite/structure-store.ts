@@ -20,11 +20,14 @@ interface NodeRow {
 const sameNode = (row: NodeRow, n: StructuralNode): boolean =>
   row.kind === n.kind && row.name === n.name && row.ecosystem === n.ecosystem && row.file_path === n.file;
 
+/** Structural kinds share the node table with code nodes (graph-store.ts); every query here is limited to them. */
+export const STRUCTURAL_KINDS_SQL = "('directory','package','project')";
+
 export function selectNodes(db: Database.Database, visibleAt: VisibleAt, seq: number): NodeRow[] {
   const rows = db
     .prepare(`select n.id, k.node_id, k.kind, n.name, n.ecosystem, fk.path as file_path
               from node n join node_key k on k.key = n.node_key left join file_key fk on fk.key = n.file_key
-              where ${visibleAt('n')}`)
+              where ${visibleAt('n')} and n.kind in ${STRUCTURAL_KINDS_SQL}`)
     .all({ seq }) as NodeRow[];
   return rows.sort((a, b) => (a.node_id === b.node_id ? 0 : a.node_id < b.node_id ? -1 : 1));
 }
@@ -66,7 +69,7 @@ export function stageNodes(
   const keyOf = db.prepare('select key from node_key where node_id = ?').pluck();
   const addKey = db.prepare('insert into node_key (node_id, kind) values (?, ?)');
   const close = db.prepare('update node set valid_to_seq = ? where id = ? and valid_to_seq is null');
-  const insert = db.prepare('insert into node (node_key, name, ecosystem, file_key, valid_from_seq) values (?, ?, ?, ?, ?)');
+  const insert = db.prepare('insert into node (node_key, kind, name, ecosystem, file_key, valid_from_seq) values (?, ?, ?, ?, ?, ?)');
   for (const n of nodes) {
     const old = byId.get(n.id);
     byId.delete(n.id);
@@ -79,7 +82,7 @@ export function stageNodes(
       stats.closed++;
     }
     const key = (keyOf.get(n.id) as number | undefined) ?? Number(addKey.run(n.id, n.kind).lastInsertRowid);
-    insert.run(key, n.name, n.ecosystem, n.file === null ? null : (fileKeys.get(n.file) ?? null), seq);
+    insert.run(key, n.kind, n.name, n.ecosystem, n.file === null ? null : (fileKeys.get(n.file) ?? null), seq);
     stats.inserted++;
   }
   for (const removed of byId.values()) {
@@ -97,7 +100,7 @@ export function nodeViolations(db: Database.Database, visibleAt: VisibleAt, seq:
     .all({ seq }) as Array<{ node_id: string; path: string }>;
   const kindMismatch = db
     .prepare(`select k.node_id from node n join node_key k on k.key = n.node_key
-              where ${visibleAt('n')} and ((k.kind = 'directory') <> (n.file_key is null))`)
+              where ${visibleAt('n')} and n.kind in ${STRUCTURAL_KINDS_SQL} and ((k.kind = 'directory') <> (n.file_key is null))`)
     .pluck()
     .all({ seq }) as string[];
   return [
