@@ -62,13 +62,14 @@ items:
       local processes are not adversaries); to be recorded in the sign-off.
   - id: P01-07
     title: adapters/sqlite - open checks (quick_check, schema, meta.workspace_id), migrations framework, revision/lease/file/node tables, visibility-filter query builder, quarantine + rebuild
-    status: pending
+    status: done
     check: "tests/invariants/ws/ws-003.spec.ts; tests/invariants/sn/sn-002,003,007; FF-DAT-001/002/004/005"
     notes: >
       Done: index.db open/verify/quarantine/schema-rebuild, meta.workspace_id (WS-003), revisions, single visibleAt
       predicate, staging with stable file_key, CAS publish (domain precheck + SQL CAS, each independently sufficient by
-      mutation test), abandon, lease-checked writes, follower read-only mode. Remaining: state.db with the
-      forward-only migrations framework (jobs, change log), and directory/package node tables.
+      mutation test), abandon, lease-checked writes, follower read-only mode; structural node tables (schema v2);
+      state.db with the forward-only migrations framework (job history; the change log arrives in Phase 05). Found and
+      fixed: a corrupt state.db was renamed while still open, which fails on Windows only.
   - id: P01-08
     title: adapters/config - workspace allow-list + user config dir (SEC-005)
     status: done
@@ -89,7 +90,7 @@ items:
     check: "node scripts/check-governance.mjs with CIE_PHASE=2 reports no invariant-test-presence errors"
   - id: P01-11
     title: "Fitness: FF-DAT-001/002/004/005, FF-BND-003, FF-DEP-008 full per-adapter allow-list, FF-PRF-006 correctness"
-    status: pending
+    status: done
     check: "governance/fitness.yaml entries ACTIVE with resolvable enforced_by"
   - id: P01-12
     title: Crash injection at each pipeline stage (SN-005) and adversarial config suite

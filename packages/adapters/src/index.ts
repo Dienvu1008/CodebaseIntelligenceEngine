@@ -13,3 +13,5 @@ export { SqliteIndexStore, visibleAt } from './sqlite/index-store.js';
 export { SqliteLeaseManager } from './sqlite/lease.js';
 export { openIndexStore, type OpenedIndexStore, type OpenIndexStoreOptions, type StateWriteGate } from './sqlite/open.js';
 export { INDEX_SCHEMA_VERSION, type OpenOutcome } from './sqlite/schema.js';
+export { migrate, STATE_MIGRATIONS, STATE_SCHEMA_VERSION, validateChain, type Migration, type MigrationOutcome } from './sqlite/state-migrations.js';
+export { openStateStore, SqliteJobRepository, type OpenedStateStore, type OpenStateStoreOptions } from './sqlite/state-store.js';

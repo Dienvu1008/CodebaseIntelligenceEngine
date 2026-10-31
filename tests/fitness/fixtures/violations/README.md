@@ -15,6 +15,10 @@ These files are excluded from type checking, linting and the real `npm run depcr
 | `packages/protocol/src/uses-npm.ts` | FF-DEP-006 |
 | `packages/runtime/src/uses-child-process.ts` | FF-DEP-007 |
 | `packages/runtime/src/uses-sqlite.ts` | FF-DEP-008 |
+| `packages/runtime/src/uses-tree-sitter.ts` | FF-DEP-008b |
+| `packages/runtime/src/uses-typescript.ts` | FF-DEP-008c |
+| `packages/runtime/src/uses-openai.ts` | FF-DEP-008d |
+| `packages/runtime/src/uses-mcp.ts` | FF-DEP-008e |
 | `packages/core/src/knowledge/application/deep-import.ts` | FF-BND-001 |
 | `packages/core/src/shared-kernel/leak.ts` | FF-BND-001b |
 | `packages/core/src/workspace/domain/uses-application.ts` | FF-BND-002 |

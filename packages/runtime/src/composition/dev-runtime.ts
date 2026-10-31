@@ -14,9 +14,11 @@ import {
   newWorkspaceId,
   NodeHasher,
   openIndexStore,
+  openStateStore,
   SystemClock,
   WriteConfinement,
   type OpenedIndexStore,
+  type OpenedStateStore,
 } from '@cie/adapters';
 import {
   domainError,
@@ -29,6 +31,7 @@ import {
   type IndexOutcome,
   type IndexStage,
   type JobId,
+  type JobRecord,
   type Result,
   type UserSettings,
   type WorkspaceId,
@@ -54,6 +57,8 @@ export interface DevRuntime {
   readonly index: OpenedIndexStore;
   /** Runs one full index. `onStage` observes progress (and powers crash-injection tests). */
   fullIndex(onStage?: (stage: IndexStage) => void | Promise<void>): Promise<Result<IndexOutcome, DomainError>>;
+  /** Most recent jobs (writer runtimes only; followers do not open state.db). */
+  recentJobs(limit: number): readonly JobRecord[];
   close(): void;
 }
 
@@ -117,6 +122,16 @@ export async function openDevRuntime(opts: DevRuntimeOptions): Promise<Result<De
   const holder = makeHolder();
   const index = await openIndexStore({ stateDir, workspaceId: workspaceId.value, clock, mode: opts.mode, holder, confinement });
   if (!index.ok) return index;
+  // state.db is writer-only: followers never migrate or create it.
+  let state: OpenedStateStore | null = null;
+  if (opts.mode === 'writer') {
+    const opened = await openStateStore({ stateDir, workspaceId: workspaceId.value, clock, confinement });
+    if (!opened.ok) {
+      index.value.close();
+      return opened;
+    }
+    state = opened.value;
+  }
   const hasher = new NodeHasher();
 
   return ok({
@@ -140,8 +155,13 @@ export async function openDevRuntime(opts: DevRuntimeOptions): Promise<Result<De
         signal: controller.signal,
         enumerate: () => enumerateWorkspace({ fs, hasher, settings: settings.value, signal: controller.signal }),
         ...(onStage === undefined ? {} : { onStage }),
+        ...(state === null ? {} : { jobs: state.jobs }),
       });
     },
-    close: () => index.value.close(),
+    recentJobs: (limit) => state?.jobs.recent(limit) ?? [],
+    close: () => {
+      state?.close();
+      index.value.close();
+    },
   });
 }

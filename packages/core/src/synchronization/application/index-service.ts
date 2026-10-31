@@ -14,9 +14,10 @@ import { domainError, err, ok } from '../../shared-kernel/index.js';
 import type { EnumerationResult, ManifestEntry } from '../../workspace/public.js';
 import { buildManifest, deriveStructure } from '../../workspace/public.js';
 import { decidePublish } from '../domain/publish-policy.js';
+import { jobTransition } from '../domain/lifecycle.js';
 import { planRecovery, type RecoveryAction } from '../domain/recovery.js';
 import type { ChangeSeq } from '../domain/types.js';
-import type { Lease, LeaseManager, RevisionStore, RevisionWriter, StageStats } from './ports.js';
+import type { JobRecord, JobRepository, Lease, LeaseManager, RevisionStore, RevisionWriter, StageStats } from './ports.js';
 
 /** Change-log position "no changes recorded yet". */
 const NO_CHANGES = 0 as ChangeSeq;
@@ -40,6 +41,8 @@ export interface IndexServiceDeps {
   readonly enumerate: () => Promise<Result<EnumerationResult, DomainError>>;
   readonly signal: CancellationSignal;
   readonly onStage?: (stage: IndexStage) => void | Promise<void>;
+  /** Optional job history (state.db). Interrupted jobs are marked failed during recovery. */
+  readonly jobs?: JobRepository;
 }
 
 export interface IndexOutcome {
@@ -57,7 +60,16 @@ async function recover(deps: IndexServiceDeps): Promise<Result<readonly Recovery
     const r = await deps.store.abandon(step.seq, step.reason);
     if (!r.ok) return r;
   }
+  // We hold the lease, so any job still marked active belongs to a writer that died (SN-005).
+  for (const stale of (await deps.jobs?.listActive()) ?? []) {
+    const failed = jobTransition(stale.state, 'failed');
+    if (failed.ok) await deps.jobs?.save({ ...stale, state: failed.value });
+  }
   return ok(plan);
+}
+
+async function recordJob(deps: IndexServiceDeps, state: JobRecord['state'], targetSeq: RevisionSeq | null): Promise<void> {
+  await deps.jobs?.save({ id: deps.jobId, kind: 'full', state, targetSeq });
 }
 
 async function stage(deps: IndexServiceDeps): Promise<Result<RevisionSeq, DomainError>> {
@@ -137,10 +149,15 @@ export async function runFullIndex(deps: IndexServiceDeps): Promise<Result<Index
     const recovered = await recover(deps);
     if (!recovered.ok) return recovered;
     await deps.onStage?.('recovered');
+    await recordJob(deps, 'running', null);
     const seq = await stage(deps);
-    if (!seq.ok) return seq;
+    if (!seq.ok) {
+      await recordJob(deps, 'failed', null);
+      return seq;
+    }
     const outcome = await buildAndPublish(deps, lease.value, seq.value, recovered.value);
     if (!outcome.ok) await deps.store.abandon(seq.value, `failed: ${outcome.error.code}`);
+    await recordJob(deps, outcome.ok ? 'succeeded' : 'failed', seq.value);
     return outcome;
   } finally {
     await deps.lease.release(lease.value);

@@ -34,7 +34,10 @@ function makeRepo(): string {
     '.dependency-cruiser.cjs',
     'package.json',
     'packages/core/src/shared-kernel',
+    // Every directory that fitness.yaml references with `test:` entries.
     'tests/fitness',
+    'tests/invariants',
+    'packages/adapters/test',
   ]) {
     cpSync(repoPath(rel), path.join(dir, ...rel.split('/')), { recursive: true });
   }
@@ -54,6 +57,12 @@ function editRegister(dir: string, edit: (reg: Register) => void): void {
   const reg = load(readFileSync(file, 'utf8')) as Register;
   edit(reg);
   writeFileSync(file, dump(reg));
+}
+
+/** Deletes an invariant's test file in the throwaway copy, so "missing test" scenarios are explicit. */
+function removeTest(dir: string, id: string): void {
+  const reg = load(readFileSync(path.join(dir, 'governance', 'invariants.yaml'), 'utf8')) as Register;
+  rmSync(path.join(dir, ...find(reg, id).test.split('/')), { force: true });
 }
 
 const find = (reg: Register, id: string): Invariant => {
@@ -94,6 +103,7 @@ describe('check-governance failure modes', () => {
 
   it('rejects a CRITICAL invariant of a closed phase that has no test file', () => {
     const dir = makeRepo();
+    removeTest(dir, 'WS-001');
     editRegister(dir, (reg) => {
       find(reg, 'WS-001').phase = 0;
     });
@@ -103,6 +113,7 @@ describe('check-governance failure modes', () => {
 
   it('only warns for invariants of the phase in progress, and ignores later phases (C-11)', () => {
     const dir = makeRepo();
+    removeTest(dir, 'WS-001');
     const presence = (p: number) => {
       const r = runChecks(options(dir, { phase: p }));
       return {

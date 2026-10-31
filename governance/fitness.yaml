@@ -55,8 +55,8 @@ fitness_functions:
     phase: 1
     blocking: true
     status: ACTIVE
-    enforced_by: ["depcruise:FF-DEP-008-sqlite-confined"]
-    notes: Phase 00 enforces the storage-driver part early. Phase 01 adds the full per-subfolder allow-list.
+    enforced_by: ["depcruise:FF-DEP-008-sqlite-confined", "depcruise:FF-DEP-008b-treesitter-confined", "depcruise:FF-DEP-008c-typescript-runtime-confined", "depcruise:FF-DEP-008d-llm-sdk-confined", "depcruise:FF-DEP-008e-mcp-sdk-confined"]
+    notes: Full per-adapter allow-list (DEPENDENCY_RULES §4 A2 and §5) since Phase 01.
   # ---------------- Boundary ----------------
   - id: FF-BND-001
     title: Cross-context imports in core only via public.ts; shared-kernel is a leaf
@@ -78,8 +78,9 @@ fitness_functions:
     title: Raw SQL only in adapters/sqlite; all reads take a pinned RevisionSeq
     phase: 1
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["depcruise:FF-DEP-008-sqlite-confined", "test:tests/fitness/visibility-predicate.spec.ts"]
+    notes: SQL statements and the single visibleAt predicate stay in adapters/sqlite; reads take a RevisionSeq by port signature.
   - id: FF-BND-004
     title: Transports call only ProtocolHandler; identical contract suite across transports
     phase: 6
@@ -151,14 +152,14 @@ fitness_functions:
     title: Referential integrity (foreign_keys on; foreign_key_check empty)
     phase: 1
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:tests/fitness/data-integrity.spec.ts"]
   - id: FF-DAT-002
     title: Workspace isolation across stores
     phase: 1
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:tests/fitness/data-integrity.spec.ts", "test:tests/invariants/ws/ws-003.spec.ts"]
   - id: FF-DAT-003
     title: Graph consistency on golden fixtures
     phase: 2
@@ -169,14 +170,15 @@ fitness_functions:
     title: Revision digest stability and atomic visibility
     phase: 1
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:tests/invariants/sn/sn-003.spec.ts", "test:tests/invariants/sn/sn-007.spec.ts"]
   - id: FF-DAT-005
     title: Migration compatibility
     phase: 1
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:packages/adapters/test/sqlite/state-migrations.spec.ts"]
+    notes: Released-schema fixture files are added from the first public release; until then the chain is tested programmatically.
   - id: FF-DAT-006
     title: Deterministic, cross-platform identical exports
     phase: 2
@@ -224,8 +226,9 @@ fitness_functions:
     title: Full re-index recovery (correctness from Phase 01; time from Phase 05)
     phase: 1
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:tests/invariants/sn/sn-005.spec.ts", "test:packages/adapters/test/sqlite/index-db-lifecycle.spec.ts"]
+    notes: Correctness is active since Phase 01 (SIGKILL at every stage; corrupt index rebuilt). Recovery TIME regression starts with the Phase 05 baselines.
   - id: FF-PRF-007
     title: Extension activation time and Webview bundle size
     phase: 6

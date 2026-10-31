@@ -43,7 +43,7 @@ create table index_lease (
 -- Stable identity keys: append-only, never revision-scoped (ADR-0015, contradiction log C-02).
 create table file_key (key integer primary key, path text not null unique) strict;
 
--- One row per file version, visible while valid_from_seq <= S < valid_to_seq (ADR-0015).
+-- One row per file version; visibility is defined only by visibleAt() in index-store.ts (ADR-0015, FF-BND-003).
 create table file (
   id integer primary key,
   file_key integer not null references file_key(key),
