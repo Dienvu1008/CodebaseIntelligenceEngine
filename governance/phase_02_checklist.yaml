@@ -36,8 +36,9 @@ items:
   # --- Adapters ---
   - id: P02-05
     title: adapters/treesitter - CIE-owned extraction queries, grammar lock manifest (sha256 per .wasm), spanHash and bodyFingerprint
-    status: pending
+    status: done
     check: "tests/invariants/sy/sy-003.spec.ts; grammar manifest verified at load"
+    notes: "TreeSitterExtractor (L1 for ts/tsx/js/py) with queries in adapters/src/treesitter/queries.ts; SourceText + spanViolations in core; encodeNameSegment added to SymbolIdentity (ADR-0014 notes). SY-003 uses an independent decode/line-split oracle and was mutation-checked (CRLF handling). Not extracted at L1: variables inside TS namespaces and function bodies (locals), `export { a as b }` clauses (lang-ts, L3), Python __all__."
   - id: P02-06
     title: adapters/lang-ts - a Program per tsconfig (plugins never enabled, A-06), import resolution only (paths, baseUrl, exports)
     status: pending

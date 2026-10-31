@@ -5,8 +5,10 @@
 // constructs SymbolIds (type-level check).
 import {
   createFileExtraction,
+  encodeNameSegment,
   identifySymbols,
   parseSymbolId,
+  validateNameSegment,
   SYMBOL_KINDS,
   type CanonicalPath,
   type LanguageId,
@@ -61,10 +63,23 @@ describe('SY-001: format (ADR-0014)', () => {
       'ts:src/a.ts#default(function)',
       'ts:src/a.ts#<anon@1>(class)',
     ]);
-    for (const bad of ['', 'a.b', 'a#b', 'f(x)', 'a~1', 'a b', 'tab\t', '<computed>', '\ud800']) {
+    for (const bad of ['', 'a.b', 'a#b', 'f(x)', 'a~1', 'a b', 'tab\t', '<computed>', '\ud800', '50%', '%2', '%zz', '%2e']) {
       const r = identifySymbols(TS, path('src/a.ts'), [{ path: [bad], kind: 'function' }]);
       expect(r.ok ? 'accepted' : r.error.code, JSON.stringify(bad)).toBe('SYMBOL_NAME_INVALID');
     }
+  });
+
+  it('encodes any source name into a valid segment, injectively', () => {
+    expect(encodeNameSegment('#items')).toBe('%23items');
+    expect(encodeNameSegment('[Symbol.iterator]')).toBe('[Symbol%2Eiterator]');
+    expect(encodeNameSegment('q r')).toBe('q%20r');
+    expect(encodeNameSegment('a\u3000b')).toBe('a%u3000b');
+    fc.assert(
+      fc.property(fc.string({ minLength: 1, maxLength: 12, unit: 'binary' }), fc.string({ minLength: 1, maxLength: 12, unit: 'binary' }), (a, b) => {
+        expect(validateNameSegment(encodeNameSegment(a)).ok).toBe(true);
+        if (a !== b) expect(encodeNameSegment(a)).not.toBe(encodeNameSegment(b));
+      }),
+    );
   });
 
   it('rejects malformed or non-canonical ids when parsing', () => {

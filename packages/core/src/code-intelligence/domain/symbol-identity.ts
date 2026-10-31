@@ -57,19 +57,34 @@ export function anonymousName(ordinal: number): string {
   return `<anon@${ordinal}>`;
 }
 
-// Delimiters of the id format, whitespace, control characters and lone surrogates.
+// Delimiters of the id format, the escape character, `<`/`>` (reserved for placeholders), whitespace,
+// control characters and lone surrogates.
 // eslint-disable-next-line no-control-regex
-const FORBIDDEN_IN_SEGMENT = /[.#()~\s\u0000-\u001f\u007f]|[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/;
+const RESERVED = /[.#()~%<>\s\u0000-\u001f\u007f]|[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/g;
 const ANON = /^<anon@[1-9][0-9]*>$/;
+const ESCAPE = /%(?:[0-9A-F]{2}|u[0-9A-F]{4})/g;
 
-/** Validates one segment of a qualified name. `<anon@n>` placeholders are the only names allowed to use `<`/`>`. */
+/**
+ * Encodes a source-level name into a valid segment: every reserved code unit becomes `%HH` (ASCII) or
+ * `%uHHHH` (anything else), so `#items` → `%23items`, `[Symbol.iterator]` → `[Symbol%2Eiterator]`. The
+ * encoding is injective, so distinct source names never share a segment.
+ */
+export function encodeNameSegment(name: string): string {
+  return name.replace(RESERVED, (c) => {
+    const u = c.charCodeAt(0);
+    return u < 0x80 ? `%${u.toString(16).toUpperCase().padStart(2, '0')}` : `%u${u.toString(16).toUpperCase().padStart(4, '0')}`;
+  });
+}
+
+/**
+ * Validates one segment of a qualified name: non-empty, no raw reserved character, `%` only as an escape
+ * produced by `encodeNameSegment`, and `<`/`>` only in an `<anon@n>` placeholder.
+ */
 export function validateNameSegment(name: string): Result<string, DomainError> {
   if (name === '') return err(domainError('SYMBOL_NAME_INVALID', 'a symbol name must not be empty'));
-  if (FORBIDDEN_IN_SEGMENT.test(name)) {
-    return err(domainError('SYMBOL_NAME_INVALID', `symbol name "${name}" contains a reserved character (. # ( ) ~, whitespace or control)`, { name }));
-  }
-  if (name.startsWith('<') && !ANON.test(name)) {
-    return err(domainError('SYMBOL_NAME_INVALID', `symbol name "${name}" starts with "<" but is not an <anon@n> placeholder`, { name }));
+  if (ANON.test(name)) return ok(name);
+  if (new RegExp(RESERVED.source).test(name.replace(ESCAPE, ''))) {
+    return err(domainError('SYMBOL_NAME_INVALID', `symbol name "${name}" contains a reserved character; encode it with encodeNameSegment`, { name }));
   }
   return ok(name);
 }

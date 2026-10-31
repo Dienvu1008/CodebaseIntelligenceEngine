@@ -171,6 +171,11 @@ No core changes are required. FF-DAT-006 golden tests gate this.
 ## 6. Extraction pipeline details
 
 1. **Read bytes once.** Compute `contentHash` and detect the encoding. UTF-8 is expected; other encodings are decoded per BOM or else skipped with a diagnostic. All spans are computed over the decoded text, and `spanHash` is computed over the UTF-8 encoding of the span text, so it is consistent across platforms.
+   Precise rules (Phase 02, implemented in `adapters/treesitter/decode.ts` and `core/code-intelligence/domain/source-text.ts`):
+   - A UTF-8 BOM, or a UTF-16LE/BE BOM, selects the encoding. The BOM is not part of the decoded text, so it never counts towards columns or span hashes.
+   - Invalid input fails with `EXTRACTION_UNDECODABLE`; it is never replaced with U+FFFD.
+   - Lines end at `\r\n`, `\n` or `\r` (LSP). Columns are UTF-16 code units. A terminator belongs to the line it ends.
+   - `SourceText` is the single definition of `text(file, range)`. Extractors map parser offsets to ranges with it, and the SY-003 validator (`spanViolations`) maps ranges back to text with it.
 2. **Normalize line endings for fingerprints only.** `spanHash` uses the exact span text, while `bodyFingerprint` uses a token stream with whitespace and comments dropped and the symbol's own name masked.
 3. **Parse errors.** Tree-sitter still produces a partial tree. Symbols from `ERROR` regions are dropped, a diagnostic is recorded, and the file stays indexed.
 4. **TS projects.**
