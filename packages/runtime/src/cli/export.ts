@@ -27,7 +27,16 @@ export function exportNode(n: CodeNode) {
     symbol:
       s === null
         ? null
-        : { qualifiedName: s.qualifiedName, kind: s.kind, range: range(s.range), spanHash: s.spanHash, bodyFingerprint: s.bodyFingerprint, exported: s.exported, doc: s.doc },
+        : {
+            qualifiedName: s.qualifiedName,
+            kind: s.kind,
+            range: range(s.range),
+            spanHash: s.spanHash,
+            bodyFingerprint: s.bodyFingerprint,
+            exported: s.exported,
+            defaultExport: s.defaultExport,
+            doc: s.doc,
+          },
     producer: producer(n.producer),
   };
 }

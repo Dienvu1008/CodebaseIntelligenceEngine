@@ -1,0 +1,2281 @@
+{
+  "format": "cie-export/2",
+  "revision": 1,
+  "manifestHash": "sha256:96e0dd3287754dc16598969879da1e270a6f36ac0191b9bf7751006cbd6e0492",
+  "files": [
+    {
+      "path": "py/broken.py",
+      "status": "indexed",
+      "hash": "sha256:40c28cef46a9e5a796a74fa9f77ab94c900c027a379c25eb5b79086fdc56215e",
+      "size": 71,
+      "language": "py"
+    },
+    {
+      "path": "py/deep.py",
+      "status": "indexed",
+      "hash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128",
+      "size": 224,
+      "language": "py"
+    },
+    {
+      "path": "src/anon.ts",
+      "status": "indexed",
+      "hash": "sha256:e04ecb65f0a6ddacb7f2a3e9d8865a3029c2723e7b1c27eeb7195cca631df33b",
+      "size": 42,
+      "language": "ts"
+    },
+    {
+      "path": "src/broken.ts",
+      "status": "indexed",
+      "hash": "sha256:2e1b7379f240b171c46d9b9c3b86f6310fa74d4f212af5a598e2ebf2551695a4",
+      "size": 121,
+      "language": "ts"
+    },
+    {
+      "path": "src/bytes/bom.ts",
+      "status": "indexed",
+      "hash": "sha256:30a9fe3db9dd435664f223e88b7363de03968684b8c9f6eb4a0f6b70f8d7e8aa",
+      "size": 65,
+      "language": "ts"
+    },
+    {
+      "path": "src/bytes/crlf.ts",
+      "status": "indexed",
+      "hash": "sha256:292adf0bbb8a228c55f5c4aede6ea194b9447023eb7e7e79683d7277b2263ae9",
+      "size": 78,
+      "language": "ts"
+    },
+    {
+      "path": "src/bytes/latin1.ts",
+      "status": "indexed",
+      "hash": "sha256:8f41f8a79f249844b55a33eff2a0c2116f79f07e4e051bf115e9fe4a671a95d7",
+      "size": 23,
+      "language": "ts"
+    },
+    {
+      "path": "src/empty.ts",
+      "status": "indexed",
+      "hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "language": "ts"
+    },
+    {
+      "path": "src/names.ts",
+      "status": "indexed",
+      "hash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701",
+      "size": 487,
+      "language": "ts"
+    },
+    {
+      "path": "src/unicode/名前.ts",
+      "status": "indexed",
+      "hash": "sha256:7b56aff0d3dbf11a621870426d041bdb086b5d69f43fc2cf2e187465180c9380",
+      "size": 112,
+      "language": "ts"
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:py",
+      "kind": "directory",
+      "name": "py",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src/bytes",
+      "kind": "directory",
+      "name": "bytes",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src/unicode",
+      "kind": "directory",
+      "name": "unicode",
+      "ecosystem": null,
+      "file": null
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ext:python:importlib",
+      "kind": "external",
+      "name": "importlib",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      }
+    },
+    {
+      "id": "mod:py:py/broken.py",
+      "kind": "module",
+      "name": "broken.py",
+      "file": "py/broken.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:py:py/deep.py",
+      "kind": "module",
+      "name": "deep.py",
+      "file": "py/deep.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/anon.ts",
+      "kind": "module",
+      "name": "anon.ts",
+      "file": "src/anon.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/broken.ts",
+      "kind": "module",
+      "name": "broken.ts",
+      "file": "src/broken.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/bytes/bom.ts",
+      "kind": "module",
+      "name": "bom.ts",
+      "file": "src/bytes/bom.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/bytes/crlf.ts",
+      "kind": "module",
+      "name": "crlf.ts",
+      "file": "src/bytes/crlf.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/empty.ts",
+      "kind": "module",
+      "name": "empty.ts",
+      "file": "src/empty.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/names.ts",
+      "kind": "module",
+      "name": "names.ts",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/unicode/名前.ts",
+      "kind": "module",
+      "name": "名前.ts",
+      "file": "src/unicode/名前.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/broken.py#After(class)",
+      "kind": "symbol",
+      "name": "After",
+      "file": "py/broken.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "After",
+        "kind": "class",
+        "range": {
+          "startLine": 8,
+          "startCol": 0,
+          "endLine": 9,
+          "endCol": 8
+        },
+        "spanHash": "sha256:54fafeaa55916142b5efe3f120031dcd24e533832c5b619e52583d8ef1420713",
+        "bodyFingerprint": "sha256:0a3a89476a997871ff46ba3c9323416f49dc179598881c8e00c821d10fde2453",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/broken.py#broken(function)",
+      "kind": "symbol",
+      "name": "broken",
+      "file": "py/broken.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "broken",
+        "kind": "function",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 8
+        },
+        "spanHash": "sha256:312360d6fed2712394b1b1fafe9616476f9362a4a9f9d829a46e7cd14e5fa433",
+        "bodyFingerprint": "sha256:e049ae6b4c12245f81359b3019b066619438892e18e63323ba41145b9a4b8b56",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/broken.py#ok(function)",
+      "kind": "symbol",
+      "name": "ok",
+      "file": "py/broken.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "ok",
+        "kind": "function",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 12
+        },
+        "spanHash": "sha256:c97dc6c38e0dc51b6be5ff798fc448c3a1056e579af55335dfb947ce6f8a19d9",
+        "bodyFingerprint": "sha256:80b4c2c04e89246d88920d8fc6c79418c58a9d579126744d4c757bbf766b3a35",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/deep.py#Outer(class)",
+      "kind": "symbol",
+      "name": "Outer",
+      "file": "py/deep.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Outer",
+        "kind": "class",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 8,
+          "endCol": 24
+        },
+        "spanHash": "sha256:8a2ceb5c5f08e9b6951f33fa945e300cdaace1efb2c3b99e2ac6a8bdf04985c0",
+        "bodyFingerprint": "sha256:c24331527037648d2b3b57ba4c470e57b7aea63c492bb306fc5a385fddde3fde",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/deep.py#Outer.Inner(class)",
+      "kind": "symbol",
+      "name": "Inner",
+      "file": "py/deep.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Outer.Inner",
+        "kind": "class",
+        "range": {
+          "startLine": 4,
+          "startCol": 4,
+          "endLine": 8,
+          "endCol": 24
+        },
+        "spanHash": "sha256:6f0f1cca347197c20a59b01a18d18fecfd24ef026feeff4e97ffc05a9615268f",
+        "bodyFingerprint": "sha256:2068b46444f919f526ed8bceea8ebab6a65bff617786c869035d9da1ed8f50c9",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/deep.py#Outer.Inner.method(method)",
+      "kind": "symbol",
+      "name": "method",
+      "file": "py/deep.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Outer.Inner.method",
+        "kind": "method",
+        "range": {
+          "startLine": 5,
+          "startCol": 8,
+          "endLine": 8,
+          "endCol": 24
+        },
+        "spanHash": "sha256:6efa2cd10a4431bc88cfb36b177274982a3997f2048939253f90f1c983584985",
+        "bodyFingerprint": "sha256:1b2596c84fb947e0d51674a76cae9a8302e7a3d2309edb4f1e98e70a30f01bca",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/deep.py#Outer.Inner.method.local(function)",
+      "kind": "symbol",
+      "name": "local",
+      "file": "py/deep.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Outer.Inner.method.local",
+        "kind": "function",
+        "range": {
+          "startLine": 6,
+          "startCol": 12,
+          "endLine": 7,
+          "endCol": 57
+        },
+        "spanHash": "sha256:ac0e51951825d70c37b33304cfe8004ff0bd3f871e54e9c62d21cebd6635b3e8",
+        "bodyFingerprint": "sha256:537afd30bd9038c785b14f827c0485d0874292e7d15b0e371a18b7ab4fdfa73c",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:py/deep.py#coroutine(function)",
+      "kind": "symbol",
+      "name": "coroutine",
+      "file": "py/deep.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "coroutine",
+        "kind": "function",
+        "range": {
+          "startLine": 11,
+          "startCol": 0,
+          "endLine": 12,
+          "endCol": 15
+        },
+        "spanHash": "sha256:a94e7a9cece4da37cb7329c83c3c197d84a1e5bd99d48073df477da1727696ea",
+        "bodyFingerprint": "sha256:ba839968611ab28667955373c9fd461635ffcb7294c0b2c2bd49d4a3fc875de2",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/anon.ts#default(class)",
+      "kind": "symbol",
+      "name": "default",
+      "file": "src/anon.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "default",
+        "kind": "class",
+        "range": {
+          "startLine": 0,
+          "startCol": 15,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "spanHash": "sha256:64a76711d3f8c0477516582b415367a3597f435aa2f8d010bc4b284f489a8303",
+        "bodyFingerprint": "sha256:41de2eb006e5d853980ea248b1ba9fe3f500bfb2f79e8b9211a553fe222ea07c",
+        "exported": true,
+        "defaultExport": true,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/anon.ts#default.run(method)",
+      "kind": "symbol",
+      "name": "run",
+      "file": "src/anon.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "default.run",
+        "kind": "method",
+        "range": {
+          "startLine": 1,
+          "startCol": 2,
+          "endLine": 1,
+          "endCol": 16
+        },
+        "spanHash": "sha256:d68272cb2f07f771033b4f115e2b18374f276cf993827392aa092ebb34f9b720",
+        "bodyFingerprint": "sha256:48180eec48a75362d3717f5f3c55784caba8395665c8c445f23bcf18feadaabe",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/broken.ts#after(function)",
+      "kind": "symbol",
+      "name": "after",
+      "file": "src/broken.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "after",
+        "kind": "function",
+        "range": {
+          "startLine": 8,
+          "startCol": 7,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "spanHash": "sha256:4864f721c2bb8f3678e2094ff91cfec2a832e0d86da32279a359b87f978acdb3",
+        "bodyFingerprint": "sha256:766eecbee5ded708926a8a027affb440b6848b349cfa01fbd139f62da6723c54",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/broken.ts#before(function)",
+      "kind": "symbol",
+      "name": "before",
+      "file": "src/broken.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "before",
+        "kind": "function",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "spanHash": "sha256:8bd507c8b33ea78daff7849794c5428da56cd861fab8e388ef99ff3a066d929b",
+        "bodyFingerprint": "sha256:eccfb80b94808db9f16c728f37cbe0289c3c1b380575ed3fa946ea4ce26994cc",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/bytes/bom.ts#afterBom(function)",
+      "kind": "symbol",
+      "name": "afterBom",
+      "file": "src/bytes/bom.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "afterBom",
+        "kind": "function",
+        "range": {
+          "startLine": 1,
+          "startCol": 7,
+          "endLine": 1,
+          "endCol": 35
+        },
+        "spanHash": "sha256:7616b154909a39082233926e705fed8c3eabcf641cf6111dcc7b961170bff0b2",
+        "bodyFingerprint": "sha256:53558348ea46c24876f000e41ecdeae1a42101be3e47000bedfbc7e4a713a336",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/bytes/bom.ts#withBom(constant)",
+      "kind": "symbol",
+      "name": "withBom",
+      "file": "src/bytes/bom.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "withBom",
+        "kind": "constant",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "spanHash": "sha256:8568d35325642681f0a73a30db5e48e472ecb77111a62b487373beb51c6d5af8",
+        "bodyFingerprint": "sha256:fac5567be5740fb50da0276b1eac16548b25ed36efddd71e911f768bee346de0",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/bytes/crlf.ts#crlf(function)",
+      "kind": "symbol",
+      "name": "crlf",
+      "file": "src/bytes/crlf.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "crlf",
+        "kind": "function",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "spanHash": "sha256:68e5759166f861518f015f2c5323c6cf569c51665a4f559e4b39d36f296d9563",
+        "bodyFingerprint": "sha256:eccfb80b94808db9f16c728f37cbe0289c3c1b380575ed3fa946ea4ce26994cc",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/bytes/crlf.ts#second(constant)",
+      "kind": "symbol",
+      "name": "second",
+      "file": "src/bytes/crlf.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "second",
+        "kind": "constant",
+        "range": {
+          "startLine": 4,
+          "startCol": 13,
+          "endLine": 4,
+          "endCol": 23
+        },
+        "spanHash": "sha256:5880708268e9afafa80249ce0dc99903ac5d2cabf37c73af8a18143b79ed1bb2",
+        "bodyFingerprint": "sha256:71ecb2dfbc4233a63a7023ff4a85f23a154df3d7982f3bcc922cfb9869ff77b6",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#Geometry(namespace)",
+      "kind": "symbol",
+      "name": "Geometry",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Geometry",
+        "kind": "namespace",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "spanHash": "sha256:d438020bc4d0b31f1abf33c1ae4c95e7c1a07c90af988aea667f3a3b9dd9bcd9",
+        "bodyFingerprint": "sha256:3d47d03e9954dff7d5c30ced30ed48ccf7fffb2d4e5933485b7f9152af626c7b",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#Geometry.area(function)",
+      "kind": "symbol",
+      "name": "area",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Geometry.area",
+        "kind": "function",
+        "range": {
+          "startLine": 1,
+          "startCol": 9,
+          "endLine": 3,
+          "endCol": 3
+        },
+        "spanHash": "sha256:539c43e89f5acd63ed6a4f39a57eb115b290702c1f20d3c69cb46507fea88f0a",
+        "bodyFingerprint": "sha256:d86c590641de546867b0700a033d40ef46b62544582d1f3b9ca6ada5a1165a99",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#Registry(class)",
+      "kind": "symbol",
+      "name": "Registry",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Registry",
+        "kind": "class",
+        "range": {
+          "startLine": 6,
+          "startCol": 7,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "spanHash": "sha256:d3075b47756cc19af9429b04754403939295487b9ad9ea4f1ff386a490408c4d",
+        "bodyFingerprint": "sha256:b3492270edb911d4273d9c541eabc9c029610e5fa367cedf76d5641b5d95c541",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#Registry.%23entries(property)",
+      "kind": "symbol",
+      "name": "%23entries",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Registry.%23entries",
+        "kind": "property",
+        "range": {
+          "startLine": 7,
+          "startCol": 2,
+          "endLine": 7,
+          "endCol": 38
+        },
+        "spanHash": "sha256:8fd92fb4986bf2453e1edf8d1a9249ce5b9fa4e5add07d1d5cdea3c44578c45d",
+        "bodyFingerprint": "sha256:9252225fc4854c61ba3d9ae851f892475f0eb2d5082f93ee8ef9d094f9d80bef",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#Registry.%23instances(property)",
+      "kind": "symbol",
+      "name": "%23instances",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Registry.%23instances",
+        "kind": "property",
+        "range": {
+          "startLine": 8,
+          "startCol": 2,
+          "endLine": 8,
+          "endCol": 23
+        },
+        "spanHash": "sha256:e09e411665f3d96fe0a7b7fd1f53970cc7424df988161afa67fc763d7b70364f",
+        "bodyFingerprint": "sha256:7196ad100679cd2e382b29f4e048f76cfe4a9837607f541573c191c13aa24ebf",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#Registry.[Symbol%2Eiterator](method)",
+      "kind": "symbol",
+      "name": "[Symbol%2Eiterator]",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Registry.[Symbol%2Eiterator]",
+        "kind": "method",
+        "range": {
+          "startLine": 10,
+          "startCol": 2,
+          "endLine": 12,
+          "endCol": 3
+        },
+        "spanHash": "sha256:ca440d91ce456c7eff0d6bb13b6ae4425376452dfc4bca4f9cbafbd474be834b",
+        "bodyFingerprint": "sha256:daaee73266c70f66f610990f95f8e75d63f1891556936969e70726fb24b42bd8",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#Registry.quoted%20name(method)",
+      "kind": "symbol",
+      "name": "quoted%20name",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Registry.quoted%20name",
+        "kind": "method",
+        "range": {
+          "startLine": 9,
+          "startCol": 2,
+          "endLine": 9,
+          "endCol": 26
+        },
+        "spanHash": "sha256:cbc95be8806cd10892fde8d6fe6ac27fcc3e8672461e30862e392599bf2cd086",
+        "bodyFingerprint": "sha256:48180eec48a75362d3717f5f3c55784caba8395665c8c445f23bcf18feadaabe",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#outer(function)",
+      "kind": "symbol",
+      "name": "outer",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "outer",
+        "kind": "function",
+        "range": {
+          "startLine": 15,
+          "startCol": 7,
+          "endLine": 23,
+          "endCol": 1
+        },
+        "spanHash": "sha256:83012bdab1479f09e9a746794cf1ddbcc69333cd16215af4e5426378ea26e5d1",
+        "bodyFingerprint": "sha256:9344157663ecb1b455540c2dfea22bb13a5035affd6763c032cf1f44432062be",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#outer.inner(function)",
+      "kind": "symbol",
+      "name": "inner",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "outer.inner",
+        "kind": "function",
+        "range": {
+          "startLine": 16,
+          "startCol": 2,
+          "endLine": 21,
+          "endCol": 3
+        },
+        "spanHash": "sha256:43026497f65fbc7f1251510521a330b1fe4d7b66c07cf737d3d1ba9167da7971",
+        "bodyFingerprint": "sha256:d3a26bb1d84b2207f25ce0b6ab5dfc7b5d26e2f21a5c39c5684d9a3b135012f7",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/names.ts#outer.inner.innermost(function)",
+      "kind": "symbol",
+      "name": "innermost",
+      "file": "src/names.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "outer.inner.innermost",
+        "kind": "function",
+        "range": {
+          "startLine": 17,
+          "startCol": 4,
+          "endLine": 19,
+          "endCol": 5
+        },
+        "spanHash": "sha256:61069fedb4ccd1caa2b402574cb5344881b5733fac25c45266567f836ace7427",
+        "bodyFingerprint": "sha256:8cbd065b7734b39806897240f7fec40f85396ff18a9c66a983b6f83b9be4923e",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/unicode/名前.ts#grüße(function)",
+      "kind": "symbol",
+      "name": "grüße",
+      "file": "src/unicode/名前.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "grüße",
+        "kind": "function",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "spanHash": "sha256:33686cddd35ffaf6144e28132318252e522c8691f5f620efeee5cb83b8589faa",
+        "bodyFingerprint": "sha256:144707b34cf5230d96a7de3d5eef49c6c12c75b0229a1aa3a7e6275ce7369a39",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/unicode/名前.ts#π(constant)",
+      "kind": "symbol",
+      "name": "π",
+      "file": "src/unicode/名前.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "π",
+        "kind": "constant",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "spanHash": "sha256:6db4d3f45cbc1b969b9bbfeb1965681c772f55a55e5f30663bef8c953e97e933",
+        "bodyFingerprint": "sha256:165ac5369d9b51edfeb56ae7aec67305be001723096c8d3c4e60e0aaaffadb46",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "unres:py:py/deep.py#cf1344e99f693cb8",
+      "kind": "unresolved",
+      "name": "self.name",
+      "file": "py/deep.py",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": "py:py/deep.py#Outer(class)",
+      "to": "py:py/deep.py#Outer.Inner(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 4,
+          "endLine": 8,
+          "endCol": 24
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "py:py/deep.py#Outer.Inner(class)",
+      "to": "py:py/deep.py#Outer.Inner.method(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 8,
+          "endLine": 8,
+          "endCol": 24
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "py:py/deep.py#Outer.Inner.method(method)",
+      "to": "py:py/deep.py#Outer.Inner.method.local(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 6,
+          "startCol": 12,
+          "endLine": 7,
+          "endCol": 57
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/anon.ts#default(class)",
+      "to": "ts:src/anon.ts#default.run(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/anon.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 2,
+          "endLine": 1,
+          "endCol": 16
+        },
+        "contentHash": "sha256:e04ecb65f0a6ddacb7f2a3e9d8865a3029c2723e7b1c27eeb7195cca631df33b"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/names.ts#Geometry(namespace)",
+      "to": "ts:src/names.ts#Geometry.area(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 9,
+          "endLine": 3,
+          "endCol": 3
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/names.ts#Registry(class)",
+      "to": "ts:src/names.ts#Registry.%23entries(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 7,
+          "startCol": 2,
+          "endLine": 7,
+          "endCol": 38
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/names.ts#Registry(class)",
+      "to": "ts:src/names.ts#Registry.%23instances(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 2,
+          "endLine": 8,
+          "endCol": 23
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/names.ts#Registry(class)",
+      "to": "ts:src/names.ts#Registry.[Symbol%2Eiterator](method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 2,
+          "endLine": 12,
+          "endCol": 3
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/names.ts#Registry(class)",
+      "to": "ts:src/names.ts#Registry.quoted%20name(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 2,
+          "endLine": 9,
+          "endCol": 26
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/names.ts#outer(function)",
+      "to": "ts:src/names.ts#outer.inner(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 16,
+          "startCol": 2,
+          "endLine": 21,
+          "endCol": 3
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/names.ts#outer.inner(function)",
+      "to": "ts:src/names.ts#outer.inner.innermost(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 17,
+          "startCol": 4,
+          "endLine": 19,
+          "endCol": 5
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:py/broken.py",
+      "to": "py:py/broken.py#After(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/broken.py",
+        "range": {
+          "startLine": 8,
+          "startCol": 0,
+          "endLine": 9,
+          "endCol": 8
+        },
+        "contentHash": "sha256:40c28cef46a9e5a796a74fa9f77ab94c900c027a379c25eb5b79086fdc56215e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:py/broken.py",
+      "to": "py:py/broken.py#broken(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/broken.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 8
+        },
+        "contentHash": "sha256:40c28cef46a9e5a796a74fa9f77ab94c900c027a379c25eb5b79086fdc56215e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:py/broken.py",
+      "to": "py:py/broken.py#ok(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/broken.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 12
+        },
+        "contentHash": "sha256:40c28cef46a9e5a796a74fa9f77ab94c900c027a379c25eb5b79086fdc56215e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:py/deep.py",
+      "to": "py:py/deep.py#Outer(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 8,
+          "endCol": 24
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:py/deep.py",
+      "to": "py:py/deep.py#coroutine(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 11,
+          "startCol": 0,
+          "endLine": 12,
+          "endCol": 15
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/anon.ts",
+      "to": "ts:src/anon.ts#default(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/anon.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 15,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:e04ecb65f0a6ddacb7f2a3e9d8865a3029c2723e7b1c27eeb7195cca631df33b"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/broken.ts",
+      "to": "ts:src/broken.ts#after(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/broken.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 7,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "contentHash": "sha256:2e1b7379f240b171c46d9b9c3b86f6310fa74d4f212af5a598e2ebf2551695a4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/broken.ts",
+      "to": "ts:src/broken.ts#before(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/broken.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:2e1b7379f240b171c46d9b9c3b86f6310fa74d4f212af5a598e2ebf2551695a4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/bytes/bom.ts",
+      "to": "ts:src/bytes/bom.ts#afterBom(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/bom.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 7,
+          "endLine": 1,
+          "endCol": 35
+        },
+        "contentHash": "sha256:30a9fe3db9dd435664f223e88b7363de03968684b8c9f6eb4a0f6b70f8d7e8aa"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/bytes/bom.ts",
+      "to": "ts:src/bytes/bom.ts#withBom(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/bom.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "contentHash": "sha256:30a9fe3db9dd435664f223e88b7363de03968684b8c9f6eb4a0f6b70f8d7e8aa"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/bytes/crlf.ts",
+      "to": "ts:src/bytes/crlf.ts#crlf(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/crlf.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:292adf0bbb8a228c55f5c4aede6ea194b9447023eb7e7e79683d7277b2263ae9"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/bytes/crlf.ts",
+      "to": "ts:src/bytes/crlf.ts#second(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/crlf.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 13,
+          "endLine": 4,
+          "endCol": 23
+        },
+        "contentHash": "sha256:292adf0bbb8a228c55f5c4aede6ea194b9447023eb7e7e79683d7277b2263ae9"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/names.ts",
+      "to": "ts:src/names.ts#Geometry(namespace)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/names.ts",
+      "to": "ts:src/names.ts#Registry(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 6,
+          "startCol": 7,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/names.ts",
+      "to": "ts:src/names.ts#outer(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 15,
+          "startCol": 7,
+          "endLine": 23,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/unicode/名前.ts",
+      "to": "ts:src/unicode/名前.ts#grüße(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/unicode/名前.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "contentHash": "sha256:7b56aff0d3dbf11a621870426d041bdb086b5d69f43fc2cf2e187465180c9380"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/unicode/名前.ts",
+      "to": "ts:src/unicode/名前.ts#π(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/unicode/名前.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "contentHash": "sha256:7b56aff0d3dbf11a621870426d041bdb086b5d69f43fc2cf2e187465180c9380"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:py/broken.py",
+      "to": "py:py/broken.py#After(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/broken.py",
+        "range": {
+          "startLine": 8,
+          "startCol": 0,
+          "endLine": 9,
+          "endCol": 8
+        },
+        "contentHash": "sha256:40c28cef46a9e5a796a74fa9f77ab94c900c027a379c25eb5b79086fdc56215e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:py/broken.py",
+      "to": "py:py/broken.py#broken(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/broken.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 8
+        },
+        "contentHash": "sha256:40c28cef46a9e5a796a74fa9f77ab94c900c027a379c25eb5b79086fdc56215e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:py/broken.py",
+      "to": "py:py/broken.py#ok(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/broken.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 12
+        },
+        "contentHash": "sha256:40c28cef46a9e5a796a74fa9f77ab94c900c027a379c25eb5b79086fdc56215e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:py/deep.py",
+      "to": "py:py/deep.py#Outer(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 8,
+          "endCol": 24
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:py/deep.py",
+      "to": "py:py/deep.py#coroutine(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 11,
+          "startCol": 0,
+          "endLine": 12,
+          "endCol": 15
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/anon.ts",
+      "to": "ts:src/anon.ts#default(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/anon.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 15,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:e04ecb65f0a6ddacb7f2a3e9d8865a3029c2723e7b1c27eeb7195cca631df33b"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/broken.ts",
+      "to": "ts:src/broken.ts#after(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/broken.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 7,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "contentHash": "sha256:2e1b7379f240b171c46d9b9c3b86f6310fa74d4f212af5a598e2ebf2551695a4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/broken.ts",
+      "to": "ts:src/broken.ts#before(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/broken.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:2e1b7379f240b171c46d9b9c3b86f6310fa74d4f212af5a598e2ebf2551695a4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/bytes/bom.ts",
+      "to": "ts:src/bytes/bom.ts#afterBom(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/bom.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 7,
+          "endLine": 1,
+          "endCol": 35
+        },
+        "contentHash": "sha256:30a9fe3db9dd435664f223e88b7363de03968684b8c9f6eb4a0f6b70f8d7e8aa"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/bytes/bom.ts",
+      "to": "ts:src/bytes/bom.ts#withBom(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/bom.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "contentHash": "sha256:30a9fe3db9dd435664f223e88b7363de03968684b8c9f6eb4a0f6b70f8d7e8aa"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/bytes/crlf.ts",
+      "to": "ts:src/bytes/crlf.ts#crlf(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/crlf.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:292adf0bbb8a228c55f5c4aede6ea194b9447023eb7e7e79683d7277b2263ae9"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/bytes/crlf.ts",
+      "to": "ts:src/bytes/crlf.ts#second(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/bytes/crlf.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 13,
+          "endLine": 4,
+          "endCol": 23
+        },
+        "contentHash": "sha256:292adf0bbb8a228c55f5c4aede6ea194b9447023eb7e7e79683d7277b2263ae9"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/names.ts",
+      "to": "ts:src/names.ts#Geometry(namespace)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/names.ts",
+      "to": "ts:src/names.ts#Registry(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 6,
+          "startCol": 7,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/names.ts",
+      "to": "ts:src/names.ts#outer(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 15,
+          "startCol": 7,
+          "endLine": 23,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/unicode/名前.ts",
+      "to": "ts:src/unicode/名前.ts#grüße(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/unicode/名前.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "contentHash": "sha256:7b56aff0d3dbf11a621870426d041bdb086b5d69f43fc2cf2e187465180c9380"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/unicode/名前.ts",
+      "to": "ts:src/unicode/名前.ts#π(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/unicode/名前.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "contentHash": "sha256:7b56aff0d3dbf11a621870426d041bdb086b5d69f43fc2cf2e187465180c9380"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:py/deep.py",
+      "to": "ext:python:importlib",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 16
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "importlib"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:py/deep.py",
+      "to": "unres:py:py/deep.py#cf1344e99f693cb8",
+      "site": "",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "py/deep.py",
+        "range": {
+          "startLine": 7,
+          "startCol": 23,
+          "endLine": 7,
+          "endCol": 57
+        },
+        "contentHash": "sha256:4984b41939b1e8259d0158759ee0f3ddd64630500c939f590fa0f901d5b23128"
+      },
+      "attrs": {
+        "isDynamic": true,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "self.name"
+      }
+    }
+  ]
+}

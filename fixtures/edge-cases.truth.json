@@ -1,0 +1,46 @@
+{
+  "format": "cie-truth/1",
+  "fixture": "edge-cases",
+  "notes": [
+    "Hand-verified against the sources (P02-12).",
+    "src/broken.ts: the anonymous class with a broken member is inside an error region; only before and after are declarations.",
+    "py/broken.py: `def broken(:` is a syntax error, but the declaration itself is recognizable; ok, broken and After are expected.",
+    "src/bytes/latin1.ts is not valid UTF-8: it is indexed as a file but has no symbols (extraction is skipped as undecodable). src/empty.ts has none either.",
+    "Private (#entries), computed ([Symbol.iterator]) and string-keyed ('quoted name') members use the encoded segments of ADR-0014."
+  ],
+  "symbols": [
+    "py:py/broken.py#After(class)",
+    "py:py/broken.py#broken(function)",
+    "py:py/broken.py#ok(function)",
+    "py:py/deep.py#Outer(class)",
+    "py:py/deep.py#Outer.Inner(class)",
+    "py:py/deep.py#Outer.Inner.method(method)",
+    "py:py/deep.py#Outer.Inner.method.local(function)",
+    "py:py/deep.py#coroutine(function)",
+    "ts:src/anon.ts#default(class)",
+    "ts:src/anon.ts#default.run(method)",
+    "ts:src/broken.ts#after(function)",
+    "ts:src/broken.ts#before(function)",
+    "ts:src/bytes/bom.ts#afterBom(function)",
+    "ts:src/bytes/bom.ts#withBom(constant)",
+    "ts:src/bytes/crlf.ts#crlf(function)",
+    "ts:src/bytes/crlf.ts#second(constant)",
+    "ts:src/names.ts#Geometry(namespace)",
+    "ts:src/names.ts#Geometry.area(function)",
+    "ts:src/names.ts#Registry(class)",
+    "ts:src/names.ts#Registry.%23entries(property)",
+    "ts:src/names.ts#Registry.%23instances(property)",
+    "ts:src/names.ts#Registry.[Symbol%2Eiterator](method)",
+    "ts:src/names.ts#Registry.quoted%20name(method)",
+    "ts:src/names.ts#outer(function)",
+    "ts:src/names.ts#outer.inner(function)",
+    "ts:src/names.ts#outer.inner.innermost(function)",
+    "ts:src/unicode/名前.ts#grüße(function)",
+    "ts:src/unicode/名前.ts#π(constant)"
+  ],
+  "imports": [
+    "mod:py:py/deep.py -> ext:python:importlib",
+    "mod:py:py/deep.py -> unresolved:self.name"
+  ],
+  "importsSymbol": []
+}

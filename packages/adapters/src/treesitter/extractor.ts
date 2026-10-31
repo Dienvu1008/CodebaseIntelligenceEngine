@@ -33,6 +33,7 @@ import {
   type ProducerIdentity,
   type Result,
   type SymbolDraft,
+  type SymbolKind,
 } from '@cie/core';
 import { Parser, Query, type Language, type Node } from 'web-tree-sitter';
 import { NodeHasher } from '../fs/system.js';
@@ -53,6 +54,8 @@ const LANGUAGES: readonly { readonly id: LanguageId; readonly grammar: string; r
   { id: 'js', grammar: 'javascript', rules: JAVASCRIPT_RULES },
   { id: 'py', grammar: 'python', rules: PYTHON_RULES },
 ];
+
+const MEMBER_KINDS: ReadonlySet<SymbolKind> = new Set(['method', 'constructor', 'getter', 'setter', 'property', 'enum_member']);
 
 const L1_PROFILE = { symbols: 'L1', imports: 'L1', docstrings: 'L1', references: 'L0', calls: 'L0', typeRelations: 'L0', di: 'L0' };
 
@@ -168,22 +171,38 @@ export class TreeSitterExtractor implements FileExtractor {
     for (const def of this.definitions(lang, root)) {
       while (stack.length > 0 && (stack.at(-1) as { def: RawDefinition }).def.node.endIndex <= def.node.startIndex) stack.pop();
       const parent = stack.at(-1) ?? null;
-      const kind = lang.rules.kindOf(def, parent?.def ?? null);
-      if (kind === null) continue;
-      const { startIndex: start, endIndex: end } = def.node;
-      drafts.push({
-        name: segmentName(lang.rules.nameOf(def), parent?.index ?? -1, anonymous),
-        kind,
-        parent: parent?.index ?? null,
-        range: source.rangeOf(start, end),
-        spanHash: this.hasher.sha256Text(source.text.slice(start, end)),
-        bodyFingerprint: bodyFingerprint(def.node, def.name, this.hasher),
-        exported: lang.rules.exported(def, parent?.def ?? null),
-        doc: lang.rules.doc(def),
-      });
+      const draft = this.draft(lang, def, parent?.def ?? null, parent?.index ?? null, source, anonymous);
+      if (draft === null) continue;
+      drafts.push(draft);
       stack.push({ def, index: drafts.length - 1 });
     }
     return drafts;
+  }
+
+  /** One declaration's draft, or null when it is not a symbol. */
+  private draft(
+    lang: CompiledLanguage,
+    def: RawDefinition,
+    parent: RawDefinition | null,
+    parentIndex: number | null,
+    source: SourceText,
+    anonymous: Map<number, number>,
+  ): SymbolDraft | null {
+    const kind = lang.rules.kindOf(def, parent);
+    // A member with no container only arises from error recovery (`class { broken( ;`): it is not a symbol.
+    if (kind === null || (parent === null && MEMBER_KINDS.has(kind))) return null;
+    const { startIndex: start, endIndex: end } = def.node;
+    return {
+      name: segmentName(lang.rules.nameOf(def), parentIndex ?? -1, anonymous),
+      kind,
+      parent: parentIndex,
+      range: source.rangeOf(start, end),
+      spanHash: this.hasher.sha256Text(source.text.slice(start, end)),
+      bodyFingerprint: bodyFingerprint(def.node, def.name, this.hasher),
+      exported: lang.rules.exported(def, parent),
+      defaultExport: lang.rules.defaultExport(def, parent),
+      doc: lang.rules.doc(def),
+    };
   }
 
   private imports(lang: CompiledLanguage, root: Node, source: SourceText): ImportDraft[] {

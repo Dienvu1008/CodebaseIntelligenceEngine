@@ -186,6 +186,7 @@
         "spanHash": "sha256:494fa59ae5a82cdbf4717d06e25468658d9f52f2598c9929080d78294e0ead6e",
         "bodyFingerprint": "sha256:af44da446411b02602b1ce54f059d80fd2708f637bee83e8e465045b195ec45d",
         "exported": false,
+        "defaultExport": false,
         "doc": null
       },
       "producer": {
@@ -213,6 +214,7 @@
         "spanHash": "sha256:a1f8f193bbaa69eff9a6870b46d41208b01c3d736527ec45aec9edc78f371d13",
         "bodyFingerprint": "sha256:69e022f4d8e8677ee5b08f074470589c56cfe5685ce136dd6229fed3db518598",
         "exported": true,
+        "defaultExport": false,
         "doc": null
       },
       "producer": {
@@ -240,6 +242,7 @@
         "spanHash": "sha256:c26069e809680eb89bed21af1e0f4cec3d8974cca752ea4dce45f5f99c54a833",
         "bodyFingerprint": "sha256:2d53bd7d8997ff151dc98d413349d6ce34f3599fbbc313fad0410a08a1a6c87a",
         "exported": true,
+        "defaultExport": false,
         "doc": null
       },
       "producer": {
@@ -267,6 +270,7 @@
         "spanHash": "sha256:5d3ad8a43d2db0cbb1d8ef2f44e4046421c5ba923531237dac36b7295a8c484a",
         "bodyFingerprint": "sha256:787f642a7c3815482c7415f7fd5e3c30b2aeb0daf3cf251bf7e2f361e0d9da36",
         "exported": true,
+        "defaultExport": false,
         "doc": null
       },
       "producer": {

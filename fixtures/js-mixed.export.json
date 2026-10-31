@@ -1,0 +1,1073 @@
+{
+  "format": "cie-export/2",
+  "revision": 1,
+  "manifestHash": "sha256:3d2f50cec8ae70c1411171f11d96fc1759864023015e2981956be201f591286f",
+  "files": [
+    {
+      "path": "jsconfig.json",
+      "status": "indexed",
+      "hash": "sha256:aafd4963faf99cf402fe0a08bd7e46088d5411f03dafbd3976780a3146a31010",
+      "size": 167,
+      "language": null
+    },
+    {
+      "path": "lib/dates.js",
+      "status": "indexed",
+      "hash": "sha256:1cddd20d02542a07721174779afff148ccc582bf44c5761d65e603b7534eb5a9",
+      "size": 141,
+      "language": "js"
+    },
+    {
+      "path": "lib/server.js",
+      "status": "indexed",
+      "hash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb",
+      "size": 502,
+      "language": "js"
+    },
+    {
+      "path": "package.json",
+      "status": "indexed",
+      "hash": "sha256:0755c0364f630c4768b594d9ceab57d2467ee9e4b2c2eed84effa8e5c6377da9",
+      "size": 93,
+      "language": null
+    },
+    {
+      "path": "src/Banner.jsx",
+      "status": "indexed",
+      "hash": "sha256:057a769ca0381149828994efcfdd4ecf7aab87393d6e21607c7b9b969a923f39",
+      "size": 152,
+      "language": "js"
+    },
+    {
+      "path": "src/esm.mjs",
+      "status": "indexed",
+      "hash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1",
+      "size": 292,
+      "language": "js"
+    },
+    {
+      "path": "src/locales/en.mjs",
+      "status": "indexed",
+      "hash": "sha256:674b9135d3fb395fcef06f50a1a290346c02eb9b04d47aee545f44fe472a9f25",
+      "size": 35,
+      "language": "js"
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:lib",
+      "kind": "directory",
+      "name": "lib",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src/locales",
+      "kind": "directory",
+      "name": "locales",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "pkg:npm:.",
+      "kind": "package",
+      "name": ".",
+      "ecosystem": "npm",
+      "file": "package.json"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ext:node:fs",
+      "kind": "external",
+      "name": "fs",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "ext:node:fs/promises",
+      "kind": "external",
+      "name": "fs/promises",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "ext:npm:express",
+      "kind": "external",
+      "name": "express",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "js:lib/dates.js#formatDate(function)",
+      "kind": "symbol",
+      "name": "formatDate",
+      "file": "lib/dates.js",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "formatDate",
+        "kind": "function",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 1
+        },
+        "spanHash": "sha256:c033c49fe837064106d9ebbcf72f5d5c98c63f0f656ae7b799d1553daddd764d",
+        "bodyFingerprint": "sha256:8a3c0e2a97f6127d7dd9f4a731a8ca3b575a7f1f41e6d08a62d1b4fd3d21f170",
+        "exported": false,
+        "defaultExport": false,
+        "doc": "Formats a date as YYYY-MM-DD."
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:lib/server.js#Server(class)",
+      "kind": "symbol",
+      "name": "Server",
+      "file": "lib/server.js",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "Server",
+        "kind": "class",
+        "range": {
+          "startLine": 5,
+          "startCol": 0,
+          "endLine": 17,
+          "endCol": 1
+        },
+        "spanHash": "sha256:a7a3835f273ae47a3e89264d1fa6f7598698ad3a9e27eb9f82d5ee198a1bb129",
+        "bodyFingerprint": "sha256:1aee42f215ea7e4254baf05060c0ed8f36d3466dec569ec6bf83854a3ae2b0ac",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:lib/server.js#Server.constructor(constructor)",
+      "kind": "symbol",
+      "name": "constructor",
+      "file": "lib/server.js",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "Server.constructor",
+        "kind": "constructor",
+        "range": {
+          "startLine": 8,
+          "startCol": 2,
+          "endLine": 10,
+          "endCol": 3
+        },
+        "spanHash": "sha256:bcaa3b1a758eecc9f97c2fb8c6485201bef9d65a48664fb7c1b422b09fe9b915",
+        "bodyFingerprint": "sha256:d775dd7dd3e721e43dd35c27aeebac56e5bc3df3432cafe67883210da659e9a9",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:lib/server.js#Server.defaultPort(property)",
+      "kind": "symbol",
+      "name": "defaultPort",
+      "file": "lib/server.js",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "Server.defaultPort",
+        "kind": "property",
+        "range": {
+          "startLine": 6,
+          "startCol": 2,
+          "endLine": 6,
+          "endCol": 27
+        },
+        "spanHash": "sha256:acebbf8ff0c7aa17406aae18a742abfbb1756128ef5c86994e6a0831507e79f5",
+        "bodyFingerprint": "sha256:c8f833ab24eef642482aa49fa71ee7dd2993176428716cf540ed32f45993a2dd",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:lib/server.js#Server.start(method)",
+      "kind": "symbol",
+      "name": "start",
+      "file": "lib/server.js",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "Server.start",
+        "kind": "method",
+        "range": {
+          "startLine": 12,
+          "startCol": 2,
+          "endLine": 16,
+          "endCol": 3
+        },
+        "spanHash": "sha256:2eb83304f2d1d2b6b515016be0774330dc582fbaaf0a5368362012a88e2314a2",
+        "bodyFingerprint": "sha256:bf05bbc9f2d8375f3f1c41b492fbf4175e4b2e2fd012766af1cf0ab40fe40450",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:lib/server.js#loadPlugin(function)",
+      "kind": "symbol",
+      "name": "loadPlugin",
+      "file": "lib/server.js",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "loadPlugin",
+        "kind": "function",
+        "range": {
+          "startLine": 19,
+          "startCol": 0,
+          "endLine": 21,
+          "endCol": 1
+        },
+        "spanHash": "sha256:1f8e67b6d2a986ebcc8ceafec2087e792b1eb4af5570627e86f97beebd7e8e79",
+        "bodyFingerprint": "sha256:54abb4615d08b7fc914ef370cc518819442a10e8fa8490d0e10db50773a05fc1",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:src/Banner.jsx#Banner(function)",
+      "kind": "symbol",
+      "name": "Banner",
+      "file": "src/Banner.jsx",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "Banner",
+        "kind": "function",
+        "range": {
+          "startLine": 2,
+          "startCol": 15,
+          "endLine": 8,
+          "endCol": 1
+        },
+        "spanHash": "sha256:e0c99c3b5a43143e51ea70515593577ba7daee23f1699b90cee9edb0dd208456",
+        "bodyFingerprint": "sha256:644ec2f7259c2599b552f785645f095909a6556e2f1e4c8fcb2169df6bfab471",
+        "exported": true,
+        "defaultExport": true,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:src/esm.mjs#VERSION(constant)",
+      "kind": "symbol",
+      "name": "VERSION",
+      "file": "src/esm.mjs",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "VERSION",
+        "kind": "constant",
+        "range": {
+          "startLine": 2,
+          "startCol": 13,
+          "endLine": 2,
+          "endCol": 30
+        },
+        "spanHash": "sha256:348f54b4be961756a8bd95e31ca12d3b0b6c5bc7d7fd091f09061cdd13743f28",
+        "bodyFingerprint": "sha256:fcf4e6bee0114d922acd36f012a0aaad17a3dc38e85960a131c033cd0478cdff",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "js:src/esm.mjs#loadLocale(function)",
+      "kind": "symbol",
+      "name": "loadLocale",
+      "file": "src/esm.mjs",
+      "language": "js",
+      "symbol": {
+        "qualifiedName": "loadLocale",
+        "kind": "function",
+        "range": {
+          "startLine": 4,
+          "startCol": 7,
+          "endLine": 8,
+          "endCol": 1
+        },
+        "spanHash": "sha256:b4ca7911d9627f3584ec4b80c162b1716ca268522347bd50b55a80f3b165e96f",
+        "bodyFingerprint": "sha256:ca265d944b6a0533fc03fd1bf4f00a8dc31c81fc6ac5774c47a0a34be2ef6799",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:js:lib/dates.js",
+      "kind": "module",
+      "name": "dates.js",
+      "file": "lib/dates.js",
+      "language": "js",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:js:lib/server.js",
+      "kind": "module",
+      "name": "server.js",
+      "file": "lib/server.js",
+      "language": "js",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:js:src/Banner.jsx",
+      "kind": "module",
+      "name": "Banner.jsx",
+      "file": "src/Banner.jsx",
+      "language": "js",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:js:src/esm.mjs",
+      "kind": "module",
+      "name": "esm.mjs",
+      "file": "src/esm.mjs",
+      "language": "js",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:js:src/locales/en.mjs",
+      "kind": "module",
+      "name": "en.mjs",
+      "file": "src/locales/en.mjs",
+      "language": "js",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "unres:js:lib/server.js#09d41b8cea18c4e5",
+      "kind": "unresolved",
+      "name": "name",
+      "file": "lib/server.js",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "unres:js:src/esm.mjs#d5dec0476781d9c1",
+      "kind": "unresolved",
+      "name": "`./locales/${lang}.mjs`",
+      "file": "src/esm.mjs",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": "js:lib/server.js#Server(class)",
+      "to": "js:lib/server.js#Server.constructor(constructor)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 8,
+          "startCol": 2,
+          "endLine": 10,
+          "endCol": 3
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "js:lib/server.js#Server(class)",
+      "to": "js:lib/server.js#Server.defaultPort(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 6,
+          "startCol": 2,
+          "endLine": 6,
+          "endCol": 27
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "js:lib/server.js#Server(class)",
+      "to": "js:lib/server.js#Server.start(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 12,
+          "startCol": 2,
+          "endLine": 16,
+          "endCol": 3
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:js:lib/dates.js",
+      "to": "js:lib/dates.js#formatDate(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/dates.js",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1cddd20d02542a07721174779afff148ccc582bf44c5761d65e603b7534eb5a9"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:js:lib/server.js",
+      "to": "js:lib/server.js#Server(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 5,
+          "startCol": 0,
+          "endLine": 17,
+          "endCol": 1
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:js:lib/server.js",
+      "to": "js:lib/server.js#loadPlugin(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 19,
+          "startCol": 0,
+          "endLine": 21,
+          "endCol": 1
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:js:src/Banner.jsx",
+      "to": "js:src/Banner.jsx#Banner(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/Banner.jsx",
+        "range": {
+          "startLine": 2,
+          "startCol": 15,
+          "endLine": 8,
+          "endCol": 1
+        },
+        "contentHash": "sha256:057a769ca0381149828994efcfdd4ecf7aab87393d6e21607c7b9b969a923f39"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:js:src/esm.mjs",
+      "to": "js:src/esm.mjs#VERSION(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/esm.mjs",
+        "range": {
+          "startLine": 2,
+          "startCol": 13,
+          "endLine": 2,
+          "endCol": 30
+        },
+        "contentHash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:js:src/esm.mjs",
+      "to": "js:src/esm.mjs#loadLocale(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/esm.mjs",
+        "range": {
+          "startLine": 4,
+          "startCol": 7,
+          "endLine": 8,
+          "endCol": 1
+        },
+        "contentHash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:js:src/Banner.jsx",
+      "to": "js:src/Banner.jsx#Banner(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/Banner.jsx",
+        "range": {
+          "startLine": 2,
+          "startCol": 15,
+          "endLine": 8,
+          "endCol": 1
+        },
+        "contentHash": "sha256:057a769ca0381149828994efcfdd4ecf7aab87393d6e21607c7b9b969a923f39"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:js:src/esm.mjs",
+      "to": "js:src/esm.mjs#VERSION(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/esm.mjs",
+        "range": {
+          "startLine": 2,
+          "startCol": 13,
+          "endLine": 2,
+          "endCol": 30
+        },
+        "contentHash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:js:src/esm.mjs",
+      "to": "js:src/esm.mjs#loadLocale(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-javascript@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/esm.mjs",
+        "range": {
+          "startLine": 4,
+          "startCol": 7,
+          "endLine": 8,
+          "endCol": 1
+        },
+        "contentHash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:lib/server.js",
+      "to": "ext:node:fs",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 3,
+          "startCol": 11,
+          "endLine": 3,
+          "endCol": 24
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "fs"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:lib/server.js",
+      "to": "ext:npm:express",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 1,
+          "startCol": 16,
+          "endLine": 1,
+          "endCol": 34
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "express"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:lib/server.js",
+      "to": "mod:js:lib/dates.js",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 2,
+          "startCol": 23,
+          "endLine": 2,
+          "endCol": 41
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./dates"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:lib/server.js",
+      "to": "unres:js:lib/server.js#09d41b8cea18c4e5",
+      "site": "",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 20,
+          "startCol": 9,
+          "endLine": 20,
+          "endCol": 22
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "isDynamic": true,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "name"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:src/Banner.jsx",
+      "to": "mod:js:src/esm.mjs",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/Banner.jsx",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 36
+        },
+        "contentHash": "sha256:057a769ca0381149828994efcfdd4ecf7aab87393d6e21607c7b9b969a923f39"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./esm.mjs"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:src/esm.mjs",
+      "to": "ext:node:fs/promises",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/esm.mjs",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 44
+        },
+        "contentHash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "node:fs/promises"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:src/esm.mjs",
+      "to": "mod:js:src/locales/en.mjs",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/esm.mjs",
+        "range": {
+          "startLine": 6,
+          "startCol": 25,
+          "endLine": 6,
+          "endCol": 51
+        },
+        "contentHash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1"
+      },
+      "attrs": {
+        "isDynamic": true,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./locales/en.mjs"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:js:src/esm.mjs",
+      "to": "unres:js:src/esm.mjs#d5dec0476781d9c1",
+      "site": "",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/esm.mjs",
+        "range": {
+          "startLine": 5,
+          "startCol": 25,
+          "endLine": 5,
+          "endCol": 56
+        },
+        "contentHash": "sha256:3970f6960406867c72b4b7b6ec8f90b3f4f74d4f23bc503f3afa5e19d7d453f1"
+      },
+      "attrs": {
+        "isDynamic": true,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "`./locales/${lang}.mjs`"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:js:src/Banner.jsx",
+      "to": "js:src/esm.mjs#VERSION(constant)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/Banner.jsx",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 36
+        },
+        "contentHash": "sha256:057a769ca0381149828994efcfdd4ecf7aab87393d6e21607c7b9b969a923f39"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "VERSION",
+        "raw": "./esm.mjs"
+      }
+    }
+  ]
+}

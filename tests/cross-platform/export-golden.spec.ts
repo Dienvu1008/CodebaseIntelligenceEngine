@@ -86,7 +86,7 @@ for (const fixture of GOLDEN_FIXTURES) {
         const s = n['symbol'] as Obj | null;
         expect(s === null, String(n['id'])).toBe(n['kind'] !== 'symbol');
         if (s === null) continue;
-        expect(Object.keys(s)).toEqual(['qualifiedName', 'kind', 'range', 'spanHash', 'bodyFingerprint', 'exported', 'doc']);
+        expect(Object.keys(s)).toEqual(['qualifiedName', 'kind', 'range', 'spanHash', 'bodyFingerprint', 'exported', 'defaultExport', 'doc']);
         expect(Object.keys(s['range'] as Obj)).toEqual(RANGE_KEYS);
         for (const v of Object.values(s['range'] as Obj)) expect(Number.isSafeInteger(v) && (v as number) >= 0).toBe(true);
       }

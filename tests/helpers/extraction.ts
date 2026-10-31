@@ -37,7 +37,7 @@ export const producer = (adapterId = 'treesitter', adapterVersion = '0.1.0', too
   unwrap(producerIdentity(adapterId, adapterVersion, toolVersion));
 
 export function symbol(name: string, kind: SymbolDraft['kind'], r: SourceRange, parent: number | null = null, extra: Partial<SymbolDraft> = {}): SymbolDraft {
-  return { name, kind, parent, range: r, spanHash: hashOf(`${name}@${r.startLine}`), bodyFingerprint: hashOf(`body:${name}`), exported: false, doc: null, ...extra };
+  return { name, kind, parent, range: r, spanHash: hashOf(`${name}@${r.startLine}`), bodyFingerprint: hashOf(`body:${name}`), exported: false, defaultExport: false, doc: null, ...extra };
 }
 
 export function literalImport(value: string, r: SourceRange, names: readonly string[] = [], extra: Partial<ImportDraft> = {}): ImportDraft {

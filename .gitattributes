@@ -4,4 +4,6 @@
 *.db binary
 # Cross-platform fixtures: deliberate CRLF content keeps its exact bytes; binaries are never normalized.
 fixtures/**/crlf.txt -text
+# Edge-case fixture files with deliberate bytes (BOM, CRLF, Latin-1): never normalized.
+fixtures/edge-cases/src/bytes/** -text
 *.bin binary

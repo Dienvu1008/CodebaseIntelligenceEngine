@@ -27,6 +27,8 @@ export interface SymbolDraft {
   /** Hash of the normalized token stream with the symbol's own name masked (ADR-0014). */
   readonly bodyFingerprint: ContentHash;
   readonly exported: boolean;
+  /** The module's default export (`export default …`); implies `exported` and a top-level declaration. */
+  readonly defaultExport: boolean;
   readonly doc: string | null;
 }
 
@@ -58,6 +60,7 @@ export interface ExtractedSymbol {
   readonly spanHash: ContentHash;
   readonly bodyFingerprint: ContentHash;
   readonly exported: boolean;
+  readonly defaultExport: boolean;
   readonly doc: string | null;
   readonly producer: ProducerRef;
 }
@@ -111,7 +114,17 @@ function requireCapability(profile: CapabilityProfile, capability: Capability, c
   );
 }
 
+function checkDefaultExports(symbols: readonly SymbolDraft[]): Result<true, DomainError> {
+  const defaults = symbols.filter((s) => s.defaultExport);
+  if (defaults.length > 1) return err(domainError('EXTRACTION_DEFAULT_EXPORT_INVALID', `a module has at most one default export, found ${defaults.length}`));
+  const bad = defaults.find((s) => !s.exported || s.parent !== null);
+  if (bad !== undefined) return err(domainError('EXTRACTION_DEFAULT_EXPORT_INVALID', `default export ${bad.name} must be an exported top-level declaration`));
+  return ok(true);
+}
+
 function checkSymbols(symbols: readonly SymbolDraft[]): Result<readonly (readonly string[])[], DomainError> {
+  const defaults = checkDefaultExports(symbols);
+  if (!defaults.ok) return defaults;
   const paths: (readonly string[])[] = [];
   for (const [i, s] of symbols.entries()) {
     const what = `symbol #${i} (${s.name})`;
@@ -189,6 +202,7 @@ export function createFileExtraction(input: FileExtractionInput): Result<FileExt
       spanHash: s.spanHash,
       bodyFingerprint: s.bodyFingerprint,
       exported: s.exported,
+      defaultExport: s.defaultExport,
       doc: s.doc,
       producer: symbolProducer,
     }),

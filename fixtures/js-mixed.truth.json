@@ -1,0 +1,36 @@
+{
+  "format": "cie-truth/1",
+  "fixture": "js-mixed",
+  "notes": [
+    "Hand-verified against the sources (P02-12).",
+    "`const x = require('m')` is an import binding, not a symbol (same as `import x from 'm'`).",
+    "`const { formatDate } = require('./dates')` binds formatDate from lib/dates.js. The L1 extractor records no names for destructured requires: known gap, counted by the quality report.",
+    "CommonJS exports (module.exports = {...}) are not reflected in `exported`; exports are not part of this truth set.",
+    "`export default { ... }` in src/locales/en.mjs exports an object literal, which is not a declaration."
+  ],
+  "symbols": [
+    "js:lib/dates.js#formatDate(function)",
+    "js:lib/server.js#Server(class)",
+    "js:lib/server.js#Server.constructor(constructor)",
+    "js:lib/server.js#Server.defaultPort(property)",
+    "js:lib/server.js#Server.start(method)",
+    "js:lib/server.js#loadPlugin(function)",
+    "js:src/Banner.jsx#Banner(function)",
+    "js:src/esm.mjs#VERSION(constant)",
+    "js:src/esm.mjs#loadLocale(function)"
+  ],
+  "imports": [
+    "mod:js:lib/server.js -> ext:node:fs",
+    "mod:js:lib/server.js -> ext:npm:express",
+    "mod:js:lib/server.js -> mod:js:lib/dates.js",
+    "mod:js:lib/server.js -> unresolved:name",
+    "mod:js:src/Banner.jsx -> mod:js:src/esm.mjs",
+    "mod:js:src/esm.mjs -> ext:node:fs/promises",
+    "mod:js:src/esm.mjs -> mod:js:src/locales/en.mjs",
+    "mod:js:src/esm.mjs -> unresolved:`./locales/${lang}.mjs`"
+  ],
+  "importsSymbol": [
+    "mod:js:lib/server.js -> formatDate -> js:lib/dates.js#formatDate(function)",
+    "mod:js:src/Banner.jsx -> VERSION -> js:src/esm.mjs#VERSION(constant)"
+  ]
+}

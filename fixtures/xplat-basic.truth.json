@@ -1,0 +1,19 @@
+{
+  "format": "cie-truth/1",
+  "fixture": "xplat-basic",
+  "notes": [
+    "Hand-verified against the sources (P02-12). big.ts is skipped (too large), generated/ and build/ are ignored: none contribute symbols."
+  ],
+  "symbols": [
+    "py:py/pkg/mod.py#f(function)",
+    "ts:src/Upper.ts#Upper(constant)",
+    "ts:src/café.ts#café(constant)",
+    "ts:src/greet.ts#greet(function)"
+  ],
+  "imports": [
+    "mod:ts:src/index.ts -> mod:ts:src/greet.ts"
+  ],
+  "importsSymbol": [
+    "mod:ts:src/index.ts -> greet -> ts:src/greet.ts#greet(function)"
+  ]
+}

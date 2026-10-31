@@ -20,8 +20,14 @@ const CLASS_VALUES = new Set(['class']);
 
 const hasToken = (node: Node, token: string): boolean => node.children.some((c) => !c.isNamed && c.type === token);
 
-function variableKind(declarator: Node): SymbolKind {
+/** `const x = require('m')`: an import binding (like `import x from 'm'`), not a declaration of its own. */
+function isRequireBinding(value: Node | null): boolean {
+  return value?.type === 'call_expression' && value.childForFieldName('function')?.text === 'require';
+}
+
+function variableKind(declarator: Node): SymbolKind | null {
   const value = declarator.childForFieldName('value');
+  if (isRequireBinding(value)) return null;
   if (value !== null && FUNCTION_VALUES.has(value.type)) return 'function';
   if (value !== null && CLASS_VALUES.has(value.type)) return 'class';
   const declaration = declarator.parent;
@@ -65,6 +71,12 @@ function statementOf(def: RawDefinition): Node {
 
 function exported(def: RawDefinition): boolean {
   return statementOf(def).type === 'export_statement';
+}
+
+/** `export default function f() {}`, `export default class {}`, …: the export statement has a `default` token. */
+function defaultExport(def: RawDefinition, parent: RawDefinition | null): boolean {
+  const stmt = statementOf(def);
+  return parent === null && stmt.type === 'export_statement' && hasToken(stmt, 'default');
 }
 
 function cleanJsDoc(text: string): string {
@@ -123,7 +135,7 @@ function importsOf(match: QueryMatch): readonly RawImport[] {
   }
 }
 
-const base = { kindOf, nameOf, exported, doc, importsOf };
+const base = { kindOf, nameOf, exported, defaultExport, doc, importsOf };
 
 export const TYPESCRIPT_RULES: LanguageRules = { ...base, definitions: TYPESCRIPT_DEFINITIONS, imports: TYPESCRIPT_IMPORTS };
 export const JAVASCRIPT_RULES: LanguageRules = { ...base, definitions: JAVASCRIPT_DEFINITIONS, imports: ECMASCRIPT_IMPORTS };

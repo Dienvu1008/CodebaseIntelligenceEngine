@@ -127,12 +127,16 @@ async function resolveAll(
       continue;
     }
     for (const d of r.value.diagnostics) diagnostics.push({ code: d.code, path: d.path, message: d.message });
+    // Supersession is between resolvers only: one resolver may emit several edges for the same site (Python
+    // `from pkg import a, b` gives the package plus two submodules), and all of them are kept.
+    const sites = new Set<string>();
     for (const e of r.value.edges) {
       const key = siteKey(e);
       if (claimed.has(key)) continue; // superseded by a higher-precedence resolver
-      claimed.add(key);
+      sites.add(key);
       edges.push(e);
     }
+    for (const key of sites) claimed.add(key);
   }
   return ok(edges);
 }

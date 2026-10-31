@@ -98,6 +98,25 @@ describe('LangTsResolver on a monorepo', () => {
   });
 });
 
+describe('LangTsResolver default imports', () => {
+  it('binds `default` to the module default export, named or anonymous', async () => {
+    const { resolution } = await resolveFixture(
+      {
+        'src/a.ts': "import shout from './named';\nimport Anon from './anon';\nimport none from './none';\n",
+        'src/named.ts': 'export default function shout() {}\nexport function other() {}\n',
+        'src/anon.ts': 'export default class {}\n',
+        'src/none.ts': 'export const x = 1;\n',
+      },
+      resolver,
+    );
+    expect(edgeSummary(resolution.edges.filter((e) => e.type === 'imports_symbol')).map((s) => s.replace(/#[0-9a-f]{16}/, '#…'))).toEqual([
+      'mod:ts:src/a.ts -> ts:src/named.ts#shout(function) [imports_symbol inferred heuristic] default',
+      'mod:ts:src/a.ts -> ts:src/anon.ts#default(class) [imports_symbol inferred heuristic] default',
+      'mod:ts:src/a.ts -> unres:ts:src/a.ts#… [imports_symbol unknown] default',
+    ]);
+  });
+});
+
 describe('LangTsResolver configuration handling', () => {
   it('reports broken tsconfig files and keeps resolving with what parsed', async () => {
     const { resolution } = await resolveFixture(

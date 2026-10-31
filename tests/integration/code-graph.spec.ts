@@ -46,6 +46,17 @@ describe('code graph in the full index', () => {
     expect(third.graph.nodes.closed).toBeGreaterThan(0);
   });
 
+  it('keeps every edge one resolver emits for the same import site (package plus submodules)', () => {
+    ws = cliWorkspace({ 'main.py': 'from app import models, util\n', 'app/__init__.py': '', 'app/models.py': '', 'app/util.py': '' });
+    index(ws);
+    const doc = JSON.parse(runCli(['dev', 'export', ...ws.args()], ws.env()).stdout) as { edges: { type: string; from: string; to: string }[] };
+    expect(doc.edges.filter((e) => e.type === 'imports' && e.from === 'mod:py:main.py').map((e) => e.to)).toEqual([
+      'mod:py:app/__init__.py',
+      'mod:py:app/models.py',
+      'mod:py:app/util.py',
+    ]);
+  });
+
   it('reports the capability matrix in dev status', () => {
     ws = cliWorkspace({ 'src/a.ts': 'export const a = 1;\n' });
     index(ws);

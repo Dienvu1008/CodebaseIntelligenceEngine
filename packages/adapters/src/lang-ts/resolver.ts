@@ -208,7 +208,8 @@ export class LangTsResolver implements ProjectResolver {
     if (c.target.kind !== 'module') return out;
     const target = byPath.get(c.target.path);
     for (const name of imp.names) {
-      const candidates = (target?.symbols ?? []).filter((s) => s.parent === null && s.exported && s.name === name);
+      // `default` binds the module's default export, whatever its declared name (`export default function shout`).
+      const candidates = (target?.symbols ?? []).filter((s) => s.parent === null && s.exported && (name === 'default' ? s.defaultExport : s.name === name));
       const only = candidates.length === 1 ? candidates[0] : undefined;
       const res: ImportResolution =
         only === undefined

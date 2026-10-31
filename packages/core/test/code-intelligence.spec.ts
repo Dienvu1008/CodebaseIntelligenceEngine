@@ -70,6 +70,17 @@ describe('createFileExtraction structural checks', () => {
     expect(run({ symbols: [symbol('a.b', 'function', range(0, 0, 1, 0))] })).toBe('SYMBOL_NAME_INVALID');
   });
 
+  it('accepts one exported top-level default export and rejects any other', () => {
+    const run = (o: Parameters<typeof extractionInput>[0]) => code(createFileExtraction(extractionInput(o)));
+    const d = (name: string, line: number, extra = {}) => symbol(name, 'function', range(line, 0, line, 10), null, { exported: true, defaultExport: true, ...extra });
+    expect(run({ symbols: [d('shout', 0)] })).toBe('ok');
+    expect(run({ symbols: [d('a', 0), d('b', 1)] })).toBe('EXTRACTION_DEFAULT_EXPORT_INVALID');
+    expect(run({ symbols: [d('a', 0, { exported: false })] })).toBe('EXTRACTION_DEFAULT_EXPORT_INVALID');
+    expect(run({ symbols: [symbol('C', 'class', range(0, 0, 5, 0)), symbol('m', 'method', range(1, 0, 2, 0), 0, { exported: true, defaultExport: true })] })).toBe(
+      'EXTRACTION_DEFAULT_EXPORT_INVALID',
+    );
+  });
+
   it('rejects empty specifiers and names, and invalid diagnostic ranges', () => {
     const run = (o: Parameters<typeof extractionInput>[0]) => code(createFileExtraction(extractionInput(o)));
     expect(run({ imports: [literalImport('', range(0, 0, 0, 1))] })).toBe('EXTRACTION_IMPORT_INVALID');

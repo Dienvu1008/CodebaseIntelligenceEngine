@@ -101,6 +101,23 @@ describe('TypeScript', () => {
     ]);
   });
 
+  it('flags the default export, and ignores type-literal members of parameters', async () => {
+    const e = await extract(
+      'src/d.ts',
+      'ts',
+      'export default function shout(s: string) { return s }\nexport function card({ user }: { user: string }) {}\ntype Shape = { area: number; scale(k: number): void };\ninterface I { p: string }\n',
+    );
+    expect(e.symbols.map((s) => [s.qualifiedName, s.defaultExport])).toEqual([
+      ['shout', true],
+      ['card', false],
+      ['Shape', false],
+      ['Shape.area', false],
+      ['Shape.scale', false],
+      ['I', false],
+      ['I.p', false],
+    ]);
+  });
+
   it('records the producer per language with L1 attribution', async () => {
     const e = await extract('src/a.ts', 'ts', 'function a() {}');
     expect(e.producer).toEqual({ adapterId: 'treesitter', adapterVersion: '0.1.0', toolVersion: 'web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2' });
@@ -117,9 +134,13 @@ describe('TypeScript', () => {
 describe('TSX and JavaScript', () => {
   it('parses JSX and JS class fields, including private names and anonymous default classes', async () => {
     expect(ids(await extract('src/b.tsx', 'tsx', 'export function Button() { return <b>{1}</b>; }\n'))).toEqual(['tsx:src/b.tsx#Button(function)']);
-    const js = await extract('lib/c.js', 'js', "class A { #p = 1; static s = 2; m() {} }\nconst { x } = require('./x');\nexport default class {}\n");
+    const js = await extract('lib/c.js', 'js', "class A { #p = 1; static s = 2; m() {} }\nconst { x } = require('./x');\nconst y = require('./y');\nexport default class {}\n");
     expect(ids(js)).toEqual(['js:lib/c.js#A(class)', 'js:lib/c.js#A.%23p(property)', 'js:lib/c.js#A.s(property)', 'js:lib/c.js#A.m(method)', 'js:lib/c.js#default(class)']);
-    expect(js.imports.map((i) => i.specifier)).toEqual([{ kind: 'literal', value: './x' }]);
+    // `const y = require('./y')` is an import binding, not a symbol.
+    expect(js.imports.map((i) => i.specifier)).toEqual([
+      { kind: 'literal', value: './x' },
+      { kind: 'literal', value: './y' },
+    ]);
   });
 });
 
@@ -186,6 +207,9 @@ describe('parse errors, fingerprints and failures', () => {
     expect(e.diagnostics.length).toBeGreaterThan(0);
     expect(e.diagnostics.every((d) => d.code === 'PARSE_ERROR' || d.code === 'PARSE_MISSING')).toBe(true);
     expect(ids(e)).toContain('ts:src/e.ts#good(function)');
+    // Error recovery can surface a member with no class around it; such orphans are not symbols.
+    const orphan = await extract('src/o.ts', 'ts', 'export function before() {}\n\nclass {\n  broken( ;\n}\n\nexport function after() {}\n');
+    expect(orphan.symbols.filter((s) => s.parent === null).map((s) => s.kind)).not.toContain('property');
   });
 
   it('is deterministic, and CRLF vs LF changes span hashes but neither ids nor fingerprints', async () => {

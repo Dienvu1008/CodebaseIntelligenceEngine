@@ -1,0 +1,26 @@
+{
+  "format": "cie-truth/1",
+  "fixture": "py-src-layout",
+  "notes": [
+    "Hand-verified against the sources (P02-12). tests/ resolves pkg.core through the src/ root."
+  ],
+  "symbols": [
+    "py:src/pkg/__init__.py#__all__(variable)",
+    "py:src/pkg/core.py#run(function)",
+    "py:src/pkg/helpers.py#util_fn(function)",
+    "py:tests/test_core.py#test_run(function)"
+  ],
+  "imports": [
+    "mod:py:src/pkg/__init__.py -> mod:py:src/pkg/core.py",
+    "mod:py:src/pkg/core.py -> ext:pypi:numpy",
+    "mod:py:src/pkg/core.py -> mod:py:src/pkg/helpers.py",
+    "mod:py:src/pkg/helpers.py -> ext:python:typing",
+    "mod:py:tests/test_core.py -> ext:pypi:pytest",
+    "mod:py:tests/test_core.py -> mod:py:src/pkg/core.py"
+  ],
+  "importsSymbol": [
+    "mod:py:src/pkg/__init__.py -> run -> py:src/pkg/core.py#run(function)",
+    "mod:py:src/pkg/core.py -> util_fn -> py:src/pkg/helpers.py#util_fn(function)",
+    "mod:py:tests/test_core.py -> run -> py:src/pkg/core.py#run(function)"
+  ]
+}

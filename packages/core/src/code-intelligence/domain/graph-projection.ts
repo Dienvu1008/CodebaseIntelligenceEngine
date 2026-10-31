@@ -35,6 +35,7 @@ export interface SymbolFacts {
   readonly spanHash: ContentHash;
   readonly bodyFingerprint: ContentHash;
   readonly exported: boolean;
+  readonly defaultExport: boolean;
   readonly doc: string | null;
 }
 
@@ -89,8 +90,16 @@ const rangeBefore = (a: SourceRange, b: SourceRange): boolean =>
   a.startLine !== b.startLine ? a.startLine < b.startLine : a.startCol !== b.startCol ? a.startCol < b.startCol : a.endLine !== b.endLine ? a.endLine < b.endLine : a.endCol < b.endCol;
 
 function symbolNode(e: FileExtraction, s: ExtractedSymbol): CodeNode {
-  const { qualifiedName, kind, range, spanHash, bodyFingerprint, exported, doc } = s;
-  return { id: s.id as string as NodeId, kind: 'symbol', name: s.name, file: e.path, language: e.language, symbol: { qualifiedName, kind, range, spanHash, bodyFingerprint, exported, doc }, producer: s.producer };
+  const { qualifiedName, kind, range, spanHash, bodyFingerprint, exported, defaultExport, doc } = s;
+  return {
+    id: s.id as string as NodeId,
+    kind: 'symbol',
+    name: s.name,
+    file: e.path,
+    language: e.language,
+    symbol: { qualifiedName, kind, range, spanHash, bodyFingerprint, exported, defaultExport, doc },
+    producer: s.producer,
+  };
 }
 
 function moduleNode(e: FileExtraction): CodeNode {

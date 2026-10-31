@@ -25,6 +25,8 @@ export interface LanguageRules {
   /** The source-level name (encoded into a segment by the extractor). */
   nameOf(def: RawDefinition): string;
   exported(def: RawDefinition, parent: RawDefinition | null): boolean;
+  /** True for the module's default export (`export default …`). */
+  defaultExport(def: RawDefinition, parent: RawDefinition | null): boolean;
   doc(def: RawDefinition): string | null;
   importsOf(match: QueryMatch): readonly RawImport[];
 }

@@ -30,7 +30,7 @@ files[i]:      indexed → { path, status, hash, size, language }
                skipped → { path, status, reason, size }
 structure[i]:  { id, kind, name, ecosystem, file }
 nodes[i]:      { id, kind, name, file, language, symbol, producer }
-  symbol:      null unless kind = symbol → { qualifiedName, kind, range, spanHash, bodyFingerprint, exported, doc }
+  symbol:      null unless kind = symbol → { qualifiedName, kind, range, spanHash, bodyFingerprint, exported, defaultExport, doc }
   range:       { startLine, startCol, endLine, endCol }       (0-based lines, UTF-16 columns, end-exclusive)
   producer:    { adapterId, adapterVersion, toolVersion, fidelity }
 edges[i]:      { type, from, to, site, status, precision, producer, evidence, attrs }

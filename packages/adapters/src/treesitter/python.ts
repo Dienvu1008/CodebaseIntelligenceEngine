@@ -84,6 +84,7 @@ export const PYTHON_RULES: LanguageRules = {
   kindOf,
   nameOf: (def) => def.name?.text ?? '',
   exported: (def, parent) => parent === null && !(def.name?.text ?? '_').startsWith('_'),
+  defaultExport: () => false, // Python has no default export
   doc,
   importsOf,
 };

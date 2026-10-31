@@ -1,0 +1,56 @@
+{
+  "format": "cie-truth/1",
+  "fixture": "ts-basic",
+  "notes": [
+    "Hand-verified against the sources (P02-12). Scope: declarations at module level and their class, interface, enum and namespace members; locals and parameters are not symbols.",
+    "UserService.prefix is a TypeScript parameter property (constructor(private readonly prefix)), i.e. a class member. The L1 extractor does not see it: known gap, counted by the quality report.",
+    "The parameter type literal { user: User } of UserCard is not a symbol.",
+    "`import shout from` binds the default export, whose declared name is shout."
+  ],
+  "symbols": [
+    "ts:src/index.ts#main(function)",
+    "ts:src/index.ts#schema(constant)",
+    "ts:src/models/user.ts#Role(enum)",
+    "ts:src/models/user.ts#Role.Admin(enum_member)",
+    "ts:src/models/user.ts#Role.Member(enum_member)",
+    "ts:src/models/user.ts#User(interface)",
+    "ts:src/models/user.ts#User.greet(method)",
+    "ts:src/models/user.ts#User.id(property)",
+    "ts:src/models/user.ts#User.name(property)",
+    "ts:src/models/user.ts#User.role(property)",
+    "ts:src/models/user.ts#UserId(type)",
+    "ts:src/models/user.ts#UserService(class)",
+    "ts:src/models/user.ts#UserService.cache(property)",
+    "ts:src/models/user.ts#UserService.constructor(constructor)",
+    "ts:src/models/user.ts#UserService.count(getter)",
+    "ts:src/models/user.ts#UserService.create(method)",
+    "ts:src/models/user.ts#UserService.find(method)",
+    "ts:src/models/user.ts#UserService.prefix(property)",
+    "ts:src/models/user.ts#parseUser(function)~1",
+    "ts:src/models/user.ts#parseUser(function)~2",
+    "ts:src/models/user.ts#parseUser(function)~3",
+    "ts:src/util/strings.ts#capitalize(function)",
+    "ts:src/util/strings.ts#internal(constant)",
+    "ts:src/util/strings.ts#shout(function)",
+    "ts:src/util/strings.ts#slugify(function)",
+    "tsx:src/view.tsx#UserCard(function)"
+  ],
+  "imports": [
+    "mod:ts:src/index.ts -> ext:node:fs/promises",
+    "mod:ts:src/index.ts -> ext:npm:zod",
+    "mod:ts:src/index.ts -> mod:ts:src/models/user.ts",
+    "mod:ts:src/index.ts -> mod:ts:src/util/strings.ts",
+    "mod:ts:src/index.ts -> mod:tsx:src/view.tsx",
+    "mod:tsx:src/view.tsx -> mod:ts:src/models/user.ts",
+    "mod:tsx:src/view.tsx -> mod:ts:src/util/strings.ts"
+  ],
+  "importsSymbol": [
+    "mod:ts:src/index.ts -> User -> ts:src/models/user.ts#User(interface)",
+    "mod:ts:src/index.ts -> UserService -> ts:src/models/user.ts#UserService(class)",
+    "mod:ts:src/index.ts -> default -> ts:src/util/strings.ts#shout(function)",
+    "mod:ts:src/index.ts -> slugify -> ts:src/util/strings.ts#slugify(function)",
+    "mod:ts:src/index.ts -> UserCard -> tsx:src/view.tsx#UserCard(function)",
+    "mod:tsx:src/view.tsx -> User -> ts:src/models/user.ts#User(interface)",
+    "mod:tsx:src/view.tsx -> capitalize -> ts:src/util/strings.ts#capitalize(function)"
+  ]
+}

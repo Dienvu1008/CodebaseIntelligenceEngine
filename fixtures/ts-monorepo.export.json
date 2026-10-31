@@ -1,0 +1,1138 @@
+{
+  "format": "cie-export/2",
+  "revision": 1,
+  "manifestHash": "sha256:d9f3de9e1889c7114d55e513969e79ed400f700217d489b6e4af21f509d5cc7e",
+  "files": [
+    {
+      "path": "package.json",
+      "status": "indexed",
+      "hash": "sha256:b130fda1b7ad283fd5a3ae554b714bfb0bf8591d388a4fdc1a67d7b12eca6e6e",
+      "size": 133,
+      "language": null
+    },
+    {
+      "path": "packages/app/package.json",
+      "status": "indexed",
+      "hash": "sha256:bd0f437b17b3e6f49ebe461dc9069f2d1a950ad7e9ada1a89307f1e01d011d13",
+      "size": 141,
+      "language": null
+    },
+    {
+      "path": "packages/app/src/config.ts",
+      "status": "indexed",
+      "hash": "sha256:84a6e32586bb2513fcbacb9a8dbb9c8eaf6149578a95902a814689eaf8896b8d",
+      "size": 44,
+      "language": "ts"
+    },
+    {
+      "path": "packages/app/src/main.ts",
+      "status": "indexed",
+      "hash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766",
+      "size": 401,
+      "language": "ts"
+    },
+    {
+      "path": "packages/app/tsconfig.json",
+      "status": "indexed",
+      "hash": "sha256:7dfaed893184eaea7474687182b6bdd66e8daa7029bf95e3bdeca4e1b1cbc9f1",
+      "size": 160,
+      "language": null
+    },
+    {
+      "path": "packages/core/package.json",
+      "status": "indexed",
+      "hash": "sha256:e13a53478fae86edb15c13d88a1a3dabaad2f70549982f3734c2d9e042ee9ab6",
+      "size": 146,
+      "language": null
+    },
+    {
+      "path": "packages/core/src/index.ts",
+      "status": "indexed",
+      "hash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd",
+      "size": 189,
+      "language": "ts"
+    },
+    {
+      "path": "packages/core/src/math.ts",
+      "status": "indexed",
+      "hash": "sha256:1c3e0a5e244bbbf710b7cf94237fbbf97ec34327beda76b7ae6455d7ee9d7e9c",
+      "size": 98,
+      "language": "ts"
+    },
+    {
+      "path": "packages/core/tsconfig.json",
+      "status": "indexed",
+      "hash": "sha256:8f6e85eeaa8025fe7b2f01763e03f32540d3e2869ae857490d685098460f4e3a",
+      "size": 66,
+      "language": null
+    },
+    {
+      "path": "tsconfig.base.json",
+      "status": "indexed",
+      "hash": "sha256:b60ffb1d40f7f4cd2580d77a709ebc9d36a49e76e3c5e5e7224efba62a5338e6",
+      "size": 161,
+      "language": null
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:packages",
+      "kind": "directory",
+      "name": "packages",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:packages/app",
+      "kind": "directory",
+      "name": "app",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:packages/app/src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:packages/core",
+      "kind": "directory",
+      "name": "core",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:packages/core/src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "pkg:npm:.",
+      "kind": "package",
+      "name": ".",
+      "ecosystem": "npm",
+      "file": "package.json"
+    },
+    {
+      "id": "pkg:npm:packages/app",
+      "kind": "package",
+      "name": "app",
+      "ecosystem": "npm",
+      "file": "packages/app/package.json"
+    },
+    {
+      "id": "pkg:npm:packages/core",
+      "kind": "package",
+      "name": "core",
+      "ecosystem": "npm",
+      "file": "packages/core/package.json"
+    },
+    {
+      "id": "proj:ts:packages/app/tsconfig.json",
+      "kind": "project",
+      "name": "tsconfig.json",
+      "ecosystem": "typescript",
+      "file": "packages/app/tsconfig.json"
+    },
+    {
+      "id": "proj:ts:packages/core/tsconfig.json",
+      "kind": "project",
+      "name": "tsconfig.json",
+      "ecosystem": "typescript",
+      "file": "packages/core/tsconfig.json"
+    },
+    {
+      "id": "proj:ts:tsconfig.base.json",
+      "kind": "project",
+      "name": "tsconfig.base.json",
+      "ecosystem": "typescript",
+      "file": "tsconfig.base.json"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ext:node:path",
+      "kind": "external",
+      "name": "path",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "ext:npm:chalk",
+      "kind": "external",
+      "name": "chalk",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "mod:ts:packages/app/src/config.ts",
+      "kind": "module",
+      "name": "config.ts",
+      "file": "packages/app/src/config.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:packages/app/src/main.ts",
+      "kind": "module",
+      "name": "main.ts",
+      "file": "packages/app/src/main.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:packages/core/src/index.ts",
+      "kind": "module",
+      "name": "index.ts",
+      "file": "packages/core/src/index.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:packages/core/src/math.ts",
+      "kind": "module",
+      "name": "math.ts",
+      "file": "packages/core/src/math.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:packages/app/src/config.ts#settings(constant)",
+      "kind": "symbol",
+      "name": "settings",
+      "file": "packages/app/src/config.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "settings",
+        "kind": "constant",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 42
+        },
+        "spanHash": "sha256:6198af8308f1c9cab2c006bdc02308d0f727bb03e358cecacdc4cf451e49af01",
+        "bodyFingerprint": "sha256:17981643b7bc2aeae9a3c18bcb1478f00437a3f8a82ac40f4ceca00888045526",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:packages/app/src/main.ts#run(function)",
+      "kind": "symbol",
+      "name": "run",
+      "file": "packages/app/src/main.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "run",
+        "kind": "function",
+        "range": {
+          "startLine": 7,
+          "startCol": 7,
+          "endLine": 11,
+          "endCol": 1
+        },
+        "spanHash": "sha256:b225073ab34863650e2d5de0520e7582592d08b872c7cabe15e5cf342b6db6f7",
+        "bodyFingerprint": "sha256:159eeb00c85a55f70472979e411bed5c0207604f1cb7d31f3904fb4cc643a98c",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:packages/core/src/index.ts#Counter(class)",
+      "kind": "symbol",
+      "name": "Counter",
+      "file": "packages/core/src/index.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Counter",
+        "kind": "class",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 9,
+          "endCol": 1
+        },
+        "spanHash": "sha256:77d441979fb89af59a9ba902549d073e1e783c3e7a3b3cd5b13c9d54daf29797",
+        "bodyFingerprint": "sha256:5fb89140003a845f52dc43b47f1e8900d283a3845b90b522fc835bda92114e89",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:packages/core/src/index.ts#Counter.%23value(property)",
+      "kind": "symbol",
+      "name": "%23value",
+      "file": "packages/core/src/index.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Counter.%23value",
+        "kind": "property",
+        "range": {
+          "startLine": 3,
+          "startCol": 2,
+          "endLine": 3,
+          "endCol": 12
+        },
+        "spanHash": "sha256:e50f5baa38db6715b8d667d70cb341a04a1a67ce688278b16e636ea9e958b7ca",
+        "bodyFingerprint": "sha256:858b0554b0dac2c21f6d3833db72c3f03530eb4654084b212acf19da7af9f8ab",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:packages/core/src/index.ts#Counter.increment(method)",
+      "kind": "symbol",
+      "name": "increment",
+      "file": "packages/core/src/index.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Counter.increment",
+        "kind": "method",
+        "range": {
+          "startLine": 5,
+          "startCol": 2,
+          "endLine": 8,
+          "endCol": 3
+        },
+        "spanHash": "sha256:97c52941e14ff409ce4cedb27fe313b8285206ede8da4003e89bdb30cb632169",
+        "bodyFingerprint": "sha256:c70a3ff1ec297c42803f483e88fd55eb1ffc87b1b51f297aa80860fdd8f93f5f",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:packages/core/src/math.ts#PI(constant)",
+      "kind": "symbol",
+      "name": "PI",
+      "file": "packages/core/src/math.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "PI",
+        "kind": "constant",
+        "range": {
+          "startLine": 4,
+          "startCol": 13,
+          "endLine": 4,
+          "endCol": 25
+        },
+        "spanHash": "sha256:0488c99519bb38cf751a432339ee2431b27aa7b907ef8008e8f13293caa027e2",
+        "bodyFingerprint": "sha256:8110b47d75754e204beff60657919c64697479786eda3bde47142642ef8be5c1",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:packages/core/src/math.ts#add(function)",
+      "kind": "symbol",
+      "name": "add",
+      "file": "packages/core/src/math.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "add",
+        "kind": "function",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "spanHash": "sha256:e56ebaf1bdbd2d0f7a32a07c1718792fc2134f4e10d28f45e4f34d3fb70d7520",
+        "bodyFingerprint": "sha256:1b09b9b3f5ca5250b30a586334b56664c771c4d54b258593f6872798f253459e",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "unres:ts:packages/app/src/main.ts#939ba59c098c5ecd",
+      "kind": "unresolved",
+      "name": "@demo/core/internal",
+      "file": "packages/app/src/main.ts",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": "ts:packages/core/src/index.ts#Counter(class)",
+      "to": "ts:packages/core/src/index.ts#Counter.%23value(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 3,
+          "startCol": 2,
+          "endLine": 3,
+          "endCol": 12
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:packages/core/src/index.ts#Counter(class)",
+      "to": "ts:packages/core/src/index.ts#Counter.increment(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 2,
+          "endLine": 8,
+          "endCol": 3
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:packages/app/src/config.ts",
+      "to": "ts:packages/app/src/config.ts#settings(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/app/src/config.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 42
+        },
+        "contentHash": "sha256:84a6e32586bb2513fcbacb9a8dbb9c8eaf6149578a95902a814689eaf8896b8d"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ts:packages/app/src/main.ts#run(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 7,
+          "startCol": 7,
+          "endLine": 11,
+          "endCol": 1
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:packages/core/src/index.ts",
+      "to": "ts:packages/core/src/index.ts#Counter(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 9,
+          "endCol": 1
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:packages/core/src/math.ts",
+      "to": "ts:packages/core/src/math.ts#PI(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/math.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 13,
+          "endLine": 4,
+          "endCol": 25
+        },
+        "contentHash": "sha256:1c3e0a5e244bbbf710b7cf94237fbbf97ec34327beda76b7ae6455d7ee9d7e9c"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:packages/core/src/math.ts",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/math.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1c3e0a5e244bbbf710b7cf94237fbbf97ec34327beda76b7ae6455d7ee9d7e9c"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:packages/app/src/config.ts",
+      "to": "ts:packages/app/src/config.ts#settings(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/app/src/config.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 42
+        },
+        "contentHash": "sha256:84a6e32586bb2513fcbacb9a8dbb9c8eaf6149578a95902a814689eaf8896b8d"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ts:packages/app/src/main.ts#run(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 7,
+          "startCol": 7,
+          "endLine": 11,
+          "endCol": 1
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:packages/core/src/index.ts",
+      "to": "ts:packages/core/src/index.ts#Counter(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 9,
+          "endCol": 1
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:packages/core/src/math.ts",
+      "to": "ts:packages/core/src/math.ts#PI(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/math.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 13,
+          "endLine": 4,
+          "endCol": 25
+        },
+        "contentHash": "sha256:1c3e0a5e244bbbf710b7cf94237fbbf97ec34327beda76b7ae6455d7ee9d7e9c"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:packages/core/src/math.ts",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/core/src/math.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:1c3e0a5e244bbbf710b7cf94237fbbf97ec34327beda76b7ae6455d7ee9d7e9c"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ext:node:path",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 3,
+          "endCol": 29
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "node:path"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ext:npm:chalk",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 4,
+          "endCol": 26
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "chalk"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "mod:ts:packages/app/src/config.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 0,
+          "endLine": 2,
+          "endCol": 39
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "~/config.js"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "mod:ts:packages/core/src/index.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 37
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "@demo/core"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "mod:ts:packages/core/src/math.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 42
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "@demo/core/math"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "unres:ts:packages/app/src/main.ts#939ba59c098c5ecd",
+      "site": "",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 46
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "@demo/core/internal"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:packages/core/src/index.ts",
+      "to": "mod:ts:packages/core/src/math.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 32
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./math.js"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ts:packages/app/src/config.ts#settings(constant)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 0,
+          "endLine": 2,
+          "endCol": 39
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "settings",
+        "raw": "~/config.js"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ts:packages/core/src/index.ts#Counter(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 37
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "Counter",
+        "raw": "@demo/core"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ts:packages/core/src/math.ts#PI(constant)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 42
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "PI",
+        "raw": "@demo/core/math"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:packages/app/src/main.ts",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 42
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "add",
+        "raw": "@demo/core/math"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:packages/core/src/index.ts",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 32
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "add",
+        "raw": "./math.js"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2296 @@
+{
+  "format": "cie-export/2",
+  "revision": 1,
+  "manifestHash": "sha256:7b1a123258d706f7d232ae894db7f5d6dd03ded50cb630a451eb1da8ecaae96f",
+  "files": [
+    {
+      "path": "package.json",
+      "status": "indexed",
+      "hash": "sha256:a38376b4981f98ee92f0a1743b5f7a8b7a845b08d2d1db46635d37aeb1ccd716",
+      "size": 109,
+      "language": null
+    },
+    {
+      "path": "src/index.ts",
+      "status": "indexed",
+      "hash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4",
+      "size": 473,
+      "language": "ts"
+    },
+    {
+      "path": "src/models/user.ts",
+      "status": "indexed",
+      "hash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad",
+      "size": 773,
+      "language": "ts"
+    },
+    {
+      "path": "src/util/strings.ts",
+      "status": "indexed",
+      "hash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16",
+      "size": 307,
+      "language": "ts"
+    },
+    {
+      "path": "src/view.tsx",
+      "status": "indexed",
+      "hash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874",
+      "size": 206,
+      "language": "tsx"
+    },
+    {
+      "path": "tsconfig.json",
+      "status": "indexed",
+      "hash": "sha256:f3f7b2e80cf68e5abd34b9a2076d705b7ae7d66da0d0f97e2e16c84da75957c7",
+      "size": 179,
+      "language": null
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src/models",
+      "kind": "directory",
+      "name": "models",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src/util",
+      "kind": "directory",
+      "name": "util",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "pkg:npm:.",
+      "kind": "package",
+      "name": ".",
+      "ecosystem": "npm",
+      "file": "package.json"
+    },
+    {
+      "id": "proj:ts:tsconfig.json",
+      "kind": "project",
+      "name": "tsconfig.json",
+      "ecosystem": "typescript",
+      "file": "tsconfig.json"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ext:node:fs/promises",
+      "kind": "external",
+      "name": "fs/promises",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "ext:npm:zod",
+      "kind": "external",
+      "name": "zod",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "mod:ts:src/index.ts",
+      "kind": "module",
+      "name": "index.ts",
+      "file": "src/index.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/models/user.ts",
+      "kind": "module",
+      "name": "user.ts",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/util/strings.ts",
+      "kind": "module",
+      "name": "strings.ts",
+      "file": "src/util/strings.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:tsx:src/view.tsx",
+      "kind": "module",
+      "name": "view.tsx",
+      "file": "src/view.tsx",
+      "language": "tsx",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/index.ts#main(function)",
+      "kind": "symbol",
+      "name": "main",
+      "file": "src/index.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "main",
+        "kind": "function",
+        "range": {
+          "startLine": 10,
+          "startCol": 7,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "spanHash": "sha256:b866207c41b42f5c5d70feda5df1680973fa477f4f63e7cc29c14c8a6d228c39",
+        "bodyFingerprint": "sha256:1f0cb0ab4b847c9d1690acc1afcd624bd383c8f106126e32c488e00cd27c82fb",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/index.ts#schema(constant)",
+      "kind": "symbol",
+      "name": "schema",
+      "file": "src/index.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "schema",
+        "kind": "constant",
+        "range": {
+          "startLine": 8,
+          "startCol": 13,
+          "endLine": 8,
+          "endCol": 52
+        },
+        "spanHash": "sha256:2bc834fdcf79083781c32ff3170de780224ce9bb4624a5cf305ebbf8a8a04cda",
+        "bodyFingerprint": "sha256:d770666daa92ac0da79a83c157a8a7b2dfd6aab63876a6666e5f56064d82c279",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#Role(enum)",
+      "kind": "symbol",
+      "name": "Role",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Role",
+        "kind": "enum",
+        "range": {
+          "startLine": 3,
+          "startCol": 7,
+          "endLine": 6,
+          "endCol": 1
+        },
+        "spanHash": "sha256:ab48365a2d8ba265911b58cda738a1b04cfecc506d0adf6c09d8007405980819",
+        "bodyFingerprint": "sha256:540cd99ec77d7a786d4b921f36fa2481697e72ac7fcb0f19fe900eabe36d3970",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#Role.Admin(enum_member)",
+      "kind": "symbol",
+      "name": "Admin",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Role.Admin",
+        "kind": "enum_member",
+        "range": {
+          "startLine": 4,
+          "startCol": 2,
+          "endLine": 4,
+          "endCol": 17
+        },
+        "spanHash": "sha256:7f8a17ab3c828221f6ead5ce2d7be6796c62a7936152edd77c191312112ec5ee",
+        "bodyFingerprint": "sha256:1082e804e3a2a614d0f3c28fc1c28a1600ae5aa38abb1dc9277d922052854163",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#Role.Member(enum_member)",
+      "kind": "symbol",
+      "name": "Member",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Role.Member",
+        "kind": "enum_member",
+        "range": {
+          "startLine": 5,
+          "startCol": 2,
+          "endLine": 5,
+          "endCol": 19
+        },
+        "spanHash": "sha256:91053aa0be8836aa40426dd6fae79e2af849498ae8948c0f19bd01efac5c2707",
+        "bodyFingerprint": "sha256:b64072bf3f59536b5d5d235105c0253ed568cf81bf378f08a8288af4696232d0",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#User(interface)",
+      "kind": "symbol",
+      "name": "User",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "User",
+        "kind": "interface",
+        "range": {
+          "startLine": 9,
+          "startCol": 7,
+          "endLine": 14,
+          "endCol": 1
+        },
+        "spanHash": "sha256:59de1ed7e7859d933c789215e1c7d6c468ddad6ea8ba2ce4766d6a8770e477ed",
+        "bodyFingerprint": "sha256:8b4b4fd9b4da2cae80f56f241fb6a812049c6221c260e321d538fbfac25d3a4b",
+        "exported": true,
+        "defaultExport": false,
+        "doc": "A registered user."
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#User.greet(method)",
+      "kind": "symbol",
+      "name": "greet",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "User.greet",
+        "kind": "method",
+        "range": {
+          "startLine": 13,
+          "startCol": 2,
+          "endLine": 13,
+          "endCol": 28
+        },
+        "spanHash": "sha256:c8cc4f7aba355aa2fc3c876ca7528ba46bbf153c35f384fdba232525b7cfd286",
+        "bodyFingerprint": "sha256:8a1386a07981813e23c0598346beda4cf81a135ee1013445828a29424eb06ada",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#User.id(property)",
+      "kind": "symbol",
+      "name": "id",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "User.id",
+        "kind": "property",
+        "range": {
+          "startLine": 10,
+          "startCol": 2,
+          "endLine": 10,
+          "endCol": 12
+        },
+        "spanHash": "sha256:8d58a51a4b09b5de4b20d855646ba9a709be1bb2260101231bbe6b6842aaa10e",
+        "bodyFingerprint": "sha256:8e1c5c2238d74da4e165699f6aff6b544c3a56018b36ad8be87b2c944ff1cf7b",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#User.name(property)",
+      "kind": "symbol",
+      "name": "name",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "User.name",
+        "kind": "property",
+        "range": {
+          "startLine": 11,
+          "startCol": 2,
+          "endLine": 11,
+          "endCol": 14
+        },
+        "spanHash": "sha256:3fe91fb41414bb1a9acb3f10c945cf313455b9fc30923e4c3c22b83b17b4c5c5",
+        "bodyFingerprint": "sha256:eaca8194eb4049bc7b68919e220916ef84b68fc4db26b3ce46a32378e0418255",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#User.role(property)",
+      "kind": "symbol",
+      "name": "role",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "User.role",
+        "kind": "property",
+        "range": {
+          "startLine": 12,
+          "startCol": 2,
+          "endLine": 12,
+          "endCol": 12
+        },
+        "spanHash": "sha256:d560841fffa3eb13496e990f2e81ff1644a02978d251a0f9b281774d15d0b9bd",
+        "bodyFingerprint": "sha256:8d1f3ff21988162e9ee4c7a7f126b75a9513d7d7d2628be5304329c9c13fd799",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#UserId(type)",
+      "kind": "symbol",
+      "name": "UserId",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserId",
+        "kind": "type",
+        "range": {
+          "startLine": 1,
+          "startCol": 7,
+          "endLine": 1,
+          "endCol": 28
+        },
+        "spanHash": "sha256:86af85643b7c61617e2d1f3ed8da68bcc45cc7216347a767ebf752ff078bc075",
+        "bodyFingerprint": "sha256:aed1a90e79c60cc494793b09ce50eed15f9882d1f75a5f69446624c164261db4",
+        "exported": true,
+        "defaultExport": false,
+        "doc": "Identifier of a user."
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#UserService(class)",
+      "kind": "symbol",
+      "name": "UserService",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserService",
+        "kind": "class",
+        "range": {
+          "startLine": 16,
+          "startCol": 7,
+          "endLine": 32,
+          "endCol": 1
+        },
+        "spanHash": "sha256:47c13efce554be27e64f8046d8efe75839326976c9d7017412b914698ba4879c",
+        "bodyFingerprint": "sha256:2251a240e6933f01cfd770beefdc8b86aa1819d0ec5f4ace0094c31e42792d01",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#UserService.cache(property)",
+      "kind": "symbol",
+      "name": "cache",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserService.cache",
+        "kind": "property",
+        "range": {
+          "startLine": 17,
+          "startCol": 2,
+          "endLine": 17,
+          "endCol": 50
+        },
+        "spanHash": "sha256:1acdcb10abb184360f4567417b22d42a3eaaad3ca745385fdc40bc5ad0391faa",
+        "bodyFingerprint": "sha256:9d7a7eb3cd145c2b67386fe5a8d3e22497aebae28f5af2fd1eb01cbd0084270d",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#UserService.constructor(constructor)",
+      "kind": "symbol",
+      "name": "constructor",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserService.constructor",
+        "kind": "constructor",
+        "range": {
+          "startLine": 19,
+          "startCol": 2,
+          "endLine": 19,
+          "endCol": 49
+        },
+        "spanHash": "sha256:ec3ee0940fda813bdcb6c36b9f370d172273015445823e66b50ad69cbbd8f1ac",
+        "bodyFingerprint": "sha256:b2cd68211ccc00af7f3c86c94e606a1e298612987725a753027219d13dc0151c",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#UserService.count(getter)",
+      "kind": "symbol",
+      "name": "count",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserService.count",
+        "kind": "getter",
+        "range": {
+          "startLine": 21,
+          "startCol": 2,
+          "endLine": 23,
+          "endCol": 3
+        },
+        "spanHash": "sha256:bd63c0127743014ef2202999dbc5f679dfcb55aa889f2d3f946279b73faf9fdb",
+        "bodyFingerprint": "sha256:552950c0df03e474c0e01e4647a2abb0cdd888c5c1a927e67d7e6b7b4fa3e1f8",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#UserService.create(method)",
+      "kind": "symbol",
+      "name": "create",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserService.create",
+        "kind": "method",
+        "range": {
+          "startLine": 29,
+          "startCol": 2,
+          "endLine": 31,
+          "endCol": 3
+        },
+        "spanHash": "sha256:06c76a87a2887f3b55e57f0ed225b13a8e25e464e43ad379b7c40a31519e8fe7",
+        "bodyFingerprint": "sha256:981e17face6ba3563f730a43178273f46badbf1a371c955a05703235602f3209",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#UserService.find(method)",
+      "kind": "symbol",
+      "name": "find",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserService.find",
+        "kind": "method",
+        "range": {
+          "startLine": 25,
+          "startCol": 2,
+          "endLine": 27,
+          "endCol": 3
+        },
+        "spanHash": "sha256:1e5877940ae0023509268d606b6dac170b97a5bc6922fa1e6061dae32beb7c9c",
+        "bodyFingerprint": "sha256:e26a10792ee31151c0e707135b3e0fb241e299c1dfd7f4741cdfbf2c73857a89",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#parseUser(function)~1",
+      "kind": "symbol",
+      "name": "parseUser",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "parseUser",
+        "kind": "function",
+        "range": {
+          "startLine": 34,
+          "startCol": 7,
+          "endLine": 34,
+          "endCol": 47
+        },
+        "spanHash": "sha256:b90e4440d36033ed4ef08f87a791cdd34cf1f6a65307b65b8e5c06fe5141309b",
+        "bodyFingerprint": "sha256:95268e675e418eab74ef4912f3ac91b79d4fde23efb5c6390cf324c02a128712",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#parseUser(function)~2",
+      "kind": "symbol",
+      "name": "parseUser",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "parseUser",
+        "kind": "function",
+        "range": {
+          "startLine": 35,
+          "startCol": 7,
+          "endLine": 35,
+          "endCol": 64
+        },
+        "spanHash": "sha256:8013a8f6a2a510251c44e01091530c5bfdaa306589044bd0a5dc8226b20de5f7",
+        "bodyFingerprint": "sha256:5dfa21e6d4c20b0344fd590d52cd03aad16108c61e8be80e6656c1169585f22f",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/models/user.ts#parseUser(function)~3",
+      "kind": "symbol",
+      "name": "parseUser",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "parseUser",
+        "kind": "function",
+        "range": {
+          "startLine": 36,
+          "startCol": 7,
+          "endLine": 38,
+          "endCol": 1
+        },
+        "spanHash": "sha256:0ce4336dc650457041cee248582636f2efde1c54a6b2748c747ba27ab438c414",
+        "bodyFingerprint": "sha256:3be40e20cd5bd5be8937db2847b5674bcdfffd6a8a6f680915991c3981485e11",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/util/strings.ts#capitalize(function)",
+      "kind": "symbol",
+      "name": "capitalize",
+      "file": "src/util/strings.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "capitalize",
+        "kind": "function",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "spanHash": "sha256:c3229dfb69ed57e7cdf56802e6e81d79513b4e54fcd17571bd55cb1651a91b91",
+        "bodyFingerprint": "sha256:0737271c4ecc025c5eca67a58cdbd9bca7895a643f8c38053b724fed90561cd2",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/util/strings.ts#internal(constant)",
+      "kind": "symbol",
+      "name": "internal",
+      "file": "src/util/strings.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "internal",
+        "kind": "constant",
+        "range": {
+          "startLine": 6,
+          "startCol": 6,
+          "endLine": 6,
+          "endCol": 19
+        },
+        "spanHash": "sha256:c4265b1fb782fb3494c79b4605de49b23cbe480bbf236a7d83578c477bf6b30c",
+        "bodyFingerprint": "sha256:82a9c4dfd4aee21716dd6f39159c027de073fe09875248ff43d17fdf86c1ee29",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/util/strings.ts#shout(function)",
+      "kind": "symbol",
+      "name": "shout",
+      "file": "src/util/strings.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "shout",
+        "kind": "function",
+        "range": {
+          "startLine": 8,
+          "startCol": 15,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "spanHash": "sha256:7bdb7452b29e367ffb0ccc0e60c6ee1e38a93eb69baf3dd9f11f5d58cf7e511c",
+        "bodyFingerprint": "sha256:0b094a2405f34991c9a4a088f74527c2b5f068d24f29d2a7c722dd07bebb2695",
+        "exported": true,
+        "defaultExport": true,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/util/strings.ts#slugify(function)",
+      "kind": "symbol",
+      "name": "slugify",
+      "file": "src/util/strings.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "slugify",
+        "kind": "function",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 82
+        },
+        "spanHash": "sha256:2badbc37aa3428d9b2a9feb00a9d44d8a223d74985c4797a0f18ccfe37e08c0b",
+        "bodyFingerprint": "sha256:24a204340cd6709990f89495c49f33582147d5a6f34727aad83d2b2e6764e809",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "tsx:src/view.tsx#UserCard(function)",
+      "kind": "symbol",
+      "name": "UserCard",
+      "file": "src/view.tsx",
+      "language": "tsx",
+      "symbol": {
+        "qualifiedName": "UserCard",
+        "kind": "function",
+        "range": {
+          "startLine": 3,
+          "startCol": 7,
+          "endLine": 5,
+          "endCol": 1
+        },
+        "spanHash": "sha256:3841f870ad179888b9d39d9477854c7c40e298e3b2c0bd43146019ecea72b1d6",
+        "bodyFingerprint": "sha256:16314f2c772cc461b39a4a020716f89fb64b945fa05a8db031c3030dd44f6a5b",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#Role(enum)",
+      "to": "ts:src/models/user.ts#Role.Admin(enum_member)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 2,
+          "endLine": 4,
+          "endCol": 17
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#Role(enum)",
+      "to": "ts:src/models/user.ts#Role.Member(enum_member)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 2,
+          "endLine": 5,
+          "endCol": 19
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#User(interface)",
+      "to": "ts:src/models/user.ts#User.greet(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 13,
+          "startCol": 2,
+          "endLine": 13,
+          "endCol": 28
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#User(interface)",
+      "to": "ts:src/models/user.ts#User.id(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 2,
+          "endLine": 10,
+          "endCol": 12
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#User(interface)",
+      "to": "ts:src/models/user.ts#User.name(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 11,
+          "startCol": 2,
+          "endLine": 11,
+          "endCol": 14
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#User(interface)",
+      "to": "ts:src/models/user.ts#User.role(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 2,
+          "endLine": 12,
+          "endCol": 12
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#UserService(class)",
+      "to": "ts:src/models/user.ts#UserService.cache(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 17,
+          "startCol": 2,
+          "endLine": 17,
+          "endCol": 50
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#UserService(class)",
+      "to": "ts:src/models/user.ts#UserService.constructor(constructor)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 19,
+          "startCol": 2,
+          "endLine": 19,
+          "endCol": 49
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#UserService(class)",
+      "to": "ts:src/models/user.ts#UserService.count(getter)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 21,
+          "startCol": 2,
+          "endLine": 23,
+          "endCol": 3
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#UserService(class)",
+      "to": "ts:src/models/user.ts#UserService.create(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 29,
+          "startCol": 2,
+          "endLine": 31,
+          "endCol": 3
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#UserService(class)",
+      "to": "ts:src/models/user.ts#UserService.find(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 25,
+          "startCol": 2,
+          "endLine": 27,
+          "endCol": 3
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/index.ts#main(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 7,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/index.ts#schema(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 13,
+          "endLine": 8,
+          "endCol": 52
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#Role(enum)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 3,
+          "startCol": 7,
+          "endLine": 6,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 7,
+          "endLine": 14,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#UserId(type)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 7,
+          "endLine": 1,
+          "endCol": 28
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#UserService(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 16,
+          "startCol": 7,
+          "endLine": 32,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#parseUser(function)~1",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 34,
+          "startCol": 7,
+          "endLine": 34,
+          "endCol": 47
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#parseUser(function)~2",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 35,
+          "startCol": 7,
+          "endLine": 35,
+          "endCol": 64
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#parseUser(function)~3",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 36,
+          "startCol": 7,
+          "endLine": 38,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/util/strings.ts",
+      "to": "ts:src/util/strings.ts#capitalize(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/util/strings.ts",
+      "to": "ts:src/util/strings.ts#internal(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 6,
+          "startCol": 6,
+          "endLine": 6,
+          "endCol": 19
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/util/strings.ts",
+      "to": "ts:src/util/strings.ts#shout(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 15,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/util/strings.ts",
+      "to": "ts:src/util/strings.ts#slugify(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 82
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:tsx:src/view.tsx",
+      "to": "tsx:src/view.tsx#UserCard(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 3,
+          "startCol": 7,
+          "endLine": 5,
+          "endCol": 1
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/index.ts#main(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 7,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/index.ts#schema(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 13,
+          "endLine": 8,
+          "endCol": 52
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#Role(enum)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 3,
+          "startCol": 7,
+          "endLine": 6,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 7,
+          "endLine": 14,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#UserId(type)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 7,
+          "endLine": 1,
+          "endCol": 28
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#UserService(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 16,
+          "startCol": 7,
+          "endLine": 32,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#parseUser(function)~1",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 34,
+          "startCol": 7,
+          "endLine": 34,
+          "endCol": 47
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#parseUser(function)~2",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 35,
+          "startCol": 7,
+          "endLine": 35,
+          "endCol": 64
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/models/user.ts",
+      "to": "ts:src/models/user.ts#parseUser(function)~3",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 36,
+          "startCol": 7,
+          "endLine": 38,
+          "endCol": 1
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/util/strings.ts",
+      "to": "ts:src/util/strings.ts#capitalize(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 7,
+          "endLine": 4,
+          "endCol": 1
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/util/strings.ts",
+      "to": "ts:src/util/strings.ts#shout(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 15,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/util/strings.ts",
+      "to": "ts:src/util/strings.ts#slugify(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 13,
+          "endLine": 0,
+          "endCol": 82
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:tsx:src/view.tsx",
+      "to": "tsx:src/view.tsx#UserCard(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 3,
+          "startCol": 7,
+          "endLine": 5,
+          "endCol": 1
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:src/index.ts",
+      "to": "ext:node:fs/promises",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 3,
+          "endCol": 44
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "node:fs/promises"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:src/index.ts",
+      "to": "ext:npm:zod",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 24
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "zod"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:src/index.ts",
+      "to": "mod:ts:src/models/user.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 0,
+          "endLine": 2,
+          "endCol": 55
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./models/user"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:src/index.ts",
+      "to": "mod:ts:src/util/strings.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 48
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./util/strings"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:src/index.ts",
+      "to": "mod:tsx:src/view.tsx",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 34
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./view"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:tsx:src/view.tsx",
+      "to": "mod:ts:src/models/user.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 42
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": true,
+        "name": null,
+        "raw": "./models/user"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:tsx:src/view.tsx",
+      "to": "mod:ts:src/util/strings.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 44
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./util/strings"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 0,
+          "endLine": 2,
+          "endCol": 55
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "User",
+        "raw": "./models/user"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/models/user.ts#UserService(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 2,
+          "startCol": 0,
+          "endLine": 2,
+          "endCol": 55
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "UserService",
+        "raw": "./models/user"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/util/strings.ts#shout(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 48
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "default",
+        "raw": "./util/strings"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/index.ts",
+      "to": "ts:src/util/strings.ts#slugify(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 48
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "slugify",
+        "raw": "./util/strings"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/index.ts",
+      "to": "tsx:src/view.tsx#UserCard(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 0,
+          "endLine": 5,
+          "endCol": 34
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "UserCard",
+        "raw": "./view"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:tsx:src/view.tsx",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 42
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": true,
+        "name": "User",
+        "raw": "./models/user"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:tsx:src/view.tsx",
+      "to": "ts:src/util/strings.ts#capitalize(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 44
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "capitalize",
+        "raw": "./util/strings"
+      }
+    }
+  ]
+}

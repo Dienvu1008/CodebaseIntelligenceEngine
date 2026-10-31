@@ -23,10 +23,12 @@ export const TYPESCRIPT_DEFINITIONS = `
 (generator_function_declaration name: (_) @name) @definition.function
 (function_signature name: (_) @name) @definition.function
 (method_definition name: (_) @name) @definition.method
-(method_signature name: (_) @name) @definition.method
+(interface_body (method_signature name: (_) @name) @definition.method)
+(type_alias_declaration value: (object_type (method_signature name: (_) @name) @definition.method))
 (abstract_method_signature name: (_) @name) @definition.method
 (public_field_definition name: (_) @name) @definition.property
-(property_signature name: (_) @name) @definition.property
+(interface_body (property_signature name: (_) @name) @definition.property)
+(type_alias_declaration value: (object_type (property_signature name: (_) @name) @definition.property))
 (internal_module name: (identifier) @name) @definition.namespace
 (program (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable))
 (program (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable))

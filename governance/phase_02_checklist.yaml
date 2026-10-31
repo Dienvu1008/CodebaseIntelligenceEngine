@@ -75,7 +75,8 @@ items:
     check: "governance/fitness.yaml entries ACTIVE with resolvable enforced_by"
   - id: P02-12
     title: Golden fixtures ts-basic, ts-monorepo, js-mixed, py-basic, py-src-layout and edge-cases, with hand-verified ground truth
-    status: pending
+    status: done
+    notes: "Seven golden fixtures (tests/helpers/golden.ts) with committed cie-export/2 goldens and fixtures/<name>.truth.json. Truth files were drafted from the reviewed output and corrected by hand where an ideal producer differs (notes in each file); tests/golden/ground-truth.spec.ts requires the published graph to differ from truth by exactly the known gaps (TS parameter property; destructured require binding). The review found and fixed four defects: parameter type-literal members captured as properties, `default` imports never bound (new defaultExport flag), require bindings recorded as constants, orphan members from error recovery; and one pipeline bug: resolver supersession dropped Python submodule edges sharing an import site (regression test in tests/integration/code-graph.spec.ts). edge-cases byte files are marked -text in .gitattributes."
     check: "tests/golden"
   - id: P02-13
     title: Symbol precision and recall reported against the TS compiler (TS) and hand-verified sets (Python); benchmarks re-run with extraction (no thresholds)
