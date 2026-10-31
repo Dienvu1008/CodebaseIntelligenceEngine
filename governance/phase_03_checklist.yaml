@@ -40,7 +40,8 @@ items:
     check: "tests/invariants/pv/pv-001.spec.ts, pv-002.spec.ts (incl. type-level), pv-003.spec.ts; FF-BND-005"
   - id: P03-06
     title: StalenessEvaluator (evidence content hash vs current revision); full propagation is Phase 05
-    status: pending
+    status: done
+    notes: "knowledge/domain/staleness.ts: pure evaluation (changed evidence, freshness, DOMAIN_MODEL §5 fallback status: a verified claim without qualifying evidence falls back to inferred or unknown, an inferred claim with all evidence changed to unknown, user assertions never downgraded). KnowledgeClaim.applyFreshness applies it, bound to the claim and evidence set it was computed for. A stale verified claim returns to current only through ClaimVerifier (PV-004). packages/core/test/staleness.spec.ts, mutation-checked. Fallbacks the registry forbids (e.g. implements, verified only) surface as KG_002_CLAIM_INVALID; retraction is StalenessPropagation's decision in Phase 05."
     check: "unit tests; PV-004 groundwork"
 
   # --- Adapters ---

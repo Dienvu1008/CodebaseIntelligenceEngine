@@ -27,6 +27,7 @@ import {
   type ClaimFreshness,
 } from './provenance.js';
 import { relationViolations, type RelationTypeName } from './relation-type.js';
+import type { FreshnessEvaluation } from './staleness.js';
 import { evidenceIds, VerificationToken } from './verification/claim-verifier.js';
 
 export interface ClaimTransition {
@@ -207,6 +208,30 @@ export class KnowledgeClaim {
     const evidence = uniqueEvidence([...this.evidence, ...added]);
     if (!evidence.ok) return evidence;
     return this.next(this.status, actor, reason, seq, { evidence: evidence.value });
+  }
+
+  /**
+   * Applies a StalenessEvaluator result computed for this claim and its current evidence set:
+   *  - the freshness it reports, except that a stale `verified` claim returns to `current` only through
+   *    ClaimVerifier (re-verification checks PV-001 again);
+   *  - its fallback status, as a recorded transition (DOMAIN_MODEL §5). A fallback the registry does not
+   *    allow for the predicate (for example `implements`, verified only) fails with KG_002_CLAIM_INVALID:
+   *    such a claim must be retracted, which is StalenessPropagation's decision (Phase 05).
+   */
+  applyFreshness(evaluation: FreshnessEvaluation, actor: ClaimActor, reason: string): Result<KnowledgeClaim, DomainError> {
+    const change = checkChange(actor, reason);
+    if (!change.ok) return change;
+    if (actor.kind === 'llm') return fail('AI_002_LLM_CANNOT_CHANGE_STATUS', 'LLM output never changes a claim', { claim: this.id });
+    const current = evidenceIds(this.evidence);
+    if (evaluation.claim !== this.id || current.length !== evaluation.evidence.length || current.some((id, i) => id !== evaluation.evidence[i])) {
+      return fail('CLAIM_EVALUATION_MISMATCH', 'the evaluation was computed for another claim or evidence set', { claim: this.id });
+    }
+    if (evaluation.downgradeTo !== null) return this.next(evaluation.downgradeTo, actor, reason, evaluation.seq, { freshness: evaluation.freshness });
+    if (evaluation.freshness === this.freshness) return ok(this);
+    if (evaluation.freshness === 'current' && this.status === 'verified') {
+      return fail('CLAIM_REVERIFY_REQUIRED', 'a stale verified claim returns to current only through ClaimVerifier', { claim: this.id });
+    }
+    return ok(new KnowledgeClaim({ ...this.state, freshness: evaluation.freshness }));
   }
 
   /** Into `verified`, only with a genuine token minted by ClaimVerifier for this claim and evidence set. */

@@ -176,7 +176,8 @@ const forbidden = [
       'The verification capability is importable only from the knowledge context and the runtime composition root (C8). ' +
       'Other contexts receive verification as an injected dependency.',
     severity: 'error',
-    from: { pathNot: '^packages/(core/src/knowledge/|runtime/src/composition/)' },
+    // Tests may use it (C8): package unit tests and the shared tests/ tree they import helpers from.
+    from: { pathNot: '^(packages/(core/src/knowledge/|runtime/src/composition/|[^/]+/test/)|tests/)' },
     to: { path: VERIFICATION },
   },
 ];

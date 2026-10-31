@@ -213,6 +213,13 @@ stateDiagram-v2
 - KG-002 is checked on creation and after every change.
 - The claim freshness type is `ClaimFreshness`, because `Freshness` is the synchronization context's workspace freshness.
 - Attribute claims (an object value instead of a node) arrive with the phases that produce them.
+- **StalenessEvaluator (P03-06)** is pure (`knowledge/domain/staleness.ts`).
+  - An evidence item has *changed* when its target is gone or its content hash differs.
+  - A claim is `stale` when any of its evidence changed.
+  - A `verified` claim without qualifying evidence falls back to `inferred` if unchanged non-deterministic evidence remains, and to `unknown` otherwise. An `inferred` claim whose evidence all changed falls back to `unknown`. User assertions are never downgraded.
+  - `KnowledgeClaim.applyFreshness` applies the result only to the claim and evidence set it was computed for. A fallback is recorded as a transition, while a freshness change alone is not.
+  - A stale `verified` claim returns to `current` only through ClaimVerifier.
+  - A fallback the registry forbids for the predicate is reported as `KG_002_CLAIM_INVALID`. Retracting such a claim is a Phase 05 StalenessPropagation decision.
 
 ## 6. Domain services
 

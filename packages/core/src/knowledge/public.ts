@@ -36,5 +36,7 @@ export {
   qualifyingEvidence,
 } from './domain/provenance.js';
 export type { ClaimProposal, ClaimTransition, ProposedStatus, UserAssertion } from './domain/claim.js';
+export type { EvaluableClaim, FreshnessEvaluation } from './domain/staleness.js';
+export { StalenessEvaluator } from './domain/staleness.js';
 export { KnowledgeClaim } from './domain/claim.js';
 export type { VerificationToken } from './domain/verification/claim-verifier.js';
