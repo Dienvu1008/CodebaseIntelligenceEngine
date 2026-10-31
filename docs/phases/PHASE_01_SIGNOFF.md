@@ -1,6 +1,6 @@
 # Phase 01 Sign-off: Workspace and File Intelligence
 
-- **Status:** **Proposed.** Awaiting CI on the closing commit and the owner's approval before `main` is fast-forwarded (branch workflow, IMPLEMENTATION_ROADMAP).
+- **Status:** **Accepted** by the project owner on 2026-10-31. CI was green on the full matrix for the closing commit `cb9b5e0`, as reported by the owner. `main` was fast-forwarded per the branch workflow (IMPLEMENTATION_ROADMAP).
 - **Date:** 2026-10-31
 - **Branch:** `phase-01` (from `main` at `13a0e74`)
 - **Checklist:** [`governance/phase_01_checklist.yaml`](../../governance/phase_01_checklist.yaml), all 15 items done.
@@ -19,7 +19,7 @@
   - A concurrent second writer gets `CIE_BUSY` (`sn-004.spec.ts`).
   - A corrupt `index.db` is quarantined and rebuilt (`index-db-lifecycle.spec.ts`, B-11).
 - [x] **Benchmarks recorded without thresholds:** B-01, B-02, B-10 and B-11 for Zod, Requests and CodeForge-v2 (reference), plus the CodeForge-v2 working tree (dogfood). See `benchmarks/results/2026-10-31-fe26ce0c-*`.
-- [ ] **CI green on the closing commit** (the one that bumps `governance/phase.yaml` to 2), and **owner approval**.
+- [x] **CI green on the closing commit** `cb9b5e0` (the one that bumps `governance/phase.yaml` to 2), and **owner approval** (2026-10-31).
 
 ## Commits
 
@@ -33,7 +33,8 @@
 | `ff0cdc8` | Config allow-lists, structural nodes, enumerator, IndexService, dev CLI, crash injection |
 | `b6c5365` | state.db migrations, job history, data-integrity fitness |
 | `d630365`, `fe26ce0`, `2e1998d` | Benchmark harness, export spec plus cross-OS golden, first baselines |
-| *closing commit* | fixtures workflow fix, this sign-off, Phase 02 checklist, `phase.yaml` → 2 |
+| `cb9b5e0` | Closing commit: fixtures workflow fix, this sign-off, Phase 02 checklist, `phase.yaml` → 2 |
+| *acceptance commit* | This status change only |
 
 ## Components delivered
 
