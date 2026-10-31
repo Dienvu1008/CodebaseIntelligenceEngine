@@ -1,0 +1,1345 @@
+{
+  "format": "cie-bench-result/2",
+  "createdAt": "2026-10-31T11:33:58.067Z",
+  "fixture": {
+    "id": "codeforge-v2",
+    "mode": "reference",
+    "reproducible": true,
+    "pinnedCommit": "d885bed08f5fef62a151072b0a8899193acc2328",
+    "actualCommit": "d885bed08f5fef62a151072b0a8899193acc2328",
+    "dirty": false,
+    "stableDuringRun": true,
+    "statusBefore": "7d014965ea019604",
+    "statusAfter": "7d014965ea019604",
+    "tier": "small",
+    "tierBasis": "measured",
+    "manifestEntries": 660,
+    "indexedFiles": 656
+  },
+  "environment": {
+    "os": {
+      "platform": "win32",
+      "release": "10.0.26300",
+      "arch": "x64"
+    },
+    "machine": {
+      "idHash": "b4176ed995b4",
+      "cpuModel": "12th Gen Intel(R) Core(TM) i5-12400F",
+      "logicalCpus": 12,
+      "totalMemMb": 16173
+    },
+    "load": {
+      "loadavg": [
+        0,
+        0,
+        0
+      ],
+      "freeMemMb": 2821
+    },
+    "software": {
+      "node": "v24.15.0",
+      "cie": {
+        "commit": "121499eab49d5b7912f9ca4522f875a55b013b12",
+        "dirty": false,
+        "statusHash": "80d0229622b310e9"
+      },
+      "lockfileSha256": "22fdf491c7d6145b3a725e109f221b35e587d600e24ac8eaf03e9dada5436abd"
+    },
+    "notes": {
+      "disk": "not captured automatically: record it with --note if relevant",
+      "osFileCache": "not controlled: cold runs start a fresh process and an empty state dir, but the OS page cache may be warm"
+    }
+  },
+  "note": "Phase 02 baseline with extraction (clean commit 121499e; after reboot, no Ollama; IDE language servers idle in background, ~25% CPU)",
+  "repetitions": 5,
+  "scenarios": {
+    "B-01": {
+      "samples": [
+        {
+          "wallMs": 4516.348,
+          "inProcessMs": 4286.095,
+          "stagesMs": {
+            "lease-acquired": 128.932,
+            "recovered": 129.238,
+            "revision-begun": 132.41,
+            "enumerated": 1122.373,
+            "extracted": 2896.868,
+            "resolved": 3198.945,
+            "staged": 4008.136,
+            "validating": 4009.455,
+            "published": 4283.634
+          },
+          "maxRssKb": 215732,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 4084.671,
+          "inProcessMs": 3849.422,
+          "stagesMs": {
+            "lease-acquired": 127.248,
+            "recovered": 127.562,
+            "revision-begun": 131.221,
+            "enumerated": 726.748,
+            "extracted": 2462.45,
+            "resolved": 2718.975,
+            "staged": 3585.115,
+            "validating": 3586.482,
+            "published": 3848.205
+          },
+          "maxRssKb": 216996,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3932.104,
+          "inProcessMs": 3691.603,
+          "stagesMs": {
+            "lease-acquired": 124.091,
+            "recovered": 124.5,
+            "revision-begun": 127.967,
+            "enumerated": 732.976,
+            "extracted": 2461.142,
+            "resolved": 2741.207,
+            "staged": 3385.933,
+            "validating": 3387.146,
+            "published": 3685.712
+          },
+          "maxRssKb": 217536,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 4024.073,
+          "inProcessMs": 3812.736,
+          "stagesMs": {
+            "lease-acquired": 124.626,
+            "recovered": 124.945,
+            "revision-begun": 149.078,
+            "enumerated": 732.926,
+            "extracted": 2587.014,
+            "resolved": 2843.549,
+            "staged": 3533.977,
+            "validating": 3536.099,
+            "published": 3811.541
+          },
+          "maxRssKb": 215548,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3783.211,
+          "inProcessMs": 3566.658,
+          "stagesMs": {
+            "lease-acquired": 131.051,
+            "recovered": 131.51,
+            "revision-begun": 132.99,
+            "enumerated": 743.976,
+            "extracted": 2403.441,
+            "resolved": 2666.172,
+            "staged": 3304.956,
+            "validating": 3306.337,
+            "published": 3565.393
+          },
+          "maxRssKb": 219200,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 4024.073,
+          "p95": 4516.348,
+          "min": 3783.211,
+          "max": 4516.348,
+          "mean": 4068.081,
+          "stdev": 275.134,
+          "cv": 0.068
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 3812.736,
+          "p95": 4286.095,
+          "min": 3566.658,
+          "max": 4286.095,
+          "mean": 3841.303,
+          "stdev": 272.287,
+          "cv": 0.071
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 216996,
+          "p95": 219200,
+          "min": 215548,
+          "max": 219200,
+          "mean": 217002.4,
+          "stdev": 1486.894,
+          "cv": 0.007
+        }
+      },
+      "deterministic": true
+    },
+    "B-02": {
+      "samples": [
+        {
+          "wallMs": 3854.824,
+          "inProcessMs": 3644.835,
+          "stagesMs": {
+            "lease-acquired": 133.367,
+            "recovered": 133.683,
+            "revision-begun": 135.845,
+            "enumerated": 744.951,
+            "extracted": 2436.76,
+            "resolved": 2696.59,
+            "staged": 3382.274,
+            "validating": 3386.054,
+            "published": 3643.244
+          },
+          "maxRssKb": 215628,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3841.715,
+          "inProcessMs": 3624.71,
+          "stagesMs": {
+            "lease-acquired": 134.696,
+            "recovered": 135.009,
+            "revision-begun": 138.757,
+            "enumerated": 755.981,
+            "extracted": 2436.892,
+            "resolved": 2692.183,
+            "staged": 3372.01,
+            "validating": 3373.274,
+            "published": 3623.438
+          },
+          "maxRssKb": 215200,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3673.021,
+          "inProcessMs": 3425.117,
+          "stagesMs": {
+            "lease-acquired": 124.125,
+            "recovered": 124.448,
+            "revision-begun": 126.165,
+            "enumerated": 705.43,
+            "extracted": 2314.485,
+            "resolved": 2558.778,
+            "staged": 3180.685,
+            "validating": 3182.192,
+            "published": 3423.653
+          },
+          "maxRssKb": 218972,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3539.465,
+          "inProcessMs": 3326.934,
+          "stagesMs": {
+            "lease-acquired": 120.312,
+            "recovered": 120.608,
+            "revision-begun": 124.236,
+            "enumerated": 678.515,
+            "extracted": 2279.32,
+            "resolved": 2520.714,
+            "staged": 3086.689,
+            "validating": 3087.941,
+            "published": 3325.758
+          },
+          "maxRssKb": 219560,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3603.353,
+          "inProcessMs": 3391.348,
+          "stagesMs": {
+            "lease-acquired": 120.23,
+            "recovered": 120.543,
+            "revision-begun": 124.205,
+            "enumerated": 687.482,
+            "extracted": 2304.679,
+            "resolved": 2546.254,
+            "staged": 3143.205,
+            "validating": 3144.581,
+            "published": 3389.945
+          },
+          "maxRssKb": 215760,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 3673.021,
+          "p95": 3854.824,
+          "min": 3539.465,
+          "max": 3854.824,
+          "mean": 3702.476,
+          "stdev": 141.3,
+          "cv": 0.038
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 3425.117,
+          "p95": 3644.835,
+          "min": 3326.934,
+          "max": 3644.835,
+          "mean": 3482.589,
+          "stdev": 143.508,
+          "cv": 0.041
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 215760,
+          "p95": 219560,
+          "min": 215200,
+          "max": 219560,
+          "mean": 217024,
+          "stdev": 2067.576,
+          "cv": 0.01
+        }
+      },
+      "deterministic": true
+    },
+    "B-10": {
+      "samples": [
+        {
+          "wallMs": 3123.981,
+          "inProcessMs": 2867.583,
+          "stagesMs": {
+            "lease-acquired": 120.533,
+            "recovered": 123.453,
+            "revision-begun": 124.884,
+            "enumerated": 685.278,
+            "extracted": 2297.465,
+            "resolved": 2538.232,
+            "staged": 2652.556,
+            "validating": 2652.956,
+            "published": 2864.456
+          },
+          "maxRssKb": 220188,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 660
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 168
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 7244
+              },
+              "edges": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 10343
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:e98408dfcd176080c55fdf443ea577b567f1edfbe160fd47841bc25b308359c4",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3122.099,
+          "inProcessMs": 2863.786,
+          "stagesMs": {
+            "lease-acquired": 128.782,
+            "recovered": 132.822,
+            "revision-begun": 134.324,
+            "enumerated": 679.495,
+            "extracted": 2295.42,
+            "resolved": 2535.572,
+            "staged": 2653.451,
+            "validating": 2653.823,
+            "published": 2862.435
+          },
+          "maxRssKb": 223660,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 660
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 168
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 7244
+              },
+              "edges": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 10343
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:e98408dfcd176080c55fdf443ea577b567f1edfbe160fd47841bc25b308359c4",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3341.932,
+          "inProcessMs": 3084.221,
+          "stagesMs": {
+            "lease-acquired": 121.689,
+            "recovered": 128.437,
+            "revision-begun": 130.849,
+            "enumerated": 873.834,
+            "extracted": 2496.799,
+            "resolved": 2751.411,
+            "staged": 2872.651,
+            "validating": 2873.008,
+            "published": 3081.127
+          },
+          "maxRssKb": 220292,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 660
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 168
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 7244
+              },
+              "edges": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 10343
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:e98408dfcd176080c55fdf443ea577b567f1edfbe160fd47841bc25b308359c4",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3149.684,
+          "inProcessMs": 2895.583,
+          "stagesMs": {
+            "lease-acquired": 119.807,
+            "recovered": 125.341,
+            "revision-begun": 127.048,
+            "enumerated": 707.239,
+            "extracted": 2306.935,
+            "resolved": 2551.767,
+            "staged": 2675.247,
+            "validating": 2675.63,
+            "published": 2892.355
+          },
+          "maxRssKb": 219804,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 660
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 168
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 7244
+              },
+              "edges": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 10343
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:e98408dfcd176080c55fdf443ea577b567f1edfbe160fd47841bc25b308359c4",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3230.279,
+          "inProcessMs": 2967.636,
+          "stagesMs": {
+            "lease-acquired": 123.401,
+            "recovered": 128.965,
+            "revision-begun": 131.059,
+            "enumerated": 719.047,
+            "extracted": 2373.539,
+            "resolved": 2621.085,
+            "staged": 2737.753,
+            "validating": 2738.376,
+            "published": 2954.73
+          },
+          "maxRssKb": 228124,
+          "work": {
+            "files": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 660
+            },
+            "structure": {
+              "inserted": 0,
+              "closed": 0,
+              "unchanged": 168
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 7244
+              },
+              "edges": {
+                "inserted": 0,
+                "closed": 0,
+                "unchanged": 10343
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:e98408dfcd176080c55fdf443ea577b567f1edfbe160fd47841bc25b308359c4",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 3149.684,
+          "p95": 3341.932,
+          "min": 3122.099,
+          "max": 3341.932,
+          "mean": 3193.595,
+          "stdev": 93.856,
+          "cv": 0.029
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 2895.583,
+          "p95": 3084.221,
+          "min": 2863.786,
+          "max": 3084.221,
+          "mean": 2935.762,
+          "stdev": 92.87,
+          "cv": 0.032
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 220292,
+          "p95": 228124,
+          "min": 219804,
+          "max": 228124,
+          "mean": 222413.6,
+          "stdev": 3550.587,
+          "cv": 0.016
+        }
+      },
+      "deterministic": true
+    },
+    "B-11": {
+      "samples": [
+        {
+          "wallMs": 3700.405,
+          "inProcessMs": 3504.897,
+          "stagesMs": {
+            "lease-acquired": 124.966,
+            "recovered": 125.276,
+            "revision-begun": 128.786,
+            "enumerated": 687.994,
+            "extracted": 2342.886,
+            "resolved": 2595.209,
+            "staged": 3254.981,
+            "validating": 3256.272,
+            "published": 3500.691
+          },
+          "maxRssKb": 218220,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3654.371,
+          "inProcessMs": 3439.531,
+          "stagesMs": {
+            "lease-acquired": 119.453,
+            "recovered": 119.77,
+            "revision-begun": 125.378,
+            "enumerated": 694.635,
+            "extracted": 2320.709,
+            "resolved": 2575.857,
+            "staged": 3145.666,
+            "validating": 3147.097,
+            "published": 3437.512
+          },
+          "maxRssKb": 216320,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 3685.011,
+          "inProcessMs": 3487.745,
+          "stagesMs": {
+            "lease-acquired": 127.966,
+            "recovered": 128.294,
+            "revision-begun": 136.029,
+            "enumerated": 688.061,
+            "extracted": 2309.083,
+            "resolved": 2566.774,
+            "staged": 3237.845,
+            "validating": 3239.153,
+            "published": 3486.489
+          },
+          "maxRssKb": 216444,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 4207.532,
+          "inProcessMs": 3998.916,
+          "stagesMs": {
+            "lease-acquired": 123.802,
+            "recovered": 124.09,
+            "revision-begun": 127.92,
+            "enumerated": 718.987,
+            "extracted": 2335.999,
+            "resolved": 2585.973,
+            "staged": 3742.433,
+            "validating": 3743.719,
+            "published": 3997.382
+          },
+          "maxRssKb": 210816,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        },
+        {
+          "wallMs": 4261.599,
+          "inProcessMs": 4046.762,
+          "stagesMs": {
+            "lease-acquired": 124.771,
+            "recovered": 125.303,
+            "revision-begun": 128.517,
+            "enumerated": 705.886,
+            "extracted": 2456.419,
+            "resolved": 2700.272,
+            "staged": 3792.11,
+            "validating": 3793.465,
+            "published": 4041.699
+          },
+          "maxRssKb": 219676,
+          "work": {
+            "files": {
+              "inserted": 660,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "structure": {
+              "inserted": 168,
+              "closed": 0,
+              "unchanged": 0
+            },
+            "graph": {
+              "nodes": {
+                "inserted": 7244,
+                "closed": 0,
+                "unchanged": 0
+              },
+              "edges": {
+                "inserted": 10343,
+                "closed": 0,
+                "unchanged": 0
+              }
+            },
+            "code": {
+              "extractedFiles": 530,
+              "symbols": 6075,
+              "nodes": 7244,
+              "edges": 10343,
+              "skipped": 0,
+              "diagnostics": 9
+            },
+            "ignored": 1,
+            "unrepresentable": 0
+          },
+          "manifestHash": "sha256:523634b8190aedbdc3499c18e1dfa742eae66b42be9f0bf2a8cc4514bcc5ae57",
+          "exportSha256": "sha256:dbac2dcd20ff7c18c923a11073f7d3e111db3e3522c8a08ae7c01fad04bcfac2",
+          "storeBytes": {
+            "index.db": 22671360,
+            "index.db-wal": 0,
+            "state.db": 28672
+          }
+        }
+      ],
+      "summary": {
+        "wallMs": {
+          "n": 5,
+          "median": 3700.405,
+          "p95": 4261.599,
+          "min": 3654.371,
+          "max": 4261.599,
+          "mean": 3901.784,
+          "stdev": 304.838,
+          "cv": 0.078
+        },
+        "inProcessMs": {
+          "n": 5,
+          "median": 3504.897,
+          "p95": 4046.762,
+          "min": 3439.531,
+          "max": 4046.762,
+          "mean": 3695.57,
+          "stdev": 300.191,
+          "cv": 0.081
+        },
+        "maxRssKb": {
+          "n": 5,
+          "median": 216444,
+          "p95": 219676,
+          "min": 210816,
+          "max": 219676,
+          "mean": 216295.2,
+          "stdev": 3360.768,
+          "cv": 0.016
+        }
+      },
+      "deterministic": true
+    }
+  }
+}

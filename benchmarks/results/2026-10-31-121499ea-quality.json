@@ -1,0 +1,558 @@
+{
+  "format": "cie-quality-report/1",
+  "createdAt": "2026-10-31T11:37:06.574Z",
+  "cie": {
+    "commit": "121499eab49d5b7912f9ca4522f875a55b013b12",
+    "dirty": true
+  },
+  "typescript": "6.0.3",
+  "oracleScope": "module-level declarations; class/interface/type-literal-alias/enum/namespace members incl. parameter properties; function and class declarations at any depth; no locals, parameters or object-literal members",
+  "entries": [
+    {
+      "id": "xplat-basic",
+      "golden": true,
+      "indexedFiles": 14,
+      "code": {
+        "extractedFiles": 6,
+        "symbols": 4,
+        "nodes": 10,
+        "edges": 10,
+        "skipped": [],
+        "diagnostics": 0
+      },
+      "tsCompiler": {
+        "parsedFiles": 4,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 3,
+        "actual": 3,
+        "matched": 3,
+        "precision": 1,
+        "recall": 1,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      },
+      "groundTruth": {
+        "symbols": {
+          "expected": 4,
+          "actual": 4,
+          "matched": 4,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "imports": {
+          "expected": 1,
+          "actual": 1,
+          "matched": 1,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "importsSymbol": {
+          "expected": 1,
+          "actual": 1,
+          "matched": 1,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        }
+      }
+    },
+    {
+      "id": "ts-basic",
+      "golden": true,
+      "indexedFiles": 6,
+      "code": {
+        "extractedFiles": 4,
+        "symbols": 26,
+        "nodes": 32,
+        "edges": 53,
+        "skipped": [],
+        "diagnostics": 0
+      },
+      "tsCompiler": {
+        "parsedFiles": 4,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 26,
+        "actual": 26,
+        "matched": 26,
+        "precision": 1,
+        "recall": 1,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      },
+      "groundTruth": {
+        "symbols": {
+          "expected": 26,
+          "actual": 26,
+          "matched": 26,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "imports": {
+          "expected": 7,
+          "actual": 7,
+          "matched": 7,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "importsSymbol": {
+          "expected": 7,
+          "actual": 7,
+          "matched": 7,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        }
+      }
+    },
+    {
+      "id": "ts-monorepo",
+      "golden": true,
+      "indexedFiles": 10,
+      "code": {
+        "extractedFiles": 4,
+        "symbols": 7,
+        "nodes": 14,
+        "edges": 24,
+        "skipped": [],
+        "diagnostics": 0
+      },
+      "tsCompiler": {
+        "parsedFiles": 4,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 7,
+        "actual": 7,
+        "matched": 7,
+        "precision": 1,
+        "recall": 1,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      },
+      "groundTruth": {
+        "symbols": {
+          "expected": 7,
+          "actual": 7,
+          "matched": 7,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "imports": {
+          "expected": 7,
+          "actual": 7,
+          "matched": 7,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "importsSymbol": {
+          "expected": 5,
+          "actual": 5,
+          "matched": 5,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        }
+      }
+    },
+    {
+      "id": "js-mixed",
+      "golden": true,
+      "indexedFiles": 7,
+      "code": {
+        "extractedFiles": 5,
+        "symbols": 9,
+        "nodes": 19,
+        "edges": 21,
+        "skipped": [],
+        "diagnostics": 0
+      },
+      "tsCompiler": {
+        "parsedFiles": 5,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 9,
+        "actual": 9,
+        "matched": 9,
+        "precision": 1,
+        "recall": 1,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      },
+      "groundTruth": {
+        "symbols": {
+          "expected": 9,
+          "actual": 9,
+          "matched": 9,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "imports": {
+          "expected": 8,
+          "actual": 8,
+          "matched": 8,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "importsSymbol": {
+          "expected": 2,
+          "actual": 1,
+          "matched": 1,
+          "precision": 1,
+          "recall": 0.5,
+          "missingByKind": {
+            "function": 1
+          },
+          "extraByKind": {},
+          "missingSample": [
+            "mod:js:lib/server.js -> formatDate -> js:lib/dates.js#formatDate(function)"
+          ],
+          "extraSample": []
+        }
+      }
+    },
+    {
+      "id": "py-basic",
+      "golden": true,
+      "indexedFiles": 6,
+      "code": {
+        "extractedFiles": 6,
+        "symbols": 10,
+        "nodes": 25,
+        "edges": 37,
+        "skipped": [],
+        "diagnostics": 0
+      },
+      "tsCompiler": {
+        "parsedFiles": 0,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 0,
+        "actual": 0,
+        "matched": 0,
+        "precision": null,
+        "recall": null,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      },
+      "groundTruth": {
+        "symbols": {
+          "expected": 10,
+          "actual": 10,
+          "matched": 10,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "imports": {
+          "expected": 16,
+          "actual": 16,
+          "matched": 16,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "importsSymbol": {
+          "expected": 4,
+          "actual": 4,
+          "matched": 4,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        }
+      }
+    },
+    {
+      "id": "py-src-layout",
+      "golden": true,
+      "indexedFiles": 5,
+      "code": {
+        "extractedFiles": 4,
+        "symbols": 4,
+        "nodes": 11,
+        "edges": 16,
+        "skipped": [],
+        "diagnostics": 0
+      },
+      "tsCompiler": {
+        "parsedFiles": 0,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 0,
+        "actual": 0,
+        "matched": 0,
+        "precision": null,
+        "recall": null,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      },
+      "groundTruth": {
+        "symbols": {
+          "expected": 4,
+          "actual": 4,
+          "matched": 4,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "imports": {
+          "expected": 6,
+          "actual": 6,
+          "matched": 6,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "importsSymbol": {
+          "expected": 3,
+          "actual": 3,
+          "matched": 3,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        }
+      }
+    },
+    {
+      "id": "edge-cases",
+      "golden": true,
+      "indexedFiles": 10,
+      "code": {
+        "extractedFiles": 9,
+        "symbols": 28,
+        "nodes": 39,
+        "edges": 47,
+        "skipped": [
+          {
+            "path": "src/bytes/latin1.ts",
+            "code": "EXTRACTION_UNDECODABLE"
+          }
+        ],
+        "diagnostics": 2
+      },
+      "tsCompiler": {
+        "parsedFiles": 6,
+        "undecodableFiles": [
+          "src/bytes/latin1.ts"
+        ],
+        "syntaxErrorFiles": [
+          "src/broken.ts"
+        ],
+        "expected": 18,
+        "actual": 18,
+        "matched": 18,
+        "precision": 1,
+        "recall": 1,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      },
+      "groundTruth": {
+        "symbols": {
+          "expected": 28,
+          "actual": 28,
+          "matched": 28,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "imports": {
+          "expected": 2,
+          "actual": 2,
+          "matched": 2,
+          "precision": 1,
+          "recall": 1,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        },
+        "importsSymbol": {
+          "expected": 0,
+          "actual": 0,
+          "matched": 0,
+          "precision": null,
+          "recall": null,
+          "missingByKind": {},
+          "extraByKind": {},
+          "missingSample": [],
+          "extraSample": []
+        }
+      }
+    },
+    {
+      "id": "zod",
+      "golden": false,
+      "indexedFiles": 693,
+      "code": {
+        "extractedFiles": 523,
+        "symbols": 7059,
+        "nodes": 7888,
+        "edges": 11348,
+        "skipped": [],
+        "diagnostics": 21
+      },
+      "tsCompiler": {
+        "parsedFiles": 523,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 7051,
+        "actual": 7059,
+        "matched": 7051,
+        "precision": 0.9989,
+        "recall": 1,
+        "missingByKind": {},
+        "extraByKind": {
+          "interface": 4,
+          "method": 3,
+          "property": 1
+        },
+        "missingSample": [],
+        "extraSample": [
+          "ts:packages/zod/src/v4/classic/tests/prototypes.test.ts#ZodType(interface)",
+          "ts:packages/zod/src/v4/classic/tests/prototypes.test.ts#ZodType._classic(method)",
+          "ts:packages/zod/src/v4/mini/tests/prototypes.test.ts#$ZodType(interface)",
+          "ts:packages/zod/src/v4/mini/tests/prototypes.test.ts#$ZodType._core(method)",
+          "ts:packages/zod/src/v4/mini/tests/prototypes.test.ts#ZodMiniType(interface)",
+          "ts:packages/zod/src/v4/mini/tests/prototypes.test.ts#ZodMiniType._mini(method)",
+          "tsx:packages/docs/pages/api/_og.tsx#HTMLAttributes(interface)",
+          "tsx:packages/docs/pages/api/_og.tsx#HTMLAttributes.tw(property)"
+        ]
+      }
+    },
+    {
+      "id": "codeforge-v2",
+      "golden": false,
+      "indexedFiles": 656,
+      "code": {
+        "extractedFiles": 530,
+        "symbols": 6075,
+        "nodes": 7244,
+        "edges": 10343,
+        "skipped": [],
+        "diagnostics": 9
+      },
+      "tsCompiler": {
+        "parsedFiles": 530,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 6073,
+        "actual": 6075,
+        "matched": 6073,
+        "precision": 0.9997,
+        "recall": 1,
+        "missingByKind": {},
+        "extraByKind": {
+          "constant": 2
+        },
+        "missingSample": [],
+        "extraSample": [
+          "ts:tests/execution/import-wiring-hint.spec.ts#entries(constant)",
+          "ts:tests/execution/import-wiring-hint.spec.ts#using(constant)"
+        ]
+      }
+    },
+    {
+      "id": "requests",
+      "golden": false,
+      "indexedFiles": 123,
+      "code": {
+        "extractedFiles": 37,
+        "symbols": 1007,
+        "nodes": 1153,
+        "edges": 1846,
+        "skipped": [],
+        "diagnostics": 0
+      },
+      "tsCompiler": {
+        "parsedFiles": 0,
+        "undecodableFiles": [],
+        "syntaxErrorFiles": [],
+        "expected": 0,
+        "actual": 0,
+        "matched": 0,
+        "precision": null,
+        "recall": null,
+        "missingByKind": {},
+        "extraByKind": {},
+        "missingSample": [],
+        "extraSample": []
+      }
+    }
+  ]
+}
