@@ -66,7 +66,7 @@ const forbidden = [
     name: 'FF-DEP-008-sqlite-confined',
     comment: 'Storage drivers only in adapters/sqlite. Phase 01 extends this into the full per-adapter allow-list.',
     severity: 'error',
-    from: { pathNot: '^packages/adapters/src/sqlite/' },
+    from: { pathNot: '^packages/adapters/(src|test)/sqlite/' },
     to: { path: `(${npmPath('(better-sqlite3|sql\\.js)')}|^node:sqlite$)` },
   },
   {
