@@ -42,7 +42,7 @@ describe('SN-004: single-writer lease', () => {
     expect(renew.ok === false && renew.error.code).toBe('LEASE_LOST');
 
     // B's recovery abandons A's unfinished staging revision.
-    const plan = planRecovery({ unfinished: await b.store.listUnfinished(), leaseHeldByOther: b.store.lease.heldByOther('B') });
+    const plan = planRecovery({ unfinished: await b.store.listUnfinished(), leaseHeldByOther: await b.store.lease.heldByOther('B') });
     expect(plan).toEqual([{ kind: 'abandon', seq: rev.value.seq, reason: 'interrupted while building (SN-005)' }]);
     for (const step of plan) expect((await b.store.abandon(step.seq, step.reason)).ok).toBe(true);
     expect((await b.store.begin(null, job('jb'))).ok).toBe(true);

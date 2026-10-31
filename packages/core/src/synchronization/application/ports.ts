@@ -10,7 +10,7 @@ import type {
   Result,
   RevisionSeq,
 } from '../../shared-kernel/index.js';
-import type { ManifestEntry } from '../../workspace/public.js';
+import type { ManifestEntry, StructuralNode } from '../../workspace/public.js';
 import type {
   ChangeKind,
   ChangeOrigin,
@@ -59,6 +59,8 @@ export interface RevisionWriter {
    * rows get a new version (valid_from = seq), and removed or changed rows are closed (valid_to = seq).
    */
   stageManifest(seq: RevisionSeq, entries: readonly ManifestEntry[]): Promise<Result<StageStats, DomainError>>;
+  /** Stages the structural nodes with the same diff semantics, keyed by node id. Requires the manifest staged first. */
+  stageStructure(seq: RevisionSeq, nodes: readonly StructuralNode[]): Promise<Result<StageStats, DomainError>>;
   markValidating(seq: RevisionSeq): Promise<Result<void, DomainError>>;
   /** RevisionValidator checks on the staged revision. An empty list means valid. */
   validate(seq: RevisionSeq): Promise<readonly string[]>;
@@ -81,6 +83,8 @@ export interface LeaseManager {
   acquire(holder: string, ttlMs: number): Promise<Result<Lease, DomainError>>;
   renew(lease: Lease, ttlMs: number): Promise<Result<Lease, DomainError>>;
   release(lease: Lease): Promise<void>;
+  /** True when a holder other than `holder` owns a live lease (used by recovery: followers never recover). */
+  heldByOther(holder: string): Promise<boolean>;
 }
 
 export interface JobRecord {

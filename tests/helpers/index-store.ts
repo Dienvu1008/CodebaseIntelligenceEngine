@@ -6,6 +6,7 @@ import { openIndexStore, WriteConfinement, type OpenedIndexStore } from '@cie/ad
 import {
   canonicalizePath,
   changeSeq,
+  deriveStructure,
   parseContentHash,
   type CanonicalPath,
   type ChangeSeq,
@@ -96,6 +97,14 @@ export async function sandbox(): Promise<Sandbox> {
   };
 }
 
+/** Stages the manifest and its derived structure (both are required before validation). Throws on failure. */
+export async function stageAll(o: OpenedIndexStore, seq: RevisionSeq, entries: readonly ManifestEntry[]): Promise<void> {
+  const files = await o.store.stageManifest(seq, entries);
+  if (!files.ok) throw new Error(files.error.code);
+  const structure = await o.store.stageStructure(seq, deriveStructure(entries));
+  if (!structure.ok) throw new Error(structure.error.code);
+}
+
 /** Builds and publishes one revision with the given manifest. Throws on any failure. */
 export async function publishRevision(
   o: OpenedIndexStore,
@@ -107,6 +116,8 @@ export async function publishRevision(
   if (!rev.ok) throw new Error(rev.error.code);
   const staged = await o.store.stageManifest(rev.value.seq, entries);
   if (!staged.ok) throw new Error(staged.error.code);
+  const structure = await o.store.stageStructure(rev.value.seq, deriveStructure(entries));
+  if (!structure.ok) throw new Error(structure.error.code);
   const v = await o.store.markValidating(rev.value.seq);
   if (!v.ok) throw new Error(v.error.code);
   const p = await o.store.publish(rev.value.seq, cseq(watermark));

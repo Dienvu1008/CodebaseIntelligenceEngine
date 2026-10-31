@@ -6,8 +6,8 @@
  *  - '\' is treated as a separator on every OS. This keeps manifests identical across Windows and Linux
  *    (WS-004). A Linux file whose name contains '\' is therefore not representable and gets skipped.
  *  - Names that are not portable to Windows (reserved device names, `<>:"|?*`, trailing '.' or ' ') are
- *    rejected as PATH_NON_PORTABLE on every OS, for the same determinism reason. The enumerator records
- *    them as skipped files with a reason; they are never silently mapped to another name.
+ *    rejected as PATH_NON_PORTABLE on every OS, for the same determinism reason. The enumerator reports
+ *    them as "unrepresentable" (with the reason); they are never silently mapped to another name.
  *  - '.' and empty segments are dropped. '..' is resolved lexically and must not climb above the root.
  *  - Every segment is NFC-normalized. Case is preserved.
  */

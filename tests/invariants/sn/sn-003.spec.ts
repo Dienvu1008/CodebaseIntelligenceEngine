@@ -1,7 +1,7 @@
 // SN-003: atomic visibility. No query observes rows introduced or closed by revision N unless N is
 // published; publishing N makes all of its rows visible in one transaction.
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { cseq, digestAt, file, job, publishRevision, sandbox, type Sandbox } from '../../helpers/index-store.js';
+import { cseq, stageAll, digestAt, file, job, publishRevision, sandbox, type Sandbox } from '../../helpers/index-store.js';
 
 let sb: Sandbox;
 beforeEach(async () => {
@@ -20,7 +20,7 @@ describe('SN-003: staging is invisible to readers', () => {
     const rev = await writer.store.begin(s1, job('j2'));
     if (!rev.ok) throw new Error(rev.error.code);
     // Change a.ts, delete b.ts, add d.ts: introductions and closures at the same time.
-    await writer.store.stageManifest(rev.value.seq, [file('a.ts', 'f'), file('c.ts', 'c'), file('d.ts', 'd')]);
+    await stageAll(writer, rev.value.seq, [file('a.ts', 'f'), file('c.ts', 'c'), file('d.ts', 'd')]);
     await writer.store.markValidating(rev.value.seq);
 
     expect((await follower.store.head())?.seq).toBe(s1);

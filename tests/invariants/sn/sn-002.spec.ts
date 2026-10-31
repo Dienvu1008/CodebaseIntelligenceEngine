@@ -4,7 +4,7 @@ import path from 'node:path';
 import Database from 'better-sqlite3';
 import { decidePublish, type RevisionSeq } from '@cie/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { cseq, file, job, publishRevision, sandbox, type Sandbox } from '../../helpers/index-store.js';
+import { cseq, stageAll, file, job, publishRevision, sandbox, type Sandbox } from '../../helpers/index-store.js';
 
 let sb: Sandbox;
 beforeEach(async () => {
@@ -37,7 +37,7 @@ describe('SN-002: compare-and-swap publish', () => {
     const first = await publishRevision(o, [file('a.ts', 'a')]);
     const rev = await o.store.begin(first, job('j2'));
     if (!rev.ok) throw new Error(rev.error.code);
-    await o.store.stageManifest(rev.value.seq, [file('a.ts', 'b')]);
+    await stageAll(o, rev.value.seq, [file('a.ts', 'b')]);
     await o.store.markValidating(rev.value.seq);
 
     // Another process moves the head behind this writer's back (simulated with a second connection).

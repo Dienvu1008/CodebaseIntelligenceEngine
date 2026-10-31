@@ -11,7 +11,7 @@ import Database from 'better-sqlite3';
 import { domainError, err, ok, type Clock, type DomainError, type Result, type WorkspaceId } from '@cie/core';
 
 /** Bump whenever the DDL below changes. Older files are rebuilt. */
-export const INDEX_SCHEMA_VERSION = 1;
+export const INDEX_SCHEMA_VERSION = 2;
 
 const DDL = `
 create table meta (key text primary key, value text not null) strict;
@@ -62,6 +62,23 @@ create index file_key_vis on file(file_key, valid_to_seq);
 create index file_from on file(valid_from_seq);
 create index file_to on file(valid_to_seq);
 create unique index file_head_unique on file(file_key) where valid_to_seq is null;
+
+-- Structural nodes (FR-006): directories, packages, projects. Stable node_key, versioned rows (ADR-0015).
+create table node_key (key integer primary key, node_id text not null unique, kind text not null) strict;
+create table node (
+  id integer primary key,
+  node_key integer not null references node_key(key),
+  name text not null,
+  ecosystem text,
+  file_key integer references file_key(key),
+  valid_from_seq integer not null,
+  valid_to_seq integer,
+  check (valid_to_seq is null or valid_to_seq > valid_from_seq)
+) strict;
+create index node_key_vis on node(node_key, valid_to_seq);
+create index node_from on node(valid_from_seq);
+create index node_to on node(valid_to_seq);
+create unique index node_head_unique on node(node_key) where valid_to_seq is null;
 
 insert into workspace_head (id, current_seq, watermark) values (1, null, 0);
 insert into index_lease (id, holder, expires_at_ms) values (1, null, 0);

@@ -71,28 +71,30 @@ items:
       forward-only migrations framework (jobs, change log), and directory/package node tables.
   - id: P01-08
     title: adapters/config - workspace allow-list + user config dir (SEC-005)
-    status: pending
+    status: done
     check: "tests/invariants/sec/sec-005.spec.ts"
+    notes: Allow-lists live in the domain (parseWorkspaceSettings/parseUserSettings); FileConfigSource reads cie.config.json through GuardedFileSystem and fails closed on unreadable or malformed files.
 
   # --- Runtime ---
   - id: P01-09
     title: runtime - composition root, llm-none default, startup recovery, dev CLI (cie dev index|status|export, --state-dir)
-    status: pending
-    check: "tests/invariants/ai/ai-004.spec.ts; CLI smoke test"
+    status: done
+    check: "tests/invariants/ai/ai-004.spec.ts; tests/invariants/sn/sn-005.spec.ts (CLI end-to-end)"
+    notes: Dev CLI (cie dev index|status|export) via node:util parseArgs; dead local lease holders (host|pid|nonce) are released without waiting for the TTL; first dogfood run on this repository indexed 167 files and 81 structural nodes.
 
   # --- Governance, fitness, tests ---
   - id: P01-10
     title: "Phase 01 invariant tests: WS-001..004, SN-001, SN-002, SN-003, SN-004, SN-005, SN-007, SEC-002, SEC-005, AI-004"
-    status: pending
-    check: "node scripts/check-governance.mjs with CIE_PHASE=2 (no missing Phase 01 tests)"
+    status: done
+    check: "node scripts/check-governance.mjs with CIE_PHASE=2 reports no invariant-test-presence errors"
   - id: P01-11
     title: "Fitness: FF-DAT-001/002/004/005, FF-BND-003, FF-DEP-008 full per-adapter allow-list, FF-PRF-006 correctness"
     status: pending
     check: "governance/fitness.yaml entries ACTIVE with resolvable enforced_by"
   - id: P01-12
     title: Crash injection at each pipeline stage (SN-005) and adversarial config suite
-    status: pending
-    check: "tests/invariants/sn/sn-005.spec.ts; tests/adversarial/config"
+    status: done
+    check: "tests/invariants/sn/sn-005.spec.ts (SIGKILL at all 7 stages of the real CLI); tests/invariants/sec/sec-005.spec.ts (adversarial config)"
 
   # --- Benchmarks and dogfooding ---
   - id: P01-13

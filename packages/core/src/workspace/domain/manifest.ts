@@ -9,8 +9,14 @@ import type { CanonicalPath, ContentHash, DomainError, Hasher, Result } from '..
 import { domainError, err, ok } from '../../shared-kernel/index.js';
 import { compareCanonicalPaths } from './path-canonicalizer.js';
 
-/** Why a file present in the tree is not indexed (FR-007). Values are stable: they are serialized. */
-export type SkipReason = 'too_large' | 'binary' | 'symlink_escape' | 'non_portable_name' | 'unreadable';
+/**
+ * Why a file present in the tree is not indexed (FR-007). Values are stable: they are serialized.
+ *   symlink         a link resolving inside the root; never followed, because its target is indexed under its real path
+ *   symlink_escape  a link resolving outside the root (WS-002 c)
+ * Names that cannot be represented as a CanonicalPath (non-portable names) never enter the manifest at all;
+ * the enumerator reports them separately.
+ */
+export type SkipReason = 'too_large' | 'binary' | 'symlink' | 'symlink_escape' | 'unreadable';
 
 export type ManifestEntry =
   | {

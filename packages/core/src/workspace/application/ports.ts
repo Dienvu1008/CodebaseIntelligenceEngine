@@ -12,6 +12,10 @@ import type {
   WorkspaceId,
 } from '../../shared-kernel/index.js';
 import type { ManifestEntry } from '../domain/manifest.js';
+import type { UserSettings, WorkspaceSettings } from '../domain/settings.js';
+import type { StructuralNode } from '../domain/structure.js';
+
+export type { UserSettings, WorkspaceSettings };
 
 export type EntryKind = 'file' | 'directory' | 'symlink' | 'other';
 
@@ -51,19 +55,10 @@ export interface FileSystem {
   list(dir: CanonicalPath | null, signal: CancellationSignal): Promise<Result<readonly DirEntry[], DomainError>>;
 }
 
-/** Non-sensitive settings allowed in the workspace's cie.config.json (SEC-005 allow-list, finalized in Phase 01). */
-export interface WorkspaceSettings {
-  readonly ignore: readonly string[];
-  readonly maxFileBytes: number | undefined;
-  readonly wikiDir: string | undefined;
-}
-
-/** Security-sensitive settings. They are read only from user-level configuration, never from the workspace (SEC-005). */
-export interface UserSettings {
-  readonly llmProvider: 'none' | 'ollama' | 'openai-compatible';
-  readonly publishGenerated: boolean;
-}
-
+/**
+ * Settings from both sources, validated by parseWorkspaceSettings and parseUserSettings (SEC-005). The
+ * adapter only reads and JSON-parses the files; the allow-lists live in the domain.
+ */
 export interface ConfigSource {
   /** Rejects (error result) a workspace config that contains sensitive or unknown keys. */
   workspace(): Promise<Result<WorkspaceSettings, DomainError>>;
@@ -83,6 +78,8 @@ export interface FileManifestReader {
    * with REVISION_NOT_VISIBLE (SN-003).
    */
   filesAt(seq: RevisionSeq): Promise<Result<readonly ManifestEntry[], DomainError>>;
+  /** Structural nodes (directories, packages, projects) visible at a published seq, sorted by id. */
+  structureAt(seq: RevisionSeq): Promise<Result<readonly StructuralNode[], DomainError>>;
 }
 
 /** Persists the identity in `.cie/workspace.json` and binds stores to it (WS-003). */

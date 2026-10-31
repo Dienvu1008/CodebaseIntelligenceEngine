@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "license": "UNLICENSED",
-  "description": "CIE composition root, CLI and transports. Implementations start in Phase 01.",
+  "description": "CIE composition root, CLI and transports.",
   "type": "module",
+  "bin": {
+    "cie": "./dist/cli/main.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
