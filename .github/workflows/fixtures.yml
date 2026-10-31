@@ -21,10 +21,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest]
-    env:
-      CIE_BENCH_CACHE: ${{ runner.temp }}/cie-bench
-      CIE_CONFIG_DIR: ${{ runner.temp }}/cie-user-config
     steps:
+      # The runner context is not available in job-level `env`, so the paths are exported from a step.
+      - name: set cache and config paths
+        shell: bash
+        run: |
+          echo "CIE_BENCH_CACHE=$RUNNER_TEMP/cie-bench" >> "$GITHUB_ENV"
+          echo "CIE_CONFIG_DIR=$RUNNER_TEMP/cie-user-config" >> "$GITHUB_ENV"
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:

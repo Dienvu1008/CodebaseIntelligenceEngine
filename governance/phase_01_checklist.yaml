@@ -109,12 +109,12 @@ items:
       (BENCHMARK_STRATEGY §6 step 2).
   - id: P01-14
     title: Dogfood - index fixtures/*, Zod, Requests and CodeForge-v2 (read-only, --state-dir outside the fixture); export byte-identical across runs and OSes
-    status: pending
+    status: done
     check: "tests/cross-platform/export-golden.spec.ts green on windows and ubuntu (required CI); docs/specs/EXPORT_FORMAT.md"
     notes: Golden verified locally from a fresh clone with core.autocrlf=true. External fixtures are compared cross-OS by the non-required .github/workflows/fixtures.yml.
   - id: P01-15
     title: docs/phases/PHASE_01_SIGNOFF.md written with evidence, deferred items and self-review
-    status: pending
-    check: "manual review"
+    status: done
+    check: "docs/phases/PHASE_01_SIGNOFF.md (owner review)"
 
 invariants_due: [WS-001, WS-002, WS-003, WS-004, SN-001, SN-002, SN-003, SN-004, SN-005, SN-007, SEC-002, SEC-005, AI-004]

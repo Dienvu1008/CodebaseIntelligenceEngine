@@ -1,0 +1,78 @@
+# Phase 02 checklist: Multi-language Symbol Extraction (IMPLEMENTATION_ROADMAP, Phase 02).
+# Phase 02 closes when every item is done (or deferred, with a reason) and governance/phase.yaml moves to 3.
+version: "1.0"
+phase: 2
+title: Multi-language Symbol Extraction
+scope_rule: >
+  Symbols, spans, fingerprints and imports for TS/TSX/JS (tree-sitter + TypeScript module resolution) and Python
+  (tree-sitter + deterministic import heuristics), with capability profiles. Excluded: references, calls and type
+  relations (Phase 03); incremental indexing (Phase 05); Dart.
+
+items:
+  # --- Entry checks ---
+  - id: P02-01
+    title: "Spike S2: web-tree-sitter (exact pin) loads the TS, TSX and Python grammar .wasm on Node 24/26, Windows and Linux; JS grammar strategy (E-05); OQ-09 install scripts"
+    status: pending
+    check: "packages/adapters/test/treesitter/spike-s2.spec.ts green on the full CI matrix; results recorded in ADR-0010"
+  - id: P02-02
+    title: "Re-check ADR-0016 against TypeScript 7 (R-03): is the TS 6 JS compiler API maintained, and what programmatic API does TS 7 offer? Pin the lang-ts TypeScript version"
+    status: pending
+    check: "ADR-0016 updated with evidence; decision recorded"
+
+  # --- Domain (core) ---
+  - id: P02-03
+    title: code-intelligence domain - SymbolIdentity (ADR-0014), CapabilityProfile/fidelity, FileExtraction factory with SY-006 precision checks
+    status: pending
+    check: "tests/invariants/sy/sy-001.spec.ts, sy-006.spec.ts"
+  - id: P02-04
+    title: Ports FileExtractor and ProjectResolver (CODE_INTELLIGENCE_STRATEGY §4); LanguageRegistry, which becomes the authority over the Phase 01 extension map
+    status: pending
+    check: "golden test: LanguageRegistry agrees with languageForPath, or replaces it"
+
+  # --- Adapters ---
+  - id: P02-05
+    title: adapters/treesitter - CIE-owned extraction queries, grammar lock manifest (sha256 per .wasm), spanHash and bodyFingerprint
+    status: pending
+    check: "tests/invariants/sy/sy-003.spec.ts; grammar manifest verified at load"
+  - id: P02-06
+    title: adapters/lang-ts - a Program per tsconfig (plugins never enabled, A-06), import resolution only (paths, baseUrl, exports)
+    status: pending
+    check: "tests/adversarial: a tsconfig plugin is not loaded"
+  - id: P02-07
+    title: adapters/lang-python - deterministic heuristic import resolver (source roots, packages, relative imports)
+    status: pending
+    check: "golden fixtures py-basic, py-src-layout"
+
+  # --- Storage and graph ---
+  - id: P02-08
+    title: Node projection for module, symbol, external and unresolved nodes; edges contains, defines, exports, imports and imports_symbol; index schema bump (rebuild)
+    status: pending
+    check: "tests/invariants/kg/kg-001.spec.ts, sy-002.spec.ts, sy-005.spec.ts"
+  - id: P02-09
+    title: FTS5 symbol search and `cie dev symbols <query>`
+    status: pending
+    check: "CLI test on fixtures"
+
+  # --- Governance, fitness, quality ---
+  - id: P02-10
+    title: "Phase 02 invariant tests: SY-001, SY-002, SY-003, SY-005, SY-006, KG-001"
+    status: pending
+    check: "node scripts/check-governance.mjs with CIE_PHASE=3 reports no invariant-test-presence errors"
+  - id: P02-11
+    title: "Fitness: FF-DAT-003 (graph consistency on golden fixtures), FF-DAT-006 (deterministic cross-OS exports, extended to symbols)"
+    status: pending
+    check: "governance/fitness.yaml entries ACTIVE with resolvable enforced_by"
+  - id: P02-12
+    title: Golden fixtures ts-basic, ts-monorepo, js-mixed, py-basic, py-src-layout and edge-cases, with hand-verified ground truth
+    status: pending
+    check: "tests/golden"
+  - id: P02-13
+    title: Symbol precision and recall reported against the TS compiler (TS) and hand-verified sets (Python); benchmarks re-run with extraction (no thresholds)
+    status: pending
+    check: "quality report plus benchmarks/results"
+  - id: P02-14
+    title: docs/phases/PHASE_02_SIGNOFF.md written with evidence, deferred items and self-review
+    status: pending
+    check: "manual review"
+
+invariants_due: [SY-001, SY-002, SY-003, SY-005, SY-006, KG-001]
