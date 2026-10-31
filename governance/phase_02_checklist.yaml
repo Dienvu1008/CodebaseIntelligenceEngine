@@ -86,7 +86,8 @@ items:
     check: "quality report plus benchmarks/results"
   - id: P02-14
     title: docs/phases/PHASE_02_SIGNOFF.md written with evidence, deferred items and self-review
-    status: pending
+    status: done
     check: "manual review"
+    notes: "Owner review pending; acceptance is recorded in a separate commit after green CI on the closing commit."
 
 invariants_due: [SY-001, SY-002, SY-003, SY-005, SY-006, KG-001]

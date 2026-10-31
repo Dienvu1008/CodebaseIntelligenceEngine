@@ -4,4 +4,4 @@
 #   - Checklists of completed phases must have no pending items.
 # Bumping current_phase CLOSES the previous phase, so it is the last commit of a phase, made only when
 # that phase's gate is green. The CIE_PHASE environment variable overrides this value.
-current_phase: 2
+current_phase: 3

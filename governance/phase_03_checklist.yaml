@@ -1,0 +1,87 @@
+# Phase 03 checklist: Knowledge Graph and Provenance (IMPLEMENTATION_ROADMAP, Phase 03).
+# Phase 03 closes when every item is done (or deferred, with a reason) and governance/phase.yaml moves to 4.
+version: "1.0"
+phase: 3
+title: Knowledge Graph and Provenance
+scope_rule: >
+  References, calls and type-relation edges (TS/JS L3 through the TypeScript compiler, Python L2 heuristics);
+  knowledge claims, evidence and the claim status machine; the RelationType registry; bounded traversal read models
+  and impact queries in the dev CLI. Excluded: documentation and wiki generation (Phase 04), incremental indexing
+  and staleness propagation on change (Phase 05), LLM inference (Phase 07).
+
+items:
+  # --- Entry checks and carry-overs from Phase 02 (PHASE_02_SIGNOFF "Deferred") ---
+  - id: P03-01
+    title: "Entry: lang-ts builds a Program per project (plugins never enabled) and A-06 is re-verified for the Program path by extending tests/adversarial/lang-ts-plugins.spec.ts"
+    status: pending
+    check: "tests/adversarial/lang-ts-plugins.spec.ts covers Program construction; EVIDENCE A-06 closed"
+  - id: P03-02
+    title: "Carry-over: SY-003 span check at publish (RevisionValidator recomputes bounds for all symbols and a deterministic sample of span hashes, per DOMAIN_INVARIANTS), using the stored file line counts"
+    status: pending
+    check: "tests/invariants/sy/sy-003.spec.ts gains a store-level case: a tampered range or span hash aborts publish"
+  - id: P03-03
+    title: "Carry-over: exact imports_symbol through the TypeChecker (re-exports, barrels, overloads, destructured require), replacing the Phase 02 heuristic binding for TS/JS"
+    status: pending
+    check: "ground-truth js-mixed destructured-require gap closed; ts fixtures bindings exact"
+
+  # --- Domain (core) ---
+  - id: P03-04
+    title: knowledge domain - RelationType registry (KNOWLEDGE_GRAPH_DESIGN §3) with endpoint signatures and allowed statuses
+    status: pending
+    check: "tests/invariants/kg/kg-002.spec.ts"
+  - id: P03-05
+    title: knowledge domain - KnowledgeClaim, evidence (PV-003), claim status machine and ClaimVerifier capability token (PV-001, PV-002, AI-002)
+    status: pending
+    check: "tests/invariants/pv/pv-001.spec.ts, pv-002.spec.ts (incl. type-level), pv-003.spec.ts; FF-BND-005"
+  - id: P03-06
+    title: StalenessEvaluator (evidence content hash vs current revision); full propagation is Phase 05
+    status: pending
+    check: "unit tests; PV-004 groundwork"
+
+  # --- Adapters ---
+  - id: P03-07
+    title: "lang-ts: references, calls, extends/implements and type references (L3), with unresolved placeholders for dynamic constructs (SY-006)"
+    status: pending
+    check: "golden fixtures extended; SY-006 cases for dynamic calls"
+  - id: P03-08
+    title: "lang-python: scope-aware references and calls inside a file; cross-module bindings through import maps (L2, inferred)"
+    status: pending
+    check: "golden fixtures py-basic, py-src-layout extended"
+
+  # --- Storage, read models, CLI ---
+  - id: P03-09
+    title: "Storage: relation_type registry table, claim/evidence tables (index.db schema bump), KG-003 structural backing check in the RevisionValidator"
+    status: pending
+    check: "tests/invariants/kg/kg-003.spec.ts"
+  - id: P03-10
+    title: "GraphReadModel with required maxDepth/limit and server caps; dev CLI deps, refs, impact, neighbors"
+    status: pending
+    check: "tests/invariants/kg/kg-004.spec.ts; CLI tests on fixtures"
+  - id: P03-11
+    title: "FF-PRF-004: every read-model query is plan-tested (EXPLAIN QUERY PLAN: no full scans of revision-scoped tables)"
+    status: pending
+    check: "governance/fitness.yaml FF-PRF-004 ACTIVE with resolvable enforced_by"
+
+  # --- Governance, fitness, quality ---
+  - id: P03-12
+    title: "Phase 03 invariant tests: KG-002, KG-003, KG-004, PV-001, PV-002, PV-003"
+    status: pending
+    check: "node scripts/check-governance.mjs with CIE_PHASE=4 reports no invariant-test-presence errors"
+  - id: P03-13
+    title: "Fitness: FF-CPX-001 complexity becomes an error (warn in Phases 00-02) plus the export-count check; FF-CPX-003 context-size review trigger"
+    status: pending
+    check: "eslint complexity rule at error; fitness.yaml entries ACTIVE"
+  - id: P03-14
+    title: "Export and goldens extended to references, calls and claims (format bump), cross-OS identical"
+    status: pending
+    check: "tests/cross-platform/export-golden.spec.ts; EXPORT_FORMAT.md"
+  - id: P03-15
+    title: "Reference and call precision/recall: TS vs scip-typescript, Python vs scip-python (indexes generated offline, never in required CI); benchmarks re-run (no thresholds)"
+    status: pending
+    check: "quality report plus benchmarks/results"
+  - id: P03-16
+    title: docs/phases/PHASE_03_SIGNOFF.md written with evidence, deferred items and self-review
+    status: pending
+    check: "manual review"
+
+invariants_due: [KG-002, KG-003, KG-004, PV-001, PV-002, PV-003]
