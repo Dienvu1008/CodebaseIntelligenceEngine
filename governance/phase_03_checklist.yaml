@@ -30,8 +30,9 @@ items:
   # --- Domain (core) ---
   - id: P03-04
     title: knowledge domain - RelationType registry (KNOWLEDGE_GRAPH_DESIGN §3) with endpoint signatures and allowed statuses
-    status: pending
+    status: done
     check: "tests/invariants/kg/kg-002.spec.ts"
+    notes: "core/knowledge/domain/relation-type.ts: 22 types with signatures, allowed statuses, occurrence flag (references, calls) and introducing phase; relationViolations. Compile-time coverage of CodeEdgeType and EdgeStatus. The RevisionValidator checks every visible edge (mutation-checked: without it, all three tampered cases publish). The test keeps the §3 table in sync with the registry and checks every golden export edge. §3 corrected: no file node kind; imports_symbol may target unresolved (status unknown). The relation_type table and FK come with P03-09. Also fixed FF-BND-002c: the Phase 00 rule wrongly forbade knowledge -> code-intelligence (allowed by C5); it is now one rule per source context, each with a violation fixture (ARCHITECTURE_FITNESS)."
   - id: P03-05
     title: knowledge domain - KnowledgeClaim, evidence (PV-003), claim status machine and ClaimVerifier capability token (PV-001, PV-002, AI-002)
     status: pending

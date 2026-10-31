@@ -24,5 +24,7 @@ These files are excluded from type checking, linting and the real `npm run depcr
 | `packages/core/src/workspace/domain/uses-application.ts` | FF-BND-002 |
 | `packages/core/src/workspace/application/uses-sync.ts` | FF-BND-002b |
 | `packages/core/src/workspace/application/uses-knowledge.ts` | FF-BND-002c |
+| `packages/core/src/code-intelligence/application/uses-knowledge.ts` | FF-BND-002c-context-order-code-intelligence |
+| `packages/core/src/knowledge/application/uses-documentation.ts` | FF-BND-002c-context-order-knowledge |
 | `packages/core/src/synchronization/application/uses-query.ts` | FF-BND-002d |
 | `packages/adapters/src/llm-ollama/verify.ts` | FF-BND-005 |

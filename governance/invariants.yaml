@@ -126,7 +126,7 @@ invariants:
     statement: Every relation type is registered, its endpoint kinds match the type signature, and the claim status is allowed for that type.
     owner: knowledge
     kind: hard
-    enforcement: ["domain:RelationType registry", "db:check against registry table"]
+    enforcement: ["domain:RelationType registry", "validator:type, signature, status and site key of every visible edge", "db:check against registry table"]
     violation_class: REJECT
     test: tests/invariants/kg/kg-002.spec.ts
     phase: 3

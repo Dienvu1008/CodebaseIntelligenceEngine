@@ -34,11 +34,11 @@
 
 | Type | Signature (from → to) | Semantics | Allowed statuses | Producer kinds |
 |---|---|---|---|---|
-| `contains` | dir→dir, dir→file, file→symbol, symbol→symbol, package→dir | Lexical or physical containment | V | filesystem, ast |
+| `contains` | directory→directory, package→directory, symbol→symbol | Lexical or physical containment | V | filesystem, ast |
 | `defines` | module→symbol | Module-level definition | V | ast, compiler |
 | `exports` | module→symbol | Symbol is exported from the module (incl. re-exports, with `via`) | V, I | compiler (V), ast/heuristic (I) |
 | `imports` | module→module, module→external, module→unresolved | Static import dependency (`isTypeOnly`, `isDynamic` attrs) | V, I, ? | compiler (V), heuristic (I), — (?) |
-| `imports_symbol` | module→symbol | Named import binding | V, I | compiler, heuristic |
+| `imports_symbol` | module→symbol, module→unresolved | Named import binding | V, I, ? | compiler, heuristic, — (?) |
 | `references` | symbol→symbol | Identifier occurrence in `from`'s body resolves to `to` (occurrence ranges as attributes) | V, I | compiler, scip, heuristic |
 | `calls` | symbol→symbol, symbol→unresolved | Static call expression targets `to` | V, I, ? | compiler, scip, heuristic |
 | `may_dispatch_to` | symbol(method)→symbol(method) | Virtual or interface call may reach an implementer | I | compiler + analysis, heuristic |
@@ -47,7 +47,7 @@
 | `references_type` | symbol→symbol | Type annotation reference | V, I | compiler, heuristic |
 | `injects` | symbol→symbol | DI wiring (constructor injection etc.) | I | heuristic:di-* |
 | `depends_on` | component→component, package→package | Aggregated dependency (derived from `imports`) | V (derived from V edges only) / I | derivation |
-| `belongs_to` | file/dir/package→component, component→layer | Architecture membership | V (rule-based from config), U | architecture rules, user |
+| `belongs_to` | directory/package/module→component, component→layer | Architecture membership | V (rule-based from config), U | architecture rules, user |
 | `violates` | component→component | A `depends_on` edge breaks a declared layer rule | V | rule evaluation |
 | `describes` | page→concept / page→symbol / page→component | The page is about the target | U (front matter), I | markdown, llm |
 | `mentions` | page→any | The page links to the target (from link resolution) | V | link resolver |
@@ -56,6 +56,17 @@
 | `part_of` | concept→concept | Concept hierarchy | U, I | user, llm |
 | `flow_step` | symbol→symbol | Ordered step in a declared or traced execution flow (attrs: `flowId`, `order`) | V (from V calls), I | flow tracer, user |
 | `lineage` | symbol→symbol | Identity change: `moved` / `renamed` (SY-004) | V | SymbolMatcher |
+
+**Implementation (P03-04).**
+- The registry lives in `core/knowledge/domain/relation-type.ts` (`RELATION_TYPES`, `relationViolations`). Each type records its signatures, allowed statuses, whether it is occurrence-based (`references`, `calls`: non-empty site key) and the phase that introduces it.
+- `tests/invariants/kg/kg-002.spec.ts` keeps this table and the registry in sync, by type name and order.
+- Deviations from the v0.1 table:
+  - There is no `file` node kind. A file's graph view is its `module` node, so file→symbol containment is `defines`, `belongs_to` starts at directory, package or module, and `contains` has no file endpoints.
+  - `imports_symbol` also targets `unresolved` placeholders with status `unknown`, as Phase 02 resolvers emit them (SY-006).
+- Enforcement:
+  - Compile time: `RegisteredCodeEdgeType` and `RegisteredEdgeStatus` fail to compile if code-intelligence emits a type or status that the registry does not know.
+  - Store: the RevisionValidator checks every visible edge (type, endpoint kinds from `node_key.kind`, status, site key) and aborts the publish on a violation.
+  - The `relation_type` table (with a foreign key from `edge.type`) comes with P03-09.
 
 **Distinguishing the four relationship classes** (brief §7):
 

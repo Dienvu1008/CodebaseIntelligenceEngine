@@ -11,6 +11,7 @@ import type Database from 'better-sqlite3';
 import {
   formatProducer,
   importEdgeViolations,
+  relationViolations,
   type CanonicalPath,
   type ContentHash,
   type StoredSpan,
@@ -356,9 +357,23 @@ function boundsViolations(db: Database.Database, visibleAt: VisibleAt, seq: numb
   );
 }
 
+/** KG-002 over the stored rows: registered type, endpoint kinds in the signature, allowed status, site key. */
+function relationTypeViolations(db: Database.Database, visibleAt: VisibleAt, seq: number): string[] {
+  const rows = db
+    .prepare(
+      `select e.type, e.status, e.site_key as site, f.kind as from_kind, t.kind as to_kind, f.node_id as from_id, t.node_id as to_id
+       from edge e join node_key f on f.key = e.from_key join node_key t on t.key = e.to_key where ${visibleAt('e')}`,
+    )
+    .all({ seq }) as Array<{ type: string; status: string; site: string; from_kind: string; to_kind: string; from_id: string; to_id: string }>;
+  return rows.flatMap((r) =>
+    relationViolations({ type: r.type, fromKind: r.from_kind, toKind: r.to_kind, status: r.status, site: r.site }, `${r.type} ${r.from_id} -> ${r.to_id}`),
+  );
+}
+
 export function graphViolations(db: Database.Database, visibleAt: VisibleAt, seq: number): string[] {
   return [
     ...endpointViolations(db, visibleAt, seq),
+    ...relationTypeViolations(db, visibleAt, seq),
     ...duplicateViolations(db, visibleAt, seq),
     ...evidenceViolations(db, visibleAt, seq),
     ...attributionViolations(db, visibleAt, seq),

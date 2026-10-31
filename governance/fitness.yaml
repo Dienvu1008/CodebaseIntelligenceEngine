@@ -73,6 +73,8 @@ fitness_functions:
       - depcruise:FF-BND-002-domain-not-application
       - depcruise:FF-BND-002b-no-domain-context-to-sync-or-query
       - depcruise:FF-BND-002c-context-order
+      - depcruise:FF-BND-002c-context-order-code-intelligence
+      - depcruise:FF-BND-002c-context-order-knowledge
       - depcruise:FF-BND-002d-synchronization-not-to-query
   - id: FF-BND-003
     title: Raw SQL only in adapters/sqlite; all reads take a pinned RevisionSeq

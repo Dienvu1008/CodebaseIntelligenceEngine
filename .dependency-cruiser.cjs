@@ -132,15 +132,28 @@ const forbidden = [
     from: { path: '^packages/core/src/(workspace|code-intelligence|knowledge|documentation)/' },
     to: { path: '^packages/core/src/(synchronization|query)/' },
   },
+  // Acyclic context order: workspace <- code-intelligence <- knowledge <- documentation (C5). A context may
+  // import the contexts before it, never the ones after it: one rule per source context.
   {
     name: 'FF-BND-002c-context-order',
-    comment: 'Acyclic context order: workspace <- code-intelligence <- knowledge <- documentation (C5).',
+    comment: 'workspace imports no later context (C5).',
     severity: 'error',
-    from: { path: '^packages/core/src/(workspace|code-intelligence|knowledge)/' },
-    to: {
-      path: '^packages/core/src/(code-intelligence|knowledge|documentation)/',
-      pathNot: '^packages/core/src/$1/',
-    },
+    from: { path: '^packages/core/src/workspace/' },
+    to: { path: '^packages/core/src/(code-intelligence|knowledge|documentation)/' },
+  },
+  {
+    name: 'FF-BND-002c-context-order-code-intelligence',
+    comment: 'code-intelligence imports neither knowledge nor documentation (C5).',
+    severity: 'error',
+    from: { path: '^packages/core/src/code-intelligence/' },
+    to: { path: '^packages/core/src/(knowledge|documentation)/' },
+  },
+  {
+    name: 'FF-BND-002c-context-order-knowledge',
+    comment: 'knowledge does not import documentation (C5).',
+    severity: 'error',
+    from: { path: '^packages/core/src/knowledge/' },
+    to: { path: '^packages/core/src/documentation/' },
   },
   {
     name: 'FF-BND-002d-synchronization-not-to-query',

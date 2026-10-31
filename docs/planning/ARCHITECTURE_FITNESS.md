@@ -99,6 +99,7 @@ This block specifies the rules for Phase 00. It is **not** a live config file.
 > **Implemented in Phase 00** as `/.dependency-cruiser.cjs`. Differences from this draft:
 > - FF-DEP-002 has **no type-only exception**. The core imports nothing outside itself, not even types, which keeps third-party types out of the ACL.
 > - Additional rules split out the C5/C6 boundaries: FF-BND-001b (shared kernel is a leaf), FF-BND-002c (context order) and FF-BND-002d (synchronization never imports query).
+> - **Fixed in Phase 03 (P03-04):** the Phase 00 FF-BND-002c rule had one rule for all source contexts. It allowed only same-context targets, so it also forbade the permitted direction `knowledge → code-intelligence`. Nothing exercised it until the knowledge context had code. It is now one rule per source context: `FF-BND-002c-context-order` (workspace), `…-code-intelligence` and `…-knowledge`. Each forbids only the later contexts and has its own violation fixture.
 > - npm-package rules match both `node_modules/<pkg>/` and an unresolved bare `<pkg>`, so packages that are not installed (e.g. `vscode`) are still caught.
 > - `enhancedResolveOptions.exportsFields: ['exports']` must be explicit. Without it depcruise ignores package exports maps (found in Phase 00).
 > - The group back-reference `$1` in `to.pathNot` works in dependency-cruiser 18.7.0, which resolves the assumption noted under the block.
