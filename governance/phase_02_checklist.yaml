@@ -46,8 +46,9 @@ items:
     notes: "LangTsResolver over a snapshot-only VirtualWorkspace (no Program in Phase 02; resolveModuleName + parsed tsconfig per project). tests/adversarial/lang-ts-plugins.spec.ts (with positive control) verifies A-06; packages/adapters/test/lang-ts/resolver.spec.ts covers monorepo exports, paths, externals, built-ins, inferred project (alias mapping mutation-checked). ADR-0016 'Phase 02 implementation'. typescript@6.0.3 added to @cie/adapters dependencies."
   - id: P02-07
     title: adapters/lang-python - deterministic heuristic import resolver (source roots, packages, relative imports)
-    status: pending
+    status: done
     check: "golden fixtures py-basic, py-src-layout"
+    notes: "PythonImportResolver (imports L2, all edges heuristic or unknown). fixtures/py-basic and fixtures/py-src-layout with hand-reviewed golden import files (tests/golden/python-imports.spec.ts); edge cases in packages/adapters/test/lang-python (lookup order mutation-checked). Stdlib list fixed (CPython 3.14 + modules removed in 3.12/3.13), ExternalEcosystem gains 'python'. Configured python.roots is not supported yet (no setting exists); roots are detected. Full-extraction goldens for these fixtures come with P02-12."
 
   # --- Storage and graph ---
   - id: P02-08

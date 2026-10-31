@@ -16,8 +16,11 @@ import { atLeast, precisionAllowed, producerRef, type CapabilityProfile, type La
 import type { ExtractedImport, FileExtraction } from './file-extraction.js';
 
 export type ImportEdgeType = 'imports' | 'imports_symbol';
-/** `node` = Node.js built-in modules (`ext:node:fs`); `npm` and `pypi` = third-party packages. */
-export type ExternalEcosystem = 'npm' | 'pypi' | 'node';
+/**
+ * `node` = Node.js built-in modules (`ext:node:fs`), `python` = Python standard library (`ext:python:os`);
+ * `npm` and `pypi` = third-party packages.
+ */
+export type ExternalEcosystem = 'npm' | 'pypi' | 'node' | 'python';
 
 export type ImportTarget =
   | { readonly kind: 'module'; readonly language: LanguageId; readonly path: CanonicalPath }

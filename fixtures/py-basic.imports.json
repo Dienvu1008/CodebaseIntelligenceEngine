@@ -1,0 +1,35 @@
+{
+  "projects": [
+    {
+      "kind": "python-root",
+      "language": "py",
+      "config": null,
+      "root": null
+    }
+  ],
+  "edges": [
+    "mod:py:app/__init__.py -> mod:py:app/models.py [imports inferred heuristic]",
+    "mod:py:app/__init__.py -> py:app/models.py#User(class) [imports_symbol inferred heuristic] User",
+    "mod:py:app/__init__.py -> mod:py:app/util.py [imports inferred heuristic]",
+    "mod:py:app/models.py -> ext:python:os [imports inferred heuristic]",
+    "mod:py:app/models.py -> ext:python:dataclasses [imports inferred heuristic]",
+    "mod:py:app/sub/deep.py -> mod:py:app/models.py [imports inferred heuristic]",
+    "mod:py:app/sub/deep.py -> py:app/models.py#User(class) [imports_symbol inferred heuristic] User",
+    "mod:py:app/sub/deep.py -> unres:py:app/sub/deep.py#bef01436bce6e1ea [imports unknown]",
+    "mod:py:app/util.py -> ext:python:json [imports inferred heuristic]",
+    "mod:py:app/util.py -> ext:pypi:requests [imports inferred heuristic]",
+    "mod:py:app/util.py -> mod:py:app/models.py [imports inferred heuristic]",
+    "mod:py:app/util.py -> py:app/models.py#make_user(function) [imports_symbol inferred heuristic] make_user",
+    "mod:py:app/util.py -> unres:py:app/util.py#1fe17fc2cb3109fb [imports_symbol unknown] Missing",
+    "mod:py:app/util.py -> mod:py:app/sub/deep.py [imports inferred heuristic]",
+    "mod:py:main.py -> ext:python:importlib [imports inferred heuristic]",
+    "mod:py:main.py -> mod:py:app/__init__.py [imports inferred heuristic]",
+    "mod:py:main.py -> mod:py:app/__init__.py [imports inferred heuristic]",
+    "mod:py:main.py -> mod:py:app/models.py [imports inferred heuristic]",
+    "mod:py:main.py -> mod:py:app/util.py [imports inferred heuristic]",
+    "mod:py:main.py -> ext:pypi:yaml [imports inferred heuristic]",
+    "mod:py:main.py -> unres:py:main.py#a2e1853ace22b54f [imports unknown]",
+    "mod:py:main.py -> mod:py:app/util.py [imports inferred heuristic]"
+  ],
+  "diagnostics": []
+}

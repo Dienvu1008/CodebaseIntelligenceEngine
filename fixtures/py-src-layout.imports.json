@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "kind": "python-root",
+      "language": "py",
+      "config": null,
+      "root": null
+    },
+    {
+      "kind": "python-root",
+      "language": "py",
+      "config": null,
+      "root": "src"
+    }
+  ],
+  "edges": [
+    "mod:py:src/pkg/__init__.py -> mod:py:src/pkg/core.py [imports inferred heuristic]",
+    "mod:py:src/pkg/__init__.py -> py:src/pkg/core.py#run(function) [imports_symbol inferred heuristic] run",
+    "mod:py:src/pkg/core.py -> ext:pypi:numpy [imports inferred heuristic]",
+    "mod:py:src/pkg/core.py -> mod:py:src/pkg/helpers.py [imports inferred heuristic]",
+    "mod:py:src/pkg/core.py -> py:src/pkg/helpers.py#util_fn(function) [imports_symbol inferred heuristic] util_fn",
+    "mod:py:src/pkg/helpers.py -> ext:python:typing [imports inferred heuristic]",
+    "mod:py:tests/test_core.py -> ext:pypi:pytest [imports inferred heuristic]",
+    "mod:py:tests/test_core.py -> mod:py:src/pkg/core.py [imports inferred heuristic]",
+    "mod:py:tests/test_core.py -> py:src/pkg/core.py#run(function) [imports_symbol inferred heuristic] run"
+  ],
+  "diagnostics": []
+}

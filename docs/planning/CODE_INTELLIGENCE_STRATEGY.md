@@ -184,6 +184,15 @@ No core changes are required. FF-DAT-006 golden tests gate this.
    - Build programs sequentially and release each one after resolution. `BuilderProgram` is used for incremental runs in Phase 05.
    - Plugins are never enabled (A-06).
 5. **Python roots.** Configured `python.roots`, otherwise detected (`src/` and top-level package dirs). Virtualenvs and `site-packages` are excluded. External imports resolve to `ext:pypi:<name>` nodes (L2, no symbols).
+   **Implemented (Phase 02, `adapters/lang-python`):**
+   - Roots are detected; a `python.roots` setting does not exist yet. The detected roots are: the workspace root; `src/` when it holds Python files; every directory with `pyproject.toml`, `setup.py` or `setup.cfg`, plus its `src/`.
+   - For a given file, the roots that contain it are searched first, deepest first.
+   - Lookup follows FileFinder order: package before module, `.py` before `.pyi`.
+   - A local module shadows the standard library.
+   - Standard-library imports become `ext:python:<top>`, using a fixed list (CPython 3.14 plus modules removed in 3.12/3.13).
+   - Third-party imports become `ext:pypi:<top-level import name>`.
+   - Namespace packages without a module file, missing relative targets and non-literal dynamic imports are unresolved.
+   - The capability matrix says relative imports are "exact within the package". They are still recorded as `heuristic`, because the resolver declares imports at L2 and SY-006 caps its precision. Splitting relative imports into their own capability is a possible refinement.
 6. **External dependencies (TS).** Imports resolving into `node_modules` produce `ext:npm:<name>` nodes (contradiction log C-13) plus exact edges to the package node. Symbols inside dependencies are not indexed in the MVP. [Proposal] Declaration-level indexing of dependencies is [DEF].
 
 ## 7. Grammar and adapter maintenance

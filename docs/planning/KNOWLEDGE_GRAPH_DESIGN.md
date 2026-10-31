@@ -21,7 +21,7 @@
 | `package` | `pkg:npm:<name>` / `pkg:py:<name>` (workspace-local) | yes | package.json / pyproject / `__init__` root | Phase 01 |
 | `module` | `mod:<lang>:<path>` | yes | FileRecord (a module is the language view of a file) | Phase 02 |
 | `symbol` | `SymbolId` (ADR-0014) | yes | SymbolRecord | Phase 02 |
-| `external` | `ext:npm:<name>` / `ext:pypi:<name>` / `ext:node:<builtin>` (Node.js built-ins, added in Phase 02) | yes | import resolution | Phase 02 |
+| `external` | `ext:npm:<name>` / `ext:pypi:<name>` / `ext:node:<builtin>` / `ext:python:<stdlib module>` (built-ins and standard library, added in Phase 02) | yes | import resolution | Phase 02 |
 | `unresolved` | `unres:<lang>:<path>#<siteHash>` | yes | the unresolved site (SY-006) | Phase 02 |
 | `concept` | `concept:<slug>` | no | Concept aggregate (Markdown or AI proposal) | Phase 04 / 07 |
 | `component` | `comp:<slug>` | no | Architecture model (derived from packages, or user-declared) | Phase 08 |
