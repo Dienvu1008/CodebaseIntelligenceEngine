@@ -88,6 +88,6 @@ items:
     title: docs/phases/PHASE_02_SIGNOFF.md written with evidence, deferred items and self-review
     status: done
     check: "manual review"
-    notes: "Owner review pending; acceptance is recorded in a separate commit after green CI on the closing commit."
+    notes: "Accepted by the owner on 2026-10-31 after green CI on the closing commit 02ee81c."
 
 invariants_due: [SY-001, SY-002, SY-003, SY-005, SY-006, KG-001]

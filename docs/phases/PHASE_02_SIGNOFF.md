@@ -1,6 +1,6 @@
 # Phase 02 Sign-off: Multi-language Symbol Extraction
 
-- **Status:** **Pending owner approval.** The closing commit (this document, the Phase 03 checklist and `governance/phase.yaml` → 3) needs green CI on the full matrix, then owner acceptance. Acceptance is recorded in a separate commit, after which `main` is fast-forwarded (branch workflow, IMPLEMENTATION_ROADMAP).
+- **Status:** **Accepted** by the project owner on 2026-10-31. CI was green on the full matrix for the closing commit `02ee81c`, as reported by the owner. `main` was fast-forwarded per the branch workflow (IMPLEMENTATION_ROADMAP).
 - **Date:** 2026-10-31
 - **Branch:** `phase-02` (from `main` at `d1baa7a`)
 - **Checklist:** [`governance/phase_02_checklist.yaml`](../../governance/phase_02_checklist.yaml), all 14 items done.
@@ -23,7 +23,7 @@
   - Symbol precision and recall are reported against the TS compiler for TS/JS, and against hand-verified ground truth for every fixture (the only oracle for Python). See the quality section below.
   - The capability matrix is exposed by `cie dev status` (`tests/integration/code-graph.spec.ts`).
 - [x] **Benchmarks re-run with extraction, without thresholds:** B-01, B-02, B-10 and B-11 on Zod, Requests and CodeForge-v2 (reference), plus the CodeForge-v2 working tree (dogfood). See `benchmarks/results/2026-10-31-121499ea-*`.
-- [ ] **CI green on the closing commit** (the one that bumps `governance/phase.yaml` to 3), and **owner approval**.
+- [x] **CI green on the closing commit** `02ee81c` (the one that bumps `governance/phase.yaml` to 3), and **owner approval** (2026-10-31).
 
 ## Commits
 
@@ -40,7 +40,8 @@
 | `12c767f` | Four new golden fixtures with hand-verified ground truth; four extractor fixes and one pipeline fix |
 | `121499e` | Quality report tooling; six extractor fixes found against the TypeScript compiler |
 | `3e46428` | Quality report and benchmark results from a clean commit |
-| *closing commit* | This sign-off, the Phase 03 checklist, `phase.yaml` → 3 |
+| `02ee81c` | Closing commit: this sign-off, the Phase 03 checklist, `phase.yaml` → 3 |
+| *acceptance commit* | This status change only |
 
 ## Components delivered
 
@@ -184,4 +185,4 @@
 |---|---|
 | Phase 00 exit | 93 |
 | Phase 01 exit | 274 on Windows plus 1 skipped; 275 on Linux (31 spec files) |
-| Phase 02 exit | 460 plus 1 skipped locally on Windows (52 spec files): invariants, fitness, golden, ground truth, adversarial, integration, cross-platform, adapters, core |
+| Phase 02 exit | 460 plus 1 skipped locally on Windows (52 spec files): invariants, fitness, golden, ground truth, adversarial, integration, cross-platform, adapters, core. CI on `02ee81c` was reported green on all four cells; per-cell counts were not recorded. |
