@@ -11,7 +11,7 @@ import Database from 'better-sqlite3';
 import { domainError, err, ok, type Clock, type DomainError, type Result, type WorkspaceId } from '@cie/core';
 
 /** Bump whenever the DDL below changes. Older files are rebuilt. */
-export const INDEX_SCHEMA_VERSION = 3;
+export const INDEX_SCHEMA_VERSION = 4;
 
 const DDL = `
 create table meta (key text primary key, value text not null) strict;
@@ -126,6 +126,10 @@ create index edge_in on edge(to_key, type, valid_to_seq);
 create index edge_from on edge(valid_from_seq);
 create index edge_to on edge(valid_to_seq);
 create unique index edge_head_unique on edge(type, from_key, to_key, site_key) where valid_to_seq is null;
+
+-- Symbol search (ADR-0008, KNOWLEDGE_GRAPH_DESIGN §5): head only, maintained inside the publish transaction.
+-- rowid = node.id of the symbol row version; \`words\` holds identifierWords(qualified name).
+create virtual table search_fts using fts5(name, qualified_name, words, path, doc, tokenize = 'unicode61 remove_diacritics 2');
 
 insert into workspace_head (id, current_seq, watermark) values (1, null, 0);
 insert into index_lease (id, holder, expires_at_ms) values (1, null, 0);

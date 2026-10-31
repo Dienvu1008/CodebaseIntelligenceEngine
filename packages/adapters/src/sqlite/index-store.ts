@@ -38,8 +38,15 @@ import {
   type CodeGraph,
   type CodeGraphReader,
   type CodeNode,
+  type SymbolHit,
+  type SymbolQuery,
+  type SymbolSearch,
+  clampSearchLimit,
+  searchTerms,
+  SYMBOL_KINDS,
 } from '@cie/core';
 import { GraphStagingError, graphViolations, selectGraph, stageGraph, type GraphStageStats } from './graph-store.js';
+import { searchSymbols, syncSearchIndex } from './search-store.js';
 import { SqliteLeaseManager } from './lease.js';
 import { nodeViolations, selectNodes, stageNodes, toStructuralNode } from './structure-store.js';
 
@@ -99,7 +106,7 @@ const sameVersion = (row: FileRow, e: ManifestEntry): boolean =>
     ? row.status === 'indexed' && row.hash === e.hash && row.size === e.size && row.lang === e.language
     : row.status === 'skipped' && row.skip_reason === e.reason && row.size === e.size;
 
-export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileManifestReader, CodeGraphReader {
+export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileManifestReader, CodeGraphReader, SymbolSearch {
   readonly lease: SqliteLeaseManager;
 
   constructor(
@@ -147,6 +154,15 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
     const visible = this.requirePublished(seq);
     if (!visible.ok) return visible;
     return ok(selectGraph(this.db, visibleAt, seq));
+  }
+
+  async searchSymbols(seq: RevisionSeq, query: SymbolQuery): Promise<Result<{ readonly hits: readonly SymbolHit[]; readonly truncated: boolean }, DomainError>> {
+    const head = await this.head();
+    if (head === null || head.seq !== seq) return err(domainError('SEARCH_HEAD_ONLY', 'symbol search is available for the head revision only', { seq, head: head?.seq ?? null }));
+    const terms = searchTerms(query.text);
+    if (!terms.ok) return terms;
+    const kinds = query.kinds?.filter((k) => SYMBOL_KINDS.includes(k));
+    return ok(searchSymbols(this.db, visibleAt, seq, terms.value, clampSearchLimit(query.limit), kinds));
   }
 
   private requirePublished(seq: RevisionSeq): Result<true, DomainError> {
@@ -342,6 +358,7 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
       this.db.prepare('update index_revision set watermark = ?, published_at_ms = ? where seq = ?').run(watermark, this.clock.nowMs(), seq);
       const published = this.setStatus(rev, 'published');
       if (!published.ok) return published;
+      syncSearchIndex(this.db, seq); // head-only search moves with the head, in the same transaction
       if (rev.base_seq !== null) {
         const prev = this.revisionRow(rev.base_seq);
         if (prev !== undefined && prev.status === 'published') this.setStatus(prev, 'superseded');

@@ -12,11 +12,14 @@
  * SIGKILL when it reaches that stage. This simulates a hard crash: no cleanup and no lease release.
  */
 import { parseArgs } from 'node:util';
-import { evaluateFreshness, type DomainError, type IndexStage } from '@cie/core';
+import { evaluateFreshness, SYMBOL_KINDS, type DomainError, type IndexStage, type SymbolKind, type SymbolQuery } from '@cie/core';
 import { openDevRuntime, type DevRuntime } from '../composition/dev-runtime.js';
 import { exportHead } from './export.js';
 
-const USAGE = 'usage: cie dev <index|status|export> [--workspace <dir>] [--state-dir <dir>] [--json]';
+const USAGE =
+  'usage: cie dev <index|status|export> [--workspace <dir>] [--state-dir <dir>] [--json]\n' +
+  '       cie dev symbols <query> [--kind <kind>[,<kind>...]] [--limit <n>] [--workspace <dir>] [--state-dir <dir>] [--json]';
+const COMMANDS = new Set(['index', 'status', 'export', 'symbols']);
 
 function fail(error: DomainError): number {
   process.stderr.write(`cie: ${error.code}: ${error.message}\n`);
@@ -91,21 +94,63 @@ async function statusCommand(rt: DevRuntime, json: boolean): Promise<number> {
   return 0;
 }
 
+function parseSymbolQuery(text: string, limit: string | undefined, kind: string | undefined): SymbolQuery | { error: string } {
+  let n: number | undefined;
+  if (limit !== undefined) {
+    n = Number(limit);
+    if (!Number.isSafeInteger(n) || n < 1) return { error: `--limit must be a positive integer, got "${limit}"` };
+  }
+  const kinds = kind === undefined ? undefined : kind.split(',').map((k) => k.trim());
+  const unknown = kinds?.filter((k) => !(SYMBOL_KINDS as readonly string[]).includes(k)) ?? [];
+  if (unknown.length > 0) return { error: `unknown --kind: ${unknown.join(', ')} (one of ${SYMBOL_KINDS.join(', ')})` };
+  return { text, ...(n === undefined ? {} : { limit: n }), ...(kinds === undefined ? {} : { kinds: kinds as SymbolKind[] }) };
+}
+
+/** Text output is 1-based (line:col, as editors show); JSON keeps the 0-based SourceRange of the protocol. */
+async function symbolsCommand(rt: DevRuntime, query: SymbolQuery, json: boolean): Promise<number> {
+  const head = await rt.index.store.head();
+  if (head === null) return fail({ code: 'INDEX_NOT_READY', message: 'nothing has been indexed yet' });
+  const r = await rt.index.store.searchSymbols(head.seq, query);
+  if (!r.ok) return fail(r.error);
+  const { hits, truncated } = r.value;
+  if (json) {
+    process.stdout.write(`${JSON.stringify({ revision: head.seq, hits, truncated })}\n`);
+    return 0;
+  }
+  const lines = hits.map((h) => `${h.kind.padEnd(11)} ${h.qualifiedName}  ${h.path}:${h.range.startLine + 1}:${h.range.startCol + 1}`);
+  if (hits.length === 0) lines.push('no symbols match');
+  if (truncated) lines.push(`… more results; raise --limit (now ${hits.length})`);
+  process.stdout.write(`${lines.join('\n')}\n`);
+  return 0;
+}
+
 export async function main(argv: readonly string[]): Promise<number> {
   let parsed;
   try {
     parsed = parseArgs({
       args: [...argv],
       allowPositionals: true,
-      options: { workspace: { type: 'string' }, 'state-dir': { type: 'string' }, json: { type: 'boolean' }, timings: { type: 'boolean' } },
+      options: {
+        workspace: { type: 'string' },
+        'state-dir': { type: 'string' },
+        json: { type: 'boolean' },
+        timings: { type: 'boolean' },
+        limit: { type: 'string' },
+        kind: { type: 'string' },
+      },
     });
   } catch (e) {
     process.stderr.write(`${e instanceof Error ? e.message : String(e)}\n${USAGE}\n`);
     return 2;
   }
-  const [group, command] = parsed.positionals;
-  if (group !== 'dev' || (command !== 'index' && command !== 'status' && command !== 'export')) {
+  const [group, command, ...rest] = parsed.positionals;
+  if (group !== 'dev' || command === undefined || !COMMANDS.has(command) || (command === 'symbols') !== (rest.length > 0)) {
     process.stderr.write(`${USAGE}\n`);
+    return 2;
+  }
+  const query = command === 'symbols' ? parseSymbolQuery(rest.join(' '), parsed.values.limit, parsed.values.kind) : null;
+  if (query !== null && 'error' in query) {
+    process.stderr.write(`${query.error}\n${USAGE}\n`);
     return 2;
   }
   const stateDir = parsed.values['state-dir'];
@@ -116,16 +161,20 @@ export async function main(argv: readonly string[]): Promise<number> {
   });
   if (!rt.ok) return fail(rt.error);
   try {
-    const json = parsed.values.json === true;
-    if (command === 'index') return await indexCommand(rt.value, json, parsed.values.timings === true);
-    if (command === 'status') return await statusCommand(rt.value, json);
-    const exported = await exportHead(rt.value);
-    if (!exported.ok) return fail(exported.error);
-    process.stdout.write(exported.value);
-    return 0;
+    return await dispatch(rt.value, command, query, parsed.values.json === true, parsed.values.timings === true);
   } finally {
     rt.value.close();
   }
+}
+
+async function dispatch(rt: DevRuntime, command: string, query: SymbolQuery | null, json: boolean, timings: boolean): Promise<number> {
+  if (command === 'index') return indexCommand(rt, json, timings);
+  if (command === 'status') return statusCommand(rt, json);
+  if (query !== null) return symbolsCommand(rt, query, json);
+  const exported = await exportHead(rt);
+  if (!exported.ok) return fail(exported.error);
+  process.stdout.write(exported.value);
+  return 0;
 }
 
 main(process.argv.slice(2)).then(

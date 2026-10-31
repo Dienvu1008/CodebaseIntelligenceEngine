@@ -58,8 +58,9 @@ items:
     notes: "projectCodeGraph (core), index.db schema v3 with code nodes + edge table, mandatory stageGraph step, validator KG-001/SY-002/SY-005/SY-006/WS-001 (mutation-checked: endpoint check, staging uniqueness). IndexService extracts (re-read + hash check, CHANGED_DURING_INDEX), resolves in fidelity order with supersession, stages the graph; new stages extracted/resolved covered by SN-005 crash tests. Runtime wires the LanguageRegistry; `cie dev status` reports the capability matrix; tests/integration/code-graph.spec.ts. Design notes in KNOWLEDGE_GRAPH_DESIGN §5 (C-14). Export stays cie-export/1 until P02-11. Cost: a `dev index` process now loads the grammars and the TypeScript compiler (~1.6 s per small run locally, resolve stage ~0.6 s); lang-ts loads `typescript` lazily and the runtime builds the registry on first use. CLI-spawning test files use CLI_TEST_TIMEOUT_MS (tests/helpers/cli.ts). Measured in P02-13, no thresholds."
   - id: P02-09
     title: FTS5 symbol search and `cie dev symbols <query>`
-    status: pending
+    status: done
     check: "CLI test on fixtures"
+    notes: "Head-only search_fts (schema v4) maintained inside the publish transaction; reads re-check visibility. Query text is split into terms by core searchTerms and only ever reaches FTS5 as quoted prefix tokens. identifierWords column (camelCase/acronyms/snake_case), bm25 weights with id tie-break, limit 1..200 with truncated flag, --kind filter. tests/integration/symbols-cli.spec.ts on py-basic/py-src-layout, tests/integration/symbol-search.spec.ts (renames, abandon, head-only, diacritics, FTS syntax in input, index size == head symbols, mutation-checked)."
 
   # --- Governance, fitness, quality ---
   - id: P02-10

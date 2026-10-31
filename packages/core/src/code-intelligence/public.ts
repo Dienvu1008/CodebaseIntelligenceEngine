@@ -1,7 +1,20 @@
 // Published language of the code-intelligence context (FF-BND-001).
 export type { LanguageRegistryInput } from './application/language-registry.js';
 export { LanguageRegistry } from './application/language-registry.js';
-export type { CodeGraphReader, FileExtractor, FileInput, LanguageAdapter, ProjectDescriptor, ProjectInput, ProjectResolution, ProjectResolver } from './application/ports.js';
+export type {
+  CodeGraphReader,
+  FileExtractor,
+  FileInput,
+  LanguageAdapter,
+  ProjectDescriptor,
+  ProjectInput,
+  ProjectResolution,
+  ProjectResolver,
+  SymbolHit,
+  SymbolQuery,
+  SymbolSearch,
+} from './application/ports.js';
+export { DEFAULT_SEARCH_LIMIT, MAX_SEARCH_LIMIT, MAX_SEARCH_TERMS, MAX_TERM_LENGTH, clampSearchLimit, identifierWords, searchTerms } from './domain/symbol-search.js';
 export type { LanguageDefinition } from './domain/languages.js';
 export { MVP_LANGUAGES, extensionOf } from './domain/languages.js';
 export type { Capability, CapabilityProfile, Fidelity, LanguageId, Precision, ProducerIdentity, ProducerRef } from './domain/capability.js';

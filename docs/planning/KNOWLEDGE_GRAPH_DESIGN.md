@@ -192,7 +192,12 @@ CREATE TABLE page (...);  CREATE TABLE section (...);  CREATE TABLE link (...); 
   - SY-005: missing attribution;
   - SY-006: import edges re-checked with `importEdgeViolations`; syntactic edges must not claim a precision;
   - WS-001: edge evidence must point at a visible file.
-- `line_count` (for the SY-003 span-bounds check at publish) and `search_fts` are not in v3. SY-003 is enforced by the extractor and its tests; FTS comes with P02-09.
+- `line_count` (for the SY-003 span-bounds check at publish) is not stored. SY-003 is enforced by the extractor and its tests.
+- **Schema v4 (P02-09) adds `search_fts`.** It holds symbols only and is keyed by the symbol's `node.id` row version, not by `node_key`, so a row maps to exactly one version. Its columns are `name`, `qualified_name`, `words` (identifier words, so `store` finds `SessionStore`), `path` and `doc`, tokenized with `unicode61 remove_diacritics 2`.
+  - It is maintained in the publish transaction: rows of versions closed at the seq are deleted, rows of versions introduced at the seq are inserted.
+  - Reads join back to `node` with the visibility filter, and search is head-only (`SEARCH_HEAD_ONLY`).
+  - Ranking is bm25 (name 10, qualified name 5, words 3, path 1, doc 0.5), with ties broken by id.
+  - User text is reduced to letter/digit terms in core (`searchTerms`), and each term is passed only as a quoted prefix token, so query syntax cannot be injected.
 
 **Visibility filter.** Every read applies `valid_from_seq <= :seq AND (valid_to_seq IS NULL OR valid_to_seq > :seq)`. Repository code generates the predicate, and FF-BND-003 forbids raw SQL elsewhere.
 

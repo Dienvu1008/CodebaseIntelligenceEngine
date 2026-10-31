@@ -12,7 +12,8 @@
  *  - both methods return Results, like every other port; adapter failures are data, not exceptions;
  *  - `producer` is a ProducerIdentity; facts carry ProducerRef with per-capability fidelity (C-12).
  */
-import type { CancellationSignal, CanonicalPath, ContentHash, DomainError, Result, RevisionSeq } from '../../shared-kernel/index.js';
+import type { CancellationSignal, CanonicalPath, ContentHash, DomainError, Result, RevisionSeq, SourceRange, SymbolId } from '../../shared-kernel/index.js';
+import type { SymbolKind } from '../domain/symbol-identity.js';
 import type { FileSystem, ManifestEntry } from '../../workspace/public.js';
 import type { CapabilityProfile, LanguageId, ProducerIdentity } from '../domain/capability.js';
 import type { ExtractionDiagnostic, FileExtraction } from '../domain/file-extraction.js';
@@ -67,6 +68,30 @@ export interface ProjectResolution {
   readonly diagnostics: readonly (ExtractionDiagnostic & { readonly path: CanonicalPath | null })[];
   /** Incremental runs (Phase 05): dependents that must be re-resolved. */
   readonly affectedFiles?: readonly CanonicalPath[];
+}
+
+export interface SymbolQuery {
+  /** Free text; split into terms by `searchTerms` (each term is a prefix, all must match). */
+  readonly text: string;
+  /** Clamped to 1..MAX_SEARCH_LIMIT; default DEFAULT_SEARCH_LIMIT. */
+  readonly limit?: number;
+  readonly kinds?: readonly SymbolKind[];
+}
+
+export interface SymbolHit {
+  readonly id: SymbolId;
+  readonly name: string;
+  readonly qualifiedName: string;
+  readonly kind: SymbolKind;
+  readonly language: LanguageId;
+  readonly path: CanonicalPath;
+  readonly range: SourceRange;
+  readonly exported: boolean;
+}
+
+/** Full-text symbol search (ADR-0008 FTS5). Head-only: other seqs fail with SEARCH_HEAD_ONLY. */
+export interface SymbolSearch {
+  searchSymbols(seq: RevisionSeq, query: SymbolQuery): Promise<Result<{ readonly hits: readonly SymbolHit[]; readonly truncated: boolean }, DomainError>>;
 }
 
 /** Revision-pinned read side of the code graph (DOMAIN_MODEL §8). */
