@@ -1,0 +1,67 @@
+# External pinned fixtures (P01-14). NOT part of the required PR/push gate: scheduled and manual only.
+# Each OS clones Zod and Requests at their pinned commits (core.autocrlf=false) and exports a fresh index; a
+# final job requires byte-identical exports across Windows and Linux. No performance measurement happens
+# here: shared runners are too noisy (BENCHMARK_STRATEGY §2.2). Benchmarks run on the reference machine.
+# CodeForge-v2 is local-only (the owner's machine) and is therefore not part of this workflow.
+name: fixtures
+
+on:
+  schedule:
+    - cron: '17 3 * * 1' # weekly, Monday 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    name: export (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    env:
+      CIE_BENCH_CACHE: ${{ runner.temp }}/cie-bench
+      CIE_CONFIG_DIR: ${{ runner.temp }}/cie-user-config
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: fetch pinned fixtures
+        run: node scripts/bench/fixtures.mjs fetch zod requests
+      - name: export each fixture twice and require identical bytes
+        shell: bash
+        run: |
+          mkdir -p exports
+          for id in zod requests; do
+            ws="$CIE_BENCH_CACHE/fixtures/$id"
+            for run in 1 2; do
+              node packages/runtime/dist/cli/main.js dev index --workspace "$ws" --state-dir "$RUNNER_TEMP/state-$id-$run" > /dev/null
+              node packages/runtime/dist/cli/main.js dev export --workspace "$ws" --state-dir "$RUNNER_TEMP/state-$id-$run" > "exports/$id-$run.json"
+            done
+            cmp "exports/$id-1.json" "exports/$id-2.json"
+          done
+      - uses: actions/upload-artifact@v7
+        with:
+          name: exports-${{ matrix.os }}
+          path: exports/*-1.json
+
+  compare:
+    name: compare exports across OSes
+    needs: export
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: artifacts
+      - name: byte-compare Windows and Linux exports
+        run: |
+          for id in zod requests; do
+            cmp "artifacts/exports-windows-latest/$id-1.json" "artifacts/exports-ubuntu-latest/$id-1.json"
+            echo "$id: identical"
+          done

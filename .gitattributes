@@ -2,3 +2,6 @@
 * text=auto eol=lf
 *.wasm binary
 *.db binary
+# Cross-platform fixtures: deliberate CRLF content keeps its exact bytes; binaries are never normalized.
+fixtures/**/crlf.txt -text
+*.bin binary

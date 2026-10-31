@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "ignore": ["generated/"],
+  "maxFileBytes": 256
+}

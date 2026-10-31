@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cie.local/benchmarks/results.schema.json",
+  "title": "CIE benchmark result (cie-bench-result/1)",
+  "type": "object",
+  "required": ["format", "createdAt", "fixture", "environment", "repetitions", "scenarios"],
+  "properties": {
+    "format": { "const": "cie-bench-result/1" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "note": { "type": ["string", "null"] },
+    "repetitions": { "type": "integer", "minimum": 1 },
+    "fixture": {
+      "type": "object",
+      "required": ["id", "mode", "reproducible", "pinnedCommit", "actualCommit", "dirty", "tier", "tierBasis", "manifestEntries", "indexedFiles"],
+      "properties": {
+        "id": { "type": "string" },
+        "mode": { "enum": ["reference", "dogfood"] },
+        "reproducible": { "type": "boolean" },
+        "pinnedCommit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "actualCommit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "dirty": { "type": ["boolean", "null"] },
+        "tier": { "enum": ["small", "medium", "large"] },
+        "tierBasis": { "enum": ["assumed", "measured"] },
+        "manifestEntries": { "type": ["integer", "null"], "description": "all entries, including skipped files" },
+        "indexedFiles": { "type": ["integer", "null"], "description": "entries with status indexed: the tier classification basis" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "reference" } } },
+          "then": { "properties": { "reproducible": { "const": true }, "dirty": { "const": false } } }
+        },
+        {
+          "if": { "properties": { "mode": { "const": "dogfood" } } },
+          "then": { "properties": { "reproducible": { "const": false } } }
+        }
+      ]
+    },
+    "environment": {
+      "type": "object",
+      "required": ["os", "machine", "load", "software"],
+      "properties": {
+        "software": {
+          "type": "object",
+          "required": ["node", "cie", "lockfileSha256"],
+          "properties": {
+            "cie": { "type": "object", "required": ["commit", "dirty"] }
+          }
+        }
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "propertyNames": { "pattern": "^B-[0-9]{2}$" },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["samples", "summary", "deterministic"],
+        "properties": {
+          "deterministic": { "type": "boolean" },
+          "samples": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "object", "required": ["wallMs", "inProcessMs", "stagesMs", "maxRssKb", "work", "manifestHash", "storeBytes"] }
+          },
+          "summary": {
+            "type": "object",
+            "required": ["wallMs", "inProcessMs", "maxRssKb"],
+            "additionalProperties": {
+              "type": "object",
+              "required": ["n", "median", "p95", "min", "max", "mean", "stdev", "cv"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

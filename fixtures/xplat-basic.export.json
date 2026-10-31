@@ -1,0 +1,175 @@
+{
+  "format": "cie-export/1",
+  "revision": 1,
+  "manifestHash": "sha256:0a265a44ea5912d147644a1be1eb7d695a23d8e2fcb0d5ee3d4bc623c0c353c5",
+  "files": [
+    {
+      "path": ".gitignore",
+      "status": "indexed",
+      "hash": "sha256:fd78d7859228914fabee95a2983c01429264e0e55025fab5bad3501eae249496",
+      "size": 13,
+      "language": null
+    },
+    {
+      "path": "big.ts",
+      "status": "skipped",
+      "reason": "too_large",
+      "size": 301
+    },
+    {
+      "path": "cie.config.json",
+      "status": "indexed",
+      "hash": "sha256:6e2d25df546428a84eb38e0d52fc531ba0566c7d4d981a024101115315dfd927",
+      "size": 70,
+      "language": null
+    },
+    {
+      "path": "crlf.txt",
+      "status": "indexed",
+      "hash": "sha256:6612d9c94c2da8d2544e1188348fc7baf717ffff1bacde51929a166404a41ffc",
+      "size": 20,
+      "language": null
+    },
+    {
+      "path": "docs/日本.md",
+      "status": "indexed",
+      "hash": "sha256:e83d55252dbe10025e7612ec35b45b96208074df817f67ec88a11c8b6a1b87d4",
+      "size": 9,
+      "language": null
+    },
+    {
+      "path": "image.bin",
+      "status": "skipped",
+      "reason": "binary",
+      "size": 8
+    },
+    {
+      "path": "package.json",
+      "status": "indexed",
+      "hash": "sha256:a1439d35ddfffdca5c5042101b9c08feb4cc526900ad1a3ed5438d203fce9709",
+      "size": 43,
+      "language": null
+    },
+    {
+      "path": "py/pkg/__init__.py",
+      "status": "indexed",
+      "hash": "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size": 1,
+      "language": "py"
+    },
+    {
+      "path": "py/pkg/mod.py",
+      "status": "indexed",
+      "hash": "sha256:5b76d0962c09ab4ee309fac65fad3568c97abdec983b405146ae3e86a235e352",
+      "size": 22,
+      "language": "py"
+    },
+    {
+      "path": "src/Upper.ts",
+      "status": "indexed",
+      "hash": "sha256:641ecb876f55d7a58f43e58656a2b6553895c764708476751b607e1247b85488",
+      "size": 24,
+      "language": "ts"
+    },
+    {
+      "path": "src/café.ts",
+      "status": "indexed",
+      "hash": "sha256:dfd52eef1f023aa4095e79eefd27e655a2bd4886ac96123c4d4572a9097b17be",
+      "size": 28,
+      "language": "ts"
+    },
+    {
+      "path": "src/greet.ts",
+      "status": "indexed",
+      "hash": "sha256:815cdf72d8b915cdf49c9a9e55f228ea849b7635ce04e5b4f44ee334325681fb",
+      "size": 64,
+      "language": "ts"
+    },
+    {
+      "path": "src/index.ts",
+      "status": "indexed",
+      "hash": "sha256:b81e51ecf382b4d507f46f679c93803491911d71292a6d9c557a3370811026df",
+      "size": 36,
+      "language": "ts"
+    },
+    {
+      "path": "src/sub/.gitignore",
+      "status": "indexed",
+      "hash": "sha256:aa89e3df20e4d4aa74ce92db2f889c07348de9b7009e73fd3f09e4adadf42f23",
+      "size": 10,
+      "language": null
+    },
+    {
+      "path": "src/sub/keep.log",
+      "status": "indexed",
+      "hash": "sha256:3262ea7f96bb6eeba96d545a9822d7b83f8853eb7cb885f01f0c08c67dcd5592",
+      "size": 35,
+      "language": null
+    },
+    {
+      "path": "tsconfig.json",
+      "status": "indexed",
+      "hash": "sha256:7efa43e0a5829cd7e44d0a575be66de0893fbccc44d8c5c2824085a8cec266e3",
+      "size": 42,
+      "language": null
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:docs",
+      "kind": "directory",
+      "name": "docs",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:py",
+      "kind": "directory",
+      "name": "py",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:py/pkg",
+      "kind": "directory",
+      "name": "pkg",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "dir:src/sub",
+      "kind": "directory",
+      "name": "sub",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "pkg:npm:.",
+      "kind": "package",
+      "name": ".",
+      "ecosystem": "npm",
+      "file": "package.json"
+    },
+    {
+      "id": "pkg:py:py/pkg",
+      "kind": "package",
+      "name": "pkg",
+      "ecosystem": "python",
+      "file": "py/pkg/__init__.py"
+    },
+    {
+      "id": "proj:ts:tsconfig.json",
+      "kind": "project",
+      "name": "tsconfig.json",
+      "ecosystem": "typescript",
+      "file": "tsconfig.json"
+    }
+  ]
+}

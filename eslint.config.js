@@ -24,13 +24,15 @@ const NODE_GLOBALS = {
   console: 'readonly',
   URL: 'readonly',
   AbortController: 'readonly',
+  Buffer: 'readonly',
+  performance: 'readonly',
   setTimeout: 'readonly',
   clearTimeout: 'readonly',
 };
 
 export default tseslint.config(
   {
-    ignores: ['**/node_modules/**', '**/dist/**', 'coverage/**', 'tests/fitness/fixtures/**'],
+    ignores: ['**/node_modules/**', '**/dist/**', 'coverage/**', 'tests/fitness/fixtures/**', 'fixtures/**'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

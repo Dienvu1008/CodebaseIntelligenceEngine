@@ -2,7 +2,7 @@
 /**
  * CIE development CLI (Phase 01). The public CLI comes in Phase 09.
  *
- *   cie dev index  [--workspace <dir>] [--state-dir <dir>] [--json]
+ *   cie dev index  [--workspace <dir>] [--state-dir <dir>] [--json [--timings]]
  *   cie dev status [--workspace <dir>] [--state-dir <dir>] [--json]
  *   cie dev export [--workspace <dir>] [--state-dir <dir>]
  *
@@ -31,12 +31,33 @@ function killHook(): ((stage: IndexStage) => void) | undefined {
   };
 }
 
-async function indexCommand(rt: DevRuntime, json: boolean): Promise<number> {
-  const r = await rt.fullIndex(killHook());
+/**
+ * Measurement for the benchmark harness (P01-13): elapsed milliseconds at each stage boundary, measured
+ * in-process from the start of the index command, plus the peak resident set size. Observation only.
+ */
+function stageRecorder(kill: ((stage: IndexStage) => void) | undefined) {
+  const start = performance.now();
+  const stagesMs: Partial<Record<IndexStage, number>> = {};
+  return {
+    onStage: (stage: IndexStage) => {
+      stagesMs[stage] = Math.round((performance.now() - start) * 1000) / 1000;
+      kill?.(stage);
+    },
+    report: () => ({
+      stagesMs,
+      totalMs: Math.round((performance.now() - start) * 1000) / 1000,
+      maxRssKb: process.resourceUsage().maxRSS,
+    }),
+  };
+}
+
+async function indexCommand(rt: DevRuntime, json: boolean, timings: boolean): Promise<number> {
+  const recorder = stageRecorder(killHook());
+  const r = await rt.fullIndex(recorder.onStage);
   if (!r.ok) return fail(r.error);
   const o = r.value;
   if (json) {
-    process.stdout.write(`${JSON.stringify(o)}\n`);
+    process.stdout.write(`${JSON.stringify(timings ? { ...o, timings: recorder.report() } : o)}\n`);
   } else {
     process.stdout.write(
       `published revision ${o.seq} (${o.manifestHash})\n` +
@@ -70,7 +91,7 @@ export async function main(argv: readonly string[]): Promise<number> {
     parsed = parseArgs({
       args: [...argv],
       allowPositionals: true,
-      options: { workspace: { type: 'string' }, 'state-dir': { type: 'string' }, json: { type: 'boolean' } },
+      options: { workspace: { type: 'string' }, 'state-dir': { type: 'string' }, json: { type: 'boolean' }, timings: { type: 'boolean' } },
     });
   } catch (e) {
     process.stderr.write(`${e instanceof Error ? e.message : String(e)}\n${USAGE}\n`);
@@ -90,7 +111,7 @@ export async function main(argv: readonly string[]): Promise<number> {
   if (!rt.ok) return fail(rt.error);
   try {
     const json = parsed.values.json === true;
-    if (command === 'index') return await indexCommand(rt.value, json);
+    if (command === 'index') return await indexCommand(rt.value, json, parsed.values.timings === true);
     if (command === 'status') return await statusCommand(rt.value, json);
     const exported = await exportHead(rt.value);
     if (!exported.ok) return fail(exported.error);
