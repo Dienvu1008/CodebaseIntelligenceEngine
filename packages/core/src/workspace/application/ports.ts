@@ -8,8 +8,10 @@ import type {
   CanonicalPath,
   DomainError,
   Result,
+  RevisionSeq,
   WorkspaceId,
 } from '../../shared-kernel/index.js';
+import type { ManifestEntry } from '../domain/manifest.js';
 
 export type EntryKind = 'file' | 'directory' | 'symlink' | 'other';
 
@@ -72,6 +74,15 @@ export interface WorkspaceIdentity {
   readonly id: WorkspaceId;
   /** ISO-8601, informational. */
   readonly createdAt: string;
+}
+
+/** Revision-pinned read side of the file manifest (DOMAIN_MODEL §8). */
+export interface FileManifestReader {
+  /**
+   * Every file entry visible at a PUBLISHED `seq`, in canonical path order. Staging and abandoned seqs fail
+   * with REVISION_NOT_VISIBLE (SN-003).
+   */
+  filesAt(seq: RevisionSeq): Promise<Result<readonly ManifestEntry[], DomainError>>;
 }
 
 /** Persists the identity in `.cie/workspace.json` and binds stores to it (WS-003). */

@@ -2,7 +2,7 @@
 // (BOUNDED_CONTEXTS §6). Deep imports are blocked by the package exports map (FF-BND-007).
 export * from './shared-kernel/index.js';
 export * from './workspace/public.js';
-export type * from './synchronization/public.js';
+export * from './synchronization/public.js';
 export * from './code-intelligence/public.js';
 export * from './knowledge/public.js';
 export * from './documentation/public.js';

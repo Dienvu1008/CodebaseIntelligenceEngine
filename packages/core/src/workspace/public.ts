@@ -3,6 +3,7 @@ export type {
   ConfigSource,
   DirEntry,
   EntryKind,
+  FileManifestReader,
   FileStat,
   FileSystem,
   RealPathResult,

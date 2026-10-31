@@ -4,10 +4,17 @@ export type {
   ChangeKind,
   ChangeOrigin,
   ChangeSeq,
+  Freshness,
   JobKind,
   JobState,
   RevisionStatus,
 } from './domain/types.js';
+export { changeSeq } from './domain/types.js';
+export { isStaging, jobTransition, revisionTransition } from './domain/lifecycle.js';
+export type { FreshnessInput, PublishCandidate, PublishContext } from './domain/publish-policy.js';
+export { decidePublish, evaluateFreshness } from './domain/publish-policy.js';
+export type { RecoveryAction, RecoveryInput, UnfinishedRevision } from './domain/recovery.js';
+export { planRecovery } from './domain/recovery.js';
 export type {
   ChangeEvent,
   ChangeHint,
@@ -17,9 +24,9 @@ export type {
   JobRepository,
   Lease,
   LeaseManager,
-  PublishConflict,
   RevisionRecord,
   RevisionStore,
   RevisionWriter,
+  StageStats,
   Unsubscribe,
 } from './application/ports.js';

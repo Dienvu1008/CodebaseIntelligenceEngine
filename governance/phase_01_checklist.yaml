@@ -42,8 +42,11 @@ items:
     notes: Enumeration determinism (tree walk) is covered with GuardedFileSystem (P01-06) and the cross-OS export check (P01-14).
   - id: P01-05
     title: synchronization domain - IndexRevision, IndexJob, PublishPolicy, FreshnessEvaluator, RecoveryService
-    status: pending
-    check: "tests/invariants/sn/*.spec.ts"
+    status: done
+    check: "tests/invariants/sn/sn-001..005,007.spec.ts"
+    notes: >
+      Revision/job state machines, decidePublish (SN-001 watermark, SN-002 base, SN-003 validation), evaluateFreshness,
+      planRecovery. Phase 01 recovery policy: abandon (resume-from-checkpoint deferred to Phase 05, as SN-005 allows).
 
   # --- Adapters ---
   - id: P01-06
@@ -61,6 +64,11 @@ items:
     title: adapters/sqlite - open checks (quick_check, schema, meta.workspace_id), migrations framework, revision/lease/file/node tables, visibility-filter query builder, quarantine + rebuild
     status: pending
     check: "tests/invariants/ws/ws-003.spec.ts; tests/invariants/sn/sn-002,003,007; FF-DAT-001/002/004/005"
+    notes: >
+      Done: index.db open/verify/quarantine/schema-rebuild, meta.workspace_id (WS-003), revisions, single visibleAt
+      predicate, staging with stable file_key, CAS publish (domain precheck + SQL CAS, each independently sufficient by
+      mutation test), abandon, lease-checked writes, follower read-only mode. Remaining: state.db with the
+      forward-only migrations framework (jobs, change log), and directory/package node tables.
   - id: P01-08
     title: adapters/config - workspace allow-list + user config dir (SEC-005)
     status: pending

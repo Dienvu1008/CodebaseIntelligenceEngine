@@ -10,6 +10,7 @@ import type {
   Result,
   RevisionSeq,
 } from '../../shared-kernel/index.js';
+import type { ManifestEntry } from '../../workspace/public.js';
 import type {
   ChangeKind,
   ChangeOrigin,
@@ -40,18 +41,32 @@ export interface RevisionStore {
   listUnfinished(): Promise<readonly RevisionRecord[]>;
 }
 
-export interface PublishConflict {
-  readonly code: 'PUBLISH_CONFLICT';
-  readonly expectedBase: RevisionSeq | null;
-  readonly actualHead: RevisionSeq | null;
+export interface StageStats {
+  readonly inserted: number;
+  readonly closed: number;
+  readonly unchanged: number;
 }
 
-/** Unit of work for staging and publishing a revision (SN-002, SN-003, SN-007). */
+/**
+ * Unit of work for staging and publishing a revision (SN-002, SN-003, SN-007).
+ * Refined in Phase 01: staging, validation and the PUBLISH_CONFLICT error code (a DomainError).
+ */
 export interface RevisionWriter {
+  /** Starts revision head+1 (status building) on top of `base`. Seqs are never reused, including abandoned ones. */
   begin(base: RevisionSeq | null, jobId: JobId): Promise<Result<RevisionRecord, DomainError>>;
+  /**
+   * Stages the complete file manifest of the revision. Rows identical to the base stay untouched, changed
+   * rows get a new version (valid_from = seq), and removed or changed rows are closed (valid_to = seq).
+   */
+  stageManifest(seq: RevisionSeq, entries: readonly ManifestEntry[]): Promise<Result<StageStats, DomainError>>;
   markValidating(seq: RevisionSeq): Promise<Result<void, DomainError>>;
-  /** Compare-and-swap on the head pointer, in a single transaction. */
-  publish(seq: RevisionSeq, watermark: ChangeSeq): Promise<Result<void, PublishConflict | DomainError>>;
+  /** RevisionValidator checks on the staged revision. An empty list means valid. */
+  validate(seq: RevisionSeq): Promise<readonly string[]>;
+  /**
+   * Compare-and-swap of the head pointer from the revision's base to `seq`, in a single transaction. If the
+   * head moved, it fails with code PUBLISH_CONFLICT and changes nothing (SN-002).
+   */
+  publish(seq: RevisionSeq, watermark: ChangeSeq): Promise<Result<void, DomainError>>;
   /** Rolls back every row the revision introduced or closed (ADR-0015 §5). */
   abandon(seq: RevisionSeq, reason: string): Promise<Result<void, DomainError>>;
 }
