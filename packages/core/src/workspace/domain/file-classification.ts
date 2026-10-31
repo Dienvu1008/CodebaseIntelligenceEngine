@@ -1,8 +1,9 @@
 /**
  * File classification used by enumeration: binary detection and the Phase 01 language tag.
  *
- * The language tag is a provisional extension map. In Phase 02, the code-intelligence LanguageRegistry
- * becomes the authority and this map must agree with it (a golden test is added then).
+ * The language tag comes from a copy of the code-intelligence LanguageRegistry's MVP table (MVP_LANGUAGES),
+ * which is the authority. This context cannot import code-intelligence (DEPENDENCY_RULES C5), so
+ * tests/golden/language-registry.spec.ts keeps the two in step.
  */
 import type { CanonicalPath } from '../../shared-kernel/index.js';
 

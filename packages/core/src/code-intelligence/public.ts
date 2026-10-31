@@ -1,5 +1,9 @@
 // Published language of the code-intelligence context (FF-BND-001).
-// P02-04 adds the FileExtractor and ProjectResolver ports and the LanguageRegistry.
+export type { LanguageRegistryInput } from './application/language-registry.js';
+export { LanguageRegistry } from './application/language-registry.js';
+export type { FileExtractor, FileInput, LanguageAdapter, ProjectDescriptor, ProjectInput, ProjectResolution, ProjectResolver } from './application/ports.js';
+export type { LanguageDefinition } from './domain/languages.js';
+export { MVP_LANGUAGES, extensionOf } from './domain/languages.js';
 export type { Capability, CapabilityProfile, Fidelity, LanguageId, Precision, ProducerIdentity, ProducerRef } from './domain/capability.js';
 export {
   CAPABILITIES,

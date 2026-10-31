@@ -135,6 +135,13 @@ export interface ProjectResolution {
 }
 ```
 
+**Implemented (Phase 02, P02-03/04)** in `packages/core/src/code-intelligence/`, with these refinements of the sketch:
+- `supports(lang)` and `profile(lang)` become a `profiles` list that the registry validates up front;
+- `extractFile` and `resolve` return `Result`s;
+- `producer` is a `ProducerIdentity`, and each fact carries a `ProducerRef` with the fidelity of its capability (C-12);
+- `ProjectInput` is `{manifest, extractions, fs}`;
+- resolved edges are `StructuralEdge`s built by `createImportEdge` (SY-006).
+
 **Registration.** The composition root registers adapters. `LanguageRegistry` (code-intelligence application) maps extension → language → (extractor, resolver[]). When several resolvers apply, they are ordered by fidelity, and the higher-fidelity resolver's edges supersede the lower one's for the same `(from, type, site)`.
 
 **Adding a language** needs:

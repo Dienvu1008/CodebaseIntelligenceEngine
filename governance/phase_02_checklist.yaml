@@ -29,8 +29,9 @@ items:
     notes: "capability.ts, symbol-identity.ts, file-extraction.ts, import-edge.ts (SY-006 at edge construction, plus importEdgeViolations for the validator). Contradictions C-12 (ProducerRef fidelity) and C-13 (external node ids) resolved. Both tests were mutation-checked (precision rule and disambiguator)."
   - id: P02-04
     title: Ports FileExtractor and ProjectResolver (CODE_INTELLIGENCE_STRATEGY §4); LanguageRegistry, which becomes the authority over the Phase 01 extension map
-    status: pending
+    status: done
     check: "golden test: LanguageRegistry agrees with languageForPath, or replaces it"
+    notes: "code-intelligence/application/ports.ts and language-registry.ts; MVP_LANGUAGES in domain/languages.ts. The Phase 01 map stays in workspace (C5 forbids workspace -> code-intelligence) and tests/golden/language-registry.spec.ts pins agreement (mutation-checked). Sketch refinements: profiles list instead of supports()/profile(), Result-returning methods, ProducerIdentity (C-12). Edge supersession across resolvers is applied in P02-08."
 
   # --- Adapters ---
   - id: P02-05
