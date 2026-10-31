@@ -19,11 +19,11 @@ items:
   # --- Domain (core) ---
   - id: P01-02
     title: workspace domain - PathCanonicalizer (WS-002) with adversarial vectors (.., drive, UNC, \\?\, mixed separators, NFC, ADS, reserved names)
-    status: pending
-    check: "tests/invariants/ws/ws-002.spec.ts; tests/adversarial/paths"
+    status: done
+    check: "tests/invariants/ws/ws-002.spec.ts (the adversarial path vectors live there)"
     notes: >
-      Lexical part (a) done: canonicalizePath + 43 vectors + a property test. Parts (b) realpath confinement
-      and (c) symlink escapes are added to ws-002.spec.ts together with GuardedFileSystem (P01-06).
+      (a) canonicalizePath with 43 vectors and a property test; (b, c) GuardedFileSystem realpath confinement,
+      escaping directory links (junction on Windows) and file symlinks, root opened through a link.
   - id: P01-03
     title: workspace domain - IgnoreEvaluator (.gitignore semantics, CIE defaults, cie.config.json allow-list); matcher library choice recorded
     status: done
@@ -48,8 +48,15 @@ items:
   # --- Adapters ---
   - id: P01-06
     title: adapters/fs - GuardedFileSystem (realpath confinement, write confinement + SEC-002 exception register)
-    status: pending
-    check: "tests/invariants/sec/sec-002.spec.ts"
+    status: done
+    check: "tests/invariants/ws/ws-002.spec.ts (b, c); tests/invariants/sec/sec-002.spec.ts"
+    notes: >
+      Port refinement (allowed by the Phase 00 sign-off): FileSystem.readFile/list return Result (FS_OUTSIDE_ROOT,
+      FS_NOT_FOUND, FS_NOT_A_FILE, FS_NOT_A_DIRECTORY, FS_IO_ERROR, FS_CANCELLED); list(null) lists the root.
+      WriteConfinement checks real paths per purpose (state, wiki, init-gitignore, user-config) and refuses a
+      --state-dir equal to, above or inside the workspace. Known limitation: realpath-then-read is a TOCTOU window
+      against concurrent local attackers, which is outside the threat model (repository content is untrusted;
+      local processes are not adversaries); to be recorded in the sign-off.
   - id: P01-07
     title: adapters/sqlite - open checks (quick_check, schema, meta.workspace_id), migrations framework, revision/lease/file/node tables, visibility-filter query builder, quarantine + rebuild
     status: pending

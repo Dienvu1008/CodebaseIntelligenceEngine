@@ -1,9 +1,14 @@
 // WS-002: paths are canonical and confined to the root.
-// This file covers part (a), the lexical canonicalization in PathCanonicalizer, on every OS. Parts (b)
-// realpath confinement and (c) symlink escapes are added to this file with GuardedFileSystem (P01-06).
-import { canonicalizePath, type PathErrorCode } from '@cie/core';
+//  (a) lexical canonicalization in PathCanonicalizer, identical on every OS;
+//  (b) realpath confinement and (c) symlink/junction escapes, enforced by GuardedFileSystem.
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import nodePath from 'node:path';
+import { GuardedFileSystem } from '@cie/adapters';
+import { canonicalizePath, type CanonicalPath, type PathErrorCode } from '@cie/core';
 import fc from 'fast-check';
-import { describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { linkDir, tryLinkFile } from '../../helpers/links.js';
 
 const accepted: Array<[raw: string, canonical: string]> = [
   ['src/a.ts', 'src/a.ts'],
@@ -80,5 +85,87 @@ describe('WS-002 (a): lexical canonicalization', () => {
       }),
       { seed: 20261031, numRuns: 2000 },
     );
+  });
+});
+
+// ---------------------------------------------------------------------------------------------------
+// WS-002 (b) realpath confinement and (c) symlink escapes, enforced by GuardedFileSystem.
+// ---------------------------------------------------------------------------------------------------
+
+const cp = (raw: string): CanonicalPath => {
+  const r = canonicalizePath(raw);
+  if (!r.ok) throw new Error(raw);
+  return r.value;
+};
+const signal = new AbortController().signal;
+
+describe('WS-002 (b, c): GuardedFileSystem confines reads to the real root', () => {
+  let sandbox: string;
+  let root: string;
+  let fileLinkCreated = false;
+  let fsys: GuardedFileSystem;
+
+  beforeAll(async () => {
+    sandbox = mkdtempSync(nodePath.join(tmpdir(), 'cie-ws002-'));
+    root = nodePath.join(sandbox, 'workspace');
+    const outside = nodePath.join(sandbox, 'outside');
+    mkdirSync(nodePath.join(root, 'src', 'real'), { recursive: true });
+    mkdirSync(outside, { recursive: true });
+    writeFileSync(nodePath.join(root, 'src', 'real', 'a.ts'), 'export const a = 1;\n');
+    writeFileSync(nodePath.join(outside, 'secret.txt'), 'SECRET');
+    linkDir(outside, nodePath.join(root, 'escape-dir')); // escapes the root
+    linkDir(nodePath.join(root, 'src', 'real'), nodePath.join(root, 'alias')); // stays inside
+    fileLinkCreated = tryLinkFile(nodePath.join(outside, 'secret.txt'), nodePath.join(root, 'escape-file.txt'));
+    // Open the workspace through a link to it: the root itself is resolved once, at open.
+    linkDir(root, nodePath.join(sandbox, 'workspace-link'));
+    fsys = await GuardedFileSystem.open(nodePath.join(sandbox, 'workspace-link'));
+  });
+  afterAll(() => rmSync(sandbox, { recursive: true, force: true }));
+
+  it('reads a regular file inside the root, even when the root was opened through a link', async () => {
+    const r = await fsys.readFile(cp('src/real/a.ts'), signal);
+    expect(r.ok && new TextDecoder().decode(r.value)).toBe('export const a = 1;\n');
+  });
+
+  it('classifies real paths as inside, outside or missing', async () => {
+    expect(await fsys.realpath(cp('alias/a.ts'))).toEqual({ kind: 'inside', path: 'src/real/a.ts' });
+    expect(await fsys.realpath(cp('escape-dir/secret.txt'))).toEqual({ kind: 'outside' });
+    expect(await fsys.realpath(cp('escape-dir'))).toEqual({ kind: 'outside' });
+    expect(await fsys.realpath(cp('nope/missing.ts'))).toEqual({ kind: 'missing' });
+  });
+
+  it('refuses to read or list through a directory link that escapes the root (c)', async () => {
+    const read = await fsys.readFile(cp('escape-dir/secret.txt'), signal);
+    expect(read.ok).toBe(false);
+    if (!read.ok) expect(read.error.code).toBe('FS_OUTSIDE_ROOT');
+    const list = await fsys.list(cp('escape-dir'), signal);
+    expect(list.ok).toBe(false);
+    if (!list.ok) expect(list.error.code).toBe('FS_OUTSIDE_ROOT');
+  });
+
+  it('refuses to read through a file symlink that escapes the root (c)', async (ctx) => {
+    if (!fileLinkCreated) {
+      console.warn('[WS-002] file symlink not created (EPERM: no symlink privilege); case skipped on this machine');
+      ctx.skip();
+    }
+    const read = await fsys.readFile(cp('escape-file.txt'), signal);
+    expect(read.ok).toBe(false);
+    if (!read.ok) expect(read.error.code).toBe('FS_OUTSIDE_ROOT');
+  });
+
+  it('reports links as symlinks without following them (lstat) and lists in code-unit order', async () => {
+    expect((await fsys.stat(cp('escape-dir')))?.kind).toBe('symlink');
+    const list = await fsys.list(null, signal);
+    if (!list.ok) throw new Error(list.error.message);
+    const names = list.value.map((e) => e.name);
+    expect(names).toEqual([...names].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
+    expect(list.value.find((e) => e.name === 'escape-dir')?.kind).toBe('symlink');
+  });
+
+  it('honours cancellation', async () => {
+    const ac = new AbortController();
+    ac.abort();
+    const r = await fsys.readFile(cp('src/real/a.ts'), ac.signal);
+    expect(r.ok === false && r.error.code).toBe('FS_CANCELLED');
   });
 });
