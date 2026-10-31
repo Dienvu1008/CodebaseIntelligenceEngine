@@ -645,6 +645,34 @@
       }
     },
     {
+      "id": "ts:src/models/user.ts#UserService.prefix(property)",
+      "kind": "symbol",
+      "name": "prefix",
+      "file": "src/models/user.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "UserService.prefix",
+        "kind": "property",
+        "range": {
+          "startLine": 19,
+          "startCol": 14,
+          "endLine": 19,
+          "endCol": 45
+        },
+        "spanHash": "sha256:2e39439acbde4a59f72c99ce26214636407123c391d8525ce2234f09ed323b58",
+        "bodyFingerprint": "sha256:87f2473cd030c5e3400b8f536ea91a21683e294863527fb1d39d6b04eb551d7b",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
       "id": "ts:src/models/user.ts#parseUser(function)~1",
       "kind": "symbol",
       "name": "parseUser",
@@ -1151,6 +1179,32 @@
           "startCol": 2,
           "endLine": 27,
           "endCol": 3
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/models/user.ts#UserService(class)",
+      "to": "ts:src/models/user.ts#UserService.prefix(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 19,
+          "startCol": 14,
+          "endLine": 19,
+          "endCol": 45
         },
         "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
       },

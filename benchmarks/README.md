@@ -32,6 +32,29 @@ node scripts/bench/fixtures.mjs clean          # the cache is disposable; fetch 
 
 Override the cache location with `CIE_BENCH_CACHE`.
 
+## Result formats
+
+- `cie-bench-result/1` (Phase 01): file and structure work only.
+- `cie-bench-result/2` (Phase 02): every sample also records the code-graph work (`work.graph` rows, `work.code`: extracted files, symbols, nodes, edges, skipped files, diagnostics) and `exportSha256`, the SHA-256 of `cie dev export` after the run. `deterministic` now requires identical exports across the samples of a scenario, so it covers the code graph, not only the manifest. Stages `extracted` and `resolved` appear in `stagesMs`.
+
+Older results stay valid under their own format; compare like with like.
+
+## Extraction quality report (Phase 02, P02-13)
+
+```sh
+npm run build
+node scripts/quality/report.mjs --workspace "$(node scripts/bench/fixtures.mjs where)/fixtures/zod" --id zod \
+  --workspace "$(node scripts/bench/fixtures.mjs where)/fixtures/codeforge-v2" --id codeforge-v2 \
+  --workspace "$(node scripts/bench/fixtures.mjs where)/fixtures/requests" --id requests
+```
+
+Writes `benchmarks/results/<date>-<commit>-quality.json` (`cie-quality-report/1`). It measures, it does not judge: there are no thresholds.
+
+- **TS/TSX/JS symbols vs the TypeScript compiler.** An oracle built from `ts.createSourceFile`, with the Phase 02 symbol scope and the same identity rules (`identifySymbols`), is compared with the published symbols.
+  - Precision, recall, per-kind differences and samples are reported.
+  - Files with syntax errors (`syntaxErrorFiles`) and undecodable files are listed and excluded: tsc and tree-sitter recover from errors differently, and neither recovery is ground truth.
+- **All languages vs hand-verified ground truth** (`fixtures/<name>.truth.json`, golden fixtures only). Symbols, imports and named import bindings are compared. This is the only oracle for Python.
+
 ## Scenarios (Phase 01)
 
 | ID | Measures |

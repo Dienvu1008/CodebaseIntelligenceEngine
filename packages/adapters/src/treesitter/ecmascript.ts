@@ -40,6 +40,11 @@ function methodKind(def: RawDefinition): SymbolKind {
   return def.name?.text === 'constructor' ? 'constructor' : 'method';
 }
 
+/** A constructor parameter declares a class member only with an accessibility modifier, `readonly` or `override`. */
+function isParameterProperty(param: Node): boolean {
+  return param.children.some((c) => c.type === 'accessibility_modifier' || c.type === 'override_modifier' || (!c.isNamed && (c.type === 'readonly' || c.type === 'override')));
+}
+
 function kindOf(def: RawDefinition): SymbolKind | null {
   switch (def.hint) {
     case 'variable':
@@ -48,12 +53,17 @@ function kindOf(def: RawDefinition): SymbolKind | null {
       return methodKind(def);
     case 'default':
       return CLASS_VALUES.has(def.node.type) ? 'class' : 'function';
+    case 'parameter_property':
+      return isParameterProperty(def.node) ? 'property' : null;
+    case 'global':
+      return 'namespace';
     default:
       return def.hint as SymbolKind;
   }
 }
 
 function nameOf(def: RawDefinition): string {
+  if (def.hint === 'global') return 'global';
   if (def.hint === 'default') return def.node.childForFieldName('name')?.text ?? DEFAULT_EXPORT_NAME;
   const name = def.name;
   if (name === null) return DEFAULT_EXPORT_NAME;

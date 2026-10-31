@@ -24,7 +24,7 @@ type Category = 'symbols' | 'imports' | 'importsSymbol';
 
 /** Known gaps of the Phase 02 producers, by fixture: entries the ideal producer finds and CIE does not, or vice versa. */
 const KNOWN_GAPS: Partial<Record<string, Partial<Record<Category, { missing?: string[]; extra?: string[] }>>>> = {
-  'ts-basic': { symbols: { missing: ['ts:src/models/user.ts#UserService.prefix(property)'] } }, // TS parameter property (L1)
+  // ts-basic: the TS parameter property gap was closed in P02-13.
   'js-mixed': { importsSymbol: { missing: ['mod:js:lib/server.js -> formatDate -> js:lib/dates.js#formatDate(function)'] } }, // destructured require (L1)
 };
 

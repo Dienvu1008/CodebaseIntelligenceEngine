@@ -1,11 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://cie.local/benchmarks/results.schema.json",
-  "title": "CIE benchmark result (cie-bench-result/1)",
+  "title": "CIE benchmark result (cie-bench-result/1, /2: adds code-graph work counters and exportSha256 per sample)",
   "type": "object",
   "required": ["format", "createdAt", "fixture", "environment", "repetitions", "scenarios"],
   "properties": {
-    "format": { "const": "cie-bench-result/1" },
+    "format": { "enum": ["cie-bench-result/1", "cie-bench-result/2"] },
     "createdAt": { "type": "string", "format": "date-time" },
     "note": { "type": ["string", "null"] },
     "repetitions": { "type": "integer", "minimum": 1 },

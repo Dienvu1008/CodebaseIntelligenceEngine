@@ -55,6 +55,7 @@ const LANGUAGES: readonly { readonly id: LanguageId; readonly grammar: string; r
   { id: 'py', grammar: 'python', rules: PYTHON_RULES },
 ];
 
+const CLASS_NODES: ReadonlySet<string> = new Set(['class_declaration', 'abstract_class_declaration', 'class']);
 const MEMBER_KINDS: ReadonlySet<SymbolKind> = new Set(['method', 'constructor', 'getter', 'setter', 'property', 'enum_member']);
 
 const L1_PROFILE = { symbols: 'L1', imports: 'L1', docstrings: 'L1', references: 'L0', calls: 'L0', typeRelations: 'L0', di: 'L0' };
@@ -70,6 +71,15 @@ interface CompiledLanguage {
 
 const fail = (code: string, message: string, details?: Readonly<Record<string, unknown>>): Result<never, DomainError> => err(domainError(code, message, details));
 const byPosition = (a: RawDefinition, b: RawDefinition): number => a.node.startIndex - b.node.startIndex || b.node.endIndex - a.node.endIndex;
+
+/** The innermost enclosing class on the definition stack, or null. */
+function nearestClass<T extends { def: RawDefinition }>(stack: readonly T[]): T | null {
+  for (let i = stack.length - 1; i >= 0; i--) {
+    const s = stack[i] as T;
+    if (CLASS_NODES.has(s.def.node.type)) return s;
+  }
+  return null;
+}
 
 /** Encodes a source name into a segment; an empty name becomes `<anon@n>`, n counted per parent. */
 function segmentName(raw: string, parentIndex: number, anonymous: Map<number, number>): string {
@@ -170,7 +180,8 @@ export class TreeSitterExtractor implements FileExtractor {
     const anonymous = new Map<number, number>(); // parent draft index (-1 = module) -> count
     for (const def of this.definitions(lang, root)) {
       while (stack.length > 0 && (stack.at(-1) as { def: RawDefinition }).def.node.endIndex <= def.node.startIndex) stack.pop();
-      const parent = stack.at(-1) ?? null;
+      // A parameter property lies inside its constructor's range but is a member of the class (`Class.deps`).
+      const parent = def.hint === 'parameter_property' ? nearestClass(stack) : (stack.at(-1) ?? null);
       const draft = this.draft(lang, def, parent?.def ?? null, parent?.index ?? null, source, anonymous);
       if (draft === null) continue;
       drafts.push(draft);

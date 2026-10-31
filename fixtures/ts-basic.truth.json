@@ -3,7 +3,7 @@
   "fixture": "ts-basic",
   "notes": [
     "Hand-verified against the sources (P02-12). Scope: declarations at module level and their class, interface, enum and namespace members; locals and parameters are not symbols.",
-    "UserService.prefix is a TypeScript parameter property (constructor(private readonly prefix)), i.e. a class member. The L1 extractor does not see it: known gap, counted by the quality report.",
+    "UserService.prefix is a TypeScript parameter property (constructor(private readonly prefix)), i.e. a class member. It was a known L1 gap in P02-12 and is extracted since P02-13.",
     "The parameter type literal { user: User } of UserCard is not a symbol.",
     "`import shout from` binds the default export, whose declared name is shout."
   ],

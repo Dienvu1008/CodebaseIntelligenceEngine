@@ -9,9 +9,14 @@ export const MAX_PARSE_DIAGNOSTICS = 20;
 
 const sameNode = (a: Node, b: Node): boolean => a.startIndex === b.startIndex && a.endIndex === b.endIndex && a.type === b.type;
 
-/** True when the node lies inside an ERROR region; such declarations are dropped (§6.3). */
+/**
+ * True when the node lies inside an ERROR region; such declarations are dropped (§6.3). The root never counts:
+ * when error recovery fails at the top level, tree-sitter turns the root itself into an ERROR node whose
+ * children are still the well-formed statements of the file (seen on CodeForge-v2 with `using` as an
+ * identifier, P02-13). Counting the root would drop every symbol of the file for one local error.
+ */
 export function inErrorRegion(node: Node): boolean {
-  for (let n: Node | null = node; n !== null; n = n.parent) if (n.type === 'ERROR') return true;
+  for (let n: Node | null = node; n !== null && n.parent !== null; n = n.parent) if (n.type === 'ERROR') return true;
   return false;
 }
 
@@ -23,7 +28,8 @@ export function parseDiagnostics(root: Node, source: SourceText): ExtractionDiag
   const stack: Node[] = [root];
   while (stack.length > 0) {
     const n = stack.pop() as Node;
-    if (n.type === 'ERROR' || n.isMissing) {
+    // A root ERROR only says "the file has errors"; the specific errors are reported below it (see inErrorRegion).
+    if ((n.type === 'ERROR' && n.parent !== null) || n.isMissing) {
       total++;
       if (out.length < MAX_PARSE_DIAGNOSTICS) {
         out.push({
@@ -39,7 +45,17 @@ export function parseDiagnostics(root: Node, source: SourceText): ExtractionDiag
     for (let i = children.length - 1; i >= 0; i--) stack.push(children[i] as Node);
   }
   if (total > out.length) out.push({ code: 'PARSE_ERRORS_TRUNCATED', message: `${total - out.length} more parse errors not listed`, range: null });
+  if (root.type === 'ERROR' && total === 0) out.push(unterminated(root, source));
   return out;
+}
+
+/**
+ * The root is an ERROR node but nothing below it is (an unclosed block at the end of the file): the error spans
+ * from the first top-level child that is not a well-formed statement to the end of the file.
+ */
+function unterminated(root: Node, source: SourceText): ExtractionDiagnostic {
+  const bad = root.children.find((c) => c.hasError || c.type === 'ERROR' || !c.isNamed) ?? root;
+  return { code: 'PARSE_ERROR', message: 'syntax error (unterminated construct)', range: source.rangeOf(bad.startIndex, root.endIndex) };
 }
 
 const NAME_MASK = '\u0001name';

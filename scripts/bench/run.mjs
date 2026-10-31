@@ -14,13 +14,19 @@
  * Every run uses a state dir in the cache, never inside the fixture, so fixtures stay pristine.
  */
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { cacheDir, captureEnvironment, cieState, fixture, fixturePath, gitState, REPO_ROOT, stats } from './lib.mjs';
 
 const CLI = path.join(REPO_ROOT, 'packages', 'runtime', 'dist', 'cli', 'main.js');
-const RESULTS_FORMAT = 'cie-bench-result/1';
+/**
+ * /2 (Phase 02): samples also record the code-graph work (graph rows, extracted files, symbols, skipped files,
+ * diagnostics) and the SHA-256 of `dev export` after the run; `deterministic` requires identical exports, so
+ * it covers the code graph, not only the manifest.
+ */
+const RESULTS_FORMAT = 'cie-bench-result/2';
 
 /** @param {string} workspace @param {string} stateDir @param {Record<string, string>} [env] */
 function index(workspace, stateDir, env = {}) {
@@ -42,8 +48,18 @@ function storeSizes(stateDir) {
   return sizes;
 }
 
+/** SHA-256 of the `dev export` bytes of the published head (not timed: it runs after the measured process). */
+function exportSha256(/** @type {string} */ workspace, /** @type {string} */ stateDir) {
+  const r = spawnSync(process.execPath, [CLI, 'dev', 'export', '--workspace', workspace, '--state-dir', stateDir], {
+    env: { ...process.env, CIE_CONFIG_DIR: path.join(cacheDir(), 'user-config') },
+    maxBuffer: 512 * 1024 * 1024,
+  });
+  if (r.status !== 0) throw new Error(`export failed (status ${r.status}): ${r.stderr}`);
+  return `sha256:${createHash('sha256').update(r.stdout).digest('hex')}`;
+}
+
 /** One measured sample from a successful run. */
-function sample(run, stateDir) {
+function sample(run, workspace, stateDir) {
   if (run.status !== 0 || run.out === null) throw new Error(`index failed (status ${run.status}): ${run.stderr}`);
   const o = run.out;
   return {
@@ -51,8 +67,16 @@ function sample(run, stateDir) {
     inProcessMs: o.timings.totalMs,
     stagesMs: o.timings.stagesMs,
     maxRssKb: o.timings.maxRssKb,
-    work: { files: o.files, structure: o.structure, ignored: o.enumeration.ignored, unrepresentable: o.enumeration.unrepresentable.length },
+    work: {
+      files: o.files,
+      structure: o.structure,
+      graph: o.graph,
+      code: { extractedFiles: o.code.extractedFiles, symbols: o.code.symbols, nodes: o.code.nodes, edges: o.code.edges, skipped: o.code.skipped.length, diagnostics: o.code.diagnostics },
+      ignored: o.enumeration.ignored,
+      unrepresentable: o.enumeration.unrepresentable.length,
+    },
     manifestHash: o.manifestHash,
+    exportSha256: exportSha256(workspace, stateDir),
     storeBytes: storeSizes(stateDir),
   };
 }
@@ -60,18 +84,18 @@ function sample(run, stateDir) {
 const scenarios = {
   'B-01': (/** @type {string} */ ws, /** @type {string} */ sd) => {
     rmSync(sd, { recursive: true, force: true });
-    return sample(index(ws, sd), sd);
+    return sample(index(ws, sd), ws, sd);
   },
   'B-02': (/** @type {string} */ ws, /** @type {string} */ sd) => {
     rmSync(sd, { recursive: true, force: true });
-    return sample(index(ws, sd), sd);
+    return sample(index(ws, sd), ws, sd);
   },
   'B-10': (/** @type {string} */ ws, /** @type {string} */ sd) => {
     rmSync(sd, { recursive: true, force: true });
     if (index(ws, sd).status !== 0) throw new Error('B-10 setup failed');
     const killed = index(ws, sd, { CIE_TEST_HOOKS: '1', CIE_TEST_KILL_AT: 'staged' });
     if (killed.status === 0) throw new Error('B-10: the crash was not injected');
-    const s = sample(index(ws, sd), sd);
+    const s = sample(index(ws, sd), ws, sd);
     if (s.work.files.inserted !== 0 || s.work.files.closed !== 0) throw new Error('B-10: the recovered revision differs from the pre-crash tree');
     return s;
   },
@@ -79,7 +103,7 @@ const scenarios = {
     rmSync(sd, { recursive: true, force: true });
     if (index(ws, sd).status !== 0) throw new Error('B-11 setup failed');
     writeFileSync(path.join(sd, 'index.db'), Buffer.alloc(64 * 1024, 0x5a));
-    return sample(index(ws, sd), sd);
+    return sample(index(ws, sd), ws, sd);
   },
 };
 
@@ -97,7 +121,7 @@ function runScenario(/** @type {string} */ id, /** @type {string} */ ws, /** @ty
       inProcessMs: stats(samples.map((s) => s.inProcessMs)),
       maxRssKb: stats(samples.map((s) => s.maxRssKb)),
     },
-    deterministic: new Set(samples.map((s) => s.manifestHash)).size === 1,
+    deterministic: new Set(samples.map((s) => s.manifestHash)).size === 1 && new Set(samples.map((s) => s.exportSha256)).size === 1,
   };
 }
 

@@ -7,8 +7,31 @@
  *   @name               the node holding the declared name (masked in bodyFingerprint)
  *   @import.<form>      an import site; @source is its specifier node
  * Kinds are refined in code where the grammar does not distinguish them (getters, constructors, constants,
- * Python methods). Module-level variables only: locals are not symbols.
+ * Python methods). Variables only at module level, in a `namespace` body or in `declare global`: locals are
+ * not symbols. Methods only inside class bodies (and interface / type-literal-alias bodies): members of object
+ * literals are values, not declarations (P02-13 review against the TypeScript compiler).
+ * `@definition.parameter_property` captures every constructor parameter; the rules keep only those with an
+ * accessibility modifier, `readonly` or `override` (TypeScript parameter properties), as class members.
  */
+
+/**
+ * Patterns anchored at the module level use the placeholder `@ROOT`. When error recovery fails at the top
+ * level, tree-sitter returns an ERROR root instead of `program` / `module` whose children are still the
+ * file's statements, so each pattern is emitted for both roots. A nested ERROR node also matches, but the
+ * extractor drops declarations inside nested error regions (syntax.ts inErrorRegion).
+ */
+function rooted(patterns: string, roots: readonly string[]): string {
+  return roots.map((r) => patterns.replaceAll('@ROOT', r)).join('\n');
+}
+const atModuleLevel = (patterns: string): string => rooted(patterns, ['program', 'ERROR']);
+
+const ECMASCRIPT_MODULE_LEVEL = `
+(@ROOT (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable))
+(@ROOT (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable))
+(@ROOT (export_statement declaration: (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
+(@ROOT (export_statement declaration: (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
+(@ROOT (export_statement "default" value: [(function_expression) (class) (arrow_function)] @definition.default))
+`;
 
 /** Definitions shared by the TypeScript and TSX grammars. */
 export const TYPESCRIPT_DEFINITIONS = `
@@ -22,7 +45,15 @@ export const TYPESCRIPT_DEFINITIONS = `
 (function_declaration name: (_) @name) @definition.function
 (generator_function_declaration name: (_) @name) @definition.function
 (function_signature name: (_) @name) @definition.function
-(method_definition name: (_) @name) @definition.method
+(class_body (method_definition name: (_) @name) @definition.method)
+(class_body (method_signature name: (_) @name) @definition.method)
+(class_body (method_definition
+  name: (property_identifier) @_ctor
+  parameters: (formal_parameters [
+    (required_parameter pattern: (identifier) @name)
+    (optional_parameter pattern: (identifier) @name)
+  ] @definition.parameter_property)
+  (#eq? @_ctor "constructor")))
 (interface_body (method_signature name: (_) @name) @definition.method)
 (type_alias_declaration value: (object_type (method_signature name: (_) @name) @definition.method))
 (abstract_method_signature name: (_) @name) @definition.method
@@ -30,24 +61,29 @@ export const TYPESCRIPT_DEFINITIONS = `
 (interface_body (property_signature name: (_) @name) @definition.property)
 (type_alias_declaration value: (object_type (property_signature name: (_) @name) @definition.property))
 (internal_module name: (identifier) @name) @definition.namespace
-(program (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable))
-(program (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable))
-(program (export_statement declaration: (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
-(program (export_statement declaration: (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
-(program (export_statement "default" value: [(function_expression) (class) (arrow_function)] @definition.default))
+(ambient_declaration "global" (statement_block)) @definition.global
+${atModuleLevel(ECMASCRIPT_MODULE_LEVEL)}
+${atModuleLevel(`
+(@ROOT (ambient_declaration (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
+(@ROOT (ambient_declaration (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
+(@ROOT (export_statement declaration: (ambient_declaration (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable))))
+(@ROOT (export_statement declaration: (ambient_declaration (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable))))
+`)}
+(internal_module body: (statement_block (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
+(internal_module body: (statement_block (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
+(internal_module body: (statement_block (export_statement declaration: (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable))))
+(internal_module body: (statement_block (export_statement declaration: (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable))))
+(ambient_declaration "global" (statement_block (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
+(ambient_declaration "global" (statement_block (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
 `;
 
 export const JAVASCRIPT_DEFINITIONS = `
 (class_declaration name: (_) @name) @definition.class
 (function_declaration name: (_) @name) @definition.function
 (generator_function_declaration name: (_) @name) @definition.function
-(method_definition name: (_) @name) @definition.method
+(class_body (method_definition name: (_) @name) @definition.method)
 (field_definition property: (_) @name) @definition.property
-(program (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable))
-(program (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable))
-(program (export_statement declaration: (lexical_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
-(program (export_statement declaration: (variable_declaration (variable_declarator name: (identifier) @name) @definition.variable)))
-(program (export_statement "default" value: [(function_expression) (class) (arrow_function)] @definition.default))
+${atModuleLevel(ECMASCRIPT_MODULE_LEVEL)}
 `;
 
 /** Import sites for TS, TSX and JS. */
@@ -65,7 +101,7 @@ export const TYPESCRIPT_IMPORTS = `${ECMASCRIPT_IMPORTS}
 export const PYTHON_DEFINITIONS = `
 (class_definition name: (identifier) @name) @definition.class
 (function_definition name: (identifier) @name) @definition.function
-(module (expression_statement (assignment left: (identifier) @name) @definition.variable))
+${rooted('(@ROOT (expression_statement (assignment left: (identifier) @name) @definition.variable))', ['module', 'ERROR'])}
 (class_definition body: (block (expression_statement (assignment left: (identifier) @name) @definition.property)))
 `;
 

@@ -101,6 +101,48 @@ describe('TypeScript', () => {
     ]);
   });
 
+  it('matches the TypeScript compiler on class overloads, parameter properties, namespaces, declare global and object literals', async () => {
+    const e = await extract(
+      'src/p.ts',
+      'ts',
+      [
+        'export class S {',
+        '  static create(): S;',
+        '  static create(x?: number): S { return new S(1) }',
+        '  constructor(private readonly deps: string, readonly r: number, public p?: string, override o = 1, plain: number) {}',
+        '  m() { const o = { inner() {}, get g() { return 1 } }; return o }',
+        '}',
+        'declare global { var gc: () => void; }',
+        'export namespace util { export const a = 1; const b = 2; export function f() {} }',
+        'const literal = { m() {}, get g() { return 1 } };',
+        '',
+      ].join('\n'),
+    );
+    expect(ids(e)).toEqual([
+      'ts:src/p.ts#S(class)',
+      'ts:src/p.ts#S.create(method)~1',
+      'ts:src/p.ts#S.create(method)~2',
+      'ts:src/p.ts#S.constructor(constructor)',
+      'ts:src/p.ts#S.deps(property)',
+      'ts:src/p.ts#S.r(property)',
+      'ts:src/p.ts#S.p(property)',
+      'ts:src/p.ts#S.o(property)',
+      'ts:src/p.ts#S.m(method)',
+      'ts:src/p.ts#global(namespace)',
+      'ts:src/p.ts#global.gc(variable)',
+      'ts:src/p.ts#util(namespace)',
+      'ts:src/p.ts#util.a(constant)',
+      'ts:src/p.ts#util.b(constant)',
+      'ts:src/p.ts#util.f(function)',
+      'ts:src/p.ts#literal(constant)',
+    ]);
+    expect(e.symbols.filter((s) => s.qualifiedName.startsWith('util.')).map((s) => [s.name, s.exported])).toEqual([
+      ['a', true],
+      ['b', false],
+      ['f', true],
+    ]);
+  });
+
   it('flags the default export, and ignores type-literal members of parameters', async () => {
     const e = await extract(
       'src/d.ts',
@@ -210,6 +252,19 @@ describe('parse errors, fingerprints and failures', () => {
     // Error recovery can surface a member with no class around it; such orphans are not symbols.
     const orphan = await extract('src/o.ts', 'ts', 'export function before() {}\n\nclass {\n  broken( ;\n}\n\nexport function after() {}\n');
     expect(orphan.symbols.filter((s) => s.parent === null).map((s) => s.kind)).not.toContain('property');
+  });
+
+  it('keeps the well-formed declarations when error recovery turns the root into an ERROR node', async () => {
+    // An unclosed block at the end of a file (a file being edited) makes tree-sitter return an ERROR root;
+    // so does `using` as an identifier on CodeForge-v2 (tree-sitter-typescript 0.23.2), found by the P02-13
+    // quality report. The well-formed declarations before the error must survive.
+    const src = "import { x } from './x';\nfunction files(e: number): number {\n  return e;\n}\nexport const after = 1;\ndescribe('suite', () => {\n  it('case', () => {\n";
+    const e = await extract('src/u.ts', 'ts', src);
+    expect(ids(e)).toEqual(['ts:src/u.ts#files(function)', 'ts:src/u.ts#after(constant)']);
+    expect(e.imports.map((i) => i.specifier)).toEqual([{ kind: 'literal', value: './x' }]);
+    expect(e.diagnostics.length).toBeGreaterThan(0);
+    // The diagnostics point at the actual errors, not at the whole file.
+    expect(e.diagnostics.every((d) => d.range === null || d.range.startLine > 0)).toBe(true);
   });
 
   it('is deterministic, and CRLF vs LF changes span hashes but neither ids nor fingerprints', async () => {

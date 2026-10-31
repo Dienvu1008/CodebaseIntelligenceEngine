@@ -81,6 +81,7 @@ items:
   - id: P02-13
     title: Symbol precision and recall reported against the TS compiler (TS) and hand-verified sets (Python); benchmarks re-run with extraction (no thresholds)
     status: pending
+    notes: "Tooling done: scripts/quality/report.mjs (cie-quality-report/1; tsc oracle with identifySymbols, syntax-error files excluded; ground truth for every golden fixture) and cie-bench-result/2 (graph work counters, exportSha256 in deterministic). The tsc comparison found and fixed: object-literal methods taken as symbols, class overload signatures lost (P02-12 regression), parameter properties, namespace and declare-global variables, `declare const`, and an ERROR root dropping every symbol of a file (unclosed block / `using` identifier). Pre-measurement (dirty tree): Zod 7051/7051 P 0.9989, CodeForge-v2 6073/6073 P 0.9997; residual: module augmentation interfaces (scope difference), 2 locals surfaced by error recovery. Official results to be produced from a clean commit."
     check: "quality report plus benchmarks/results"
   - id: P02-14
     title: docs/phases/PHASE_02_SIGNOFF.md written with evidence, deferred items and self-review
