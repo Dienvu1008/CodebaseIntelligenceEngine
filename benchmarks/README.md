@@ -13,6 +13,7 @@ Methodology: [BENCHMARK_STRATEGY.md](../docs/planning/BENCHMARK_STRATEGY.md). Th
 
 Every result records:
 - the fixture's pinned commit, its actual commit and whether the tree was dirty;
+- a status fingerprint taken before and after the run, plus `stableDuringRun`. It is `false` when a live tree was edited while it was being measured, which happened during the first Phase 01 dogfood run. A reference fixture that changes during a run aborts the run;
 - CIE's own commit and dirty flag;
 - the lockfile hash;
 - the OS, CPU and memory, a hash of the machine name, and the system load.

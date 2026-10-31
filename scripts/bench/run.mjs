@@ -17,7 +17,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { cacheDir, captureEnvironment, fixture, fixturePath, gitState, REPO_ROOT, stats } from './lib.mjs';
+import { cacheDir, captureEnvironment, cieState, fixture, fixturePath, gitState, REPO_ROOT, stats } from './lib.mjs';
 
 const CLI = path.join(REPO_ROOT, 'packages', 'runtime', 'dist', 'cli', 'main.js');
 const RESULTS_FORMAT = 'cie-bench-result/1';
@@ -127,6 +127,7 @@ function main() {
   const ws = fixturePath(f);
   const tree = gitState(ws);
   assertPinned(f, tree);
+  if (cieState().dirty) console.warn('warning: the CIE checkout is dirty; this result must not be used as a baseline');
   const reps = Number(values.reps ?? 5);
   const stateDir = path.join(cacheDir(), 'state', `${f.id}-${process.pid}`);
   const env = captureEnvironment();
@@ -139,10 +140,12 @@ function main() {
   }
   const files = exportedFiles(ws, stateDir);
   rmSync(stateDir, { recursive: true, force: true });
-  writeResult(f, tree, env, values, reps, results, files);
+  const after = gitState(ws);
+  if (f.mode === 'reference' && after.statusHash !== tree.statusHash) throw new Error(`${f.id}: the pinned clone changed during the run`);
+  writeResult(f, tree, after, env, values, reps, results, files);
 }
 
-function writeResult(f, tree, env, values, reps, results, files) {
+function writeResult(f, tree, after, env, values, reps, results, files) {
   const doc = {
     format: RESULTS_FORMAT,
     createdAt: new Date().toISOString(),
@@ -153,6 +156,10 @@ function writeResult(f, tree, env, values, reps, results, files) {
       pinnedCommit: f.commit ?? null,
       actualCommit: tree.commit,
       dirty: tree.dirty,
+      // false means the tree was modified while it was being measured (live dogfood trees only).
+      stableDuringRun: tree.statusHash !== null && tree.statusHash === after.statusHash,
+      statusBefore: tree.statusHash,
+      statusAfter: after.statusHash,
       tier: f.tier,
       tierBasis: f.tierBasis,
       manifestEntries: files?.length ?? null,

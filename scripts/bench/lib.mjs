@@ -40,16 +40,26 @@ export function fixturePath(f) {
 /** @param {string} cwd @param {string[]} args */
 export const git = (cwd, args) => execFileSync('git', ['-c', 'core.autocrlf=false', ...args], { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 
-/** Commit and dirty flag of a git working tree. */
-export function gitState(dir) {
+const sha256 = (/** @type {string | Buffer} */ s) => createHash('sha256').update(s).digest('hex');
+
+/**
+ * Commit, dirty flag and a fingerprint of the working-tree status. Comparing fingerprints before and after a
+ * run tells whether the tree changed WHILE it was measured, which happens with a live dogfood tree that
+ * someone is editing. `exclude` pathspecs are ignored (e.g. the harness's own results directory).
+ * @param {string} dir @param {string[]} [exclude]
+ */
+export function gitState(dir, exclude = []) {
   try {
-    return { commit: git(dir, ['rev-parse', 'HEAD']), dirty: git(dir, ['status', '--porcelain']) !== '' };
+    const status = git(dir, ['status', '--porcelain', '--untracked-files=all', '--', '.', ...exclude.map((p) => `:(exclude)${p}`)]);
+    const commit = git(dir, ['rev-parse', 'HEAD']);
+    return { commit, dirty: status !== '', statusHash: sha256(`${commit}\n${status}`).slice(0, 16) };
   } catch {
-    return { commit: null, dirty: null };
+    return { commit: null, dirty: null, statusHash: null };
   }
 }
 
-const sha256 = (/** @type {string | Buffer} */ s) => createHash('sha256').update(s).digest('hex');
+/** The CIE checkout's own state, ignoring the results this harness writes. */
+export const cieState = () => gitState(REPO_ROOT, ['benchmarks/results']);
 
 /**
  * Environment capture (BENCHMARK_STRATEGY §2.1). The host name is recorded only as a short hash, so a result
@@ -64,7 +74,7 @@ export function captureEnvironment() {
     load: { loadavg: os.loadavg(), freeMemMb: Math.round(os.freemem() / 1048576) },
     software: {
       node: process.version,
-      cie: gitState(REPO_ROOT),
+      cie: cieState(),
       lockfileSha256: existsSync(lock) ? sha256(readFileSync(lock)) : null,
     },
     notes: {

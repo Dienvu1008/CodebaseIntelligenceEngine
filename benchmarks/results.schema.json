@@ -11,7 +11,7 @@
     "repetitions": { "type": "integer", "minimum": 1 },
     "fixture": {
       "type": "object",
-      "required": ["id", "mode", "reproducible", "pinnedCommit", "actualCommit", "dirty", "tier", "tierBasis", "manifestEntries", "indexedFiles"],
+      "required": ["id", "mode", "reproducible", "pinnedCommit", "actualCommit", "dirty", "stableDuringRun", "statusBefore", "statusAfter", "tier", "tierBasis", "manifestEntries", "indexedFiles"],
       "properties": {
         "id": { "type": "string" },
         "mode": { "enum": ["reference", "dogfood"] },
@@ -19,6 +19,9 @@
         "pinnedCommit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
         "actualCommit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
         "dirty": { "type": ["boolean", "null"] },
+        "stableDuringRun": { "type": "boolean", "description": "false: the tree changed while it was measured" },
+        "statusBefore": { "type": ["string", "null"] },
+        "statusAfter": { "type": ["string", "null"] },
         "tier": { "enum": ["small", "medium", "large"] },
         "tierBasis": { "enum": ["assumed", "measured"] },
         "manifestEntries": { "type": ["integer", "null"], "description": "all entries, including skipped files" },
@@ -27,7 +30,7 @@
       "allOf": [
         {
           "if": { "properties": { "mode": { "const": "reference" } } },
-          "then": { "properties": { "reproducible": { "const": true }, "dirty": { "const": false } } }
+          "then": { "properties": { "reproducible": { "const": true }, "dirty": { "const": false }, "stableDuringRun": { "const": true } } }
         },
         {
           "if": { "properties": { "mode": { "const": "dogfood" } } },
