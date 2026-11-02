@@ -19,6 +19,10 @@
  * destructuring to its declaration, mapped to the extracted SymbolId: exact. A name tsc cannot find is unresolved.
  * Only when a file is not in a Program (it changed since enumeration or cannot be decoded) does the Phase 02
  * heuristic apply: the single exported top-level symbol of that name, recorded as heuristic.
+ *
+ * Phase 03 (P03-07): every file in a Program also yields references, calls and type relations through the
+ * same TypeChecker (relations.ts), exact (L3). Files outside every Program get none: there is no heuristic
+ * fallback for relations. Programs load the compiler's bundled lib files (program.ts, ADR-0016).
  */
 import {
   capabilityProfile,
@@ -47,8 +51,11 @@ import {
   type ProjectInput,
   type ProjectResolution,
   type ProjectResolver,
+  type RelationEdge,
+  type ResolvedEdge,
   type Result,
   type StructuralEdge,
+  createRelationEdge,
 } from '@cie/core';
 import { createRequire } from 'node:module';
 import type ts from 'typescript';
@@ -57,6 +64,7 @@ import { bindingsAt, siteAt } from './bindings.js';
 import { builtinName, packageNameOf } from './builtins.js';
 import { decodeSourceText } from './decode.js';
 import { buildProgram } from './program.js';
+import { collectRelations, isLocalValue } from './relations.js';
 import { discoverProjects, type ProjectDiagnostic, type TsProject } from './projects.js';
 import { fromVirtual, toVirtual, VirtualWorkspace, type TypeScript } from './virtual-host.js';
 
@@ -71,7 +79,7 @@ const loadTypeScript = (): Promise<TypeScript> => (typescriptModule ??= import('
 
 export const LANG_TS_ADAPTER_VERSION = '0.1.0';
 const LANGUAGES: readonly LanguageId[] = ['ts', 'tsx', 'js'];
-const PROFILE = { symbols: 'L0', imports: 'L3', references: 'L0', calls: 'L0', typeRelations: 'L0', di: 'L0', docstrings: 'L0' };
+const PROFILE = { symbols: 'L0', imports: 'L3', references: 'L3', calls: 'L3', typeRelations: 'L3', di: 'L0', docstrings: 'L0' };
 const DEPENDENCY_FIELDS = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'] as const;
 
 const baseName = (p: string): string => p.slice(p.lastIndexOf('/') + 1);
@@ -168,6 +176,20 @@ interface ResolveContext {
   readonly byPath: ReadonlyMap<CanonicalPath, FileExtraction>;
   /** Decoded texts of the files in Programs (the same text the extractor parsed). */
   readonly texts: ReadonlyMap<CanonicalPath, string>;
+  /** Position maps of those texts, built once per file. */
+  readonly sources: Map<CanonicalPath, SourceText>;
+  /** Declaration → extracted SymbolId, memoized per Program (declarations are Program objects). */
+  readonly declarations: Map<ts.Declaration, SymbolId | null>;
+}
+
+function sourceOf(ctx: ResolveContext, file: CanonicalPath): SourceText | null {
+  const cached = ctx.sources.get(file);
+  if (cached !== undefined) return cached;
+  const text = ctx.texts.get(file);
+  if (text === undefined) return null;
+  const source = new SourceText(text);
+  ctx.sources.set(file, source);
+  return source;
 }
 
 const byPathOrder = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);
@@ -189,12 +211,23 @@ async function readConfigs(input: ProjectInput, signal: CancellationSignal): Pro
  * character), with the same name. Null when the declaration is outside the workspace or was not extracted.
  */
 function symbolOfDeclaration(ctx: ResolveContext, decl: ts.Declaration): SymbolId | null {
+  const memo = ctx.declarations.get(decl);
+  if (memo !== undefined) return memo;
+  const id = mapDeclaration(ctx, decl);
+  ctx.declarations.set(decl, id);
+  return id;
+}
+
+function mapDeclaration(ctx: ResolveContext, decl: ts.Declaration): SymbolId | null {
+  // Parameters and locals are never extracted: without this, a local named like its enclosing function
+  // would map to that function.
+  if (isLocalValue(ctx.session.ts, decl)) return null;
   const file = fromVirtual(decl.getSourceFile().fileName);
   const extraction = file === null ? undefined : ctx.byPath.get(file);
-  const text = file === null ? undefined : ctx.texts.get(file);
-  if (extraction === undefined || text === undefined) return null;
+  const source = file === null ? null : sourceOf(ctx, file);
+  if (extraction === undefined || source === null) return null;
   const { point, name } = declarationAnchor(ctx.session.ts, decl);
-  return innermostSymbol(extraction, new SourceText(text), point, name);
+  return innermostSymbol(extraction, source, point, name);
 }
 
 /** The module target of a workspace source file in an MVP language, or null (outside the workspace, other language). */
@@ -259,9 +292,10 @@ export class LangTsResolver implements ProjectResolver {
     if (signal.aborted) return err(domainError('RESOLUTION_CANCELLED', 'resolution was cancelled'));
 
     const session = new Session(typescript, input.manifest, contents);
-    const ctx: ResolveContext = { session, byPath: new Map(input.extractions.map((x) => [x.path, x] as const)), texts };
-    const perFile = new Map<CanonicalPath, StructuralEdge[]>();
+    const byPath = new Map(input.extractions.map((x) => [x.path, x] as const));
+    const perFile = new Map<CanonicalPath, ResolvedEdge[]>();
     const used = new Set<TsProject>();
+    const sources = new Map<CanonicalPath, SourceText>();
     for (const [project, files] of this.groupByProject(session, own)) {
       if (signal.aborted) return err(domainError('RESOLUTION_CANCELLED', 'resolution was cancelled'));
       used.add(project);
@@ -269,10 +303,13 @@ export class LangTsResolver implements ProjectResolver {
       const roots = files.filter((f) => texts.has(f.path)).map((f) => f.path);
       const program = roots.length === 0 ? null : buildProgram(typescript, session.host, roots, project.options);
       const checker = program?.getTypeChecker() ?? null;
+      const ctx: ResolveContext = { session, byPath, texts, sources, declarations: new Map() };
       for (const extraction of files) {
         const sf = program?.getSourceFile(toVirtual(extraction.path));
         const binding = checker !== null && sf !== undefined ? { checker, sf } : null;
-        perFile.set(extraction.path, extraction.imports.flatMap((imp) => this.edgesFor(ctx, project, extraction, imp, binding)));
+        const edges: ResolvedEdge[] = extraction.imports.flatMap((imp) => this.edgesFor(ctx, project, extraction, imp, binding));
+        if (binding !== null) edges.push(...this.relationsFor(ctx, extraction, binding));
+        perFile.set(extraction.path, edges);
       }
     }
     const edges = [...perFile.keys()].sort(byPathOrder).flatMap((p) => perFile.get(p) ?? []);
@@ -354,6 +391,32 @@ export class LangTsResolver implements ProjectResolver {
     return only === undefined
       ? { type: 'imports_symbol', importIndex: imp.index, name, target: { kind: 'unresolved' }, precision: null }
       : { type: 'imports_symbol', importIndex: imp.index, name, target: { kind: 'symbol', id: only.id }, precision: 'heuristic' };
+  }
+
+  /** references, calls and type relations of a file in a Program (relations.ts); files outside Programs get none. */
+  private relationsFor(ctx: ResolveContext, extraction: FileExtraction, binding: Binding): RelationEdge[] {
+    const source = sourceOf(ctx, extraction.path);
+    if (source === null) return [];
+    const resolutions = collectRelations({
+      typescript: ctx.session.ts,
+      checker: binding.checker,
+      sf: binding.sf,
+      extraction,
+      source,
+      symbolOf: (decl) => symbolOfDeclaration(ctx, decl),
+      isWorkspaceFile: (sf) => {
+        const p = fromVirtual(sf.fileName);
+        return p !== null && ctx.session.manifest.has(p);
+      },
+    });
+    const resolver = { producer: this.producer, profile: this.profileFor(extraction.language) };
+    const out: RelationEdge[] = [];
+    for (const res of resolutions) {
+      const edge = createRelationEdge(extraction, res, resolver, this.hasher);
+      if (edge.ok) out.push(edge.value);
+      else ctx.session.diagnostics.push({ code: edge.error.code, message: edge.error.message, range: res.range, path: extraction.path });
+    }
+    return out;
   }
 
   private push(out: StructuralEdge[], session: Session, extraction: FileExtraction, res: ImportResolution): void {

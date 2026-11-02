@@ -451,6 +451,118 @@
   ],
   "edges": [
     {
+      "type": "calls",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/core/src/index.ts#Counter(class)",
+      "site": "215524f4afab727c",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 16,
+          "endLine": 8,
+          "endCol": 23
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "raw": "Counter"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/core/src/index.ts#Counter.increment(method)",
+      "site": "86c5076778315afe",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 4,
+          "endLine": 9,
+          "endCol": 13
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "raw": "c.increment"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "9107827784f2a418",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 14,
+          "endLine": 9,
+          "endCol": 17
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "raw": "add"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:packages/core/src/index.ts#Counter.increment(method)",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "4358258dca205d75",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 6,
+          "startCol": 18,
+          "endLine": 6,
+          "endCol": 21
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {
+        "raw": "add"
+      }
+    },
+    {
       "type": "contains",
       "from": "ts:packages/core/src/index.ts#Counter(class)",
       "to": "ts:packages/core/src/index.ts#Counter.%23value(property)",
@@ -1132,6 +1244,174 @@
         "isTypeOnly": false,
         "name": "add",
         "raw": "./math.js"
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/app/src/config.ts#settings(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 50,
+          "endLine": 10,
+          "endCol": 58
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/core/src/index.ts#Counter(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 16,
+          "endLine": 8,
+          "endCol": 23
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/core/src/index.ts#Counter.increment(method)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 4,
+          "endLine": 9,
+          "endCol": 13
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/core/src/math.ts#PI(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 38,
+          "endLine": 10,
+          "endCol": 40
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:packages/app/src/main.ts#run(function)",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/app/src/main.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 14,
+          "endLine": 9,
+          "endCol": 17
+        },
+        "contentHash": "sha256:421a690459bb7c7a62092a323d676ec0b974920f32e79967535fe3c769ebd766"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:packages/core/src/index.ts#Counter.increment(method)",
+      "to": "ts:packages/core/src/math.ts#add(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "packages/core/src/index.ts",
+        "range": {
+          "startLine": 6,
+          "startCol": 18,
+          "endLine": 6,
+          "endCol": 21
+        },
+        "contentHash": "sha256:80281c4871dafc90de7caddd1976d2fc42c8025289779e6eed276e56258d16fd"
+      },
+      "attrs": {
+        "occurrences": 1
       }
     }
   ]

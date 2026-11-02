@@ -39,12 +39,12 @@
 | `exports` | module→symbol | Symbol is exported from the module (incl. re-exports, with `via`) | V, I | compiler (V), ast/heuristic (I) |
 | `imports` | module→module, module→external, module→unresolved | Static import dependency (`isTypeOnly`, `isDynamic` attrs) | V, I, ? | compiler (V), heuristic (I), — (?) |
 | `imports_symbol` | module→symbol, module→unresolved | Named import binding | V, I, ? | compiler, heuristic, — (?) |
-| `references` | symbol→symbol | Identifier occurrence in `from`'s body resolves to `to` (occurrence ranges as attributes) | V, I | compiler, scip, heuristic |
-| `calls` | symbol→symbol, symbol→unresolved | Static call expression targets `to` | V, I, ? | compiler, scip, heuristic |
+| `references` | symbol→symbol, module→symbol | Identifier occurrences in `from`'s body (or top-level code) resolve to `to`; one edge per pair, `occurrences` counts them | V, I | compiler, scip, heuristic |
+| `calls` | symbol→symbol, symbol→unresolved, module→symbol, module→unresolved | A static call expression targets `to`; one edge per call site | V, I, ? | compiler, scip, heuristic |
 | `may_dispatch_to` | symbol(method)→symbol(method) | Virtual or interface call may reach an implementer | I | compiler + analysis, heuristic |
 | `extends` | symbol→symbol | Class or interface inheritance | V, I | compiler, heuristic |
 | `implements` | symbol→symbol | Class implements interface | V | compiler |
-| `references_type` | symbol→symbol | Type annotation reference | V, I | compiler, heuristic |
+| `references_type` | symbol→symbol, module→symbol | Type-position references; one edge per pair, `occurrences` counts them | V, I | compiler, heuristic |
 | `injects` | symbol→symbol | DI wiring (constructor injection etc.) | I | heuristic:di-* |
 | `depends_on` | component→component, package→package | Aggregated dependency (derived from `imports`) | V (derived from V edges only) / I | derivation |
 | `belongs_to` | directory/package/module→component, component→layer | Architecture membership | V (rule-based from config), U | architecture rules, user |
@@ -63,10 +63,32 @@
 - Deviations from the v0.1 table:
   - There is no `file` node kind. A file's graph view is its `module` node, so file→symbol containment is `defines`, `belongs_to` starts at directory, package or module, and `contains` has no file endpoints.
   - `imports_symbol` also targets `unresolved` placeholders with status `unknown`, as Phase 02 resolvers emit them (SY-006).
+- P03-07 changes:
+  - `references`, `references_type` and `calls` may start at a `module` (top-level code).
+  - `references` is no longer occurrence-based. Only `calls` is.
 - Enforcement:
   - Compile time: `RegisteredCodeEdgeType` and `RegisteredEdgeStatus` fail to compile if code-intelligence emits a type or status that the registry does not know.
   - Store: the RevisionValidator checks every visible edge (type, endpoint kinds from `node_key.kind`, status, site key) and aborts the publish on a violation.
   - The `relation_type` table (with a foreign key from `edge.type`) comes with P03-09.
+
+**Implementation (P03-07): references, calls and type relations (TS/JS, lang-ts at L3).**
+- **Edges.** `references`, `references_type`, `calls`, `extends` and `implements`. They are built by `createRelationEdge` (core `code-intelligence/domain/relation-edge.ts`), which applies SY-006 at construction like `createImportEdge`.
+- **Sources.** The source is the innermost extracted symbol around the occurrence, or the module for top-level code. A call inside an object-literal method belongs to the extracted symbol that holds the literal.
+- **What counts.**
+  - An identifier that tsc binds, through import aliases, to an extracted workspace symbol is a reference. It is `references_type` in a type position and `references` otherwise.
+  - Not references: declaration names, import and export declarations (they are imports), and heritage clauses (they are `extends` and `implements`).
+  - Every call or `new` whose callee binds to an extracted symbol is a `calls` edge, so it is also counted as a reference.
+- **Unresolved (SY-006).**
+  - A `calls` edge goes to a per-site `unresolved` placeholder when the callee is syntactically dynamic (`handlers[k]()`, `make()()`).
+  - It also does when tsc cannot bind the callee and the callee chain is rooted in a workspace value, for example an `any` parameter or a value whose type came from an unresolved import.
+  - Only `calls` gets placeholders.
+- **Not recorded.**
+  - Targets outside the workspace: lib declarations, external packages, undeclared globals. The package dependency is already an `imports` edge.
+  - Declarations that are not extracted symbols: parameters, locals, object-literal members.
+  - `super()`, `import()`, `require()`.
+- **Granularity.** `calls` is one edge per site (`site` = hash of the call range), as flows need (§8.7). The other four types are one edge per (from, to). The projection keeps the earliest occurrence as evidence and counts the rest in `attrs.occurrences`.
+- **Storage.** Schema v6 (the `edge.type` CHECK). The RevisionValidator's SY-006 check covers every resolved type.
+- **Truth.** The `ts-relations` golden fixture has hand-verified relations (`fixtures/ts-relations.truth.json`, category `relations`). The guards for locals and for chains outside the workspace were mutation-checked through its golden export.
 
 **Distinguishing the four relationship classes** (brief §7):
 
@@ -83,7 +105,7 @@
 |---|---|
 | Structural node IDs | Derived from structural identity (path, `SymbolId`), so they are stable across rebuilds (KG-003) |
 | Concept IDs | Slug from the front-matter `cie.id` / `concept` key, which is user-controlled and stable. AI-proposed concepts get `concept:ai-<hash(title)>` until a user adopts them. |
-| Edge identity | `(type, from, to, siteKey)`, where `siteKey` is the occurrence range hash for occurrence-based types (`references`, `calls`) and empty otherwise |
+| Edge identity | `(type, from, to, siteKey)`, where `siteKey` is the call-range hash for the occurrence-based type `calls` and empty otherwise. `references` and `references_type` are one edge per pair with an occurrence count (P03-07: per-occurrence rows would multiply edge volume, R-06) |
 | Claim IDs | `claim:<hash(subject, predicate, object, origin)>`. Deterministic, so re-intake of the same LLM output does not duplicate claims. |
 | Evidence IDs | `ev:<hash(kind, producer, locator, contentHash)>` |
 

@@ -47,7 +47,8 @@ items:
   # --- Adapters ---
   - id: P03-07
     title: "lang-ts: references, calls, extends/implements and type references (L3), with unresolved placeholders for dynamic constructs (SY-006)"
-    status: pending
+    status: done
+    notes: "core relation-edge.ts (createRelationEdge, SY-006 at construction); adapters/lang-ts/relations.ts (one TypeChecker walk per file). calls per site, references/references_type/extends/implements per (from, to) with an occurrence count; module sources for top-level code; registry and §3/§4 updated; schema v6. Owner decision (option A): Programs load the pinned compiler's lib files per project lib/target (ADR-0016), which removed ~2,100-2,300 spurious unresolved calls per repo and added up to ~1,550 exact references. New golden fixture ts-relations with hand-verified relations (truth category relations); existing goldens changed only by added relation edges. Guards (locals incl. parameter properties; chains rooted outside the workspace) mutation-checked through the golden. Zod: 8,970 exact calls, 10,707 references, 6,666 type references, 683 extends; CodeForge-v2: 4,886 / 5,710 / 2,072 / 11."
     check: "golden fixtures extended; SY-006 cases for dynamic calls"
   - id: P03-08
     title: "lang-python: scope-aware references and calls inside a file; cross-module bindings through import maps (L2, inferred)"

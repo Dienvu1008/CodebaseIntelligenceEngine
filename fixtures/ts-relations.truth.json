@@ -1,0 +1,61 @@
+{
+  "format": "cie-truth/1",
+  "fixture": "ts-relations",
+  "notes": [
+    "Hand-verified against the sources (P03-07). The relations were written down from the source before the first run and matched it unchanged.",
+    "relations: `<type> <from> -> <to>`, one entry per edge. references and references_type are one edge per (from, to); calls is one edge per call site; unresolved targets are named by the callee text.",
+    "Not recorded, by design: console.log and shapes.reduce (lib declarations), readFileSync (an external package), super() (a language construct), and the parameters sum, s, name, table.",
+    "The local `const total` inside function total shadows the function: `return total` refers to the local and is not a reference to the function.",
+    "Square.side is a parameter property (a class member): `this.side` twice is one references edge with two occurrences.",
+    "The call to main() inside the object-literal method handlers.run belongs to the constant handlers, the innermost extracted symbol around it.",
+    "handlers[name]() is syntactically dynamic and table.go() has a callee tsc cannot bind (table: any): both are calls to unresolved placeholders (SY-006)."
+  ],
+  "symbols": [
+    "ts:src/main.ts#dispatch(function)",
+    "ts:src/main.ts#handlers(constant)",
+    "ts:src/main.ts#main(function)",
+    "ts:src/shapes.ts#Base(class)",
+    "ts:src/shapes.ts#Base.area(method)",
+    "ts:src/shapes.ts#Base.describe(method)",
+    "ts:src/shapes.ts#Shape(interface)",
+    "ts:src/shapes.ts#Shape.area(method)",
+    "ts:src/shapes.ts#Square(class)",
+    "ts:src/shapes.ts#Square.area(method)",
+    "ts:src/shapes.ts#Square.constructor(constructor)",
+    "ts:src/shapes.ts#Square.side(property)",
+    "ts:src/shapes.ts#total(function)"
+  ],
+  "imports": [
+    "mod:ts:src/main.ts -> ext:node:fs",
+    "mod:ts:src/main.ts -> mod:ts:src/shapes.ts"
+  ],
+  "importsSymbol": [
+    "mod:ts:src/main.ts -> Shape -> ts:src/shapes.ts#Shape(interface)",
+    "mod:ts:src/main.ts -> Square -> ts:src/shapes.ts#Square(class)",
+    "mod:ts:src/main.ts -> total -> ts:src/shapes.ts#total(function)"
+  ],
+  "relations": [
+    "implements ts:src/shapes.ts#Base(class) -> ts:src/shapes.ts#Shape(interface)",
+    "extends ts:src/shapes.ts#Square(class) -> ts:src/shapes.ts#Base(class)",
+    "calls ts:src/shapes.ts#Base.describe(method) -> ts:src/shapes.ts#Base.area(method)",
+    "references ts:src/shapes.ts#Base.describe(method) -> ts:src/shapes.ts#Base.area(method)",
+    "references ts:src/shapes.ts#Square.area(method) -> ts:src/shapes.ts#Square.side(property)",
+    "references_type ts:src/shapes.ts#total(function) -> ts:src/shapes.ts#Shape(interface)",
+    "calls ts:src/shapes.ts#total(function) -> ts:src/shapes.ts#Shape.area(method)",
+    "references ts:src/shapes.ts#total(function) -> ts:src/shapes.ts#Shape.area(method)",
+    "calls ts:src/main.ts#handlers(constant) -> ts:src/main.ts#main(function)",
+    "references ts:src/main.ts#handlers(constant) -> ts:src/main.ts#main(function)",
+    "references_type ts:src/main.ts#main(function) -> ts:src/shapes.ts#Shape(interface)",
+    "calls ts:src/main.ts#main(function) -> ts:src/shapes.ts#Square(class)",
+    "references ts:src/main.ts#main(function) -> ts:src/shapes.ts#Square(class)",
+    "calls ts:src/main.ts#main(function) -> ts:src/shapes.ts#total(function)",
+    "references ts:src/main.ts#main(function) -> ts:src/shapes.ts#total(function)",
+    "references ts:src/main.ts#dispatch(function) -> ts:src/main.ts#handlers(constant)",
+    "calls ts:src/main.ts#dispatch(function) -> unresolved:handlers[name]",
+    "calls ts:src/main.ts#dispatch(function) -> unresolved:table.go",
+    "calls mod:ts:src/main.ts -> ts:src/main.ts#main(function)",
+    "references mod:ts:src/main.ts -> ts:src/main.ts#main(function)",
+    "calls mod:ts:src/main.ts -> ts:src/main.ts#dispatch(function)",
+    "references mod:ts:src/main.ts -> ts:src/main.ts#dispatch(function)"
+  ]
+}

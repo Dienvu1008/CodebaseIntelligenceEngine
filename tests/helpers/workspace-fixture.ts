@@ -13,7 +13,7 @@ import {
   type ManifestEntry,
   type ProjectResolution,
   type ProjectResolver,
-  type StructuralEdge,
+  type ResolvedEdge,
 } from '@cie/core';
 
 const hasher = new NodeHasher();
@@ -68,8 +68,11 @@ export async function resolveFixture(files: Readonly<Record<string, string>>, re
 }
 
 /** Compact, sorted view of edges for assertions: `from -> to [type status precision] name?`. */
-export function edgeSummary(edges: readonly StructuralEdge[]): string[] {
-  return edges.map((e) => `${e.from} -> ${e.to} [${e.type} ${e.status}${e.precision === null ? '' : ` ${e.precision}`}]${e.attrs.name === null ? '' : ` ${e.attrs.name}`}`);
+export function edgeSummary(edges: readonly ResolvedEdge[]): string[] {
+  return edges.map((e) => {
+    const name = 'name' in e.attrs ? e.attrs.name : null;
+    return `${e.from} -> ${e.to} [${e.type} ${e.status}${e.precision === null ? '' : ` ${e.precision}`}]${name === null ? '' : ` ${name}`}`;
+  });
 }
 
 export const cp = (p: string): CanonicalPath => p as CanonicalPath;

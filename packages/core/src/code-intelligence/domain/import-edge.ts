@@ -161,10 +161,14 @@ export function createImportEdge(extraction: FileExtraction, res: ImportResoluti
 }
 
 /**
- * Validator form of SY-006 for edges read back from staging (they are plain data there): the stated
+ * Validator form of SY-006 for resolved edges read back from staging (they are plain data there): the stated
  * precision and status agree with the recorded producer fidelity, and placeholders carry no precision.
+ * It applies to import edges and to the Phase 03 relation edges alike (the producer fidelity recorded on a
+ * relation edge is the one of its capability).
  */
-export function importEdgeViolations(edge: StructuralEdge): readonly string[] {
+export function importEdgeViolations(
+  edge: Pick<StructuralEdge, 'from' | 'to' | 'status' | 'precision' | 'producer'> & { readonly type: string; readonly toKind: string },
+): readonly string[] {
   const out: string[] = [];
   const at = `${edge.type} ${edge.from} -> ${edge.to}`;
   if (edge.toKind === 'unresolved') {

@@ -1046,6 +1046,34 @@
   ],
   "edges": [
     {
+      "type": "calls",
+      "from": "ts:src/names.ts#outer.inner(function)",
+      "to": "ts:src/names.ts#outer.inner.innermost(function)",
+      "site": "a07f07caed8ba3d3",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 20,
+          "startCol": 11,
+          "endLine": 20,
+          "endCol": 20
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {
+        "raw": "innermost"
+      }
+    },
+    {
       "type": "contains",
       "from": "py:py/deep.py#Outer(class)",
       "to": "py:py/deep.py#Outer.Inner(class)",
@@ -2275,6 +2303,62 @@
         "isTypeOnly": false,
         "name": null,
         "raw": "self.name"
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/names.ts#outer(function)",
+      "to": "ts:src/names.ts#outer.inner(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 22,
+          "startCol": 9,
+          "endLine": 22,
+          "endCol": 14
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/names.ts#outer.inner(function)",
+      "to": "ts:src/names.ts#outer.inner.innermost(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/names.ts",
+        "range": {
+          "startLine": 20,
+          "startCol": 11,
+          "endLine": 20,
+          "endCol": 20
+        },
+        "contentHash": "sha256:1a8fff37ba5e6d911d90d2c5d322fba32cfa83c8dad7f24c26b258acc0ee2701"
+      },
+      "attrs": {
+        "occurrences": 1
       }
     }
   ]

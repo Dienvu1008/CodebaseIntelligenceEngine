@@ -899,6 +899,174 @@
   ],
   "edges": [
     {
+      "type": "calls",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/models/user.ts#UserService.create(method)",
+      "site": "192f7276d62d9c9c",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 21,
+          "endLine": 12,
+          "endCol": 27
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "raw": "UserService.create"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/models/user.ts#UserService.find(method)",
+      "site": "d054b1c3df396c63",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 30,
+          "endLine": 12,
+          "endCol": 34
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "raw": "UserService.create().find"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/util/strings.ts#shout(function)",
+      "site": "73107111cd8d5a42",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 43,
+          "endLine": 12,
+          "endCol": 48
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "raw": "shout"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/util/strings.ts#slugify(function)",
+      "site": "ccb294733ffe3abf",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 35,
+          "endLine": 12,
+          "endCol": 42
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "raw": "slugify"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/models/user.ts#UserService.create(method)",
+      "to": "ts:src/models/user.ts#UserService(class)",
+      "site": "417aa4c3fce42180",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 30,
+          "startCol": 15,
+          "endLine": 30,
+          "endCol": 26
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "raw": "UserService"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "tsx:src/view.tsx#UserCard(function)",
+      "to": "ts:src/util/strings.ts#capitalize(function)",
+      "site": "bb52852069e9e72b",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 4,
+          "startCol": 32,
+          "endLine": 4,
+          "endCol": 42
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "raw": "capitalize"
+      }
+    },
+    {
       "type": "contains",
       "from": "ts:src/models/user.ts#Role(enum)",
       "to": "ts:src/models/user.ts#Role.Admin(enum_member)",
@@ -2344,6 +2512,678 @@
         "isTypeOnly": false,
         "name": "capitalize",
         "raw": "./util/strings"
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/models/user.ts#UserService(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 9,
+          "endLine": 12,
+          "endCol": 20
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/models/user.ts#UserService.create(method)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 21,
+          "endLine": 12,
+          "endCol": 27
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/models/user.ts#UserService.find(method)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 30,
+          "endLine": 12,
+          "endCol": 34
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/util/strings.ts#shout(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 43,
+          "endLine": 12,
+          "endCol": 48
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/util/strings.ts#slugify(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 35,
+          "endLine": 12,
+          "endCol": 42
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/models/user.ts#UserService.count(getter)",
+      "to": "ts:src/models/user.ts#UserService.cache(property)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 22,
+          "startCol": 16,
+          "endLine": 22,
+          "endCol": 21
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/models/user.ts#UserService.create(method)",
+      "to": "ts:src/models/user.ts#UserService(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 30,
+          "startCol": 15,
+          "endLine": 30,
+          "endCol": 26
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/models/user.ts#UserService.find(method)",
+      "to": "ts:src/models/user.ts#UserService.cache(property)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 26,
+          "startCol": 16,
+          "endLine": 26,
+          "endCol": 21
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/util/strings.ts#shout(function)",
+      "to": "ts:src/util/strings.ts#internal(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/util/strings.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 24,
+          "endLine": 9,
+          "endCol": 32
+        },
+        "contentHash": "sha256:0c9b2454e97f54b6b6e083784b679f1c87ff0dd8075a4e80a9239ea946790a16"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "tsx:src/view.tsx#UserCard(function)",
+      "to": "ts:src/models/user.ts#User.name(property)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 4,
+          "startCol": 48,
+          "endLine": 4,
+          "endCol": 52
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "tsx:src/view.tsx#UserCard(function)",
+      "to": "ts:src/util/strings.ts#capitalize(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 4,
+          "startCol": 32,
+          "endLine": 4,
+          "endCol": 42
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/index.ts#main(function)",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/index.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 50,
+          "endLine": 10,
+          "endCol": 54
+        },
+        "contentHash": "sha256:c0ce598c68ad1dbca6127ab567e63e3cdf750fdb04f445173afb7ef1e5164af4"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#User.greet(method)",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 13,
+          "startCol": 15,
+          "endLine": 13,
+          "endCol": 19
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#User.id(property)",
+      "to": "ts:src/models/user.ts#UserId(type)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 6,
+          "endLine": 10,
+          "endCol": 12
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#User.role(property)",
+      "to": "ts:src/models/user.ts#Role(enum)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 8,
+          "endLine": 12,
+          "endCol": 12
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#UserService.cache(property)",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 17,
+          "startCol": 43,
+          "endLine": 17,
+          "endCol": 47
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#UserService.cache(property)",
+      "to": "ts:src/models/user.ts#UserId(type)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 17,
+          "startCol": 35,
+          "endLine": 17,
+          "endCol": 41
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#UserService.create(method)",
+      "to": "ts:src/models/user.ts#UserService(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 29,
+          "startCol": 19,
+          "endLine": 29,
+          "endCol": 30
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#UserService.find(method)",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 25,
+          "startCol": 20,
+          "endLine": 25,
+          "endCol": 24
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#UserService.find(method)",
+      "to": "ts:src/models/user.ts#UserId(type)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 25,
+          "startCol": 11,
+          "endLine": 25,
+          "endCol": 17
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#parseUser(function)~1",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 34,
+          "startCol": 42,
+          "endLine": 34,
+          "endCol": 46
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#parseUser(function)~2",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 35,
+          "startCol": 59,
+          "endLine": 35,
+          "endCol": 63
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/models/user.ts#parseUser(function)~3",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/models/user.ts",
+        "range": {
+          "startLine": 36,
+          "startCol": 43,
+          "endLine": 36,
+          "endCol": 47
+        },
+        "contentHash": "sha256:41c49552013ca99e1aafca054999d02467e889aa1fa63ef40cb192c6f5a06cad"
+      },
+      "attrs": {
+        "occurrences": 2
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "tsx:src/view.tsx#UserCard(function)",
+      "to": "ts:src/models/user.ts#User(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/view.tsx",
+        "range": {
+          "startLine": 3,
+          "startCol": 43,
+          "endLine": 3,
+          "endCol": 47
+        },
+        "contentHash": "sha256:e11cebcbb2fdb59dde6c6a9952e8897b011c1db044ec1d2d34ae18b4bc600874"
+      },
+      "attrs": {
+        "occurrences": 1
       }
     }
   ]

@@ -12,6 +12,7 @@ import {
   CODE_EDGE_TYPES,
   GRAPH_NODE_KINDS,
   KnowledgeClaim,
+  OCCURRENCE_EDGE_TYPES,
   RELATION_STATUSES,
   RELATION_TYPES,
   relationType,
@@ -53,11 +54,13 @@ describe('KG-002: the registry', () => {
     expect(documented).toEqual(RELATION_TYPES.map((t) => t.name));
   });
 
-  it('registers every code edge type as a Phase 02 type (also checked at compile time)', () => {
+  it('registers every code edge type, introduced no later than the current phase (also checked at compile time)', () => {
     const registered: readonly RegisteredCodeEdgeType[] = CODE_EDGE_TYPES;
-    for (const name of registered) expect(relationType(name)?.since, name).toBeLessThanOrEqual(2);
-    // Occurrence-based types are the ones identified per site (KNOWLEDGE_GRAPH_DESIGN §4).
-    expect(RELATION_TYPES.filter((t) => t.occurrence).map((t) => t.name)).toEqual<RelationTypeName[]>(['references', 'calls']);
+    for (const name of registered) expect(relationType(name)?.since, name).toBeLessThanOrEqual(3);
+    // Occurrence-based types are the ones identified per site (KNOWLEDGE_GRAPH_DESIGN §4): calls only;
+    // references are one edge per (from, to) with an occurrence count (P03-07).
+    expect(RELATION_TYPES.filter((t) => t.occurrence).map((t) => t.name)).toEqual<RelationTypeName[]>(['calls']);
+    expect(RELATION_TYPES.filter((t) => t.occurrence).map((t) => t.name)).toEqual([...OCCURRENCE_EDGE_TYPES]);
   });
 
   it('rejects unregistered types, signature mismatches, disallowed statuses and wrong site keys', () => {

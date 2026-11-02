@@ -1,0 +1,1695 @@
+{
+  "format": "cie-export/2",
+  "revision": 1,
+  "manifestHash": "sha256:b9cc7321ee2d9ad43e8c325564fee0ed46ab28648156c95a769b55f4b9aabbdc",
+  "files": [
+    {
+      "path": "src/main.ts",
+      "status": "indexed",
+      "hash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7",
+      "size": 414,
+      "language": "ts"
+    },
+    {
+      "path": "src/shapes.ts",
+      "status": "indexed",
+      "hash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862",
+      "size": 473,
+      "language": "ts"
+    },
+    {
+      "path": "tsconfig.json",
+      "status": "indexed",
+      "hash": "sha256:5b598f4037dd316e1815fa51e43f5997759be5bfbcabe0b5a11d5f3739bc90d4",
+      "size": 155,
+      "language": null
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:src",
+      "kind": "directory",
+      "name": "src",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "proj:ts:tsconfig.json",
+      "kind": "project",
+      "name": "tsconfig.json",
+      "ecosystem": "typescript",
+      "file": "tsconfig.json"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ext:node:fs",
+      "kind": "external",
+      "name": "fs",
+      "file": null,
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "mod:ts:src/main.ts",
+      "kind": "module",
+      "name": "main.ts",
+      "file": "src/main.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:ts:src/shapes.ts",
+      "kind": "module",
+      "name": "shapes.ts",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/main.ts#dispatch(function)",
+      "kind": "symbol",
+      "name": "dispatch",
+      "file": "src/main.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "dispatch",
+        "kind": "function",
+        "range": {
+          "startLine": 15,
+          "startCol": 0,
+          "endLine": 18,
+          "endCol": 1
+        },
+        "spanHash": "sha256:c9103182ad5e79257fcb17fc0964e9ce607bb788e8dcc2e71156145b4c565c57",
+        "bodyFingerprint": "sha256:1f21af7c1ab2636362474a428cc62e70088dd746ef2cf3117e348b3cac63edf6",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/main.ts#handlers(constant)",
+      "kind": "symbol",
+      "name": "handlers",
+      "file": "src/main.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "handlers",
+        "kind": "constant",
+        "range": {
+          "startLine": 3,
+          "startCol": 6,
+          "endLine": 7,
+          "endCol": 1
+        },
+        "spanHash": "sha256:fdf558797821a8f3a497ee2096bd7bde93619c2fbf2e9e84f6f79b34726ce341",
+        "bodyFingerprint": "sha256:7a22d30740df2a042876801295de158a105a2bf1d43d2b35dd3621858b86309b",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/main.ts#main(function)",
+      "kind": "symbol",
+      "name": "main",
+      "file": "src/main.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "main",
+        "kind": "function",
+        "range": {
+          "startLine": 9,
+          "startCol": 0,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "spanHash": "sha256:9e8ddce021c611407fc85eb9c14fdd894ccb3c49faf819c87cd33c8cba6286e8",
+        "bodyFingerprint": "sha256:08944fc08b22d5256bb26a31d0375bae8cb0c448fc881403252ceff709a87ef3",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Base(class)",
+      "kind": "symbol",
+      "name": "Base",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Base",
+        "kind": "class",
+        "range": {
+          "startLine": 4,
+          "startCol": 7,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "spanHash": "sha256:c90dbc20075eca22fc2c419e644d35140b6cc65235dad82cd83b88d33cc43349",
+        "bodyFingerprint": "sha256:2e963e87dec7898d965b844ef3a68164e9fbaec5f344a25a70ae12d3e977d831",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Base.area(method)",
+      "kind": "symbol",
+      "name": "area",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Base.area",
+        "kind": "method",
+        "range": {
+          "startLine": 5,
+          "startCol": 2,
+          "endLine": 5,
+          "endCol": 25
+        },
+        "spanHash": "sha256:9c82c90e145b7a3e16049d4db040e3001664bdf0c49bfb4053dfbd8c3f613b7c",
+        "bodyFingerprint": "sha256:2e04b8752f87bfd69cb8b11685df6db3306491f335191bcdaf361f5698edc5ad",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Base.describe(method)",
+      "kind": "symbol",
+      "name": "describe",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Base.describe",
+        "kind": "method",
+        "range": {
+          "startLine": 7,
+          "startCol": 2,
+          "endLine": 9,
+          "endCol": 3
+        },
+        "spanHash": "sha256:dcb2bb072c580047688d27f42800cfc0222a071372972774f062bada77d8cca2",
+        "bodyFingerprint": "sha256:9c48c27f3c0c4c2970cbbb77b141abb8f4070225bba6b1b800ba9993cb8da843",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Shape(interface)",
+      "kind": "symbol",
+      "name": "Shape",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Shape",
+        "kind": "interface",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "spanHash": "sha256:834112c8963a3b7a7bbfce02072b5776c4fa218bedd498d0a9b1995abfa9f04a",
+        "bodyFingerprint": "sha256:c3b50d2c0bc881b246145d6d344cd435e34d93ccdc24331f9875e1f088ec539d",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Shape.area(method)",
+      "kind": "symbol",
+      "name": "area",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Shape.area",
+        "kind": "method",
+        "range": {
+          "startLine": 1,
+          "startCol": 2,
+          "endLine": 1,
+          "endCol": 16
+        },
+        "spanHash": "sha256:239b261d009d6c08b7186cc1790a06b752e209561abf776ddb05978dd24fc94d",
+        "bodyFingerprint": "sha256:cf753ab5ab90aa1fb3c7ae5233f803624967fb3539ea74877c2ea16cadaa6e10",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Square(class)",
+      "kind": "symbol",
+      "name": "Square",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Square",
+        "kind": "class",
+        "range": {
+          "startLine": 12,
+          "startCol": 7,
+          "endLine": 20,
+          "endCol": 1
+        },
+        "spanHash": "sha256:31c7179f9db8421629b51af038891fda0f82542db119279d2c6aa6db253fb776",
+        "bodyFingerprint": "sha256:f29abd1620b28cf37df36bcdcf92e93db081f73c6e5a4657b391ee07fa50ac32",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Square.area(method)",
+      "kind": "symbol",
+      "name": "area",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Square.area",
+        "kind": "method",
+        "range": {
+          "startLine": 17,
+          "startCol": 2,
+          "endLine": 19,
+          "endCol": 3
+        },
+        "spanHash": "sha256:e7024854d421009de8f79e7c3433d47f32d974a2c27cac68f9596a4fdd0bd34e",
+        "bodyFingerprint": "sha256:df758475c90d21f09fd9a22f217671b06c123a9c267086d76f2bede2e8e2a770",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Square.constructor(constructor)",
+      "kind": "symbol",
+      "name": "constructor",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Square.constructor",
+        "kind": "constructor",
+        "range": {
+          "startLine": 13,
+          "startCol": 2,
+          "endLine": 15,
+          "endCol": 3
+        },
+        "spanHash": "sha256:99616802a3f7d79e84d6628b4757cb684fd97062661968d9e0828c27322667c9",
+        "bodyFingerprint": "sha256:af0c432068c5d147177ecd68e575b846c5742bd4b0e9800d3af90eb5fe35e510",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#Square.side(property)",
+      "kind": "symbol",
+      "name": "side",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "Square.side",
+        "kind": "property",
+        "range": {
+          "startLine": 13,
+          "startCol": 14,
+          "endLine": 13,
+          "endCol": 43
+        },
+        "spanHash": "sha256:f4281235c93a0b0dad2a2a82ca525eeba7985a013dae965115f8d5eca759f1b7",
+        "bodyFingerprint": "sha256:ddb50481ba39c2811a341b16aaff6a1161e356724c23586db49d9b61c26453db",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "ts:src/shapes.ts#total(function)",
+      "kind": "symbol",
+      "name": "total",
+      "file": "src/shapes.ts",
+      "language": "ts",
+      "symbol": {
+        "qualifiedName": "total",
+        "kind": "function",
+        "range": {
+          "startLine": 22,
+          "startCol": 7,
+          "endLine": 25,
+          "endCol": 1
+        },
+        "spanHash": "sha256:3a3f29198dc2ce3bb94a7cd8f7116af07e594d2c105d88379a3eebeb07cf5f39",
+        "bodyFingerprint": "sha256:f36a9a103b0c90114966ad64c68f69763cea5f25e57be37017a8b67a715145fa",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "unres:ts:src/main.ts#3347f7dca134ed8c",
+      "kind": "unresolved",
+      "name": "handlers[name]",
+      "file": "src/main.ts",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "unres:ts:src/main.ts#d6102037905a7b6e",
+      "kind": "unresolved",
+      "name": "table.go",
+      "file": "src/main.ts",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "calls",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/main.ts#dispatch(function)",
+      "site": "8c3a76d05f77cce0",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 21,
+          "startCol": 0,
+          "endLine": 21,
+          "endCol": 8
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "raw": "dispatch"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/main.ts#main(function)",
+      "site": "3e14c1785f9da04c",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 20,
+          "startCol": 0,
+          "endLine": 20,
+          "endCol": 4
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "raw": "main"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/main.ts#dispatch(function)",
+      "to": "unres:ts:src/main.ts#3347f7dca134ed8c",
+      "site": "6af70ba53eb5bd7f",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 16,
+          "startCol": 2,
+          "endLine": 16,
+          "endCol": 16
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "raw": "handlers[name]"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/main.ts#dispatch(function)",
+      "to": "unres:ts:src/main.ts#d6102037905a7b6e",
+      "site": "e38b6e98b2c38861",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 17,
+          "startCol": 8,
+          "endLine": 17,
+          "endCol": 10
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "raw": "table.go"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/main.ts#handlers(constant)",
+      "to": "ts:src/main.ts#main(function)",
+      "site": "8aa0be1d2840ffc4",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 4,
+          "endLine": 5,
+          "endCol": 8
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "raw": "main"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/main.ts#main(function)",
+      "to": "ts:src/shapes.ts#Square(class)",
+      "site": "e5cecbfb74f8337b",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 31,
+          "endLine": 10,
+          "endCol": 37
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "raw": "Square"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/main.ts#main(function)",
+      "to": "ts:src/shapes.ts#total(function)",
+      "site": "9bf0d64fe4eed40e",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 11,
+          "startCol": 14,
+          "endLine": 11,
+          "endCol": 19
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "raw": "total"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/shapes.ts#Base.describe(method)",
+      "to": "ts:src/shapes.ts#Base.area(method)",
+      "site": "ea9d7316056657d5",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 24,
+          "endLine": 8,
+          "endCol": 28
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "raw": "this.area"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "ts:src/shapes.ts#total(function)",
+      "to": "ts:src/shapes.ts#Shape.area(method)",
+      "site": "8dcf5df7701f1d26",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 23,
+          "startCol": 50,
+          "endLine": 23,
+          "endCol": 54
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "raw": "s.area"
+      }
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/shapes.ts#Base(class)",
+      "to": "ts:src/shapes.ts#Base.area(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 2,
+          "endLine": 5,
+          "endCol": 25
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/shapes.ts#Base(class)",
+      "to": "ts:src/shapes.ts#Base.describe(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 7,
+          "startCol": 2,
+          "endLine": 9,
+          "endCol": 3
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/shapes.ts#Shape(interface)",
+      "to": "ts:src/shapes.ts#Shape.area(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 2,
+          "endLine": 1,
+          "endCol": 16
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/shapes.ts#Square(class)",
+      "to": "ts:src/shapes.ts#Square.area(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 17,
+          "startCol": 2,
+          "endLine": 19,
+          "endCol": 3
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/shapes.ts#Square(class)",
+      "to": "ts:src/shapes.ts#Square.constructor(constructor)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 13,
+          "startCol": 2,
+          "endLine": 15,
+          "endCol": 3
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "ts:src/shapes.ts#Square(class)",
+      "to": "ts:src/shapes.ts#Square.side(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 13,
+          "startCol": 14,
+          "endLine": 13,
+          "endCol": 43
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/main.ts#dispatch(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 15,
+          "startCol": 0,
+          "endLine": 18,
+          "endCol": 1
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/main.ts#handlers(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 3,
+          "startCol": 6,
+          "endLine": 7,
+          "endCol": 1
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/main.ts#main(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 9,
+          "startCol": 0,
+          "endLine": 13,
+          "endCol": 1
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#Base(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 7,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#Shape(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#Square(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 7,
+          "endLine": 20,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#total(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 22,
+          "startCol": 7,
+          "endLine": 25,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#Base(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 7,
+          "endLine": 10,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#Shape(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 7,
+          "endLine": 2,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#Square(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 7,
+          "endLine": 20,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:ts:src/shapes.ts",
+      "to": "ts:src/shapes.ts#total(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-typescript@0.23.2",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 22,
+          "startCol": 7,
+          "endLine": 25,
+          "endCol": 1
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "extends",
+      "from": "ts:src/shapes.ts#Square(class)",
+      "to": "ts:src/shapes.ts#Base(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 12,
+          "startCol": 28,
+          "endLine": 12,
+          "endCol": 32
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "implements",
+      "from": "ts:src/shapes.ts#Base(class)",
+      "to": "ts:src/shapes.ts#Shape(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 4,
+          "startCol": 38,
+          "endLine": 4,
+          "endCol": 43
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:src/main.ts",
+      "to": "ext:node:fs",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 39
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "node:fs"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:ts:src/main.ts",
+      "to": "mod:ts:src/shapes.ts",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 53
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "./shapes"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/shapes.ts#Shape(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 53
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "Shape",
+        "raw": "./shapes"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/shapes.ts#Square(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 53
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "Square",
+        "raw": "./shapes"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/shapes.ts#total(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 53
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "total",
+        "raw": "./shapes"
+      }
+    },
+    {
+      "type": "references",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/main.ts#dispatch(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 21,
+          "startCol": 0,
+          "endLine": 21,
+          "endCol": 8
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "mod:ts:src/main.ts",
+      "to": "ts:src/main.ts#main(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 20,
+          "startCol": 0,
+          "endLine": 20,
+          "endCol": 4
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/main.ts#dispatch(function)",
+      "to": "ts:src/main.ts#handlers(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 16,
+          "startCol": 2,
+          "endLine": 16,
+          "endCol": 10
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/main.ts#handlers(constant)",
+      "to": "ts:src/main.ts#main(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 5,
+          "startCol": 4,
+          "endLine": 5,
+          "endCol": 8
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/main.ts#main(function)",
+      "to": "ts:src/shapes.ts#Square(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 31,
+          "endLine": 10,
+          "endCol": 37
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/main.ts#main(function)",
+      "to": "ts:src/shapes.ts#total(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 11,
+          "startCol": 14,
+          "endLine": 11,
+          "endCol": 19
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/shapes.ts#Base.describe(method)",
+      "to": "ts:src/shapes.ts#Base.area(method)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 8,
+          "startCol": 24,
+          "endLine": 8,
+          "endCol": 28
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/shapes.ts#Square.area(method)",
+      "to": "ts:src/shapes.ts#Square.side(property)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 18,
+          "startCol": 16,
+          "endLine": 18,
+          "endCol": 20
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "occurrences": 2
+      }
+    },
+    {
+      "type": "references",
+      "from": "ts:src/shapes.ts#total(function)",
+      "to": "ts:src/shapes.ts#Shape.area(method)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 23,
+          "startCol": 50,
+          "endLine": 23,
+          "endCol": 54
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/main.ts#main(function)",
+      "to": "ts:src/shapes.ts#Shape(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/main.ts",
+        "range": {
+          "startLine": 10,
+          "startCol": 16,
+          "endLine": 10,
+          "endCol": 21
+        },
+        "contentHash": "sha256:eb58d1ff2e35ece50aa5095f4ed84cf6594d092c0d376be22fc127f52cd3d3c7"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references_type",
+      "from": "ts:src/shapes.ts#total(function)",
+      "to": "ts:src/shapes.ts#Shape(interface)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/shapes.ts",
+        "range": {
+          "startLine": 22,
+          "startCol": 30,
+          "endLine": 22,
+          "endCol": 35
+        },
+        "contentHash": "sha256:d804d452dbc6c4b8172423dddbcf410e764e99e7c424893542a6214d521cf862"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    }
+  ]
+}

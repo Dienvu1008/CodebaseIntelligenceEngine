@@ -43,9 +43,11 @@ export type {
 export { createFileExtraction } from './domain/file-extraction.js';
 export type { EdgeStatus, ExternalEcosystem, ImportEdgeType, ImportResolution, ImportResolver, ImportTarget, StructuralEdge } from './domain/import-edge.js';
 export { createImportEdge, externalNodeId, importEdgeViolations, moduleNodeId, unresolvedNodeId } from './domain/import-edge.js';
+export type { RelationEdge, RelationEdgeType, RelationResolution, ResolvedEdge } from './domain/relation-edge.js';
+export { createRelationEdge, isRelationEdge, OCCURRENCE_EDGE_TYPES, RELATION_CAPABILITY, RELATION_EDGE_TYPES } from './domain/relation-edge.js';
 export type { SymbolDeclaration, SymbolIdParts, SymbolKind } from './domain/symbol-identity.js';
 export { DEFAULT_EXPORT_NAME, SYMBOL_KINDS, anonymousName, encodeNameSegment, identifySymbols, parseSymbolId, validateNameSegment } from './domain/symbol-identity.js';
 export type { CodeEdge, CodeEdgeType, CodeGraph, CodeNode, CodeNodeKind, EdgeEvidence, ProjectionDiagnostic, SourceFileFacts, SymbolFacts } from './domain/graph-projection.js';
-export { CODE_EDGE_TYPES, CODE_NODE_KINDS, edgeIdentity, projectCodeGraph } from './domain/graph-projection.js';
+export { CODE_EDGE_TYPES, CODE_NODE_KINDS, RESOLVED_EDGE_TYPES, edgeIdentity, projectCodeGraph } from './domain/graph-projection.js';
 export type { SpannedRecord } from './domain/source-text.js';
 export { SourceText, spanViolations } from './domain/source-text.js';

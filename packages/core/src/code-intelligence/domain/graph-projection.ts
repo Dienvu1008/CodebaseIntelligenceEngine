@@ -19,14 +19,19 @@
 import type { CanonicalPath, ContentHash, NodeId, SourceRange } from '../../shared-kernel/index.js';
 import type { LanguageId, Precision, ProducerRef } from './capability.js';
 import type { ExtractedSymbol, FileExtraction } from './file-extraction.js';
-import type { EdgeStatus, StructuralEdge } from './import-edge.js';
+import type { EdgeStatus, ImportEdgeType } from './import-edge.js';
 import { moduleNodeId } from './import-edge.js';
+import { isRelationEdge, RELATION_EDGE_TYPES, type RelationEdgeType, type ResolvedEdge } from './relation-edge.js';
 import type { SymbolKind } from './symbol-identity.js';
 
 export type CodeNodeKind = 'module' | 'symbol' | 'external' | 'unresolved';
-export type CodeEdgeType = 'contains' | 'defines' | 'exports' | 'imports' | 'imports_symbol';
+export type CodeEdgeType = 'contains' | 'defines' | 'exports' | ImportEdgeType | RelationEdgeType;
 export const CODE_NODE_KINDS: readonly CodeNodeKind[] = ['module', 'symbol', 'external', 'unresolved'];
-export const CODE_EDGE_TYPES: readonly CodeEdgeType[] = ['contains', 'defines', 'exports', 'imports', 'imports_symbol'];
+export const CODE_EDGE_TYPES: readonly CodeEdgeType[] = ['contains', 'defines', 'exports', 'imports', 'imports_symbol', ...RELATION_EDGE_TYPES];
+/** Edge types a resolver produces (SY-006 governs their precision); the others are syntactic. */
+export const RESOLVED_EDGE_TYPES: readonly CodeEdgeType[] = ['imports', 'imports_symbol', ...RELATION_EDGE_TYPES];
+/** Relation types merged per (from, to), counting their occurrences in `attrs.occurrences`. */
+const AGGREGATED: readonly CodeEdgeType[] = ['references', 'references_type', 'extends', 'implements'];
 
 export interface SymbolFacts {
   readonly qualifiedName: string;
@@ -62,13 +67,13 @@ export interface CodeEdge {
   readonly type: CodeEdgeType;
   readonly from: NodeId;
   readonly to: NodeId;
-  /** Empty for every Phase 02 edge type; occurrence-based types (references, calls) use a site hash. */
+  /** Site key of occurrence types (`calls`); empty for every other type. */
   readonly site: string;
   readonly status: EdgeStatus;
   readonly precision: Precision | null;
   readonly producer: ProducerRef;
   readonly evidence: EdgeEvidence | null;
-  readonly attrs: Readonly<Record<string, string | boolean | null>>;
+  readonly attrs: Readonly<Record<string, string | number | boolean | null>>;
 }
 
 export interface ProjectionDiagnostic {
@@ -144,7 +149,7 @@ function syntacticEdges(e: FileExtraction): CodeEdge[] {
   return out;
 }
 
-function placeholderNode(edge: StructuralEdge): CodeNode | null {
+function placeholderNode(edge: ResolvedEdge): CodeNode | null {
   if (edge.toKind === 'external') {
     const name = edge.to.slice(edge.to.indexOf(':', 4) + 1);
     return { id: edge.to, kind: 'external', name, file: null, language: null, symbol: null, producer: edge.producer };
@@ -155,30 +160,38 @@ function placeholderNode(edge: StructuralEdge): CodeNode | null {
   return null;
 }
 
-const toCodeEdge = (e: StructuralEdge): CodeEdge => ({
-  type: e.type,
-  from: e.from,
-  to: e.to,
-  site: '',
-  status: e.status,
-  precision: e.precision,
-  producer: e.producer,
-  evidence: e.evidence,
-  attrs: { raw: e.attrs.raw, name: e.attrs.name, isDynamic: e.attrs.isDynamic, isTypeOnly: e.attrs.isTypeOnly },
-});
+function relationAttrs(type: RelationEdgeType, raw: string): CodeEdge['attrs'] {
+  if (type === 'calls') return { raw };
+  return { occurrences: 1 };
+}
 
-/** First writer wins for nodes; for edges with the same identity, the earliest evidence wins. */
+const toCodeEdge = (e: ResolvedEdge): CodeEdge => {
+  const common = { type: e.type, from: e.from, to: e.to, status: e.status, precision: e.precision, producer: e.producer, evidence: e.evidence };
+  if (isRelationEdge(e)) return { ...common, site: e.site, attrs: relationAttrs(e.type, e.attrs.raw) };
+  return { ...common, site: '', attrs: { raw: e.attrs.raw, name: e.attrs.name, isDynamic: e.attrs.isDynamic, isTypeOnly: e.attrs.isTypeOnly } };
+};
+
+/**
+ * First writer wins for nodes; for edges with the same identity, the earliest evidence wins. Aggregated
+ * relation types also add up their occurrences.
+ */
 function mergeEdge(edges: Map<string, CodeEdge>, e: CodeEdge): void {
   const key = edgeIdentity(e);
   const old = edges.get(key);
-  if (old === undefined || (e.evidence !== null && old.evidence !== null && e.evidence.path === old.evidence.path && rangeBefore(e.evidence.range, old.evidence.range))) edges.set(key, e);
+  const earlier = old === undefined || (e.evidence !== null && old.evidence !== null && e.evidence.path === old.evidence.path && rangeBefore(e.evidence.range, old.evidence.range));
+  if (old !== undefined && AGGREGATED.includes(e.type)) {
+    const occurrences = Number(old.attrs['occurrences'] ?? 1) + Number(e.attrs['occurrences'] ?? 1);
+    edges.set(key, { ...(earlier ? e : old), attrs: { occurrences } });
+    return;
+  }
+  if (earlier) edges.set(key, e);
 }
 
 /**
  * Projects one revision's code graph. `resolved` must already be ordered by precedence (the
  * LanguageRegistry resolver order); `manifestFiles` are the indexed files of the revision.
  */
-export function projectCodeGraph(extractions: readonly FileExtraction[], resolved: readonly StructuralEdge[], manifestFiles: ReadonlySet<CanonicalPath>): CodeGraph {
+export function projectCodeGraph(extractions: readonly FileExtraction[], resolved: readonly ResolvedEdge[], manifestFiles: ReadonlySet<CanonicalPath>): CodeGraph {
   const nodes = new Map<string, CodeNode>();
   const edges = new Map<string, CodeEdge>();
   const diagnostics: ProjectionDiagnostic[] = [];

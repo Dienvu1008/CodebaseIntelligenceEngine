@@ -449,9 +449,79 @@
       }
     },
     {
+      "id": "unres:js:lib/dates.js#25f17f2df03e1bce",
+      "kind": "unresolved",
+      "name": "d.toISOString",
+      "file": "lib/dates.js",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "unres:js:lib/dates.js#7faaf9f2a63816f4",
+      "kind": "unresolved",
+      "name": "d.toISOString().slice",
+      "file": "lib/dates.js",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "unres:js:lib/server.js#079923d560318712",
+      "kind": "unresolved",
+      "name": "res.send",
+      "file": "lib/server.js",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
       "id": "unres:js:lib/server.js#09d41b8cea18c4e5",
       "kind": "unresolved",
       "name": "name",
+      "file": "lib/server.js",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "unres:js:lib/server.js#af9ab257cc9ed4f5",
+      "kind": "unresolved",
+      "name": "app.listen",
+      "file": "lib/server.js",
+      "language": null,
+      "symbol": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      }
+    },
+    {
+      "id": "unres:js:lib/server.js#cef488008e93faaa",
+      "kind": "unresolved",
+      "name": "app.get",
       "file": "lib/server.js",
       "language": null,
       "symbol": null,
@@ -478,6 +548,174 @@
     }
   ],
   "edges": [
+    {
+      "type": "calls",
+      "from": "js:lib/dates.js#formatDate(function)",
+      "to": "unres:js:lib/dates.js#25f17f2df03e1bce",
+      "site": "0ae1dfe1e6e1e1d9",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/dates.js",
+        "range": {
+          "startLine": 4,
+          "startCol": 11,
+          "endLine": 4,
+          "endCol": 22
+        },
+        "contentHash": "sha256:1cddd20d02542a07721174779afff148ccc582bf44c5761d65e603b7534eb5a9"
+      },
+      "attrs": {
+        "raw": "d.toISOString"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "js:lib/dates.js#formatDate(function)",
+      "to": "unres:js:lib/dates.js#7faaf9f2a63816f4",
+      "site": "0e88be8495112644",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/dates.js",
+        "range": {
+          "startLine": 4,
+          "startCol": 25,
+          "endLine": 4,
+          "endCol": 30
+        },
+        "contentHash": "sha256:1cddd20d02542a07721174779afff148ccc582bf44c5761d65e603b7534eb5a9"
+      },
+      "attrs": {
+        "raw": "d.toISOString().slice"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "js:lib/server.js#Server.start(method)",
+      "to": "js:lib/dates.js#formatDate(function)",
+      "site": "9d146589428f0064",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 14,
+          "startCol": 41,
+          "endLine": 14,
+          "endCol": 51
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "raw": "formatDate"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "js:lib/server.js#Server.start(method)",
+      "to": "unres:js:lib/server.js#079923d560318712",
+      "site": "8e99f89d7c13437f",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 14,
+          "startCol": 36,
+          "endLine": 14,
+          "endCol": 40
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "raw": "res.send"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "js:lib/server.js#Server.start(method)",
+      "to": "unres:js:lib/server.js#af9ab257cc9ed4f5",
+      "site": "942378f4bf913a88",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 15,
+          "startCol": 15,
+          "endLine": 15,
+          "endCol": 21
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "raw": "app.listen"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "js:lib/server.js#Server.start(method)",
+      "to": "unres:js:lib/server.js#cef488008e93faaa",
+      "site": "93ccc3fdbd3a89d7",
+      "status": "unknown",
+      "precision": null,
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 14,
+          "startCol": 8,
+          "endLine": 14,
+          "endCol": 11
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "raw": "app.get"
+      }
+    },
     {
       "type": "contains",
       "from": "js:lib/server.js#Server(class)",
@@ -1098,6 +1336,202 @@
         "isTypeOnly": false,
         "name": "VERSION",
         "raw": "./esm.mjs"
+      }
+    },
+    {
+      "type": "references",
+      "from": "js:lib/server.js#Server.constructor(constructor)",
+      "to": "js:lib/server.js#Server(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 9,
+          "startCol": 24,
+          "endLine": 9,
+          "endCol": 30
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "js:lib/server.js#Server.constructor(constructor)",
+      "to": "js:lib/server.js#Server.defaultPort(property)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 9,
+          "startCol": 31,
+          "endLine": 9,
+          "endCol": 42
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "js:lib/server.js#Server.start(method)",
+      "to": "js:lib/dates.js#formatDate(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 14,
+          "startCol": 41,
+          "endLine": 14,
+          "endCol": 51
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "js:src/Banner.jsx#Banner(function)",
+      "to": "js:src/esm.mjs#VERSION(constant)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "src/Banner.jsx",
+        "range": {
+          "startLine": 5,
+          "startCol": 16,
+          "endLine": 5,
+          "endCol": 23
+        },
+        "contentHash": "sha256:057a769ca0381149828994efcfdd4ecf7aab87393d6e21607c7b9b969a923f39"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "mod:js:lib/dates.js",
+      "to": "js:lib/dates.js#formatDate(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/dates.js",
+        "range": {
+          "startLine": 7,
+          "startCol": 19,
+          "endLine": 7,
+          "endCol": 29
+        },
+        "contentHash": "sha256:1cddd20d02542a07721174779afff148ccc582bf44c5761d65e603b7534eb5a9"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "mod:js:lib/server.js",
+      "to": "js:lib/server.js#Server(class)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 23,
+          "startCol": 19,
+          "endLine": 23,
+          "endCol": 25
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "mod:js:lib/server.js",
+      "to": "js:lib/server.js#loadPlugin(function)",
+      "site": "",
+      "status": "verified",
+      "precision": "exact",
+      "producer": {
+        "adapterId": "lang-ts",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "typescript@6.0.3",
+        "fidelity": "L3"
+      },
+      "evidence": {
+        "kind": "compiler",
+        "path": "lib/server.js",
+        "range": {
+          "startLine": 23,
+          "startCol": 27,
+          "endLine": 23,
+          "endCol": 37
+        },
+        "contentHash": "sha256:111228ac41d181e6aa528d793e38cefff8aaca0879076bd96d2905cc411bf6fb"
+      },
+      "attrs": {
+        "occurrences": 1
       }
     }
   ]

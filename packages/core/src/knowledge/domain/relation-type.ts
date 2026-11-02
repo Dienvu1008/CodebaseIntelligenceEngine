@@ -8,7 +8,10 @@
  *  - there is no `file` node kind: a file's language view is its `module` node, so `file → symbol`
  *    containment is `defines`, and `belongs_to` starts from directory, package or module;
  *  - `imports_symbol` also targets `unresolved` placeholders with status `unknown` (SY-006, Phase 02);
- *  - the Phase 01 structural kinds are `directory`, `package` and `project`.
+ *  - the Phase 01 structural kinds are `directory`, `package` and `project`;
+ *  - (P03-07) `references`, `references_type` and `calls` may start at a module (top-level code);
+ *    `references` and `references_type` are one edge per (from, to) with an occurrence count, and only
+ *    `calls` is identified per site.
  */
 import type { CodeEdgeType, CodeNodeKind, EdgeStatus } from '../../code-intelligence/public.js';
 import type { StructuralKind } from '../../workspace/public.js';
@@ -103,12 +106,12 @@ export const RELATION_TYPES: readonly RelationType[] = Object.freeze([
   type('exports', 2, pairs(['module'], ['symbol']), [V, I], 'The symbol is exported from the module (re-exports carry `via`)'),
   type('imports', 2, pairs(['module'], ['module', 'external', 'unresolved']), [V, I, Q], 'Static import dependency (`isTypeOnly`, `isDynamic` attributes)'),
   type('imports_symbol', 2, pairs(['module'], ['symbol', 'unresolved']), [V, I, Q], 'Named import binding'),
-  type('references', 3, pairs(['symbol'], ['symbol']), [V, I], "An identifier occurrence in `from`'s body resolves to `to`", true),
-  type('calls', 3, pairs(['symbol'], ['symbol', 'unresolved']), [V, I, Q], 'A static call expression targets `to`', true),
+  type('references', 3, pairs(['symbol', 'module'], ['symbol']), [V, I], "Identifier occurrences in `from`'s body (or top-level code) resolve to `to` (count in `occurrences`)"),
+  type('calls', 3, pairs(['symbol', 'module'], ['symbol', 'unresolved']), [V, I, Q], 'A static call expression targets `to` (one edge per call site)', true),
   type('may_dispatch_to', 3, pairs(['symbol'], ['symbol']), [I], 'A virtual or interface call may reach an implementer (methods only)'),
   type('extends', 3, pairs(['symbol'], ['symbol']), [V, I], 'Class or interface inheritance'),
   type('implements', 3, pairs(['symbol'], ['symbol']), [V], 'A class implements an interface'),
-  type('references_type', 3, pairs(['symbol'], ['symbol']), [V, I], 'A type annotation reference'),
+  type('references_type', 3, pairs(['symbol', 'module'], ['symbol']), [V, I], 'Type-position references (count in `occurrences`)'),
   type('injects', 3, pairs(['symbol'], ['symbol']), [I], 'Dependency-injection wiring (constructor injection and similar)'),
   type('depends_on', 8, [...pairs(['component'], ['component']), ...pairs(['package'], ['package'])], [V, I], 'Aggregated dependency derived from `imports` (verified only from verified edges)'),
   type('belongs_to', 8, [...pairs(['directory', 'package', 'module'], ['component']), ...pairs(['component'], ['layer'])], [V, U], 'Architecture membership'),

@@ -12,6 +12,7 @@ import {
   formatProducer,
   importEdgeViolations,
   relationViolations,
+  RESOLVED_EDGE_TYPES,
   type CanonicalPath,
   type ContentHash,
   type StoredSpan,
@@ -322,10 +323,8 @@ function attributionViolations(db: Database.Database, visibleAt: VisibleAt, seq:
     .all({ seq }) as Array<{ data: string; to_kind: StructuralEdge['toKind'] }>;
   for (const r of rows) {
     const e = JSON.parse(r.data) as CodeEdge;
-    if (e.type === 'imports' || e.type === 'imports_symbol') {
-      const evidence = e.evidence ?? { kind: 'ast' as const, path: '' as CanonicalPath, range: { startLine: 0, startCol: 0, endLine: 0, endCol: 0 }, contentHash: '' as never };
-      const attrs = { raw: String(e.attrs['raw'] ?? ''), name: (e.attrs['name'] ?? null) as string | null, isDynamic: e.attrs['isDynamic'] === true, isTypeOnly: e.attrs['isTypeOnly'] === true };
-      out.push(...importEdgeViolations({ type: e.type, from: e.from, to: e.to, toKind: r.to_kind, status: e.status, precision: e.precision, producer: e.producer, evidence, attrs }));
+    if (RESOLVED_EDGE_TYPES.includes(e.type)) {
+      out.push(...importEdgeViolations({ type: e.type, from: e.from, to: e.to, toKind: r.to_kind, status: e.status, precision: e.precision, producer: e.producer }));
     } else if (e.precision !== null) {
       out.push(`SY-006: ${e.type} ${e.from} -> ${e.to} is a syntactic edge but claims precision ${e.precision}`);
     }

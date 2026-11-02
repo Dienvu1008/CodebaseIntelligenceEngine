@@ -18,7 +18,7 @@ import type { FileSystem, ManifestEntry } from '../../workspace/public.js';
 import type { CapabilityProfile, LanguageId, ProducerIdentity } from '../domain/capability.js';
 import type { ExtractionDiagnostic, FileExtraction } from '../domain/file-extraction.js';
 import type { CodeEdge, CodeNode } from '../domain/graph-projection.js';
-import type { StructuralEdge } from '../domain/import-edge.js';
+import type { ResolvedEdge } from '../domain/relation-edge.js';
 
 export interface FileInput {
   readonly path: CanonicalPath;
@@ -63,7 +63,8 @@ export interface ProjectInput {
 }
 
 export interface ProjectResolution {
-  readonly edges: readonly StructuralEdge[];
+  /** Import edges and (Phase 03) symbol relation edges, each built with its SY-006 factory. */
+  readonly edges: readonly ResolvedEdge[];
   readonly projects: readonly ProjectDescriptor[];
   readonly diagnostics: readonly (ExtractionDiagnostic & { readonly path: CanonicalPath | null })[];
   /** Incremental runs (Phase 05): dependents that must be re-resolved. */

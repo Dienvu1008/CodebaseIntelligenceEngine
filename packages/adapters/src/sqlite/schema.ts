@@ -11,7 +11,7 @@ import Database from 'better-sqlite3';
 import { domainError, err, ok, type Clock, type DomainError, type Result, type WorkspaceId } from '@cie/core';
 
 /** Bump whenever the DDL below changes. Older files are rebuilt. */
-export const INDEX_SCHEMA_VERSION = 5;
+export const INDEX_SCHEMA_VERSION = 6;
 
 const DDL = `
 create table meta (key text primary key, value text not null) strict;
@@ -107,7 +107,8 @@ create unique index node_head_unique on node(node_key) where valid_to_seq is nul
 -- exists, the RevisionValidator guarantees both endpoints are visible at the edge's seq (KG-001).
 create table edge (
   id integer primary key,
-  type text not null check (type in ('contains','defines','exports','imports','imports_symbol')),
+  type text not null check (type in ('contains','defines','exports','imports','imports_symbol',
+                                     'references','calls','extends','implements','references_type')),
   from_key integer not null references node_key(key),
   to_key integer not null references node_key(key),
   site_key text not null default '',

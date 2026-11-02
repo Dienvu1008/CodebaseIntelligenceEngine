@@ -64,7 +64,7 @@ describe('code graph in the full index', () => {
     expect(r.code, r.stderr).toBe(0);
     const status = JSON.parse(r.stdout) as { capabilities: Record<string, Record<string, string>> };
     expect(Object.keys(status.capabilities)).toEqual(['js', 'py', 'ts', 'tsx']);
-    expect(status.capabilities['ts']).toMatchObject({ symbols: 'L1', imports: 'L3', docstrings: 'L1', references: 'L0' });
+    expect(status.capabilities['ts']).toMatchObject({ symbols: 'L1', imports: 'L3', docstrings: 'L1', references: 'L3', calls: 'L3', typeRelations: 'L3', di: 'L0' });
     expect(status.capabilities['py']).toMatchObject({ symbols: 'L1', imports: 'L2' });
   });
 });

@@ -69,7 +69,7 @@ Implemented in `packages/adapters/src/lang-ts/` (`LangTsResolver`, a `ProjectRes
   - Programs are built one at a time and dropped after their files are resolved (memory control, as decided above).
   - The CompilerHost is the same snapshot-only VirtualWorkspace. Source texts are read through the `FileSystem` port, checked against the extraction's content hash, and decoded exactly as the tree-sitter extractor decodes them. A test asserts that the two decoders agree on arbitrary bytes.
 - **Options:** the project's own options, plus:
-  - `noLib`, `types: []`: lib.d.ts and automatic `@types` are not loaded. Binding workspace declarations needs neither, results stay independent of the TypeScript installation, and programs stay small. If references or calls on lib types need them in P03-07, this is revisited there.
+  - `noLib`, `types: []`: lib.d.ts and automatic `@types` are not loaded. Binding workspace declarations needs neither, results stay independent of the TypeScript installation, and programs stay small. If references or calls on lib types need them in P03-07, this is revisited there. **Superseded in P03-07:** lib is now loaded (see below); `types: []` stays.
   - `noEmit`, and no plugins, `incremental` or `composite`.
 - **A-06, Program path:** verified by `tests/adversarial/lang-ts-plugins.spec.ts`.
   - The project whose tsconfig declares the plugins now gets a Program and a TypeChecker. The test asserts that a binding in it is exact, which can only happen if the Program was built.
@@ -87,6 +87,21 @@ Implemented in `packages/adapters/src/lang-ts/` (`LangTsResolver`, a `ProjectRes
 
   On CodeForge-v2, 1446 of 1446 are exact.
 - **Cost:** a full bind of every project. Measured in P03-15, with no thresholds.
+
+## Phase 03 implementation (P03-07): references, calls and type relations; the standard library
+
+- **Relations** (`adapters/lang-ts/relations.ts`): one walk per source file in a Program yields `references`, `references_type`, `calls`, `extends` and `implements` between extracted symbols, at L3. The rules (what is a reference, what is unresolved, what is not recorded) are in KNOWLEDGE_GRAPH_DESIGN §3, "Implementation (P03-07)".
+- **Declaration mapping** is the P03-03 mapping, memoized per Program. Parameters and locals are never extracted and are excluded first, except TypeScript parameter properties, which are class members. Without this guard, a local named like its enclosing function would map to that function.
+- **The standard library is loaded (decision of the project owner, P03-07, option A).** Lib files are read from the `lib` directory of the pinned `typescript` package that CIE depends on, and chosen by the project's `lib`/`target` exactly as tsc chooses them. The host serves only `lib*.d.ts` files directly in that directory. Lib SourceFiles are parsed once and shared by every Program.
+  - This amends "TypeScript never sees the real disk": the *workspace* is still read only through the snapshot, while the compiler's own lib files come from CIE's installation. No workspace code and no plugin is involved, so A-06 is unaffected.
+  - Determinism holds: the lib files are fixed by the pinned TypeScript version, which is part of the producer's `toolVersion`.
+  - Measured on 2026-10-31 under memory pressure, so the times are indicative:
+    - Without lib, about 2,100–2,300 calls per repository were spuriously unresolved: lib methods on strings, arrays, `Map`, `console`.
+    - With lib, Zod has 2,298 fewer unresolved calls and 1,558 more exact references, and CodeForge-v2 has 2,066 fewer unresolved calls and 611 more exact references.
+    - The resolve stage costs about +1.3 s on Zod and about +0.1 s on CodeForge-v2.
+  - Rejected: keeping `noLib`, which makes 30–40% of the unresolved calls noise.
+  - Also rejected: a fixed lib independent of the project, which would diverge from tsc's own view of the project.
+- **Profile:** lang-ts now declares `references`, `calls` and `typeRelations` at L3.
 
 ## Consequences
 

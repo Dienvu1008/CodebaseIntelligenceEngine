@@ -11,7 +11,7 @@
  *    (type, from, site, bound name), the first resolver's edge wins and later ones are superseded
  *    (CODE_INTELLIGENCE_STRATEGY §4). A failing resolver is reported and skipped.
  */
-import type { CodeGraph, Fidelity, FileExtraction, LanguageRegistry, ProjectResolver, StructuralEdge } from '../../code-intelligence/public.js';
+import type { CodeGraph, Fidelity, FileExtraction, LanguageRegistry, ProjectResolver, ResolvedEdge } from '../../code-intelligence/public.js';
 import { atLeast, projectCodeGraph } from '../../code-intelligence/public.js';
 import type { CancellationSignal, CanonicalPath, DomainError, Hasher, Result } from '../../shared-kernel/index.js';
 import { domainError, err, ok } from '../../shared-kernel/index.js';
@@ -104,9 +104,10 @@ function resolversInOrder(registry: LanguageRegistry): ProjectResolver[] {
   });
 }
 
-const siteKey = (e: StructuralEdge): string => {
+const siteKey = (e: ResolvedEdge): string => {
   const r = e.evidence.range;
-  return `${e.type}\u0000${e.from}\u0000${r.startLine}:${r.startCol}-${r.endLine}:${r.endCol}\u0000${e.attrs.name ?? ''}`;
+  const name = 'name' in e.attrs ? (e.attrs.name ?? '') : '';
+  return `${e.type}\u0000${e.from}\u0000${r.startLine}:${r.startCol}-${r.endLine}:${r.endCol}\u0000${name}`;
 };
 
 async function resolveAll(
@@ -115,8 +116,8 @@ async function resolveAll(
   extractions: readonly FileExtraction[],
   diagnostics: CodeDiagnostic[],
   signal: CancellationSignal,
-): Promise<Result<StructuralEdge[], DomainError>> {
-  const edges: StructuralEdge[] = [];
+): Promise<Result<ResolvedEdge[], DomainError>> {
+  const edges: ResolvedEdge[] = [];
   const claimed = new Set<string>();
   for (const resolver of resolversInOrder(code.registry)) {
     if (signal.aborted) return cancelled();
