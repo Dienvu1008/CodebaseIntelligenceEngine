@@ -168,8 +168,55 @@ describe('TypeScript', () => {
       ['ts', 'L1', 'L1', 'L0'],
       ['tsx', 'L1', 'L1', 'L0'],
       ['js', 'L1', 'L1', 'L0'],
-      ['py', 'L1', 'L1', 'L0'],
+      // P03-08: Python reports free-name uses (syntax for lang-python's L2 references), declared as L1.
+      ['py', 'L1', 'L1', 'L1'],
     ]);
+  });
+});
+
+describe('Python free-name occurrences (P03-08)', () => {
+  it('reports uses of free names only: not declarations, attributes, keywords, imports or function locals', async () => {
+    const src = [
+      'import os',
+      'from m import helper',
+      'LIMIT = 3',
+      'def f(a, b=LIMIT, *rest, **kw):',
+      '    c = helper(a, key=os.sep)',
+      '    for i in rest: c += i',
+      '    return [x for x in kw if x] or g(c)',
+      'class K(Base):',
+      '    size = LIMIT',
+      '    def m(self): return self.size',
+    ].join('\n');
+    const e = await extract('pkg/mod.py', 'py', src);
+    expect(e.occurrences.map((o) => `${o.name}@${o.range.startLine}${o.call ? ' call' : ''}`)).toEqual([
+      'LIMIT@3', // default value: evaluated in the enclosing (module) scope
+      'helper@4 call',
+      'os@4', // `os.sep` reports the object, not the attribute
+      'g@6 call',
+      'Base@7',
+      'LIMIT@8',
+    ]);
+  });
+
+  it('honours global, nonlocal, walrus, with/except targets and nested functions', async () => {
+    const src = [
+      'def f():',
+      '    global G',
+      '    G = G + 1',
+      '    with open(p) as fh: pass',
+      '    if (n := size()): pass',
+      '    def inner():',
+      '        nonlocal n',
+      '        return n + G + fh',
+      '    return inner()',
+    ].join('\n');
+    const e = await extract('pkg/mod.py', 'py', src);
+    expect(e.occurrences.map((o) => `${o.name}@${o.range.startLine}${o.call ? ' call' : ''}`)).toEqual(['G@2', 'open@3 call', 'p@3', 'size@4 call', 'G@7']);
+  });
+
+  it('reports nothing for TypeScript and JavaScript (lang-ts binds through the TypeChecker)', async () => {
+    expect((await extract('src/a.ts', 'ts', 'const a = 1;\nexport const b = a + c;\n')).occurrences).toEqual([]);
   });
 });
 

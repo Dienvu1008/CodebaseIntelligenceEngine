@@ -36,6 +36,7 @@ export type {
   ExtractionDiagnostic,
   FileExtraction,
   FileExtractionInput,
+  NameOccurrence,
   ImportDraft,
   ImportSpecifier,
   SymbolDraft,

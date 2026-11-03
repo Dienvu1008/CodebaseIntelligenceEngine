@@ -10,6 +10,7 @@
  */
 import type { ImportSpecifier, SymbolKind } from '@cie/core';
 import type { Node, QueryMatch } from 'web-tree-sitter';
+import { pythonOccurrences } from './python-scopes.js';
 import { PYTHON_DEFINITIONS, PYTHON_IMPORTS } from './queries.js';
 import { capture, prefixedCapture, type LanguageRules, type RawDefinition, type RawImport } from './rules.js';
 import { plainStringValue } from './syntax.js';
@@ -87,4 +88,5 @@ export const PYTHON_RULES: LanguageRules = {
   defaultExport: () => false, // Python has no default export
   doc,
   importsOf,
+  occurrencesOf: pythonOccurrences,
 };

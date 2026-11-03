@@ -81,6 +81,17 @@ describe('createFileExtraction structural checks', () => {
     );
   });
 
+  it('accepts name occurrences in source order and rejects empty names, bad ranges and disorder (P03-08)', () => {
+    const run = (o: Parameters<typeof extractionInput>[0]) => code(createFileExtraction(extractionInput(o)));
+    const occ = (name: string, line: number, call = false) => ({ name, range: range(line, 0, line, name.length), call });
+    const e = unwrap(createFileExtraction(extractionInput({ occurrences: [occ('a', 1, true), occ('b', 2)] })));
+    expect(e.occurrences).toEqual([occ('a', 1, true), occ('b', 2)]);
+    expect(unwrap(createFileExtraction(extractionInput({}))).occurrences).toEqual([]);
+    expect(run({ occurrences: [occ('', 1)] })).toBe('EXTRACTION_OCCURRENCE_INVALID');
+    expect(run({ occurrences: [occ('b', 2), occ('a', 1)] })).toBe('EXTRACTION_ORDER');
+    expect(run({ lineCount: 2, occurrences: [occ('a', 5)] })).toBe('SY_003_OUT_OF_BOUNDS');
+  });
+
   it('rejects empty specifiers and names, and invalid diagnostic ranges', () => {
     const run = (o: Parameters<typeof extractionInput>[0]) => code(createFileExtraction(extractionInput(o)));
     expect(run({ imports: [literalImport('', range(0, 0, 0, 1))] })).toBe('EXTRACTION_IMPORT_INVALID');

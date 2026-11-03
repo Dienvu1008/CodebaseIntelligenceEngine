@@ -2,7 +2,8 @@
   "format": "cie-truth/1",
   "fixture": "py-src-layout",
   "notes": [
-    "Hand-verified against the sources (P02-12). tests/ resolves pkg.core through the src/ root."
+    "Hand-verified against the sources (P02-12). tests/ resolves pkg.core through the src/ root.",
+    "relations (P03-08, L2): run calls util_fn (bound by from .helpers import util_fn); test_run calls run. np.asarray and typing.Any are attributes of modules, not workspace symbols."
   ],
   "symbols": [
     "py:src/pkg/__init__.py#__all__(variable)",
@@ -22,5 +23,11 @@
     "mod:py:src/pkg/__init__.py -> run -> py:src/pkg/core.py#run(function)",
     "mod:py:src/pkg/core.py -> util_fn -> py:src/pkg/helpers.py#util_fn(function)",
     "mod:py:tests/test_core.py -> run -> py:src/pkg/core.py#run(function)"
+  ],
+  "relations": [
+    "references py:src/pkg/core.py#run(function) -> py:src/pkg/helpers.py#util_fn(function)",
+    "calls py:src/pkg/core.py#run(function) -> py:src/pkg/helpers.py#util_fn(function)",
+    "references py:tests/test_core.py#test_run(function) -> py:src/pkg/core.py#run(function)",
+    "calls py:tests/test_core.py#test_run(function) -> py:src/pkg/core.py#run(function)"
   ]
 }

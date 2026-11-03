@@ -52,7 +52,8 @@ items:
     check: "golden fixtures extended; SY-006 cases for dynamic calls"
   - id: P03-08
     title: "lang-python: scope-aware references and calls inside a file; cross-module bindings through import maps (L2, inferred)"
-    status: pending
+    status: done
+    notes: "Syntax/binding split to respect DEPENDENCY_RULES A1/A2 (a first draft that re-parsed inside lang-python was refused by FF-DEP-008b): the tree-sitter extractor reports Python free-name uses (core FileExtraction.occurrences, references L1; adapters/treesitter/python-scopes.ts with function, lambda and comprehension scopes, global/nonlocal, defaults evaluated outside), lang-python binds them against the module scope and import map (lang-python/relations.ts), heuristic/inferred. New golden py-relations (hand-verified, 18 relations); py-basic and py-src-layout truth extended with relations (4 each); all predictions written before the first run matched. Guards mutation-checked; the default-value guard first survived and the fixture was extended. Known gaps: aliased imports, attribute calls, calls of local functions."
     check: "golden fixtures py-basic, py-src-layout extended"
 
   # --- Storage, read models, CLI ---

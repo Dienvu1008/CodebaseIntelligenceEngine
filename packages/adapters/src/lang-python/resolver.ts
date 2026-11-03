@@ -1,8 +1,10 @@
 /**
  * PythonImportResolver: deterministic heuristic import resolution for Python (CODE_INTELLIGENCE_STRATEGY §5,
- * §6.5). It declares imports at L2, so every resolved edge is `heuristic` / `inferred` (SY-006): the rules
- * follow the import system closely, but without running the interpreter (`sys.path`, `.pth` files,
- * installed distributions) they are not proven.
+ * §6.5). Imports at L2, so every resolved import edge is `heuristic` / `inferred` (SY-006).
+ *
+ * Phase 03 (P03-08): references and calls are also emitted at L2 (inferred). The resolver re-reads each
+ * Python file through the FileSystem port (bytes already verified against the manifest hash in
+ * code-graph-build.ts), parses with the vendored Python grammar, and runs the scope walker in relations.ts.
  *
  * Source roots, in this order for a given file: the detected roots that contain the file (deepest first),
  * then the other roots in path order. Detected roots:
@@ -13,22 +15,13 @@
  * Module lookup in a directory follows the FileFinder order: package (`x/__init__.py`, then `.pyi`) before
  * module (`x.py`, then `x.pyi`).
  *
- * Classification:
- *  - relative import (`.x`, `..`) → resolved inside the importing file's package; climbing above the
- *    workspace or a missing target → unresolved;
- *  - absolute import found under a source root → module;
- *  - otherwise a standard-library top-level name → `ext:python:<top>`;
- *  - otherwise a third-party top-level name → `ext:pypi:<top>` (the import name; distribution names
- *    can differ, for example `yaml` vs PyYAML);
- *  - a namespace package (a workspace directory without `__init__.py`) with no module file → unresolved;
- *  - non-literal `importlib.import_module(x)` / `__import__(x)` → unresolved.
- * `from X import n`: `n` is a submodule when `X/n.py` (or a package) exists, giving an extra `imports` edge.
- * Otherwise it is a name in X, giving an `imports_symbol` edge to the single top-level symbol `n` of X, or
- * unresolved if there are zero or several.
+ * `from X import n`: `n` is a submodule when `X/n.py` (or a package) exists → extra `imports` edge.
+ * Otherwise → `imports_symbol` to the single top-level symbol `n` of X, or unresolved.
  */
 import {
   capabilityProfile,
   createImportEdge,
+  createRelationEdge,
   domainError,
   err,
   ok,
@@ -48,15 +41,17 @@ import {
   type ProjectInput,
   type ProjectResolution,
   type ProjectResolver,
+  type ResolvedEdge,
   type Result,
-  type StructuralEdge,
+  type SymbolId,
 } from '@cie/core';
 import { NodeHasher } from '../fs/system.js';
+import { moduleScope, pythonRelations } from './relations.js';
 import { PYTHON_STDLIB } from './stdlib.js';
 
 export const LANG_PYTHON_ADAPTER_VERSION = '0.1.0';
 const PY = 'py' as LanguageId;
-const PROFILE = { symbols: 'L0', imports: 'L2', references: 'L0', calls: 'L0', typeRelations: 'L0', di: 'L0', docstrings: 'L0' };
+const PROFILE = { symbols: 'L0', imports: 'L2', references: 'L2', calls: 'L2', typeRelations: 'L0', di: 'L0', docstrings: 'L0' };
 const PROJECT_FILES = new Set(['pyproject.toml', 'setup.py', 'setup.cfg']);
 
 const baseName = (p: string): string => p.slice(p.lastIndexOf('/') + 1);
@@ -88,13 +83,11 @@ class Layout {
     this.roots = [...roots].sort(byPath);
   }
 
-  /** Roots in lookup order for `file`: containing roots deepest first, then the rest in path order. */
   rootsFor(file: string): readonly string[] {
     const containing = this.roots.filter((r) => within(file, r)).sort((a, b) => b.length - a.length);
     return [...containing, ...this.roots.filter((r) => !within(file, r))];
   }
 
-  /** `dir/<dotted as path>` as a package or module file, in FileFinder order. */
   lookup(dir: string, dotted: string): CanonicalPath | null {
     const rel = dotted.split('.').join('/');
     const base = join(dir, rel);
@@ -102,19 +95,16 @@ class Layout {
     return null;
   }
 
-  /** True when `dotted` names a directory under some root: a namespace package (PEP 420) with no module file. */
   isNamespaceDir(dotted: string): boolean {
     const rel = dotted.split('.').join('/');
     return this.roots.some((r) => this.dirs.has(join(r, rel)));
   }
 
-  /** `dir/__init__.py` (or `.pyi`), the module of the package `dir` itself. */
   packageInit(dir: string): CanonicalPath | null {
     for (const c of [join(dir, '__init__.py'), join(dir, '__init__.pyi')]) if (this.files.has(c)) return c as CanonicalPath;
     return null;
   }
 
-  /** Package directory for a relative import of `level` dots from `file`, or null above the workspace. */
   static relativeBase(file: string, level: number): string | null {
     let dir = dirName(file);
     for (let i = 1; i < level; i++) {
@@ -125,7 +115,7 @@ class Layout {
   }
 }
 
-const module = (path: CanonicalPath): Classified => ({ target: { kind: 'module', language: PY, path }, precision: 'heuristic' });
+const pyModule = (path: CanonicalPath): Classified => ({ target: { kind: 'module', language: PY, path }, precision: 'heuristic' });
 
 export class PythonImportResolver implements ProjectResolver {
   readonly profiles: readonly CapabilityProfile[];
@@ -149,17 +139,27 @@ export class PythonImportResolver implements ProjectResolver {
   resolve(input: ProjectInput, signal: CancellationSignal): Promise<Result<ProjectResolution, DomainError>> {
     const layout = new Layout(input.manifest.map((e) => e.path));
     const byFile = new Map(input.extractions.map((x) => [x.path, x] as const));
-    const edges: StructuralEdge[] = [];
+    const edges: ResolvedEdge[] = [];
     const diagnostics: ProjectResolution['diagnostics'][number][] = [];
+    const resolver = { producer: this.producer, profile: this.profiles[0] as CapabilityProfile };
     for (const extraction of [...input.extractions].sort((a, b) => byPath(a.path, b.path))) {
       if (extraction.language !== PY) continue;
       if (signal.aborted) return Promise.resolve(err(domainError('RESOLUTION_CANCELLED', 'resolution was cancelled')));
+      // Imports first: the names they bind to symbols form the file's module scope for references and calls.
+      const imported = new Map<string, SymbolId>();
       for (const imp of extraction.imports) {
         for (const res of this.resolutions(layout, extraction, imp, byFile)) {
-          const edge = createImportEdge(extraction, res, { producer: this.producer, profile: this.profiles[0] as CapabilityProfile }, this.hasher);
+          if (res.type === 'imports_symbol' && res.name !== null && res.target.kind === 'symbol' && !imported.has(res.name)) imported.set(res.name, res.target.id);
+          const edge = createImportEdge(extraction, res, resolver, this.hasher);
           if (edge.ok) edges.push(edge.value);
           else diagnostics.push({ code: edge.error.code, message: edge.error.message, range: imp.range, path: extraction.path });
         }
+      }
+      const scope = moduleScope(extraction, imported);
+      for (const res of pythonRelations(extraction, scope)) {
+        const edge = createRelationEdge(extraction, res, resolver, this.hasher);
+        if (edge.ok) edges.push(edge.value);
+        else diagnostics.push({ code: edge.error.code, message: edge.error.message, range: res.range, path: extraction.path });
       }
     }
     const projects: ProjectDescriptor[] = layout.roots.map((r) => ({ kind: 'python-root', language: PY, config: null, root: r === '' ? null : (r as CanonicalPath) }));
@@ -168,7 +168,6 @@ export class PythonImportResolver implements ProjectResolver {
 
   private resolutions(layout: Layout, extraction: FileExtraction, imp: ExtractedImport, byFile: ReadonlyMap<CanonicalPath, FileExtraction>): ImportResolution[] {
     const c = this.classify(layout, extraction.path, imp);
-    // `from . import x` inside a package's __init__ names the package itself: no self-edge.
     const self = c.target.kind === 'module' && c.target.path === extraction.path;
     const out: ImportResolution[] = self ? [] : [{ type: 'imports', importIndex: imp.index, name: null, target: c.target, precision: c.precision }];
     if (c.target.kind !== 'module' || imp.names.length === 0) return out;
@@ -199,15 +198,13 @@ export class PythonImportResolver implements ProjectResolver {
       const rest = spec.slice(level);
       if (base === null) return UNRESOLVED;
       const found = rest === '' ? layout.packageInit(base) : layout.lookup(base, rest);
-      return found === null ? UNRESOLVED : module(found);
+      return found === null ? UNRESOLVED : pyModule(found);
     }
     for (const root of layout.rootsFor(file)) {
       const found = layout.lookup(root, spec);
-      if (found !== null) return module(found);
+      if (found !== null) return pyModule(found);
     }
     const top = spec.split('.')[0] ?? spec;
-    // A workspace directory of that name (namespace package) means the import is local but has no module
-    // file to point at; calling it third-party would be a guess.
     if (top === '' || !/^[A-Za-z_][A-Za-z0-9_]*$/.test(top) || layout.isNamespaceDir(top)) return UNRESOLVED;
     return { target: { kind: 'external', ecosystem: PYTHON_STDLIB.has(top) ? 'python' : 'pypi', name: top }, precision: 'heuristic' };
   }

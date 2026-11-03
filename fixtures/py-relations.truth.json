@@ -1,0 +1,63 @@
+{
+  "format": "cie-truth/1",
+  "fixture": "py-relations",
+  "notes": [
+    "Hand-verified against the sources (P03-08). The relations were written down from the source before the first run and matched it unchanged.",
+    "relations: `<type> <from> -> <to>`; L2 heuristics, so every edge is inferred. references are one edge per (from, to); calls one per call site.",
+    "Function scopes: total's local `tax` shadows the function (no reference); the lambda parameter `tax` in decorated is local; `global RATE` in counter makes both uses of RATE refer to the module variable.",
+    "The default value `rate=RATE` of discount is evaluated outside the function body and is a reference from discount (its range includes the parameter list).",
+    "scaled(tax=tax): the default value is the module function tax (a reference), while `tax(1)` in the body calls the parameter (no calls edge).",
+    "The decorator @decorate lies outside the extracted range of decorated (which starts at `def`), so it is a reference from the module.",
+    "outer's call `inner()` is not recorded: inner is a name local to outer (a known L2 gap; the call is not a workspace module-scope name).",
+    "Not recorded by design: pricing.discount(1) (an attribute call on a module), self.check() and cart.checkout() (attribute calls), len (a builtin).",
+    "Known gap: `from shop.pricing import total as sum_up` binds the alias sum_up, but import drafts keep only the exported name `total`, so the call sum_up(items) in total_of is not recorded."
+  ],
+  "symbols": [
+    "py:shop/cart.py#Cart(class)",
+    "py:shop/cart.py#Cart.__init__(constructor)",
+    "py:shop/cart.py#Cart.check(method)",
+    "py:shop/cart.py#Cart.checkout(method)",
+    "py:shop/cart.py#Cart.limit(property)",
+    "py:shop/cart.py#main(function)",
+    "py:shop/cart.py#total_of(function)",
+    "py:shop/pricing.py#RATE(variable)",
+    "py:shop/pricing.py#counter(function)",
+    "py:shop/pricing.py#decorate(function)",
+    "py:shop/pricing.py#decorated(function)",
+    "py:shop/pricing.py#discount(function)",
+    "py:shop/pricing.py#outer(function)",
+    "py:shop/pricing.py#outer.inner(function)",
+    "py:shop/pricing.py#scaled(function)",
+    "py:shop/pricing.py#squares(function)",
+    "py:shop/pricing.py#tax(function)",
+    "py:shop/pricing.py#total(function)"
+  ],
+  "imports": [
+    "mod:py:shop/cart.py -> mod:py:shop/__init__.py",
+    "mod:py:shop/cart.py -> mod:py:shop/pricing.py"
+  ],
+  "importsSymbol": [
+    "mod:py:shop/cart.py -> tax -> py:shop/pricing.py#tax(function)",
+    "mod:py:shop/cart.py -> total -> py:shop/pricing.py#total(function)"
+  ],
+  "relations": [
+    "references py:shop/pricing.py#tax(function) -> py:shop/pricing.py#RATE(variable)",
+    "references py:shop/pricing.py#discount(function) -> py:shop/pricing.py#RATE(variable)",
+    "references py:shop/pricing.py#scaled(function) -> py:shop/pricing.py#tax(function)",
+    "references py:shop/pricing.py#counter(function) -> py:shop/pricing.py#RATE(variable)",
+    "references py:shop/pricing.py#outer.inner(function) -> py:shop/pricing.py#tax(function)",
+    "calls py:shop/pricing.py#outer.inner(function) -> py:shop/pricing.py#tax(function)",
+    "references py:shop/pricing.py#squares(function) -> py:shop/pricing.py#discount(function)",
+    "calls py:shop/pricing.py#squares(function) -> py:shop/pricing.py#discount(function)",
+    "references mod:py:shop/pricing.py -> py:shop/pricing.py#decorate(function)",
+    "references py:shop/cart.py#Cart.checkout(method) -> py:shop/pricing.py#tax(function)",
+    "calls py:shop/cart.py#Cart.checkout(method) -> py:shop/pricing.py#tax(function)",
+    "references py:shop/cart.py#Cart.checkout(method) -> py:shop/cart.py#total_of(function)",
+    "calls py:shop/cart.py#Cart.checkout(method) -> py:shop/cart.py#total_of(function)",
+    "references py:shop/cart.py#Cart.check(method) -> py:shop/cart.py#Cart(class)",
+    "references py:shop/cart.py#main(function) -> py:shop/cart.py#Cart(class)",
+    "calls py:shop/cart.py#main(function) -> py:shop/cart.py#Cart(class)",
+    "references mod:py:shop/cart.py -> py:shop/cart.py#main(function)",
+    "calls mod:py:shop/cart.py -> py:shop/cart.py#main(function)"
+  ]
+}

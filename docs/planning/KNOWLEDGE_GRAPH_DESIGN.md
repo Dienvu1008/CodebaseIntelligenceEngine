@@ -90,6 +90,30 @@
 - **Storage.** Schema v6 (the `edge.type` CHECK). The RevisionValidator's SY-006 check covers every resolved type.
 - **Truth.** The `ts-relations` golden fixture has hand-verified relations (`fixtures/ts-relations.truth.json`, category `relations`). The guards for locals and for chains outside the workspace were mutation-checked through its golden export.
 
+**Implementation (P03-08): Python references and calls (lang-python at L2, inferred).**
+- **Split.** The tree-sitter extractor reports *free-name uses* as syntax facts (`FileExtraction.occurrences`, Python only; declared as `references` L1). lang-python binds them; it never parses (DEPENDENCY_RULES A1/A2).
+- **What the extractor reports** (`adapters/treesitter/python-scopes.ts`):
+  - an identifier that is not a declaration name, an attribute name (`x.y` reports `x` only), a keyword-argument name, or part of an import, `global` or `nonlocal` statement;
+  - and that is not bound in an enclosing function scope.
+- **Function scopes.**
+  - Bindings: parameters, assignment, augmented-assignment and `for` targets, `with`/`except … as`, walrus, local imports, nested `def`/`class`. They count wherever they appear in the body.
+  - `global` refers to the module; `nonlocal` stays local.
+  - Comprehensions and lambdas are scopes.
+  - Defaults, annotations, decorators and base classes are evaluated outside the function.
+  - Class bodies are not scopes for their methods, and class-level assignment targets are declarations.
+- **What lang-python records** (`adapters/lang-python/relations.ts`).
+  - The module scope is the file's top-level symbols plus the names that `from X import n` resolved to a symbol. A definition wins over an import of the same name.
+  - Every use of a bound name is a `references` occurrence (merged per (from, to)).
+  - A direct call `name(…)` is also a `calls` edge for that site.
+  - All of these edges are `heuristic` / `inferred`.
+- **Not recorded.**
+  - Attribute calls (`obj.m()`, `module.f()`), because the type is unknown at L2.
+  - Builtins, and module objects from `import x [as y]`.
+  - Calls of local functions (`inner()` inside `outer`).
+  - There are no unresolved placeholders for Python: an unbound name is not evidence of a dynamic call.
+- **Known gap:** `from X import a as b` does not bind `b`, because import drafts keep only the exported name.
+- **Truth:** the `py-relations` golden fixture, plus the `relations` categories of `py-basic` and `py-src-layout`. The local-scope, `global` and default-value guards were mutation-checked through the golden. The default-value case first survived a mutant, and the fixture was extended until it failed.
+
 **Distinguishing the four relationship classes** (brief §7):
 
 | Class | How it is represented |

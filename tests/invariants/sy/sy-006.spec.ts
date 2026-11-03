@@ -48,6 +48,7 @@ describe('SY-006: the FileExtraction factory refuses facts for capabilities decl
     ['symbols', { symbols: [symbol('f', 'function', range(0, 0, 1, 1))] }],
     ['imports', { imports: [literalImport('./x', range(0, 0, 0, 20))] }],
     ['docstrings', { symbols: [symbol('f', 'function', range(0, 0, 1, 1), null, { doc: 'Does f.' })] }],
+    ['references', { occurrences: [{ name: 'f', range: range(2, 0, 2, 1), call: true }] }],
   ] as const)('%s', (capability, facts) => {
     const r = createFileExtraction(extractionInput({ profile: profile(TS, 'L1', { [capability]: 'L0' }), ...facts }));
     expect(code(r)).toBe('SY_006_CAPABILITY_NOT_DECLARED');

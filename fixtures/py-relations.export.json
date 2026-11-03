@@ -1,0 +1,2028 @@
+{
+  "format": "cie-export/2",
+  "revision": 1,
+  "manifestHash": "sha256:346a0ccbc88505b8418e9898a56f3c8687de13cfc645ccd4ee22fb04d532327b",
+  "files": [
+    {
+      "path": "shop/__init__.py",
+      "status": "indexed",
+      "hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "language": "py"
+    },
+    {
+      "path": "shop/cart.py",
+      "status": "indexed",
+      "hash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e",
+      "size": 462,
+      "language": "py"
+    },
+    {
+      "path": "shop/pricing.py",
+      "status": "indexed",
+      "hash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2",
+      "size": 632,
+      "language": "py"
+    }
+  ],
+  "structure": [
+    {
+      "id": "dir:shop",
+      "kind": "directory",
+      "name": "shop",
+      "ecosystem": null,
+      "file": null
+    },
+    {
+      "id": "pkg:py:shop",
+      "kind": "package",
+      "name": "shop",
+      "ecosystem": "python",
+      "file": "shop/__init__.py"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "mod:py:shop/__init__.py",
+      "kind": "module",
+      "name": "__init__.py",
+      "file": "shop/__init__.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:py:shop/cart.py",
+      "kind": "module",
+      "name": "cart.py",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "mod:py:shop/pricing.py",
+      "kind": "module",
+      "name": "pricing.py",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/cart.py#Cart(class)",
+      "kind": "symbol",
+      "name": "Cart",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Cart",
+        "kind": "class",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 16,
+          "endCol": 43
+        },
+        "spanHash": "sha256:0b9fa46b363842eda3aadbfdef8e08da204e9d2ae4ca06825ad37aae1834abda",
+        "bodyFingerprint": "sha256:8c38717830bf43d2adbbb22814ae9e508d81baf38f37085d09acdd6bb1662f06",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/cart.py#Cart.__init__(constructor)",
+      "kind": "symbol",
+      "name": "__init__",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Cart.__init__",
+        "kind": "constructor",
+        "range": {
+          "startLine": 7,
+          "startCol": 4,
+          "endLine": 8,
+          "endCol": 26
+        },
+        "spanHash": "sha256:ea02227e276992cd257b3cb318305ce8ff02e8083e1b5e906ddb05c7518b9022",
+        "bodyFingerprint": "sha256:5d14b2d52e117bfd12472824b48811f1c7c118c8ffbeb316d60bec50b8bcee42",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/cart.py#Cart.check(method)",
+      "kind": "symbol",
+      "name": "check",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Cart.check",
+        "kind": "method",
+        "range": {
+          "startLine": 15,
+          "startCol": 4,
+          "endLine": 16,
+          "endCol": 43
+        },
+        "spanHash": "sha256:da60823644b116c8c04e6a19b1932b5b2c378c2b6d8d5cd268438fdb453e30c0",
+        "bodyFingerprint": "sha256:79d35e53fe2e8e2fe2a6cfe38d2ad18249685797214fb3b0924d4f4b07f15537",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/cart.py#Cart.checkout(method)",
+      "kind": "symbol",
+      "name": "checkout",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Cart.checkout",
+        "kind": "method",
+        "range": {
+          "startLine": 10,
+          "startCol": 4,
+          "endLine": 13,
+          "endCol": 40
+        },
+        "spanHash": "sha256:4006bf0c91ade22cca1e72dac2bbe7a620ea252e23204ece20de6034a83d9165",
+        "bodyFingerprint": "sha256:05b1dc8cb9d0a6a810e2ef19b9268cd45c0618b84df746ec118cad5baaae424f",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/cart.py#Cart.limit(property)",
+      "kind": "symbol",
+      "name": "limit",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "Cart.limit",
+        "kind": "property",
+        "range": {
+          "startLine": 5,
+          "startCol": 4,
+          "endLine": 5,
+          "endCol": 14
+        },
+        "spanHash": "sha256:7acf18e6e2f8ec658202ae057028548f363fa40ff6dd2310e7dfc127a69888ad",
+        "bodyFingerprint": "sha256:17806d2243e517f3cd8d1c32bef91874b8b228bb4fb405c07143fbb33be5c54f",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/cart.py#main(function)",
+      "kind": "symbol",
+      "name": "main",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "main",
+        "kind": "function",
+        "range": {
+          "startLine": 23,
+          "startCol": 0,
+          "endLine": 25,
+          "endCol": 26
+        },
+        "spanHash": "sha256:69044a829b0c48453d5baa16165df9acd31560d27ef29251e37c3335daad24f2",
+        "bodyFingerprint": "sha256:069f5f569a9217ee64faa0779ad38e174043b644019ddb345c536529b952ee67",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/cart.py#total_of(function)",
+      "kind": "symbol",
+      "name": "total_of",
+      "file": "shop/cart.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "total_of",
+        "kind": "function",
+        "range": {
+          "startLine": 19,
+          "startCol": 0,
+          "endLine": 20,
+          "endCol": 24
+        },
+        "spanHash": "sha256:5a468181af3ac0447f6259e73e51af43e125a7b56123d13b941243774b399cbb",
+        "bodyFingerprint": "sha256:09c538755099fac3a780eed617fc4807562075b32aeb3384cc9ab38c62a7fc91",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#RATE(variable)",
+      "kind": "symbol",
+      "name": "RATE",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "RATE",
+        "kind": "variable",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 10
+        },
+        "spanHash": "sha256:9833acf7a7b63af707779614b218c11083d85eb25afc5cfa9e8ac462d11534aa",
+        "bodyFingerprint": "sha256:ec124699ca1c13505c309859fcdb7172d68f4f2c38c87d2bf868d0fd6cd5a384",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#counter(function)",
+      "kind": "symbol",
+      "name": "counter",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "counter",
+        "kind": "function",
+        "range": {
+          "startLine": 22,
+          "startCol": 0,
+          "endLine": 25,
+          "endCol": 15
+        },
+        "spanHash": "sha256:d934dc3e26319553d8a8da0186923ca7fce46800880466cba8f64bd2db442fa6",
+        "bodyFingerprint": "sha256:f420c04a5471d5182805d5fb56323ac03ab7074e82a7f081ebc46be06d0d3e08",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#decorate(function)",
+      "kind": "symbol",
+      "name": "decorate",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "decorate",
+        "kind": "function",
+        "range": {
+          "startLine": 39,
+          "startCol": 0,
+          "endLine": 40,
+          "endCol": 13
+        },
+        "spanHash": "sha256:dc6ed55bac429f9e2f3b8d814e64084f505e5d895756dfb9ba2b19f6cf316598",
+        "bodyFingerprint": "sha256:aa99b193c418177eb9ac09e42ddb0018dcafb023b175b5b8dcda4e273a911c30",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#decorated(function)",
+      "kind": "symbol",
+      "name": "decorated",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "decorated",
+        "kind": "function",
+        "range": {
+          "startLine": 44,
+          "startCol": 0,
+          "endLine": 45,
+          "endCol": 31
+        },
+        "spanHash": "sha256:6ca82212fdf71cdae31c526b2f31d07fa189f75e1c8b3730a253cd085fdc6002",
+        "bodyFingerprint": "sha256:921ac409c42a3876d3d8349d8cee1ea4d7bed0cbb85803c199eaeb04a1f4b023",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#discount(function)",
+      "kind": "symbol",
+      "name": "discount",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "discount",
+        "kind": "function",
+        "range": {
+          "startLine": 7,
+          "startCol": 0,
+          "endLine": 8,
+          "endCol": 30
+        },
+        "spanHash": "sha256:0ac809d811a1bc770f0ec6a5c548e7b306b6edcc6c362ec59906624b76f349e9",
+        "bodyFingerprint": "sha256:dbe092095ad174dde4930857865989554f4e4e96f0e75b01144407ce6b4156b7",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#outer(function)",
+      "kind": "symbol",
+      "name": "outer",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "outer",
+        "kind": "function",
+        "range": {
+          "startLine": 28,
+          "startCol": 0,
+          "endLine": 32,
+          "endCol": 18
+        },
+        "spanHash": "sha256:ba7631e9ac72da9c620f3cc25cbd33258ba76b6e75d40d718e80ce34256de38d",
+        "bodyFingerprint": "sha256:7282603fd08402baf8fd243007336f9ae9d797a8e798914d2ec0f6ac0fe90c0e",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#outer.inner(function)",
+      "kind": "symbol",
+      "name": "inner",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "outer.inner",
+        "kind": "function",
+        "range": {
+          "startLine": 29,
+          "startCol": 4,
+          "endLine": 30,
+          "endCol": 21
+        },
+        "spanHash": "sha256:43e0cfb957e0e6b460173f11a31a6e1e6bd17ed96188c62a4015f394ebd55540",
+        "bodyFingerprint": "sha256:5b24158f5bc1c2f554b1d5ed052a4f0a4ec10a6a2864a37f077f461d153babcd",
+        "exported": false,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#scaled(function)",
+      "kind": "symbol",
+      "name": "scaled",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "scaled",
+        "kind": "function",
+        "range": {
+          "startLine": 11,
+          "startCol": 0,
+          "endLine": 12,
+          "endCol": 17
+        },
+        "spanHash": "sha256:290d4e0bb819e4236a1b2d5e3377887ec691a2e5337d8095910a5deea70a1e3e",
+        "bodyFingerprint": "sha256:ad30fcf59a147aae7cda68dd9a780d1aedaa64ed72f7f716379883ff5e5c95dc",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#squares(function)",
+      "kind": "symbol",
+      "name": "squares",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "squares",
+        "kind": "function",
+        "range": {
+          "startLine": 35,
+          "startCol": 0,
+          "endLine": 36,
+          "endCol": 56
+        },
+        "spanHash": "sha256:65f4a62cb4aa9ebe6ae153690695cc8d2c34391c066594d462e5081d7b3d0aaa",
+        "bodyFingerprint": "sha256:2b94c3c4f733652200b0569ddc70b605cbd99d364107a262d1c50764f7506c0d",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#tax(function)",
+      "kind": "symbol",
+      "name": "tax",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "tax",
+        "kind": "function",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 4,
+          "endCol": 24
+        },
+        "spanHash": "sha256:2c40b056928045d33b8f1fdbcfb723c0e0ee39315c7c767b9ff0e3950dd81caa",
+        "bodyFingerprint": "sha256:77228fbf24a627a2d4d7725654c6a6d54e4f281dc5e630e247e57dc725c07fe7",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    },
+    {
+      "id": "py:shop/pricing.py#total(function)",
+      "kind": "symbol",
+      "name": "total",
+      "file": "shop/pricing.py",
+      "language": "py",
+      "symbol": {
+        "qualifiedName": "total",
+        "kind": "function",
+        "range": {
+          "startLine": 15,
+          "startCol": 0,
+          "endLine": 19,
+          "endCol": 14
+        },
+        "spanHash": "sha256:7a1399d7e1bf7a8323bb0c3195ec9416ef8bcb7aa4b1706a6767256374c91037",
+        "bodyFingerprint": "sha256:2145c80681f16bbd6d9d86189b5a1c53464ff9f1244a1636063369cb64acaaeb",
+        "exported": true,
+        "defaultExport": false,
+        "doc": null
+      },
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "calls",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#main(function)",
+      "site": "cdac5474c2944c6f",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 28,
+          "startCol": 0,
+          "endLine": 28,
+          "endCol": 4
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "raw": "main"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "py:shop/cart.py#Cart.checkout(method)",
+      "to": "py:shop/cart.py#total_of(function)",
+      "site": "b7438568dbc26cab",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 13,
+          "startCol": 19,
+          "endLine": 13,
+          "endCol": 27
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "raw": "total_of"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "py:shop/cart.py#Cart.checkout(method)",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "196706eb9dbce718",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 13,
+          "startCol": 15,
+          "endLine": 13,
+          "endCol": 18
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "raw": "tax"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "py:shop/cart.py#main(function)",
+      "to": "py:shop/cart.py#Cart(class)",
+      "site": "347b7489118bc003",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 24,
+          "startCol": 11,
+          "endLine": 24,
+          "endCol": 15
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "raw": "Cart"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "py:shop/pricing.py#outer.inner(function)",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "ba4272ca62bea0a1",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 30,
+          "startCol": 15,
+          "endLine": 30,
+          "endCol": 18
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "raw": "tax"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "py:shop/pricing.py#squares(function)",
+      "to": "py:shop/pricing.py#discount(function)",
+      "site": "49c4574fffb2fec7",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 36,
+          "startCol": 12,
+          "endLine": 36,
+          "endCol": 20
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "raw": "discount"
+      }
+    },
+    {
+      "type": "contains",
+      "from": "py:shop/cart.py#Cart(class)",
+      "to": "py:shop/cart.py#Cart.__init__(constructor)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 7,
+          "startCol": 4,
+          "endLine": 8,
+          "endCol": 26
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "py:shop/cart.py#Cart(class)",
+      "to": "py:shop/cart.py#Cart.check(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 15,
+          "startCol": 4,
+          "endLine": 16,
+          "endCol": 43
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "py:shop/cart.py#Cart(class)",
+      "to": "py:shop/cart.py#Cart.checkout(method)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 10,
+          "startCol": 4,
+          "endLine": 13,
+          "endCol": 40
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "py:shop/cart.py#Cart(class)",
+      "to": "py:shop/cart.py#Cart.limit(property)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 4,
+          "endLine": 5,
+          "endCol": 14
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "contains",
+      "from": "py:shop/pricing.py#outer(function)",
+      "to": "py:shop/pricing.py#outer.inner(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 29,
+          "startCol": 4,
+          "endLine": 30,
+          "endCol": 21
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#Cart(class)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 16,
+          "endCol": 43
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#main(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 23,
+          "startCol": 0,
+          "endLine": 25,
+          "endCol": 26
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#total_of(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 19,
+          "startCol": 0,
+          "endLine": 20,
+          "endCol": 24
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#RATE(variable)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 10
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#counter(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 22,
+          "startCol": 0,
+          "endLine": 25,
+          "endCol": 15
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#decorate(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 39,
+          "startCol": 0,
+          "endLine": 40,
+          "endCol": 13
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#decorated(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 44,
+          "startCol": 0,
+          "endLine": 45,
+          "endCol": 31
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#discount(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 7,
+          "startCol": 0,
+          "endLine": 8,
+          "endCol": 30
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#outer(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 28,
+          "startCol": 0,
+          "endLine": 32,
+          "endCol": 18
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#scaled(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 11,
+          "startCol": 0,
+          "endLine": 12,
+          "endCol": 17
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#squares(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 35,
+          "startCol": 0,
+          "endLine": 36,
+          "endCol": 56
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 4,
+          "endCol": 24
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "defines",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#total(function)",
+      "site": "",
+      "status": "verified",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 15,
+          "startCol": 0,
+          "endLine": 19,
+          "endCol": 14
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#Cart(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 0,
+          "endLine": 16,
+          "endCol": 43
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#main(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 23,
+          "startCol": 0,
+          "endLine": 25,
+          "endCol": 26
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#total_of(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 19,
+          "startCol": 0,
+          "endLine": 20,
+          "endCol": 24
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#RATE(variable)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 10
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#counter(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 22,
+          "startCol": 0,
+          "endLine": 25,
+          "endCol": 15
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#decorate(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 39,
+          "startCol": 0,
+          "endLine": 40,
+          "endCol": 13
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#decorated(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 44,
+          "startCol": 0,
+          "endLine": 45,
+          "endCol": 31
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#discount(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 7,
+          "startCol": 0,
+          "endLine": 8,
+          "endCol": 30
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#outer(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 28,
+          "startCol": 0,
+          "endLine": 32,
+          "endCol": 18
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#scaled(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 11,
+          "startCol": 0,
+          "endLine": 12,
+          "endCol": 17
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#squares(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 35,
+          "startCol": 0,
+          "endLine": 36,
+          "endCol": 56
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 3,
+          "startCol": 0,
+          "endLine": 4,
+          "endCol": 24
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "exports",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#total(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": null,
+      "producer": {
+        "adapterId": "treesitter",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "web-tree-sitter@0.27.1+tree-sitter-python@0.25.0",
+        "fidelity": "L1"
+      },
+      "evidence": {
+        "kind": "ast",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 15,
+          "startCol": 0,
+          "endLine": 19,
+          "endCol": 14
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {}
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:shop/cart.py",
+      "to": "mod:py:shop/__init__.py",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 1,
+          "startCol": 0,
+          "endLine": 1,
+          "endCol": 24
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "shop"
+      }
+    },
+    {
+      "type": "imports",
+      "from": "mod:py:shop/cart.py",
+      "to": "mod:py:shop/pricing.py",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 45
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": null,
+        "raw": "shop.pricing"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 45
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "tax",
+        "raw": "shop.pricing"
+      }
+    },
+    {
+      "type": "imports_symbol",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/pricing.py#total(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 0,
+          "startCol": 0,
+          "endLine": 0,
+          "endCol": 45
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "isDynamic": false,
+        "isTypeOnly": false,
+        "name": "total",
+        "raw": "shop.pricing"
+      }
+    },
+    {
+      "type": "references",
+      "from": "mod:py:shop/cart.py",
+      "to": "py:shop/cart.py#main(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 28,
+          "startCol": 0,
+          "endLine": 28,
+          "endCol": 4
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "mod:py:shop/pricing.py",
+      "to": "py:shop/pricing.py#decorate(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 43,
+          "startCol": 1,
+          "endLine": 43,
+          "endCol": 9
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/cart.py#Cart.check(method)",
+      "to": "py:shop/cart.py#Cart(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 16,
+          "startCol": 33,
+          "endLine": 16,
+          "endCol": 37
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/cart.py#Cart.checkout(method)",
+      "to": "py:shop/cart.py#total_of(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 13,
+          "startCol": 19,
+          "endLine": 13,
+          "endCol": 27
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/cart.py#Cart.checkout(method)",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 13,
+          "startCol": 15,
+          "endLine": 13,
+          "endCol": 18
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/cart.py#main(function)",
+      "to": "py:shop/cart.py#Cart(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/cart.py",
+        "range": {
+          "startLine": 24,
+          "startCol": 11,
+          "endLine": 24,
+          "endCol": 15
+        },
+        "contentHash": "sha256:dba530a566ee382f03a6bb9cff59b758e1d5ef5b94f82ea6542b7eb994f0853e"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/pricing.py#counter(function)",
+      "to": "py:shop/pricing.py#RATE(variable)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 24,
+          "startCol": 11,
+          "endLine": 24,
+          "endCol": 15
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "occurrences": 2
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/pricing.py#discount(function)",
+      "to": "py:shop/pricing.py#RATE(variable)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 7,
+          "startCol": 26,
+          "endLine": 7,
+          "endCol": 30
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/pricing.py#outer.inner(function)",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 30,
+          "startCol": 15,
+          "endLine": 30,
+          "endCol": 18
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/pricing.py#scaled(function)",
+      "to": "py:shop/pricing.py#tax(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 11,
+          "startCol": 15,
+          "endLine": 11,
+          "endCol": 18
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/pricing.py#squares(function)",
+      "to": "py:shop/pricing.py#discount(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 36,
+          "startCol": 12,
+          "endLine": 36,
+          "endCol": 20
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:shop/pricing.py#tax(function)",
+      "to": "py:shop/pricing.py#RATE(variable)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "shop/pricing.py",
+        "range": {
+          "startLine": 4,
+          "startCol": 20,
+          "endLine": 4,
+          "endCol": 24
+        },
+        "contentHash": "sha256:0277335645e4ada98d3d32cfb1116cccc69388dfb7bb2c077656c4c0cf06efb2"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    }
+  ]
+}

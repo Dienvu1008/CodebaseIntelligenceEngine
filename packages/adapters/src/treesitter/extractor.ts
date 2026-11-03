@@ -30,6 +30,7 @@ import {
   type Hasher,
   type ImportDraft,
   type LanguageId,
+  type NameOccurrence,
   type ProducerIdentity,
   type Result,
   type SymbolDraft,
@@ -59,6 +60,8 @@ const CLASS_NODES: ReadonlySet<string> = new Set(['class_declaration', 'abstract
 const MEMBER_KINDS: ReadonlySet<SymbolKind> = new Set(['method', 'constructor', 'getter', 'setter', 'property', 'enum_member']);
 
 const L1_PROFILE = { symbols: 'L1', imports: 'L1', docstrings: 'L1', references: 'L0', calls: 'L0', typeRelations: 'L0', di: 'L0' };
+/** Languages whose rules report free-name uses (syntax for L2 references), declared as references L1. */
+const profileFor = (rules: LanguageRules) => (rules.occurrencesOf === undefined ? L1_PROFILE : { ...L1_PROFILE, references: 'L1' });
 
 interface CompiledLanguage {
   readonly language: Language;
@@ -117,7 +120,7 @@ export class TreeSitterExtractor implements FileExtractor {
       if (!language.ok) return language;
       if (entry === undefined) return fail('GRAMMAR_UNKNOWN_LANGUAGE', `no vendored grammar for ${spec.grammar}`);
       const perLanguage = producerIdentity('treesitter', TREESITTER_ADAPTER_VERSION, `${runtime}+${entry.source.package}@${entry.source.version}`);
-      const profile = capabilityProfile(spec.id, L1_PROFILE);
+      const profile = capabilityProfile(spec.id, profileFor(spec.rules));
       if (!perLanguage.ok) return perLanguage;
       if (!profile.ok) return profile;
       compiled.set(spec.id, {
@@ -158,6 +161,7 @@ export class TreeSitterExtractor implements FileExtractor {
         profile: lang.profile,
         symbols: this.symbols(lang, root, source),
         imports: this.imports(lang, root, source),
+        occurrences: this.occurrences(lang, root, source),
         diagnostics: parseDiagnostics(root, source),
       });
     } finally {
@@ -215,6 +219,15 @@ export class TreeSitterExtractor implements FileExtractor {
       defaultExport: lang.rules.defaultExport(def, parent),
       doc: lang.rules.doc(def),
     };
+  }
+
+  /** Free-name uses outside ERROR regions, in source order (Python only, P03-08). */
+  private occurrences(lang: CompiledLanguage, root: Node, source: SourceText): NameOccurrence[] {
+    if (lang.rules.occurrencesOf === undefined) return [];
+    return lang.rules
+      .occurrencesOf(root)
+      .filter((o) => !inErrorRegion(o.node))
+      .map((o) => ({ name: o.node.text, range: source.rangeOf(o.node.startIndex, o.node.endIndex), call: o.call }));
   }
 
   private imports(lang: CompiledLanguage, root: Node, source: SourceText): ImportDraft[] {

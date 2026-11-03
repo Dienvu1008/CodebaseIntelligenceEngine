@@ -283,6 +283,62 @@
   ],
   "edges": [
     {
+      "type": "calls",
+      "from": "py:src/pkg/core.py#run(function)",
+      "to": "py:src/pkg/helpers.py#util_fn(function)",
+      "site": "77387a0758213f71",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/core.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 11,
+          "endLine": 5,
+          "endCol": 18
+        },
+        "contentHash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576"
+      },
+      "attrs": {
+        "raw": "util_fn"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "py:tests/test_core.py#test_run(function)",
+      "to": "py:src/pkg/core.py#run(function)",
+      "site": "3d63a5560435988e",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "tests/test_core.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 11,
+          "endLine": 5,
+          "endCol": 14
+        },
+        "contentHash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593"
+      },
+      "attrs": {
+        "raw": "run"
+      }
+    },
+    {
       "type": "defines",
       "from": "mod:py:src/pkg/__init__.py",
       "to": "py:src/pkg/__init__.py#__all__(variable)",
@@ -741,6 +797,62 @@
         "isTypeOnly": false,
         "name": "run",
         "raw": "pkg.core"
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:src/pkg/core.py#run(function)",
+      "to": "py:src/pkg/helpers.py#util_fn(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "src/pkg/core.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 11,
+          "endLine": 5,
+          "endCol": 18
+        },
+        "contentHash": "sha256:45d381a0859efce32592ab0298b8970916e019ab3c0e13c5da6354e371277576"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:tests/test_core.py#test_run(function)",
+      "to": "py:src/pkg/core.py#run(function)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "tests/test_core.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 11,
+          "endLine": 5,
+          "endCol": 14
+        },
+        "contentHash": "sha256:fd37c9d9ef62fafad94299ebd8013a855064aff72057e6492be4e1e2a9e01593"
+      },
+      "attrs": {
+        "occurrences": 1
       }
     }
   ]

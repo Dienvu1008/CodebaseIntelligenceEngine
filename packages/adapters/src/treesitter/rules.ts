@@ -29,6 +29,16 @@ export interface LanguageRules {
   defaultExport(def: RawDefinition, parent: RawDefinition | null): boolean;
   doc(def: RawDefinition): string | null;
   importsOf(match: QueryMatch): readonly RawImport[];
+  /**
+   * Free-name uses of the file, in source order (Phase 03, P03-08). Optional: only languages whose
+   * references are resolved from syntax (Python) provide it; lang-ts uses the TypeChecker instead.
+   */
+  occurrencesOf?(root: Node): readonly RawOccurrence[];
+}
+
+export interface RawOccurrence {
+  readonly node: Node;
+  readonly call: boolean;
 }
 
 export function capture(match: QueryMatch, name: string): Node | null {

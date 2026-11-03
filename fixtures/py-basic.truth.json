@@ -4,7 +4,8 @@
   "notes": [
     "Hand-verified against the sources (P02-12, review of P02-07).",
     "\from app import models, util imports the package and both submodules; \from ... import nothing climbs above the top-level package and is unresolved.",
-    "User.name is an annotated dataclass field (a class-level declaration); __all__ is a module-level variable."
+    "User.name is an annotated dataclass field (a class-level declaration); __all__ is a module-level variable.",
+    "relations (P03-08, L2): only direct uses of names bound in the module scope. models.make_user(...) in main.py is an attribute call on a module and is not recorded; `name` in make_user is its parameter; os, json, importlib and builtins are not workspace symbols."
   ],
   "symbols": [
     "py:app/__init__.py#__all__(variable)",
@@ -41,5 +42,11 @@
     "mod:py:app/sub/deep.py -> User -> py:app/models.py#User(class)",
     "mod:py:app/util.py -> make_user -> py:app/models.py#make_user(function)",
     "mod:py:app/util.py -> Missing -> unresolved:app.models"
+  ],
+  "relations": [
+    "references py:app/models.py#make_user(function) -> py:app/models.py#User(class)",
+    "calls py:app/models.py#make_user(function) -> py:app/models.py#User(class)",
+    "references py:app/sub/deep.py#deep(function) -> py:app/models.py#User(class)",
+    "calls py:app/sub/deep.py#deep(function) -> py:app/models.py#User(class)"
   ]
 }

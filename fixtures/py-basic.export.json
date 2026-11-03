@@ -570,6 +570,62 @@
   ],
   "edges": [
     {
+      "type": "calls",
+      "from": "py:app/models.py#make_user(function)",
+      "to": "py:app/models.py#User(class)",
+      "site": "a8067ba859ed1ed2",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "app/models.py",
+        "range": {
+          "startLine": 15,
+          "startCol": 11,
+          "endLine": 15,
+          "endCol": 15
+        },
+        "contentHash": "sha256:08091dd032316322d74cc07776b930d472cddb4d1edabdabacd9880284d48caa"
+      },
+      "attrs": {
+        "raw": "User"
+      }
+    },
+    {
+      "type": "calls",
+      "from": "py:app/sub/deep.py#deep(function)",
+      "to": "py:app/models.py#User(class)",
+      "site": "a8499b9a9988768c",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "app/sub/deep.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 11,
+          "endLine": 5,
+          "endCol": 15
+        },
+        "contentHash": "sha256:e7d24175f0d97602fde8498974fd705346cff9d6afd9a3901ef16df18a934be8"
+      },
+      "attrs": {
+        "raw": "User"
+      }
+    },
+    {
       "type": "contains",
       "from": "py:app/models.py#User(class)",
       "to": "py:app/models.py#User.home(method)",
@@ -1629,6 +1685,62 @@
         "isTypeOnly": false,
         "name": "Missing",
         "raw": "app.models"
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:app/models.py#make_user(function)",
+      "to": "py:app/models.py#User(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "app/models.py",
+        "range": {
+          "startLine": 15,
+          "startCol": 11,
+          "endLine": 15,
+          "endCol": 15
+        },
+        "contentHash": "sha256:08091dd032316322d74cc07776b930d472cddb4d1edabdabacd9880284d48caa"
+      },
+      "attrs": {
+        "occurrences": 1
+      }
+    },
+    {
+      "type": "references",
+      "from": "py:app/sub/deep.py#deep(function)",
+      "to": "py:app/models.py#User(class)",
+      "site": "",
+      "status": "inferred",
+      "precision": "heuristic",
+      "producer": {
+        "adapterId": "lang-python",
+        "adapterVersion": "0.1.0",
+        "toolVersion": "python-import-heuristics@1",
+        "fidelity": "L2"
+      },
+      "evidence": {
+        "kind": "heuristic",
+        "path": "app/sub/deep.py",
+        "range": {
+          "startLine": 5,
+          "startCol": 11,
+          "endLine": 5,
+          "endCol": 15
+        },
+        "contentHash": "sha256:e7d24175f0d97602fde8498974fd705346cff9d6afd9a3901ef16df18a934be8"
+      },
+      "attrs": {
+        "occurrences": 1
       }
     }
   ]

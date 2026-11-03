@@ -44,6 +44,17 @@ export interface ImportDraft {
   readonly names: readonly string[];
 }
 
+/**
+ * A use of a free name (Phase 03, P03-08): an identifier that is not a declaration, an attribute name, a
+ * keyword-argument name, an import, or a name bound locally in its enclosing function. Syntax only: which
+ * symbol the name denotes is decided by a resolver. `call` marks the direct callee of a call (`name(…)`).
+ */
+export interface NameOccurrence {
+  readonly name: string;
+  readonly range: SourceRange;
+  readonly call: boolean;
+}
+
 export interface ExtractionDiagnostic {
   readonly code: string;
   readonly message: string;
@@ -82,6 +93,8 @@ export interface FileExtraction {
   readonly profile: CapabilityProfile;
   readonly symbols: readonly ExtractedSymbol[];
   readonly imports: readonly ExtractedImport[];
+  /** Free-name uses in source order; empty unless the producer declares `references` at L1 or above. */
+  readonly occurrences: readonly NameOccurrence[];
   readonly diagnostics: readonly ExtractionDiagnostic[];
 }
 
@@ -94,6 +107,7 @@ export interface FileExtractionInput {
   readonly profile: CapabilityProfile;
   readonly symbols: readonly SymbolDraft[];
   readonly imports: readonly ImportDraft[];
+  readonly occurrences?: readonly NameOccurrence[];
   readonly diagnostics: readonly ExtractionDiagnostic[];
 }
 
@@ -168,7 +182,20 @@ function checkImport(d: ImportDraft, i: number, lineCount: number): Result<true,
   return ok(true);
 }
 
-function checkInput(input: FileExtractionInput): Result<readonly (readonly string[])[], DomainError> {
+function checkOccurrences(occurrences: readonly NameOccurrence[], lineCount: number): Result<true, DomainError> {
+  for (const [i, o] of occurrences.entries()) {
+    const c = checkRange(o.range, `occurrence #${i}`, lineCount);
+    if (!c.ok) return c;
+    if (o.name === '') return err(domainError('EXTRACTION_OCCURRENCE_INVALID', `occurrence #${i} has an empty name`, { index: i }));
+    const prev = occurrences[i - 1];
+    if (prev !== undefined && before(o.range, prev.range)) {
+      return err(domainError('EXTRACTION_ORDER', `occurrence #${i} starts before the previous one; occurrences must be in source order`, { index: i }));
+    }
+  }
+  return ok(true);
+}
+
+function checkHeader(input: FileExtractionInput): Result<true, DomainError> {
   const { profile, lineCount } = input;
   if (profile.language !== input.language) {
     return err(domainError('CAPABILITY_LANGUAGE_MISMATCH', `profile is for "${profile.language}", the file is "${input.language}"`));
@@ -177,20 +204,35 @@ function checkInput(input: FileExtractionInput): Result<readonly (readonly strin
     return err(domainError('EXTRACTION_LINE_COUNT_INVALID', `lineCount must be a positive integer, got ${lineCount}`, { lineCount }));
   }
   const docs = input.symbols.filter((s) => s.doc !== null).length;
-  for (const [capability, count] of [['symbols', input.symbols.length], ['imports', input.imports.length], ['docstrings', docs]] as const) {
+  const facts = [['symbols', input.symbols.length], ['imports', input.imports.length], ['docstrings', docs], ['references', (input.occurrences ?? []).length]] as const;
+  for (const [capability, count] of facts) {
     const c = requireCapability(profile, capability, count);
     if (!c.ok) return c;
   }
+  return ok(true);
+}
+
+function checkImportsAndDiagnostics(input: FileExtractionInput): Result<true, DomainError> {
   for (const [i, d] of input.imports.entries()) {
-    const c = checkImport(d, i, lineCount);
+    const c = checkImport(d, i, input.lineCount);
     if (!c.ok) return c;
   }
   for (const [i, d] of input.diagnostics.entries()) {
     if (d.range === null) continue;
-    const c = checkRange(d.range, `diagnostic #${i}`, lineCount);
+    const c = checkRange(d.range, `diagnostic #${i}`, input.lineCount);
     if (!c.ok) return c;
   }
-  return checkSymbols(input.symbols, lineCount);
+  return ok(true);
+}
+
+function checkInput(input: FileExtractionInput): Result<readonly (readonly string[])[], DomainError> {
+  const header = checkHeader(input);
+  if (!header.ok) return header;
+  const occurrences = checkOccurrences(input.occurrences ?? [], input.lineCount);
+  if (!occurrences.ok) return occurrences;
+  const rest = checkImportsAndDiagnostics(input);
+  if (!rest.ok) return rest;
+  return checkSymbols(input.symbols, input.lineCount);
 }
 
 export function createFileExtraction(input: FileExtractionInput): Result<FileExtraction, DomainError> {
@@ -228,6 +270,7 @@ export function createFileExtraction(input: FileExtractionInput): Result<FileExt
     profile: input.profile,
     symbols,
     imports,
+    occurrences: (input.occurrences ?? []).map((o) => ({ name: o.name, range: { ...o.range }, call: o.call })),
     diagnostics: [...input.diagnostics],
   };
   return ok(extraction as FileExtraction);
