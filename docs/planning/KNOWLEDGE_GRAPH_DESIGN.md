@@ -57,8 +57,9 @@
 | `flow_step` | symbol→symbol | Ordered step in a declared or traced execution flow (attrs: `flowId`, `order`) | V (from V calls), I | flow tracer, user |
 | `lineage` | symbol→symbol | Identity change: `moved` / `renamed` (SY-004) | V | SymbolMatcher |
 
-**Implementation (P03-04).**
-- The registry lives in `core/knowledge/domain/relation-type.ts` (`RELATION_TYPES`, `relationViolations`). Each type records its signatures, allowed statuses, whether it is occurrence-based (`references`, `calls`: non-empty site key) and the phase that introduces it.
+**Implementation (P03-04, storage in P03-09).**
+- The registry lives in `core/knowledge/domain/relation-type.ts` (`RELATION_TYPES`, `relationViolations`). Each type records its signatures, allowed statuses, whether it is occurrence-based (`calls`: non-empty site key) and the phase that introduces it.
+- Storage (P03-09, schema v7): the `relation_type` table is seeded from `RELATION_TYPES` at database creation (`from_kinds`, `to_kinds`, `allowed_status` as JSON, plus `occurrence` and `since`). `edge.type` is a foreign key to it, so an unregistered edge type is a foreign-key violation (FF-DAT-001), the DB layer of KG-002, in addition to the validator's `relationViolations` check.
 - `tests/invariants/kg/kg-002.spec.ts` keeps this table and the registry in sync, by type name and order.
 - Deviations from the v0.1 table:
   - There is no `file` node kind. A file's graph view is its `module` node, so file→symbol containment is `defines`, `belongs_to` starts at directory, package or module, and `contains` has no file endpoints.
@@ -179,6 +180,7 @@ CREATE INDEX node_key_vis  ON node(node_key, valid_to_seq);
 CREATE INDEX node_file_vis ON node(file_key, valid_to_seq);
 CREATE UNIQUE INDEX node_head_unique ON node(node_key) WHERE valid_to_seq IS NULL;  -- SY-002 (head)
 
+-- Implemented in P03-09 with two extra columns: occurrence INTEGER, since INTEGER. Seeded from RELATION_TYPES.
 CREATE TABLE relation_type (name TEXT PRIMARY KEY, from_kinds TEXT NOT NULL, to_kinds TEXT NOT NULL,
   allowed_status TEXT NOT NULL);       -- seeded from the §3 registry (KG-002)
 

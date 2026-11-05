@@ -59,7 +59,8 @@ items:
   # --- Storage, read models, CLI ---
   - id: P03-09
     title: "Storage: relation_type registry table, claim/evidence tables (index.db schema bump), KG-003 structural backing check in the RevisionValidator"
-    status: pending
+    status: done
+    notes: "schema v7: relation_type (seeded from core RELATION_TYPES at creation; edge.type FK to it, so an unregistered type is a foreign-key violation, the DB layer of KG-002), and the revision-scoped claim and append-only evidence tables for P03-05's claims (storage only this phase; a ClaimRepository that writes them lands with the features that produce claims). KG-003 in graph-store.ts backingViolations: module/symbol nodes need a file visible at the seq (the node-table CHECK already forbids a null file_key at staging), and a code node's stored kind must equal its node_key kind. tests/invariants/kg/kg-003.spec.ts (file-visibility and kind layers mutation-checked; staging guards NODE_KIND_CONFLICT and the CHECK covered). relation_type seeding and the edge FK checked in kg-002.spec.ts."
     check: "tests/invariants/kg/kg-003.spec.ts"
   - id: P03-10
     title: "GraphReadModel with required maxDepth/limit and server caps; dev CLI deps, refs, impact, neighbors"

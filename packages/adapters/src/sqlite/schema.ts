@@ -8,10 +8,10 @@
 import { existsSync, readdirSync, renameSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
-import { domainError, err, ok, type Clock, type DomainError, type Result, type WorkspaceId } from '@cie/core';
+import { domainError, err, ok, RELATION_TYPES, type Clock, type DomainError, type Result, type WorkspaceId } from '@cie/core';
 
 /** Bump whenever the DDL below changes. Older files are rebuilt. */
-export const INDEX_SCHEMA_VERSION = 6;
+export const INDEX_SCHEMA_VERSION = 7;
 
 const DDL = `
 create table meta (key text primary key, value text not null) strict;
@@ -103,12 +103,23 @@ create index node_from on node(valid_from_seq);
 create index node_to on node(valid_to_seq);
 create unique index node_head_unique on node(node_key) where valid_to_seq is null;
 
+-- Relation-type registry (KG-002, KNOWLEDGE_GRAPH_DESIGN §3), seeded from core's RELATION_TYPES at creation.
+-- Not revision-scoped: it is a fixed vocabulary. \`edge.type\` and \`claim.predicate\` reference it, so an
+-- unregistered type is a foreign-key violation (FF-DAT-001), the DB layer of KG-002.
+create table relation_type (
+  name text primary key,
+  from_kinds text not null,       -- JSON array of allowed "from" node kinds
+  to_kinds text not null,         -- JSON array of allowed "to" node kinds
+  allowed_status text not null,   -- JSON array of allowed statuses
+  occurrence integer not null check (occurrence in (0, 1)),
+  since integer not null
+) strict;
+
 -- Edges (KNOWLEDGE_GRAPH_DESIGN §3–§5). Endpoints reference stable node keys: the FK guarantees the identity
 -- exists, the RevisionValidator guarantees both endpoints are visible at the edge's seq (KG-001).
 create table edge (
   id integer primary key,
-  type text not null check (type in ('contains','defines','exports','imports','imports_symbol',
-                                     'references','calls','extends','implements','references_type')),
+  type text not null references relation_type(name),
   from_key integer not null references node_key(key),
   to_key integer not null references node_key(key),
   site_key text not null default '',
@@ -130,6 +141,45 @@ create index edge_in on edge(to_key, type, valid_to_seq);
 create index edge_from on edge(valid_from_seq);
 create index edge_to on edge(valid_to_seq);
 create unique index edge_head_unique on edge(type, from_key, to_key, site_key) where valid_to_seq is null;
+
+-- Semantic claims and their explicit evidence (PV-001..003, KNOWLEDGE_GRAPH_DESIGN §5). Revision-scoped.
+-- Endpoints reference stable node keys, like edges (KG-001 / KG-003 apply through the same validator checks).
+create table claim (
+  id integer primary key,
+  claim_id text not null,
+  predicate text not null references relation_type(name),
+  subject_key integer not null references node_key(key),
+  object_key integer not null references node_key(key),
+  status text not null check (status in ('verified','inferred','user_asserted','unknown')),
+  freshness text not null check (freshness in ('current','stale')),
+  origin text not null,
+  data text not null,             -- canonical JSON of the claim (history, evidence ids)
+  valid_from_seq integer not null,
+  valid_to_seq integer,
+  check (valid_to_seq is null or valid_to_seq > valid_from_seq)
+) strict;
+create index claim_id_vis on claim(claim_id, valid_to_seq);
+create index claim_subject_vis on claim(subject_key, valid_to_seq);
+create index claim_object_vis on claim(object_key, valid_to_seq);
+create index claim_from on claim(valid_from_seq);
+create index claim_to on claim(valid_to_seq);
+create unique index claim_head_unique on claim(claim_id) where valid_to_seq is null;
+
+-- Evidence items (PV-003). Append-only, keyed by the content-derived evidence id: an item is immutable, so
+-- the same observation is stored once and shared by every claim version that cites it (via claim.data).
+create table evidence (
+  evidence_id text primary key,
+  kind text not null check (kind in ('filesystem','ast','compiler','scip','lsp','heuristic','llm','user')),
+  producer text not null,
+  seq integer not null,
+  content_hash text not null,
+  locator_kind text not null check (locator_kind in ('source','artifact')),
+  file_key integer references file_key(key),
+  start_line integer, start_col integer, end_line integer, end_col integer,
+  artifact text,
+  check ((locator_kind = 'source' and file_key is not null and artifact is null)
+      or (locator_kind = 'artifact' and artifact is not null and file_key is null))
+) strict;
 
 -- Symbol search (ADR-0008, KNOWLEDGE_GRAPH_DESIGN §5): head only, maintained inside the publish transaction.
 -- rowid = node.id of the symbol row version; \`words\` holds identifierWords(qualified name).
@@ -166,6 +216,17 @@ function create(file: string, workspaceId: WorkspaceId, clock: Clock): Database.
     meta.run('workspace_id', workspaceId);
     meta.run('schema_version', String(INDEX_SCHEMA_VERSION));
     meta.run('created_at_ms', String(clock.nowMs()));
+    const relType = db.prepare('insert into relation_type (name, from_kinds, to_kinds, allowed_status, occurrence, since) values (@name, @from, @to, @status, @occurrence, @since)');
+    for (const t of RELATION_TYPES) {
+      relType.run({
+        name: t.name,
+        from: JSON.stringify([...new Set(t.signatures.map((s) => s.from))]),
+        to: JSON.stringify([...new Set(t.signatures.map((s) => s.to))]),
+        status: JSON.stringify(t.allowedStatuses),
+        occurrence: t.occurrence ? 1 : 0,
+        since: t.since,
+      });
+    }
   })();
   return db;
 }

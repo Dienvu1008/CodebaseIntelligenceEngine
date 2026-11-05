@@ -8,6 +8,7 @@
 //  - store: the RevisionValidator aborts the publish of a stored edge that breaks it.
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import Database from 'better-sqlite3';
 import {
   CODE_EDGE_TYPES,
   GRAPH_NODE_KINDS,
@@ -26,7 +27,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { code, CONCEPT, evidence, FN_A, FN_B, hasher, seq, SYSTEM, unwrap } from '../../helpers/claims.js';
 import { codeGraphOf } from '../../helpers/code-graph.js';
 import { GOLDEN_FIXTURES } from '../../helpers/golden.js';
-import { cseq, job, sandbox, stageAll, type Sandbox } from '../../helpers/index-store.js';
+import { cseq, job, publishRevision, sandbox, stageAll, type Sandbox } from '../../helpers/index-store.js';
 import { REPO_ROOT as root } from '../../helpers/repo.js';
 
 describe('KG-002: the registry', () => {
@@ -109,6 +110,32 @@ describe('KG-002: producers', () => {
       relationViolations({ type: e.type, fromKind: kinds.get(e.from) ?? '?', toKind: kinds.get(e.to) ?? '?', status: e.status, site: e.site }, `${e.type} ${e.from} -> ${e.to}`),
     );
     expect(violations).toEqual([]);
+  });
+});
+
+describe('KG-002: the relation_type table (P03-09)', () => {
+  let sb: Sandbox;
+  beforeEach(async () => {
+    sb = await sandbox();
+  });
+  afterEach(() => sb.dispose());
+
+  it('seeds one row per registry type, and edge.type is a foreign key to it', async () => {
+    const o = await sb.open();
+    await o.store.lease.acquire('writer-1', 60_000);
+    await publishRevision(o, [], 0);
+    const db = new Database(path.join(sb.stateDir, 'index.db'), { readonly: true });
+    try {
+      const rows = db.prepare('select name, occurrence, since from relation_type order by name').all() as Array<{ name: string; occurrence: number; since: number }>;
+      expect(rows.map((r) => r.name).sort()).toEqual(RELATION_TYPES.map((t) => t.name).sort());
+      const calls = rows.find((r) => r.name === 'calls');
+      expect([calls?.occurrence, calls?.since]).toEqual([1, 3]);
+      // The edge FK: a type absent from relation_type cannot be stored (DB layer of KG-002).
+      const fks = db.pragma('foreign_key_list(edge)') as Array<{ table: string; from: string }>;
+      expect(fks.some((f) => f.table === 'relation_type' && f.from === 'type')).toBe(true);
+    } finally {
+      db.close();
+    }
   });
 });
 

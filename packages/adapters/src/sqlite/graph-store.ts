@@ -369,10 +369,40 @@ function relationTypeViolations(db: Database.Database, visibleAt: VisibleAt, seq
   );
 }
 
+/**
+ * KG-003: every structural code node (module, symbol) is backed by a file visible at `seq`, and the stored
+ * node kind agrees with the identity kind recorded on its node_key. external and unresolved nodes have no
+ * backing file. The node-table CHECK already forbids a null file_key for module/symbol, so this adds the
+ * visibility layer (the file could be closed at this seq) and the kind-consistency layer.
+ */
+function backingViolations(db: Database.Database, visibleAt: VisibleAt, seq: number): string[] {
+  const unbacked = db
+    .prepare(
+      `select k.node_id as id from node n join node_key k on k.key = n.node_key
+       where ${visibleAt('n')} and n.kind in ('module','symbol')
+         and (n.file_key is null or not exists (select 1 from file f where f.file_key = n.file_key and ${visibleAt('f')}))
+       order by k.node_id`,
+    )
+    .pluck()
+    .all({ seq }) as string[];
+  const kindMismatch = db
+    .prepare(
+      `select k.node_id as id from node n join node_key k on k.key = n.node_key
+       where ${visibleAt('n')} and n.kind in ${CODE_KINDS_SQL} and k.kind <> n.kind order by k.node_id`,
+    )
+    .pluck()
+    .all({ seq }) as string[];
+  return [
+    ...unbacked.map((id) => `KG-003: code node ${id} has no backing file visible at seq ${seq}`),
+    ...kindMismatch.map((id) => `KG-003: code node ${id} has a node kind that disagrees with its identity`),
+  ];
+}
+
 export function graphViolations(db: Database.Database, visibleAt: VisibleAt, seq: number): string[] {
   return [
     ...endpointViolations(db, visibleAt, seq),
     ...relationTypeViolations(db, visibleAt, seq),
+    ...backingViolations(db, visibleAt, seq),
     ...duplicateViolations(db, visibleAt, seq),
     ...evidenceViolations(db, visibleAt, seq),
     ...attributionViolations(db, visibleAt, seq),

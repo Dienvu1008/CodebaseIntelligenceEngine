@@ -126,6 +126,7 @@ Architecture rules are **fitness functions** (FF-*), not domain invariants (see 
 ### KG-003: Structural nodes are backed
 - **Definition:** Every node of a structural kind (file, directory, module, package, symbol) corresponds 1:1 to a visible backing record, and its `NodeId` is derived from that record's identity. Concept and architecture nodes are not structural and need no backing record.
 - **Enforcement:** Nodes are projected by the build pipeline, never inserted directly; `validator:`.
+  - Since Phase 03 (P03-09): the node-table CHECK forbids a null `file_key` for `module`/`symbol` at staging; the RevisionValidator adds the file-visibility layer (the backing file could be closed at the seq) and checks that each code node's stored kind agrees with the kind recorded on its `node_key`. Structural (directory/package/project) nodes keep their WS-001 backing check.
 - **Violation:** ABORT_PUBLISH · **Kind:** Hard · **Severity:** HIGH · **Phase:** 03
 - **Test:** `tests/invariants/kg/kg-003.spec.ts`
 
