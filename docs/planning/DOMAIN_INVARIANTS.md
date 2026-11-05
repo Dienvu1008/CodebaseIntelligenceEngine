@@ -133,6 +133,7 @@ Architecture rules are **fitness functions** (FF-*), not domain invariants (see 
 ### KG-004: Bounded traversal
 - **Definition:** Every `GraphReadModel` traversal requires explicit `maxDepth` and `limit` arguments, both no greater than the server caps. Results report `truncated: true` when a bound was hit.
 - **Enforcement:** `type:` required parameters; `domain:` cap clamping.
+  - Implemented in P03-10: `core/query/domain/traversal.ts` (`clampBounds`, caps `maxDepth` 10 and `limit` 1000; `TraversalRequest` requires both) and the `GraphReadModel` port. The SQLite adapter's recursive CTE selects `limit + 1` rows to set `truncated`, and uses `UNION` on `(node_key, depth)` so a cycle terminates. The `dev deps|refs|impact|neighbors` commands expose it.
 - **Violation:** REJECT · **Kind:** Hard · **Severity:** HIGH · **Phase:** 03
 - **Test:** `tests/invariants/kg/kg-004.spec.ts`
 

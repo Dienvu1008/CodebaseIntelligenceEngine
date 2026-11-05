@@ -42,11 +42,18 @@ import {
   type SymbolHit,
   type SymbolQuery,
   type SymbolSearch,
+  type GraphReadModel,
+  type NeighborRequest,
+  type NeighborResult,
+  type NodeId,
+  type TraversalRequest,
+  type TraversalResult,
   clampSearchLimit,
   searchTerms,
   SYMBOL_KINDS,
 } from '@cie/core';
 import { GraphStagingError, graphViolations, sampleSymbolSpans, selectGraph, stageGraph, type GraphStageStats } from './graph-store.js';
+import { neighbors as graphNeighbors, nodeExists as graphNodeExists, traverse as graphTraverse } from './graph-read.js';
 import { searchSymbols, syncSearchIndex } from './search-store.js';
 import { SqliteLeaseManager } from './lease.js';
 import { nodeViolations, selectNodes, stageNodes, toStructuralNode } from './structure-store.js';
@@ -107,7 +114,7 @@ const sameVersion = (row: FileRow, e: ManifestEntry): boolean =>
     ? row.status === 'indexed' && row.hash === e.hash && row.size === e.size && row.lang === e.language
     : row.status === 'skipped' && row.skip_reason === e.reason && row.size === e.size;
 
-export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileManifestReader, CodeGraphReader, SymbolSearch {
+export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileManifestReader, CodeGraphReader, SymbolSearch, GraphReadModel {
   readonly lease: SqliteLeaseManager;
 
   constructor(
@@ -164,6 +171,23 @@ export class SqliteIndexStore implements RevisionStore, RevisionWriter, FileMani
     if (!terms.ok) return terms;
     const kinds = query.kinds?.filter((k) => SYMBOL_KINDS.includes(k));
     return ok(searchSymbols(this.db, visibleAt, seq, terms.value, clampSearchLimit(query.limit), kinds));
+  }
+
+  // --------------------------------------------------------------- graph read model (KG-004)
+
+  async traverse(seq: RevisionSeq, request: TraversalRequest): Promise<Result<TraversalResult, DomainError>> {
+    const visible = this.requirePublished(seq);
+    return visible.ok ? graphTraverse(this.db, visibleAt, seq, request) : visible;
+  }
+
+  async neighbors(seq: RevisionSeq, request: NeighborRequest): Promise<Result<NeighborResult, DomainError>> {
+    const visible = this.requirePublished(seq);
+    return visible.ok ? graphNeighbors(this.db, visibleAt, seq, request) : visible;
+  }
+
+  async nodeExists(seq: RevisionSeq, start: NodeId): Promise<Result<boolean, DomainError>> {
+    const visible = this.requirePublished(seq);
+    return visible.ok ? graphNodeExists(this.db, visibleAt, seq, start) : visible;
   }
 
   private requirePublished(seq: RevisionSeq): Result<true, DomainError> {

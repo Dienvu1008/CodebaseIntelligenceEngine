@@ -64,7 +64,8 @@ items:
     check: "tests/invariants/kg/kg-003.spec.ts"
   - id: P03-10
     title: "GraphReadModel with required maxDepth/limit and server caps; dev CLI deps, refs, impact, neighbors"
-    status: pending
+    status: done
+    notes: "core/query: domain/traversal.ts (clampBounds to caps maxDepth 10 / limit 1000, Direction, weakerStatus, edge-type sets), application/ports.ts (GraphReadModel), application/graph-queries.ts (deps, dependents, refs, impact, neighbors; found:false distinguishes an unknown node). adapters/sqlite/graph-read.ts: recursive CTE over edge_out/edge_in, UNION on (node_key, depth) for cycle safety, limit+1 to detect truncation, weakest-status rank carried along the path; neighbors groups per type with per-type caps. SqliteIndexStore implements GraphReadModel; reads require a published seq. CLI deps/refs/impact/neighbors (text and JSON). tests/invariants/kg/kg-004.spec.ts (clamping, truncation, cycle, unpublished-seq refusal) and tests/integration/graph-cli.spec.ts. CLI arg parsing and graphCommand split to stay under the complexity cap for P03-13."
     check: "tests/invariants/kg/kg-004.spec.ts; CLI tests on fixtures"
   - id: P03-11
     title: "FF-PRF-004: every read-model query is plan-tested (EXPLAIN QUERY PLAN: no full scans of revision-scoped tables)"
