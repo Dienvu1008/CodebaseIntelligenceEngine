@@ -16,6 +16,8 @@ export {
   DEFAULT_LIMIT,
   DEPENDENCY_EDGE_TYPES,
   IMPACT_EDGE_TYPES,
+  EXPLORE_FACTOR,
+  exploreBudget,
   MAX_DEPTH_CAP,
   MAX_LIMIT_CAP,
   weakerStatus,

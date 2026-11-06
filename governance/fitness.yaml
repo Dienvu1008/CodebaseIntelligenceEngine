@@ -217,8 +217,9 @@ fitness_functions:
     title: No unbounded scans (EXPLAIN QUERY PLAN)
     phase: 3
     blocking: true
-    status: PLANNED
-    enforced_by: []
+    status: ACTIVE
+    enforced_by: ["test:tests/fitness/query-plans.spec.ts", "test:tests/invariants/kg/kg-004.spec.ts"]
+    notes: "Every read-model statement (traverse, neighbors, nodeExists, node key lookup, symbol search) must use its named index on node/edge, scan nothing else but bounded CTE/subquery/FTS targets, and build no automatic index. A traversal also does bounded WORK: the recursive CTE stops after exploreBudget(limit) states. Whole-revision exports (filesAt, structureAt, graphAt) are full reads by contract and are not in scope."
   - id: FF-PRF-005
     title: Large-repo scaling trend
     phase: 9

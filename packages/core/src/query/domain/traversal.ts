@@ -17,6 +17,15 @@ export const DEFAULT_LIMIT = 200;
 /** Follow edges out of the start (`out`, dependencies/callees) or into it (`in`, dependents/callers). */
 export type Direction = 'out' | 'in';
 
+/**
+ * A traversal explores at most `exploreBudget(limit)` (node, depth, status) states, however dense the graph is
+ * (FF-PRF-004: bounded work, not only bounded output). A node can be reached at several depths and with
+ * several path statuses, so the budget is a small multiple of the row limit. When the budget is exhausted the
+ * result is reported `truncated`, even if fewer than `limit` nodes were listed.
+ */
+export const EXPLORE_FACTOR = 4;
+export const exploreBudget = (limit: number): number => (limit + 1) * EXPLORE_FACTOR + 1;
+
 export interface TraversalBounds {
   readonly maxDepth: number;
   readonly limit: number;
@@ -49,11 +58,14 @@ export interface TraversalRequest extends TraversalBounds {
   readonly types: readonly CodeEdgeType[];
 }
 
-/** One node reached by a traversal, with the depth at which it was first reached and the weakest status to it. */
+/** One node reached by a traversal: listed once, at the shallowest depth it was reached. */
 export interface ReachedNode {
   readonly id: NodeId;
   readonly depth: number;
-  /** The weakest edge status along the shortest path (an inferred hop anywhere makes the whole path inferred). */
+  /**
+   * The strongest path status among the shortest paths to the node, where a path is only as strong as its
+   * weakest edge (an inferred hop anywhere makes the whole path inferred).
+   */
   readonly status: 'verified' | 'inferred' | 'user_asserted' | 'unknown';
 }
 

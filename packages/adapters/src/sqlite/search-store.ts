@@ -35,6 +35,16 @@ export function syncSearchIndex(db: Database.Database, seq: number): void {
 /** FTS5 query for already-validated terms: each term quoted (inner quotes doubled) and used as a prefix. */
 export const ftsQuery = (terms: readonly string[]): string => terms.map((t) => `"${t.replace(/"/g, '""')}"*`).join(' ');
 
+/** The search statement, exported so the FF-PRF-004 plan test examines exactly what runs. */
+export const SEARCH_STATEMENTS = {
+  search: (visibleAt: VisibleAt, kindCount: number): string => {
+    const kindFilter = kindCount === 0 ? '' : `and n.symbol_kind in (${Array.from({ length: kindCount }, (_, i) => `@k${i}`).join(', ')})`;
+    return `select n.data from search_fts s join node n on n.id = s.rowid join node_key k on k.key = n.node_key
+       where search_fts match @q and ${visibleAt('n')} ${kindFilter}
+       order by bm25(search_fts, 10.0, 5.0, 3.0, 1.0, 0.5), k.node_id limit @limit`;
+  },
+} as const;
+
 export function searchSymbols(
   db: Database.Database,
   visibleAt: VisibleAt,
@@ -43,17 +53,9 @@ export function searchSymbols(
   limit: number,
   kinds: readonly SymbolKind[] | undefined,
 ): { hits: SymbolHit[]; truncated: boolean } {
-  const kindFilter = kinds === undefined || kinds.length === 0 ? '' : `and n.symbol_kind in (${kinds.map((_, i) => `@k${i}`).join(', ')})`;
   const params: Record<string, string | number> = { q: ftsQuery(terms), seq, limit: limit + 1 };
   kinds?.forEach((k, i) => (params[`k${i}`] = k));
-  const rows = db
-    .prepare(
-      `select n.data from search_fts s join node n on n.id = s.rowid join node_key k on k.key = n.node_key
-       where search_fts match @q and ${visibleAt('n')} ${kindFilter}
-       order by bm25(search_fts, 10.0, 5.0, 3.0, 1.0, 0.5), k.node_id limit @limit`,
-    )
-    .pluck()
-    .all(params) as string[];
+  const rows = db.prepare(SEARCH_STATEMENTS.search(visibleAt, kinds?.length ?? 0)).pluck().all(params) as string[];
   const hits = rows.slice(0, limit).map((d): SymbolHit => {
     const n = JSON.parse(d) as CodeNode;
     const s = n.symbol;

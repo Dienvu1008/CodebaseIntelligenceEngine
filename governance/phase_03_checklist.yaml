@@ -69,7 +69,8 @@ items:
     check: "tests/invariants/kg/kg-004.spec.ts; CLI tests on fixtures"
   - id: P03-11
     title: "FF-PRF-004: every read-model query is plan-tested (EXPLAIN QUERY PLAN: no full scans of revision-scoped tables)"
-    status: pending
+    status: done
+    notes: "tests/fitness/query-plans.spec.ts examines 12 statements (node key, node exists, traverse out/in untyped/typed, neighbors out/in untyped/typed, symbol search with and without kind filter) taken from the exported GRAPH_STATEMENTS / SEARCH_STATEMENTS, i.e. exactly what the store runs: each must use its named index, scan only bounded targets (recursive CTE, subquery, FTS5 MATCH) and build no automatic index. Negative controls: an unindexed statement and a database with edge_in dropped are flagged. Mutation-checked: removing the edge_in index fails 5 tests. FOUND WHILE DOING THIS (fixed here): (1) the P03-10 traversal bounded its output but not its work, since the limit applied after the full recursive walk; the CTE now stops after exploreBudget(limit) states (breadth first) and reports truncated when the budget is exhausted; (2) it could list a node several times (once per depth and path status); it now lists each node once at its shallowest depth with the strongest status among the shortest paths. Both mutation-checked (kg-004 diamond/cycle test; budget test). Whole-revision exports are out of scope by contract."
     check: "governance/fitness.yaml FF-PRF-004 ACTIVE with resolvable enforced_by"
 
   # --- Governance, fitness, quality ---

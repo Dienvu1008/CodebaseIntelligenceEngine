@@ -322,6 +322,11 @@ SELECT * FROM dep LIMIT :limit + 1;                -- +1 to detect truncation
 ```
 Incoming dependencies use `edge_in` (`to_key = d.node_key`). The final projection joins `node` with the visibility filter at `:seq`, so only node versions visible at that revision are returned.
 
+**As implemented (P03-10, P03-11).** `adapters/sqlite/graph-read.ts`:
+- The CTE carries `(node_key, depth, rank)`, where `rank` is the weakest status on the path so far. It runs breadth first (SQLite's recursive queue is FIFO), and `LIMIT :budget` inside the CTE stops it after `exploreBudget(limit)` states, so the *work* is bounded as well as the output. A truncated result is reported when the budget runs out.
+- The outer query lists each node once, at its shallowest depth, with the strongest rank among the shortest paths. The sketch above would list a node once per depth and per status.
+- `tests/fitness/query-plans.spec.ts` (FF-PRF-004) examines the plan of every read-model statement.
+
 ### 8.4 Reference query
 A single hop on `edge_in` with `type = 'references'` (plus `calls`), returning occurrence ranges from `attrs` and `ev_*` columns. Paginated by `(file path, start_line)`.
 

@@ -10,6 +10,9 @@ export { NodeHasher, SystemClock } from './fs/system.js';
 export { JsonWorkspaceRepository, newWorkspaceId } from './fs/workspace-identity.js';
 export { WriteConfinement, type WriteConfinementOptions, type WritePurpose } from './fs/write-confinement.js';
 export { SqliteIndexStore, visibleAt } from './sqlite/index-store.js';
+// The read-side statements, exported for the FF-PRF-004 query-plan test (tests/fitness/query-plans.spec.ts).
+export { GRAPH_STATEMENTS } from './sqlite/graph-read.js';
+export { SEARCH_STATEMENTS } from './sqlite/search-store.js';
 export { SqliteLeaseManager } from './sqlite/lease.js';
 export { openIndexStore, type OpenedIndexStore, type OpenIndexStoreOptions, type StateWriteGate } from './sqlite/open.js';
 export { INDEX_SCHEMA_VERSION, type OpenOutcome } from './sqlite/schema.js';

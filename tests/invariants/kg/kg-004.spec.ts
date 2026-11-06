@@ -1,7 +1,9 @@
 // KG-004: bounded traversal. Every GraphReadModel traversal requires maxDepth and limit, both clamped to the
 // server caps, and reports truncated:true when a bound is hit. Cycle safety comes from UNION on (node,depth).
 // Layers: the core clampBounds and the required-parameter types; the SQLite recursive CTE over a real graph.
-import { clampBounds, DEFAULT_DEPTH, DEFAULT_LIMIT, graphQueries, MAX_DEPTH_CAP, MAX_LIMIT_CAP, weakerStatus, type GraphReadModel, type NodeId, type RevisionSeq } from '@cie/core';
+import path from 'node:path';
+import Database from 'better-sqlite3';
+import { clampBounds, DEFAULT_DEPTH, DEFAULT_LIMIT, EXPLORE_FACTOR, exploreBudget, graphQueries, MAX_DEPTH_CAP, MAX_LIMIT_CAP, weakerStatus, type GraphReadModel, type NodeId, type RevisionSeq } from '@cie/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { codeGraphOf } from '../../helpers/code-graph.js';
 import { job, publishRevision, sandbox, type Sandbox } from '../../helpers/index-store.js';
@@ -25,6 +27,12 @@ describe('KG-004: clampBounds and weakerStatus (domain)', () => {
     expect(clampBounds({ maxDepth: 0, limit: -5 })).toEqual({ maxDepth: 1, limit: 1 });
     expect(clampBounds({ maxDepth: 2.9, limit: 7.9 })).toEqual({ maxDepth: 2, limit: 7 });
     expect(clampBounds({ maxDepth: Number.NaN, limit: Number.POSITIVE_INFINITY })).toEqual({ maxDepth: DEFAULT_DEPTH, limit: DEFAULT_LIMIT });
+  });
+
+  it('exploreBudget is a fixed multiple of the row limit', () => {
+    expect(EXPLORE_FACTOR).toBeGreaterThanOrEqual(3); // a node can be reached with up to three path statuses
+    expect(exploreBudget(1)).toBe(2 * EXPLORE_FACTOR + 1);
+    expect(exploreBudget(MAX_LIMIT_CAP)).toBe((MAX_LIMIT_CAP + 1) * EXPLORE_FACTOR + 1);
   });
 
   it('weakerStatus takes the weaker of two statuses', () => {
@@ -64,6 +72,36 @@ describe('KG-004: the GraphReadModel traversal', () => {
     // At depth 3 the module chain b, c, d is reachable (imports_symbol adds the bound symbols too).
     expect(d3.value.nodes.filter((n) => n.id.startsWith('mod:')).map((n) => n.id).sort()).toEqual(['mod:ts:src/b.ts', 'mod:ts:src/c.ts', 'mod:ts:src/d.ts']);
     expect(Math.max(...d3.value.nodes.map((n) => n.depth))).toBeLessThanOrEqual(3);
+  });
+
+  it('lists each node once at its shallowest depth, with the strongest status among the shortest paths', async () => {
+    const o = await writer();
+    const { manifest, graph: cg } = await codeGraphOf({
+      'src/a.ts': "import { b } from './b';\nimport { c } from './c';\nexport const a = [b, c];\n",
+      'src/b.ts': "import { d } from './d';\nexport const b = d;\n",
+      'src/c.ts': "import { d } from './d';\nexport const c = d;\n",
+      'src/d.ts': "import { a } from './a';\nexport const d = 1;\nexport const dd = a;\n", // a cycle back to the start
+    });
+    const seq = await publishRevision(o, manifest, 0, cg);
+    // Make the path a -> b -> d inferred; a -> c -> d stays verified (statuses are plain data in the store).
+    const db = new Database(path.join(sb.stateDir, 'index.db'));
+    db.prepare(
+      `update edge set status = 'inferred' where type = 'imports'
+         and from_key = (select key from node_key where node_id = 'mod:ts:src/a.ts') and to_key = (select key from node_key where node_id = 'mod:ts:src/b.ts')`,
+    ).run();
+    db.close();
+    const q = graphQueries({ graph: o.store });
+    const r = await q.deps(seq, 'mod:ts:src/a.ts' as NodeId, { maxDepth: MAX_DEPTH_CAP });
+    if (!r.ok) throw new Error('query failed');
+    const mods = r.value.nodes.filter((n) => n.id.startsWith('mod:'));
+    expect(new Set(mods.map((n) => n.id)).size).toBe(mods.length); // no node listed twice
+    const byId = new Map<string, (typeof mods)[number]>(mods.map((n) => [n.id, n]));
+    expect([byId.get('mod:ts:src/b.ts')?.depth, byId.get('mod:ts:src/b.ts')?.status]).toEqual([1, 'inferred']);
+    expect([byId.get('mod:ts:src/c.ts')?.depth, byId.get('mod:ts:src/c.ts')?.status]).toEqual([1, 'verified']);
+    // d is reached at depth 2 through both paths: the verified one wins.
+    expect([byId.get('mod:ts:src/d.ts')?.depth, byId.get('mod:ts:src/d.ts')?.status]).toEqual([2, 'verified']);
+    // The start is reachable again through the cycle, listed once at depth 3.
+    expect(byId.get('mod:ts:src/a.ts')?.depth).toBe(3);
   });
 
   it('reports truncated when the row limit is hit, and never exceeds it', async () => {
